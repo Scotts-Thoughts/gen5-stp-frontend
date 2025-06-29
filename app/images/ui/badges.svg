@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="131" y1="179" x2="335" y2="179" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset=".04" stop-color="#a0a0a0"/>
+      <stop offset=".21" stop-color="#b8b8b8"/>
+      <stop offset=".37" stop-color="#c6c6c6"/>
+      <stop offset=".5" stop-color="#ccc"/>
+      <stop offset=".63" stop-color="#c6c6c6"/>
+      <stop offset=".79" stop-color="#b7b7b7"/>
+      <stop offset=".97" stop-color="#9d9d9d"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+  </defs>
+  <g id="Badge">
+    <g>
+      <rect x="131" y="132" width="204" height="94" rx="6" ry="6" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+      <path d="m329,134c2.21,0,4,1.79,4,4v82c0,2.21-1.79,4-4,4h-192c-2.21,0-4-1.79-4-4v-82c0-2.21,1.79-4,4-4h192m0-4h-192c-4.42,0-8,3.58-8,8v82c0,4.42,3.58,8,8,8h192c4.42,0,8-3.58,8-8v-82c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m329,132c3.31,0,6,2.69,6,6v82c0,3.31-2.69,6-6,6h-192c-3.31,0-6-2.69-6-6v-82c0-3.31,2.69-6,6-6h192m0-2h-192c-4.42,0-8,3.58-8,8v82c0,4.42,3.58,8,8,8h192c4.42,0,8-3.58,8-8v-82c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+      <path d="m329,130c4.42,0,8,3.58,8,8v82c0,4.42-3.58,8-8,8h-192c-4.42,0-8-3.58-8-8v-82c0-4.42,3.58-8,8-8h192m0-1h-192c-4.96,0-9,4.04-9,9v82c0,4.96,4.04,9,9,9h192c4.96,0,9-4.04,9-9v-82c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+    </g>
+  </g>
+</svg>

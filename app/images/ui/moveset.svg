@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="449" y1="970" x2="1471" y2="970" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset=".04" stop-color="#a0a0a0"/>
+      <stop offset=".21" stop-color="#b8b8b8"/>
+      <stop offset=".37" stop-color="#c6c6c6"/>
+      <stop offset=".5" stop-color="#ccc"/>
+      <stop offset=".63" stop-color="#c6c6c6"/>
+      <stop offset=".79" stop-color="#b7b7b7"/>
+      <stop offset=".97" stop-color="#9d9d9d"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="-1"/>
+      <feGaussianBlur result="blur" stdDeviation="1"/>
+      <feFlood flood-color="#000" flood-opacity=".5"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Moveset">
+    <g>
+      <rect x="449" y="880" width="1022" height="180" rx="6" ry="6" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+      <path d="m1465,882c2.21,0,4,1.79,4,4v168c0,2.21-1.79,4-4,4H455c-2.21,0-4-1.79-4-4v-168c0-2.21,1.79-4,4-4h1010m0-4H455c-4.42,0-8,3.58-8,8v168c0,4.42,3.58,8,8,8h1010c4.42,0,8-3.58,8-8v-168c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m1465,880c3.31,0,6,2.69,6,6v168c0,3.31-2.69,6-6,6H455c-3.31,0-6-2.69-6-6v-168c0-3.31,2.69-6,6-6h1010m0-2H455c-4.42,0-8,3.58-8,8v168c0,4.42,3.58,8,8,8h1010c4.42,0,8-3.58,8-8v-168c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+      <path d="m1465,878c4.42,0,8,3.58,8,8v168c0,4.42-3.58,8-8,8H455c-4.42,0-8-3.58-8-8v-168c0-4.42,3.58-8,8-8h1010m0-1H455c-4.96,0-9,4.04-9,9v168c0,4.96,4.04,9,9,9h1010c4.96,0,9-4.04,9-9v-168c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+    </g>
+    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" points="451 1028 470 1047 1469.06 1047.35 1469.06 1058.42 451 1058 451 1028" style="fill: gray; filter: url(#drop-shadow-1); opacity: .2; stroke: #6e5597; stroke-miterlimit: 10;"/>
+  </g>
+</svg>

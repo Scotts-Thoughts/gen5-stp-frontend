@@ -1,0 +1,27 @@
+{
+  "name": "gen4-overlay-app",
+  "version": "0.1.0",
+  "description": "A minimal Electron application",
+  "main": "./main.js",
+  "build": {
+    "appId": "com.stp.layout-app",
+    "productName": "gen4-overlay-app",
+    "win": {
+      "executableName": "gen4-overlay-app",
+      "target": "zip",
+      "icon": "./icon.png"
+    },
+    "npmRebuild": false
+  },
+  "scripts": {
+    "dev": "electron .",
+    "build": "electron-builder --win --config"
+  },
+  "devDependencies": {
+    "electron": "^25.1.1",
+    "electron-builder": "^24.4.0"
+  },
+  "dependencies": {
+    "@electron-toolkit/utils": "^1.0.2"
+  }
+}

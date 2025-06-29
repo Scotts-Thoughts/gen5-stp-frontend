@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="121" y1="858" x2="121" y2="834" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#808285"/>
+      <stop offset=".34" stop-color="#afb0b2"/>
+      <stop offset=".79" stop-color="#e8e9e9"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="325" x2="325" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="73" y1="858" x2="73" y2="834" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset=".2" stop-color="#a5a5a5"/>
+      <stop offset=".7" stop-color="#c1c1c1"/>
+      <stop offset="1" stop-color="#ccc"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="277" x2="277" xlink:href="#linear-gradient-3"/>
+    <image id="image" width="208" height="36" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAAAkCAYAAAD4p7R7AAAACXBIWXMAAAsSAAALEgHS3X78AAAFhUlEQVR4nGIYBaNgFJAJGBgYAAAAAP//YiRBKyMaPQpGwXAE/6GegtG4AQMDAwAAAP//IpQZYPJMUDaMZmQYzUijYHgBUIaB4X9INEwOEzAwMAAAAAD//8KXCWAZhpmBgYEFilmhfKbRTDQKhhFAzjh/GRgYfjMwMPyBYhAflqFQAQMDAwAAAP//wpYBGJEyDyjDsDEwMHAiYXZoZmIazUCjYJgAWOYBZZifDAwM35HwL2iGgmUiREZiYGAAAAAA///s1TEKgDAUBNEnWglR739KNWAtHxKSwhNItt2tFoZZPg6YimUqOAkHdmxYSzcPC438IBWKME3A8uDGhRO5Ayk2DSC8AAAA//9Cz0CwmgeUQbgZGBgEGRgYxBgYGCShtAg0E3Eg1UKjYBQMdQCrfX5AM88bBgaGVwwMDM+h9HuoB0G1E6IWYmBgAAAAAP//YsGSeVihNQ8o80gzMDAoMDAwyEMzkSgDAwMPUjNutPYZBcMBgDIErPn2hYGB4TU084DSOig/gAAokyEPLvxnYGBgAAAAAP//Qq+BYE03XmiNA8o8qgwMDIrQDCQEbcKxjvaBRsEwArBMAerrgJpwoHQOammB8gIIgMRhfSHYoAIDAwMDAwAAAP//Qs5ATNBahRPa55GE1jyK0IwkCs1Y7KP9n1EwzAByPwhUC4EqCVA6BwFQxgHVSiAM6gvBMtFfBgYGBgAAAAD//4JlIFhmgGUgfqS+D6zpJgiVYxnNPKNgGAJYJgLVOrB8AcpMoD4RqEkH6guBBhVANRQoUzEyMDD8BwAAAP//Qq+BWJEykAhSxuGFio823UbBcAagDARL26A+ESjtg/IAKC+A8gRyHvjLwMDAAAAAAP//go2iMSINX7NDFfJBO1Fco3M/o2CEANhAGiitg9I8KO2D8gAoL8DmQBHdFwYGBgAAAAD//0IehkbWzAYdqmYfnfMZBSMMIFcmoLQPygOgvABr2iEqEQYGBgAAAAD//0LPQOjLd0aX7YyCkQiIywsMDAwAAAAA//9CnwhF1sg0mnlGwQgGhPMCAwMDAAAA//8aXUkwCkYBuYCBgQEAAAD//xrNQKNgFJALGBgYAAAAAP//Gs1Ao2AUkAsYGBgAAAAA//8azUCjYBSQCxgYGAAAAAD//xrNQKNgFJALGBgYAAAAAP//Qs9AyDvz/uHaRDQKRsEIAITzAgMDAwAAAP//Qs5A6Nta0bezjmaiUTBSAHF5gYGBAQAAAP//Qs9AsI1Fv6Cbi36i7cQbzUSjYLgD9B2qoDwAygsgNihvIM5HYGBgAAAAAP//gmUg9OXc36GrUL9AV5/+xKZ5FIyCYQbQz0YApX1QHgDlBVCeAIkhKhMGBgYAAAAA//9CXo0N21D0Hbof/A10GbcQdHs3TO3odoZRMBwBLFOAMg8oD4DOQgBt5QblAVBeAOUJ2H4gyIY6BgYGAAAAAP//gmUKdM0fkfaE8yFtLvozuqFuFAxDgN4CA2Ue2LZu2LkIsAwEygMQ9QwMDAAAAAD//0KvgWAZ6APSnnDYttafo1u6R8EwBehbut9B0/99BgaGh1A2KE/AMhCkBmJgYAAAAAD//0I/EwHWcfoMzXWwAxV+QduBo4eKjILhCHAdKgLKPA+geQGUJ2ADahDAwMAAAAAA//9CzkD/0fpBsKN8fiMZOnqs1SgYjoCYY62Q+z+QgTQGBgYAAAAA//9Cr4FgmegXlP8P6VCFV6MHK46CYQhIOVgRdRSagYEBAAAA//8aPdp3FIwCco/2ZWBgAAAAAP//Gj1cfhSMAnIPl2dgYAAAAAD//xq93mQUjAIIIP16EwYGBgAAAAD//xq9YGsUjAJUQPwFWwwMDAAAAAD//xrFo2AUkAsYGBgAAAAA//8DAAL6RHIwTDC2AAAAAElFTkSuQmCC"/>
+    <image id="image-2" width="112" height="36" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAAAkCAYAAABR/76qAAAACXBIWXMAAAsSAAALEgHS3X78AAAFIElEQVRogWIYBUMYMDAwAAAAAP//YiTB+Yxo9CigDfgPNRZG4wYMDAwAAAAA//8iFBkweSYoG0YzMoxGJLUBKMJg+B8SDZPDBAwMDAAAAAD//8IXCbAIY2ZgYGCBYlYon2k0EqkKkCPuLwMDw28GBoY/UAziwyIUFTAwMAAAAAD//8IWAYxIkQeKMDYGBgZOJMwOjUym0QikGoBFHijCfjIwMHxHwr+gEQqLREREMjAwAAAAAP//7NMxCoAwDEDRJ3YStL3/KbUFZwm06ODoaNZkCDx+enlh6pUNuBUFGRuWvpv/Cj+ZgRKlBdaJigM72gMybm5AXAAAAP//Qo9AWM4DRRA3AwODIAMDgxgDA4MklBaBRiIHUi4cBZQDWO77AY28NwwMDK8YGBieQ+n3UCtAuRORCxkYGAAAAAD//2LBEnms0JwHijxpBgYGBQYGBnloJIoyMDDwIBWjo7mPOgAUIbDi8wsDA8NraOSBwhoUHyAAimTkxs1/BgYGBgAAAAD//0LPgbCikxea40CRp8rAwKAIjUAhaBHKOloHUhXAIgVU14GKUFA4g0o6UFyAAEgcVhfCGjUMDAwMDAAAAAD//0KOQCZoruKE1nmS0JynCI1IUWjEso/Wf1QHyPUgKBeCMgkonEEAFHGgXAnCoLoQFol/GRgYGAAAAAD//4JFICwyYBHIj1T3wYpOQagcy2jk0QTAIhGU62DxAopMUJ0IKlJBdSGoUQPKoaBIZWRgYPgPAAAA//9Cz4GsSBEoghRxvFDx0aKTtgAUgbCwBdWJoLAHxQEoLkBxghwHfxkYGBgAAAAA//+CtSIZkboP7FCFfNBKlGu070c3AGtIgsIaFOagsAfFASguYH1wRPXFwMAAAAAA//9C7gYga2aDdhXYR/t8dAfImQkU9qA4AMUFrGhFZCIGBgYAAAAA//9Cj0D04bPRYbOBAcTFBQMDAwAAAP//Qu+II2tkGo28AQWE44KBgQEAAAD//xodSRnKgIGBAQAAAP//Go3AoQwYGBgAAAAA//8ajcChDBgYGAAAAAD//xqNwKEMGBgYAAAAAP//Go3AoQwYGBgAAAAA//9Cj0DkmeF/uCYRRwFdAOG4YGBgAAAAAP//Qo5A9Gl99On80UikHyAuLhgYGAAAAAD//0KPQNjE4i/o5OJPtJng0UikPUCfoQfFASguQGxQ3CDWxzAwMAAAAAD//4JFIPp0xnfoKPgX6Oj3T2yaRwHVAfraGFDYg+IAFBegOAGJITITAwMDAAAA//9Cno2ATSh+h67HeAOdxhCCLq+AqR2dTqINgEUKKPJAcQBaCwNaSgGKA1BcgOIENh8ImdBlYGAAAAAA//+CRQq65o9IazL4kCYX/4xO6NIEoJeAoMiDLauArYuBRSAoDiDqGRgYAAAAAP//Qs+BsAj8gLQmAzat/3N0SQXNAPqSinfQ8L/PwMDwEMoGxQksAiE5kIGBAQAAAP//Ql8TA6s4P0NjHbag5he0HB5d1EQbgGtREyjyHkDjAhQnsAYlBDAwMAAAAAD//0KOwP9o9SBsKdtvJENHlxXSBhCzrBC5/oM0JBkYGAAAAAD//0LPgbBI/AXl/0NaVPNqdGEvTQApC3tRewEMDAwAAAAA//8aXVo/OAB5S+sZGBgAAAAA//8a3dwyOAB5m1sYGBgAAAAA//8a3V42eADp28sYGBgAAAAA//8a3eA5+ADxGzwZGBgAAAAA//8axUMZMDAwAAAAAP//AwAUiURy+vF06QAAAABJRU5ErkJggg=="/>
+  </defs>
+  <g style="isolation: isolate;">
+    <g id="Layer_1" data-name="Layer 1">
+      <g id="nature_and_friendship" data-name="nature and friendship">
+        <g id="Label">
+          <g>
+            <use transform="translate(17 829)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="23" y="834" width="196" height="24" rx="9.65" ry="9.65" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+          </g>
+        </g>
+        <g id="Label-2" data-name="Label">
+          <g>
+            <use transform="translate(221 829)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="227" y="834" width="196" height="24" rx="9.65" ry="9.65" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
+          </g>
+        </g>
+        <g id="Label-3" data-name="Label">
+          <g>
+            <use transform="translate(17 829)" xlink:href="#image-2" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="23" y="834" width="100" height="24" rx="9.65" ry="9.65" style="fill: url(#linear-gradient-3); stroke-width: 0px;"/>
+          </g>
+        </g>
+        <g id="Label-4" data-name="Label">
+          <g>
+            <use transform="translate(221 829)" xlink:href="#image-2" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="227" y="834" width="100" height="24" rx="9.65" ry="9.65" style="fill: url(#linear-gradient-4); stroke-width: 0px;"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

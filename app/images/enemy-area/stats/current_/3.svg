@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="Stat_HP_New_Sat" data-name="Stat HP New Sat" x1="1632" y1="587.5" x2="1723" y2="587.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ef2028"/>
+      <stop offset="0" stop-color="#1e993d"/>
+      <stop offset=".5" stop-color="#2eeb5d"/>
+      <stop offset=".6" stop-color="#2ce55a"/>
+      <stop offset=".72" stop-color="#29d654"/>
+      <stop offset=".85" stop-color="#24bc4a"/>
+      <stop offset="1" stop-color="#1e993d"/>
+      <stop offset="1" stop-color="#1e993d"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".9"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="Stat_Atk_New_Sat" data-name="Stat Atk New Sat" x1="1632" y1="611" x2="1723" y2="611" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9b8b2d"/>
+      <stop offset=".04" stop-color="#a69638"/>
+      <stop offset=".17" stop-color="#c8b85a"/>
+      <stop offset=".29" stop-color="#e0d072"/>
+      <stop offset=".41" stop-color="#eede80"/>
+      <stop offset=".5" stop-color="#f4e486"/>
+      <stop offset=".59" stop-color="#eede80"/>
+      <stop offset=".71" stop-color="#dfcf71"/>
+      <stop offset=".84" stop-color="#c5b557"/>
+      <stop offset=".97" stop-color="#a29234"/>
+      <stop offset="1" stop-color="#9b8b2d"/>
+    </linearGradient>
+    <linearGradient id="Stat_Def_New_Sat" data-name="Stat Def New Sat" x1="1632" y1="635" x2="1723" y2="635" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a55821"/>
+      <stop offset=".04" stop-color="#af5d23"/>
+      <stop offset=".17" stop-color="#d16f29"/>
+      <stop offset=".29" stop-color="#e97c2e"/>
+      <stop offset=".4" stop-color="#f78431"/>
+      <stop offset=".5" stop-color="#fd8732"/>
+      <stop offset=".59" stop-color="#f78430"/>
+      <stop offset=".71" stop-color="#e87b2d"/>
+      <stop offset=".84" stop-color="#ce6e29"/>
+      <stop offset=".98" stop-color="#ab5b22"/>
+      <stop offset="1" stop-color="#a55821"/>
+    </linearGradient>
+    <linearGradient id="Stat_SpA_New_Sat" data-name="Stat SpA New Sat" x1="1632" y1="659" x2="1723" y2="659" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2f8589"/>
+      <stop offset=".13" stop-color="#39a1a6"/>
+      <stop offset=".27" stop-color="#41b8be"/>
+      <stop offset=".39" stop-color="#46c7cc"/>
+      <stop offset=".5" stop-color="#48ccd2"/>
+      <stop offset=".6" stop-color="#46c6cc"/>
+      <stop offset=".74" stop-color="#40b7bd"/>
+      <stop offset=".88" stop-color="#389fa3"/>
+      <stop offset="1" stop-color="#2f8589"/>
+    </linearGradient>
+    <linearGradient id="New_SpD_Dark" data-name="New SpD Dark" x1="1632" y1="683" x2="1723" y2="683" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5667a6"/>
+      <stop offset=".04" stop-color="#5c6eb1"/>
+      <stop offset=".17" stop-color="#6d83d3"/>
+      <stop offset=".29" stop-color="#7a92eb"/>
+      <stop offset=".41" stop-color="#829bf9"/>
+      <stop offset=".5" stop-color="#859fff"/>
+      <stop offset=".59" stop-color="#829bf9"/>
+      <stop offset=".71" stop-color="#7a91ea"/>
+      <stop offset=".84" stop-color="#6c81d0"/>
+      <stop offset=".97" stop-color="#596bad"/>
+      <stop offset="1" stop-color="#5667a6"/>
+    </linearGradient>
+    <linearGradient id="New_Spe_Dark" data-name="New Spe Dark" x1="1632" y1="707" x2="1723" y2="707" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8c53a6"/>
+      <stop offset=".04" stop-color="#9659b1"/>
+      <stop offset=".17" stop-color="#b269d3"/>
+      <stop offset=".29" stop-color="#c776eb"/>
+      <stop offset=".41" stop-color="#d37df9"/>
+      <stop offset=".5" stop-color="#d880ff"/>
+      <stop offset=".59" stop-color="#d37df9"/>
+      <stop offset=".71" stop-color="#c675ea"/>
+      <stop offset=".84" stop-color="#b068d0"/>
+      <stop offset=".97" stop-color="#9256ad"/>
+      <stop offset="1" stop-color="#8c53a6"/>
+    </linearGradient>
+    <image id="image" width="105" height="36" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAAAkCAYAAACKRBSIAAAACXBIWXMAAAsSAAALEgHS3X78AAAEn0lEQVRogWIYBYMcMDAwAAAAAP//GsWDHTAwMAAAAAD//2Ikwo2MaPQooB74DzUKRmMCBgYGAAAAAP//whfwjFDMBMWMSHgUUAZAkQLD/6AYxkcFDAwMAAAAAP//whbgyJHDAsVsDAwMzFDMyDAaUZQAWGT8heJfDAwMf6AYM7IYGBgAAAAA///s0TEKgDAUA9AnrUj1/ketpbiI8MXFrWszJkOGl3/elsBYUbDjwBZdmkhDeYEudFScaNE924eEGwAA//9CjyRYDmKFRowAAwODEBTzMDAwcEBz1mhuIg/Acgko1/xgYGD4wsDA8A6KP0AjDLkoZGBgYGAAAAAA///CFkks0BwEiiApBgYGWQYGBmmkiGKFRuQoIA+AijRQjoFF0FMGBoYnUKNg9ROs2GNgYGBgAAAAAP//YkGLIFg9xAWNFFAEqTIwMMgzMDCIjEYSVQAskkC55jW0xAKFJ6joA9VPIAwr8v4zMDAwAAAAAP//Qs9JTNBGAjc0kqShEaTAwMAgCo081tGijiIAK+5AkcQLreNBEfSRgYHhM7R+AkUUKIz/MzAwMAAAAAD//0LPSbDijh1qgBA0B4EiSBgaSaMNB8oArOEAC0tQ3QQq9gShmQPWkgZFJAMDAwMDAAAA///C13Bgh2rigRrIBW04MA+hABmsABRJoHAG5Rg+aP0PokFhDIskSKZhYPgPAAAA///CFkmwJjisf8SK1PRmHq2PqAZg4Qvr5oAwKGOAxGGDBwwMDAwMAAAAAP//whbg6CMNTKNNbqoD5NEbbCM6iLBmYGAAAAAA//8azRUDB5BHHkCtPVDRB+vMIprgDAwMAAAAAP//Go2kgQHI43agSAE1EmDDQ8iR9J+BgYEBAAAA//8ajaSBBbCcBIocUC6CRRJiWIiBgQEAAAD//xqNpIED6KPgsByEOsjKwMAAAAAA//8ajaSBBegRhTkKzsDAAAAAAP//Go2kwQ4YGBgAAAAA//8ajaTBDhgYGAAAAAD//xqNpMEOGBgYAAAAAP//Go2kwQ4YGBgAAAAA///CFklEVWajgGJAXDgzMDAAAAAA//9CH7v7j9Z2h/WCfyPNyY8CygEsLGFhi9yRRY0oBgYGAAAAAP//whZJ/9Dm379A5zg4oWpGpyooA7BMAApTEAaFLyicQeENCneUISEGBgYGAAAAAP//Qo4k5Pn3n9AJKNA8xxvodAUDdLHE6KQfZQAUxqDIAEUQaGYWFL6gcAaFNyjcQeGPyE0MDAwAAAAA//9Cz0n/oFnvK9L8OxdU7svo9DlVAPIaB1AEPYSGMyi8QeEOCn+QGghgYGAAAAAA//9Cz0n/oDH5DarpMVTu2+hCFKoBbAtRQOEMYoPCGXn9HQMDAwMDAAAA///CVif9gRZrH6BioOndt6NLuqgCCC3pAoU7rLiDAAYGBgAAAAD//8IW0EyjiyNpCohZHIko7hgYGAAAAAD//xpdZkx/QNoyYwYGBgAAAAD//xpdsD8wgPgF+wwMDAAAAAD//xrd+jKwgPDWFwYGBgAAAAD//xrFgx0wMDAAAAAA//8axYMdMDAwAAAAAP//AwBhwAxsvwPhHgAAAABJRU5ErkJggg=="/>
+  </defs>
+  <g style="isolation: isolate;">
+    <g id="Layer_1" data-name="Layer 1">
+      <g id="Layer_22" data-name="Layer 22">
+        <g id="Slot4_copy" data-name="Slot4 copy">
+          <rect id="hp" x="1632" y="577" width="91" height="21" rx="6" ry="6" style="fill: url(#Stat_HP_New_Sat); filter: url(#drop-shadow-1); stroke-width: 0px;"/>
+          <g id="atk">
+            <use transform="translate(1625 594)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="600" width="91" height="22" rx="6" ry="6" style="fill: url(#Stat_Atk_New_Sat); stroke-width: 0px;"/>
+          </g>
+          <g id="def">
+            <use transform="translate(1625 618)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="624" width="91" height="22" rx="6" ry="6" style="fill: url(#Stat_Def_New_Sat); stroke-width: 0px;"/>
+          </g>
+          <g id="spA">
+            <use transform="translate(1625 642)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="648" width="91" height="22" rx="6" ry="6" style="fill: url(#Stat_SpA_New_Sat); stroke-width: 0px;"/>
+          </g>
+          <g id="spD">
+            <use transform="translate(1625 666)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="672" width="91" height="22" rx="6" ry="6" style="fill: url(#New_SpD_Dark); stroke-width: 0px;"/>
+          </g>
+          <g id="spe">
+            <use transform="translate(1625 690)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="696" width="91" height="22" rx="6" ry="6" style="fill: url(#New_Spe_Dark); stroke-width: 0px;"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

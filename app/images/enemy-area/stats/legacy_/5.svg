@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="eHP" x1="1632" y1="921.5" x2="1723" y2="921.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ed1c24"/>
+      <stop offset=".09" stop-color="#f22d33"/>
+      <stop offset=".24" stop-color="#f94548"/>
+      <stop offset=".38" stop-color="#fd5354"/>
+      <stop offset=".5" stop-color="#ff5959"/>
+      <stop offset=".62" stop-color="#fd5354"/>
+      <stop offset=".76" stop-color="#f84446"/>
+      <stop offset=".92" stop-color="#f12a30"/>
+      <stop offset="1" stop-color="#ed1c24"/>
+    </linearGradient>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="1"/>
+      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".9"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="eAtk" x1="1632" y1="945" x2="1723" y2="945" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ed8124"/>
+      <stop offset=".02" stop-color="#ed842a"/>
+      <stop offset=".16" stop-color="#f0954c"/>
+      <stop offset=".28" stop-color="#f3a164"/>
+      <stop offset=".4" stop-color="#f4a972"/>
+      <stop offset=".5" stop-color="#f5ac78"/>
+      <stop offset=".6" stop-color="#f4a972"/>
+      <stop offset=".72" stop-color="#f3a163"/>
+      <stop offset=".85" stop-color="#f09449"/>
+      <stop offset=".99" stop-color="#ed8226"/>
+      <stop offset="1" stop-color="#ed8124"/>
+    </linearGradient>
+    <linearGradient id="eDef" x1="1632" y1="969" x2="1723" y2="969" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d4cf00"/>
+      <stop offset=".11" stop-color="#e1d52a"/>
+      <stop offset=".22" stop-color="#ecd94c"/>
+      <stop offset=".32" stop-color="#f3dd64"/>
+      <stop offset=".42" stop-color="#f8df72"/>
+      <stop offset=".5" stop-color="#fae078"/>
+      <stop offset=".58" stop-color="#f8df72"/>
+      <stop offset=".67" stop-color="#f3dd63"/>
+      <stop offset=".78" stop-color="#ebd949"/>
+      <stop offset=".9" stop-color="#e0d426"/>
+      <stop offset="1" stop-color="#d4cf00"/>
+    </linearGradient>
+    <linearGradient id="eSpcAtk" x1="1632" y1="993" x2="1723" y2="993" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5569ff"/>
+      <stop offset="0" stop-color="#5569fe"/>
+      <stop offset=".14" stop-color="#748bfa"/>
+      <stop offset=".28" stop-color="#8aa3f7"/>
+      <stop offset=".4" stop-color="#98b1f5"/>
+      <stop offset=".5" stop-color="#9db7f5"/>
+      <stop offset=".6" stop-color="#98b1f5"/>
+      <stop offset=".73" stop-color="#89a2f7"/>
+      <stop offset=".86" stop-color="#7288fa"/>
+      <stop offset="1" stop-color="#5569ff"/>
+    </linearGradient>
+    <linearGradient id="eSpcDef" x1="1632" y1="1017" x2="1723" y2="1017" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3fe900"/>
+      <stop offset=".04" stop-color="#4ee614"/>
+      <stop offset=".15" stop-color="#6de23f"/>
+      <stop offset=".25" stop-color="#86df61"/>
+      <stop offset=".34" stop-color="#98dc79"/>
+      <stop offset=".43" stop-color="#a3db87"/>
+      <stop offset=".5" stop-color="#a7db8d"/>
+      <stop offset=".57" stop-color="#a3db87"/>
+      <stop offset=".66" stop-color="#97dd78"/>
+      <stop offset=".76" stop-color="#84df5e"/>
+      <stop offset=".86" stop-color="#6ae33b"/>
+      <stop offset=".97" stop-color="#49e70d"/>
+      <stop offset="1" stop-color="#3fe900"/>
+    </linearGradient>
+    <linearGradient id="eSpe" x1="1632" y1="1041" x2="1723" y2="1041" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff55af"/>
+      <stop offset=".09" stop-color="#fd66af"/>
+      <stop offset=".24" stop-color="#fb7eb1"/>
+      <stop offset=".38" stop-color="#fa8cb1"/>
+      <stop offset=".5" stop-color="#fa92b2"/>
+      <stop offset=".62" stop-color="#fa8cb1"/>
+      <stop offset=".76" stop-color="#fb7db0"/>
+      <stop offset=".92" stop-color="#fd63af"/>
+      <stop offset="1" stop-color="#ff55af"/>
+    </linearGradient>
+    <image id="image" width="105" height="36" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGkAAAAkCAYAAACKRBSIAAAACXBIWXMAAAsSAAALEgHS3X78AAAEn0lEQVRogWIYBYMcMDAwAAAAAP//GsWDHTAwMAAAAAD//2Ikwo2MaPQooB74DzUKRmMCBgYGAAAAAP//whfwjFDMBMWMSHgUUAZAkQLD/6AYxkcFDAwMAAAAAP//whbgyJHDAsVsDAwMzFDMyDAaUZQAWGT8heJfDAwMf6AYM7IYGBgAAAAA///s0TEKgDAUA9AnrUj1/ketpbiI8MXFrWszJkOGl3/elsBYUbDjwBZdmkhDeYEudFScaNE924eEGwAA//9CjyRYDmKFRowAAwODEBTzMDAwcEBz1mhuIg/Acgko1/xgYGD4wsDA8A6KP0AjDLkoZGBgYGAAAAAA///CFkks0BwEiiApBgYGWQYGBmmkiGKFRuQoIA+AijRQjoFF0FMGBoYnUKNg9ROs2GNgYGBgAAAAAP//YkGLIFg9xAWNFFAEqTIwMMgzMDCIjEYSVQAskkC55jW0xAKFJ6joA9VPIAwr8v4zMDAwAAAAAP//Qs9JTNBGAjc0kqShEaTAwMAgCo081tGijiIAK+5AkcQLreNBEfSRgYHhM7R+AkUUKIz/MzAwMAAAAAD//0LPSbDijh1qgBA0B4EiSBgaSaMNB8oArOEAC0tQ3QQq9gShmQPWkgZFJAMDAwMDAAAA///C13Bgh2rigRrIBW04MA+hABmsABRJoHAG5Rg+aP0PokFhDIskSKZhYPgPAAAA///CFkmwJjisf8SK1PRmHq2PqAZg4Qvr5oAwKGOAxGGDBwwMDAwMAAAAAP//whbg6CMNTKNNbqoD5NEbbCM6iLBmYGAAAAAA//8azRUDB5BHHkCtPVDRB+vMIprgDAwMAAAAAP//Go2kgQHI43agSAE1EmDDQ8iR9J+BgYEBAAAA//8ajaSBBbCcBIocUC6CRRJiWIiBgQEAAAD//xqNpIED6KPgsByEOsjKwMAAAAAA//8ajaSBBegRhTkKzsDAAAAAAP//Go2kwQ4YGBgAAAAA//8ajaTBDhgYGAAAAAD//xqNpMEOGBgYAAAAAP//Go2kwQ4YGBgAAAAA///CFklEVWajgGJAXDgzMDAAAAAA//9CH7v7j9Z2h/WCfyPNyY8CygEsLGFhi9yRRY0oBgYGAAAAAP//whZJ/9Dm379A5zg4oWpGpyooA7BMAApTEAaFLyicQeENCneUISEGBgYGAAAAAP//Qo4k5Pn3n9AJKNA8xxvodAUDdLHE6KQfZQAUxqDIAEUQaGYWFL6gcAaFNyjcQeGPyE0MDAwAAAAA//9Cz0n/oFnvK9L8OxdU7svo9DlVAPIaB1AEPYSGMyi8QeEOCn+QGghgYGAAAAAA//9Cz0n/oDH5DarpMVTu2+hCFKoBbAtRQOEMYoPCGXn9HQMDAwMDAAAA///CVif9gRZrH6BioOndt6NLuqgCCC3pAoU7rLiDAAYGBgAAAAD//8IW0EyjiyNpCohZHIko7hgYGAAAAAD//xpdZkx/QNoyYwYGBgAAAAD//xpdsD8wgPgF+wwMDAAAAAD//xrd+jKwgPDWFwYGBgAAAAD//xrFgx0wMDAAAAAA//8axYMdMDAwAAAAAP//AwBhwAxsvwPhHgAAAABJRU5ErkJggg=="/>
+  </defs>
+  <g style="isolation: isolate;">
+    <g id="Layer_1" data-name="Layer 1">
+      <g id="Layer_22_copy" data-name="Layer 22 copy">
+        <g id="Slot6_copy_2" data-name="Slot6 copy 2">
+          <rect id="hp" x="1632" y="911" width="91" height="21" rx="6" ry="6" style="fill: url(#eHP); filter: url(#drop-shadow-1); stroke-width: 0px;"/>
+          <g id="atk">
+            <use transform="translate(1625 928)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="934" width="91" height="22" rx="6" ry="6" style="fill: url(#eAtk); stroke-width: 0px;"/>
+          </g>
+          <g id="def">
+            <use transform="translate(1625 952)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="958" width="91" height="22" rx="6" ry="6" style="fill: url(#eDef); stroke-width: 0px;"/>
+          </g>
+          <g id="spA">
+            <use transform="translate(1625 976)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="982" width="91" height="22" rx="6" ry="6" style="fill: url(#eSpcAtk); stroke-width: 0px;"/>
+          </g>
+          <g id="spD">
+            <use transform="translate(1625 1000)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="1006" width="91" height="22" rx="6" ry="6" style="fill: url(#eSpcDef); stroke-width: 0px;"/>
+          </g>
+          <g id="spe">
+            <use transform="translate(1625 1024)" xlink:href="#image" style="mix-blend-mode: multiply; opacity: .9;"/>
+            <rect x="1632" y="1030" width="91" height="22" rx="6" ry="6" style="fill: url(#eSpe); stroke-width: 0px;"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
