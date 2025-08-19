@@ -184,7 +184,10 @@ body {
     overflow: hidden; /* Hide scrollbars */
     background-color: #ffffff;
 }
-
+.grey-svg {   filter: invert(29%) sepia(96%)  saturate(0%)    hue-rotate(180deg) brightness(95%)  contrast(101%) drop-shadow(0px 1px 2px #000000); opacity: .2;}
+.blue-svg {   filter: invert(29%) sepia(96%)  saturate(748%)  hue-rotate(180deg) brightness(95%)  contrast(101%) drop-shadow(0px 1px 2px #000000); }
+.yellow-svg { filter: invert(29%) sepia(100%) saturate(300%)  hue-rotate(10deg)  brightness(110%) contrast(101%) drop-shadow(0px 1px 2px #000000); }
+.red-svg {    filter: invert(29%) sepia(96%)  saturate(1448%) hue-rotate(310deg) brightness(95%)  contrast(101%) drop-shadow(0px 1px 2px #000000); }
 .canvas {  /* or some other selector */
     position: absolute;
     top: 0px;
@@ -356,7 +359,7 @@ body {
     text-align: center;
 }
 .align_right {
-    text-align: right;
+    text-align: center;
 }
 .g4mp_type {
     width: 55px;
@@ -615,35 +618,35 @@ body {
     top: 832px;
 }
 .labelAbility {
-    left: 18px;
+    left: 16px;
     top: -15px;
-    font-size: 32px;
+    font-size: 28px;
     opacity: 0.6;
 }
 .labelHeldItem {
     left: 18px;
     top: -15px;
-    font-size: 36px;
+    font-size: 28px;
     opacity: 0.6;
 }
 .ability {
     position: absolute;
     font-family: play;
-    left: 645px;
+    left: 622px;
     top: 811px;
     font-size: 32px;
     border: 1px solid #ff000000;
-    width: 307px;
+    width: 317px;
     text-align: center;
 }
 .heldItem {
     position: absolute;
     font-family: play;
-    left: 1153px;
+    left: 1131px;
     top: 811px;
     font-size: 32px;
     border: 1px solid #ff000000;
-    width: 307px;
+    width: 317px;
     text-align: center;
 }
 .labelHeldItem {
@@ -696,7 +699,6 @@ body {
     /* filter: drop-shadow(1px 1px 0px rgb(0, 0, 0)); */
 }
 .expMeterStyle {
-    border-radius: 4px;
     width: 318px;
 }
 
@@ -710,13 +712,14 @@ body {
 }
 .expMeterOuter {
     position: absolute;
-    /* border: 1px solid #00000000; */
     background: var(--expBarBackground);
     height: 17px;
     width: 358px;
     top: 0px;
     left: 64px;
     z-index: 0;
+    /* Create triangular sides using clip-path */
+    clip-path: polygon(9px 0%, calc(100% - 9px) 0%, 100% 50%, calc(100% - 9px) 100%, 9px 100%, 0% 50%);
 }
 .expMeterInner {
     position: relative;    
@@ -724,12 +727,14 @@ body {
     height: 18px;
     top: -1px;
     border: 1px solid #00000023;
+    /* Match the triangular sides of the outer container */
+    clip-path: polygon(9px 0%, calc(100% - 9px) 0%, 100% 50%, calc(100% - 9px) 100%, 9px 100%, 0% 50%);
 }
 .exp_label {
     position: absolute;
-    font-size: 14px;
+    font-size: 13px;
     font-family: play;
-    top: -2px;
+    top: -1px;
     left: 21px;
     z-index: 1005;
     opacity: .55;
@@ -953,14 +958,50 @@ body {
     z-index: 5;
     /* top: 195px;
     left: 295px; old coordinates*/
-    top: 158px;
-    left: 13px;
+    top: 185px;
+    left: 149px;
     line-height: 60px;
     text-align: center;
     font-family: oseb;
     font-weight: 700;
-    width: 102px;
-    /* border: 1px solid #000; */
+    width: 150px;
+    border: 1px solid #00000000;
+}
+.resets_2 {
+    display: block;
+    max-width: 250;
+    position: fixed;
+    max-height: 250;
+    font-size: 68px;
+    z-index: 5;
+    /* top: 195px;
+    left: 295px; old coordinates*/
+    top: 185px;
+    left: 69px;
+    line-height: 60px;
+    text-align: center;
+    font-family: oseb;
+    font-weight: 700;
+    width: 150px;
+    border: 1px solid #00000000;
+}
+.resets_3 {
+    display: block;
+    max-width: 250;
+    position: fixed;
+    max-height: 250;
+    font-size: 68px;
+    z-index: 5;
+    /* top: 195px;
+    left: 295px; old coordinates*/
+    top: 185px;
+    left: 228px;
+    line-height: 60px;
+    text-align: center;
+    font-family: oseb;
+    font-weight: 700;
+    width: 150px;
+    border: 1px solid #00000000;
 }
 
 .ePkmnMoveStyle {
@@ -1020,8 +1061,11 @@ body {
 .ePkmnTyping {
     position: absolute;
     top: 126px;
-    /* width: 150px;
-    height: 145px; */
+    right: 302px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
 }
 img, span, div {
     margin: 0;
@@ -1031,7 +1075,7 @@ img, span, div {
 .ePkmnMoves {
     top: -3px;
     position: absolute;
-    left: 236px;
+    left: 258px;
     padding: 0;
     margin: 0;
 }
@@ -1048,9 +1092,9 @@ img, span, div {
     table-layout: fixed;
     position: absolute;
     border: 1px solid #00000000;
-    line-height: 29px;
+    line-height: 29.5px;
     padding: 1px;
-    width: 171px;
+    width: 151px;
     top: 22px;
     overflow: visible;
 }
@@ -1099,8 +1143,11 @@ img, span, div {
 .enemyStatLabel {
     opacity: .6; 
     font-size: 13px; 
-    display: flex; 
     vertical-align: middle;
+}
+.column1 {
+    width: 58px;
+    border: 1px solid rgb(255, 0, 0);
 }
 
 .enemyStatTable th:nth-child(1) {
@@ -1108,7 +1155,6 @@ img, span, div {
 }
 
 .icons {
-    margin-right: 4px; /* space between the icon and move name */
     transform-origin: top left;
     display: inline-block; /* to ensure it's treated as an inline-level element */
     vertical-align: middle; /* to align it with the text */
@@ -1120,8 +1166,8 @@ img, span, div {
     height: 32px;
 }
 .moveIcon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     margin-bottom: 2px;
 }
 
@@ -1165,7 +1211,7 @@ img, span, div {
     font-family: titan;
     border: 1px solid rgba(255, 0, 0, 0);
     font-size: 26px;
-    top: 26px;
+    top: 25px;
     left: 1486px;
     text-align: center;
     width: 420px;
@@ -2010,8 +2056,25 @@ img, span, div {
     left: 32px;
 }
 .resetsLabel {
-    top: 135px;
-    left: 30px;
+    top: 166px;
+    left: 149px;
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ff000000;
+}
+.resetsLabel_2 {
+    top: 166px;
+    left: 69px;
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ff000000;
+}
+.resetsLabel_3 {
+    top: 166px;
+    left: 228px;
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ff000000;
 }
 
 .voltorb_flip_data {
@@ -2099,7 +2162,7 @@ img, span, div {
     height: 29px;
     line-height: 29px;
     border: 1px solid #ff000000;
-    top: 834px;
+    top: 833px;
     bottom: 0px;
     right: 0px;
     z-index: 5;
@@ -2118,7 +2181,7 @@ img, span, div {
     line-height: 29px;
     padding-left: 10px;
     border: 1px solid #ff000000;
-    top: 834px;
+    top: 833px;
     bottom: 0px;
     right: 0px;
     z-index: 5;
@@ -2131,7 +2194,7 @@ img, span, div {
 .nature_value {
     font-size: 18px;
     position: absolute;
-    left: 102px;
+    left: 91px;
     width: 118px;
     height: 29px;
     line-height: 29px;
@@ -2691,10 +2754,10 @@ img, span, div {
     border: 1px solid rgba(0, 255, 149, 0);
     font-size: 14px;
     font-family: play;
-    width: 140px;
+    width: 100px;
     text-align: center;
     top: -1px;
-    left: 0px;
+    left: 10px;
     opacity: .7;
     filter: drop-shadow(1px 1px 1px #00000078)
 }
@@ -2707,21 +2770,6 @@ img, span, div {
     top: 100px;
     left: 0px;
     opacity: .7;
-}
-.ePkmnLevel {
-    position: absolute;
-    /* border: 1px solid rgb(0, 255, 149); */
-    font-size: 18px;
-    font-family: titan;
-    width: 68px;
-    opacity: .7;
-    text-align: center;
-    top: 128px;
-    left: 11px;
-    background:hwb(0 53% 47% / 0.9);
-    border: 1px solid #000;
-    border-radius: 5px;
-    filter: drop-shadow(0px 0px 5px)
 }
 .ePkmnSprite {
     /* position: absolute;
@@ -2736,10 +2784,10 @@ img, span, div {
     transform-origin: top left;
     display: inline-block; /* to ensure it's treated as an inline-level element */
     vertical-align: middle; /* to align it with the text */
-    width: 132px;
-    height: 128px;
-    top: 15px;
-    left: 3px;
+    width: 112px;
+    height: 108px;
+    top: 30px;
+    left: -1px;
     filter: drop-shadow(1px 1px 2px);
 }
 .ePkmnMove1 {
@@ -2845,6 +2893,54 @@ img, span, div {
     top: 128.5px;
     left: 134px;
 }
+.eStatLabel {
+    width: 68px;
+    border: 1px solid rgba(255, 0, 0, 0);
+    text-align: center;
+    font-size: 11px;
+}
+.eLabelLeft {
+    position: absolute;
+    left: 114px;
+}
+.eLabelRight {
+    position: absolute;
+    left: 182px;
+}
+.eLabel1 {
+    top: 41px;
+}
+.eLabel2 {
+    top: 77px;
+}
+.eLabel3 {
+    top: 113px;
+}
+.eStatValue {
+    font-size: 19px;
+}
+.eValueLeft {
+    position: absolute;
+    left: 114px;
+    width: 68px;
+    text-align: center;
+}
+.eValueRight {
+    position: absolute;
+    left: 182px;
+    width: 68px;
+    text-align: center;
+}
+.eValue1 {
+    top: 53px;
+}
+.eValue2 {
+    top: 89px;
+}
+.eValue3 {
+    top: 125px;
+}
+
 .ePkmnAbility {
     position: absolute;
     text-align: right;
@@ -2853,9 +2949,33 @@ img, span, div {
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    width: 146px;
-    top: 1px;
-    left: 250px;
+    width: 129px;
+    top: 0px;
+    left: 265px;
+}
+.ePkmnLevel {
+    position: absolute;
+    text-align: right;
+    border: 1px solid rgba(255, 0, 0, 0);
+    /* color:rgb(70, 70, 70); */
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    width: 135px;
+    top: 0px;
+    left: 115px;
+}
+.speed_comparison {
+    position: absolute;
+    text-align: right;
+    border: 1px solid rgba(255, 0, 0, 0);
+    /* color:rgb(70, 70, 70); */
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    width: 135px;
+    top: 21px;
+    left: 115px;
 }
 .seHp {
     position: absolute;
@@ -3052,8 +3172,8 @@ img, span, div {
     position: absolute;
     /* border: 1px solid #00ff0d00; */
     background-color: #ffffff;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 13px;
+    line-height: 15px;
     width: 404px;
     height: 1000px;
     font-family: play;

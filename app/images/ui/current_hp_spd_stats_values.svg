@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Stat_Atk_New_Sat);
+        filter: url(#drop-shadow-3);
+      }
+
+      .cls-2 {
+        fill: url(#New_SpD_Dark);
+        filter: url(#drop-shadow-6);
+      }
+
+      .cls-3 {
+        fill: url(#Stat_SpA_New_Sat);
+        filter: url(#drop-shadow-5);
+      }
+
+      .cls-4 {
+        fill: url(#Stat_Def_New_Sat);
+        filter: url(#drop-shadow-4);
+      }
+
+      .cls-5 {
+        fill: url(#New_Spe_Dark);
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-6 {
+        fill: url(#Stat_HP_New_Sat);
+        filter: url(#drop-shadow-1);
+      }
+    </style>
     <linearGradient id="Stat_HP_New_Sat" data-name="Stat HP New Sat" x1="23" y1="895.5" x2="220" y2="895.5" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ef2028"/>
       <stop offset="0" stop-color="#1e993d"/>
@@ -11,7 +42,7 @@
       <stop offset="1" stop-color="#1e993d"/>
       <stop offset="1" stop-color="#1e993d"/>
     </linearGradient>
-    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-1" x="17" y="861" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
@@ -31,7 +62,7 @@
       <stop offset=".97" stop-color="#9256ad"/>
       <stop offset="1" stop-color="#8c53a6"/>
     </linearGradient>
-    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-2" x="220" y="861" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur-2" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
@@ -51,7 +82,7 @@
       <stop offset=".97" stop-color="#a29234"/>
       <stop offset="1" stop-color="#9b8b2d"/>
     </linearGradient>
-    <filter id="drop-shadow-3" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-3" x="17" y="924" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur-3" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
@@ -71,7 +102,7 @@
       <stop offset=".98" stop-color="#ab5b22"/>
       <stop offset="1" stop-color="#a55821"/>
     </linearGradient>
-    <filter id="drop-shadow-4" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-4" x="17" y="987" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur-4" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
@@ -89,7 +120,7 @@
       <stop offset=".88" stop-color="#389fa3"/>
       <stop offset="1" stop-color="#2f8589"/>
     </linearGradient>
-    <filter id="drop-shadow-5" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-5" x="220" y="924" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur-5" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
@@ -109,71 +140,20 @@
       <stop offset=".97" stop-color="#596bad"/>
       <stop offset="1" stop-color="#5667a6"/>
     </linearGradient>
-    <filter id="drop-shadow-6" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-6" x="220" y="987" width="209" height="71" filterUnits="userSpaceOnUse">
       <feOffset dx="0" dy="1"/>
       <feGaussianBlur result="blur-6" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".9"/>
       <feComposite in2="blur-6" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <linearGradient id="eCrit" x1="226" y1="848.5" x2="423" y2="848.5" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#999"/>
-      <stop offset=".04" stop-color="#a0a0a0"/>
-      <stop offset=".21" stop-color="#b8b8b8"/>
-      <stop offset=".37" stop-color="#c6c6c6"/>
-      <stop offset=".5" stop-color="#ccc"/>
-      <stop offset=".63" stop-color="#c6c6c6"/>
-      <stop offset=".79" stop-color="#b7b7b7"/>
-      <stop offset=".97" stop-color="#9d9d9d"/>
-      <stop offset="1" stop-color="#999"/>
-    </linearGradient>
-    <filter id="drop-shadow-7" filterUnits="userSpaceOnUse">
-      <feOffset dx="0" dy="1"/>
-      <feGaussianBlur result="blur-7" stdDeviation="2"/>
-      <feFlood flood-color="#000" flood-opacity=".9"/>
-      <feComposite in2="blur-7" operator="in"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-    <linearGradient id="eCrit-2" data-name="eCrit" x1="23" x2="220" xlink:href="#eCrit"/>
-    <filter id="drop-shadow-8" filterUnits="userSpaceOnUse">
-      <feOffset dx="0" dy="1"/>
-      <feGaussianBlur result="blur-8" stdDeviation="2"/>
-      <feFlood flood-color="#000" flood-opacity=".9"/>
-      <feComposite in2="blur-8" operator="in"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-    <linearGradient id="eCrit-3" data-name="eCrit" x1="66" y1="822.5" x2="423" y2="822.5" xlink:href="#eCrit"/>
-    <filter id="drop-shadow-9" filterUnits="userSpaceOnUse">
-      <feOffset dx="0" dy="1"/>
-      <feGaussianBlur result="blur-9" stdDeviation="2"/>
-      <feFlood flood-color="#000" flood-opacity=".9"/>
-      <feComposite in2="blur-9" operator="in"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-    <linearGradient id="linear-gradient" x1="23" y1="822.5" x2="63" y2="822.5" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#999"/>
-      <stop offset="1" stop-color="#999"/>
-    </linearGradient>
-    <filter id="drop-shadow-10" filterUnits="userSpaceOnUse">
-      <feOffset dx="0" dy="1"/>
-      <feGaussianBlur result="blur-10" stdDeviation="2"/>
-      <feFlood flood-color="#000" flood-opacity=".9"/>
-      <feComposite in2="blur-10" operator="in"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
   </defs>
   <g id="Stat_Boxes" data-name="Stat Boxes">
-    <rect id="hp" x="23" y="866" width="197" height="59" rx="6" ry="6" style="fill: url(#Stat_HP_New_Sat); filter: url(#drop-shadow-1); stroke-width: 0px;"/>
-    <rect id="spcAtk" x="226" y="866" width="197" height="59" rx="6" ry="6" style="fill: url(#New_Spe_Dark); filter: url(#drop-shadow-2); stroke-width: 0px;"/>
-    <rect id="atk" x="23" y="929" width="197" height="59" rx="6" ry="6" style="fill: url(#Stat_Atk_New_Sat); filter: url(#drop-shadow-3); stroke-width: 0px;"/>
-    <rect id="def" x="23" y="992" width="197" height="59" rx="6" ry="6" style="fill: url(#Stat_Def_New_Sat); filter: url(#drop-shadow-4); stroke-width: 0px;"/>
-    <rect id="spcDef" x="226" y="929" width="197" height="59" rx="6" ry="6" style="fill: url(#Stat_SpA_New_Sat); filter: url(#drop-shadow-5); stroke-width: 0px;"/>
-    <rect id="spe" x="226" y="992" width="197" height="59" rx="6" ry="6" style="fill: url(#New_SpD_Dark); filter: url(#drop-shadow-6); stroke-width: 0px;"/>
+    <path id="hp" class="cls-6" d="M205,925H38c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
+    <path id="spcAtk" class="cls-5" d="M408,925h-167c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
+    <path id="atk" class="cls-1" d="M205,988H38c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
+    <path id="def" class="cls-4" d="M205,1051H38c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
+    <path id="spcDef" class="cls-3" d="M408,988h-167c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
+    <path id="spe" class="cls-2" d="M408,1051h-167c-5.86-5.86-9.14-9.14-15-15v-29c5.86-5.86,9.14-9.14,15-15h167c5.86,5.86,9.14,9.14,15,15v29c-5.86,5.86-9.14,9.14-15,15Z"/>
   </g>
-  <g id="nature_and_friendship" data-name="nature and friendship">
-    <rect id="Label" x="226" y="835" width="197" height="27" rx="6" ry="6" style="fill: url(#eCrit); filter: url(#drop-shadow-7); stroke-width: 0px;"/>
-    <rect id="Label-2" data-name="Label" x="23" y="835" width="197" height="27" rx="6" ry="6" style="fill: url(#eCrit-2); filter: url(#drop-shadow-8); stroke-width: 0px;"/>
-  </g>
-  <rect id="Label-3" data-name="Label" x="66" y="814" width="357" height="17" rx="4.31" ry="4.31" style="fill: url(#eCrit-3); filter: url(#drop-shadow-9); stroke-width: 0px;"/>
-  <rect id="Label-4" data-name="Label" x="23" y="814" width="40" height="17" rx="4.31" ry="4.31" style="fill: url(#linear-gradient); filter: url(#drop-shadow-10); stroke-width: 0px;"/>
 </svg>

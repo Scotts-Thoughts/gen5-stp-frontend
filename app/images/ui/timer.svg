@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
-    <linearGradient id="linear-gradient" x1="15" y1="67" x2="431" y2="67" gradientUnits="userSpaceOnUse">
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        fill: #4d4d4d;
+      }
+
+      .cls-3 {
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-3, .cls-4 {
+        fill: #231f20;
+      }
+
+      .cls-4 {
+        filter: url(#drop-shadow-1);
+      }
+
+      .cls-5 {
+        filter: url(#drop-shadow-3);
+        opacity: .2;
+        stroke: #6e5597;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5, .cls-6 {
+        fill: gray;
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-8 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="151" y1="200" x2="297" y2="200" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#999"/>
       <stop offset=".04" stop-color="#a0a0a0"/>
       <stop offset=".21" stop-color="#b8b8b8"/>
@@ -12,29 +52,53 @@
       <stop offset=".97" stop-color="#9d9d9d"/>
       <stop offset="1" stop-color="#999"/>
     </linearGradient>
-    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-1" x="163" y="182" width="124" height="7" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
-      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feGaussianBlur result="blur" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
-      <feOffset dx="1" dy="-1"/>
-      <feGaussianBlur result="blur-2" stdDeviation="1"/>
-      <feFlood flood-color="#000" flood-opacity=".5"/>
+    <linearGradient id="linear-gradient-2" x1="42" y1="120.5" x2="404" y2="120.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="15" y1="67" x2="431" y2="67" xlink:href="#linear-gradient"/>
+    <filter id="drop-shadow-2" x="28" y="35" width="391" height="13" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="1"/>
+      <feGaussianBlur result="blur-2" stdDeviation="2"/>
+      <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur-2" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
+    <filter id="drop-shadow-3" x="17" y="84" width="402" height="28" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="-1"/>
+      <feGaussianBlur result="blur-3" stdDeviation="1"/>
+      <feFlood flood-color="#000" flood-opacity=".5"/>
+      <feComposite in2="blur-3" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
   </defs>
-  <g id="Timer">
-    <g id="Timer-2" data-name="Timer">
-      <path d="m21,114c-3.31,0-6-2.69-6-6V40.18c0-1.56.6-3.04,1.68-4.16l12.49-14.25c1.06-1.1,2.64-1.77,4.26-1.77h391.57c3.31,0,6,2.69,6,6v82c0,3.31-2.69,6-6,6H21Z" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
-      <path d="m425,22c2.21,0,4,1.79,4,4v82c0,2.21-1.79,4-4,4H21c-2.21,0-4-1.79-4-4V40.18c0-1.04.4-2.03,1.12-2.78l.06-.07.06-.07,12.36-14.1c.75-.74,1.77-1.17,2.83-1.17h391.57m0-4H33.43c-2.17,0-4.25.88-5.76,2.45l-12.43,14.18c-1.44,1.49-2.24,3.48-2.24,5.55v67.82c0,4.42,3.58,8,8,8h404c4.42,0,8-3.58,8-8V26c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
-      <path d="m425,20c3.31,0,6,2.69,6,6v82c0,3.31-2.69,6-6,6H21c-3.31,0-6-2.69-6-6V40.18c0-1.56.6-3.04,1.68-4.16l.03-.03.03-.04,12.4-14.14c1.12-1.15,2.68-1.81,4.29-1.81h391.57m0-2H33.43c-2.17,0-4.25.88-5.76,2.45l-12.43,14.18c-1.44,1.49-2.24,3.48-2.24,5.55v67.82c0,4.42,3.58,8,8,8h404c4.42,0,8-3.58,8-8V26c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
-      <path d="m425,18c4.42,0,8,3.58,8,8v82c0,4.42-3.58,8-8,8H21c-4.42,0-8-3.58-8-8V40.18c0-2.07.8-4.06,2.24-5.55l12.43-14.18c1.51-1.57,3.59-2.45,5.76-2.45h391.57m0-1H33.43c-2.43,0-4.8,1.01-6.48,2.76l-12.46,14.21c-1.59,1.65-2.49,3.87-2.49,6.21v67.82c0,4.96,4.04,9,9,9h404c4.96,0,9-4.04,9-9V26c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+  <g id="Badge">
+    <g>
+      <polygon class="cls-8" points="164.83 252 151 238.17 151 161.83 164.83 148 283.17 148 297 161.83 297 238.17 283.17 252 164.83 252"/>
+      <path class="cls-6" d="M282.34,150l12.66,12.66v74.69l-12.66,12.66h-116.69l-12.66-12.66v-74.69l12.66-12.66h116.69M284,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
+      <path class="cls-2" d="M283.17,148l13.83,13.83v76.34l-13.83,13.83h-118.34l-13.83-13.83v-76.34l13.83-13.83h118.34M284,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
+      <path d="M284,146l15,15v78l-15,15h-120l-15-15v-78l15-15h120M284.41,145h-120.83l-.29.29-15,15-.29.29v78.83l.29.29,15,15,.29.29h120.83l.29-.29,15-15,.29-.29v-78.83l-.29-.29-15-15-.29-.29h0Z"/>
     </g>
-    <rect x="29" y="40" width="390" height="1" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
-    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" points="17 85 36 104 429.06 104.35 429.06 112.42 17 112 17 85" style="fill: gray; filter: url(#drop-shadow-2); opacity: .2; stroke: #6e5597; stroke-miterlimit: 10;"/>
+    <rect class="cls-4" x="165" y="184" width="118" height=".59"/>
+    <g>
+      <polygon class="cls-1" points="60.83 164 42 145.17 42 95.83 60.83 77 385.17 77 404 95.83 404 145.17 385.17 164 60.83 164"/>
+      <path class="cls-6" d="M384.34,79l17.66,17.66v47.69l-17.66,17.66H61.66l-17.66-17.66v-47.69l17.66-17.66h322.69M386,75H60l-20,20v51l20,20h326c7.81-7.81,12.19-12.19,20-20v-51c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path class="cls-2" d="M385.17,77l18.83,18.83v49.34l-18.83,18.83H60.83l-18.83-18.83v-49.34l18.83-18.83h324.34M386,75H60l-20,20v51l20,20h326c7.81-7.81,12.19-12.19,20-20v-51c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path d="M386,75c7.81,7.81,12.19,12.19,20,20v51c-7.81,7.81-12.19,12.19-20,20H60l-20-20v-51l20-20h326M386.41,74H59.59l-.29.29-20,20-.29.29v51.83l.29.29,20,20,.29.29h326.83l.29-.29,20-20,.29-.29v-51.83l-.29-.29-20-20-.29-.29h0Z"/>
+    </g>
+  </g>
+  <g id="Timer">
+    <g>
+      <polygon class="cls-7" points="33.83 114 15 95.17 15 38.83 33.83 20 412.17 20 431 38.83 431 95.17 412.17 114 33.83 114"/>
+      <path class="cls-6" d="M411.34,22l17.66,17.66v54.69l-17.66,17.66H34.66l-17.66-17.66v-54.69l17.66-17.66h376.69M413,18H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path class="cls-2" d="M412.17,20l18.83,18.83v56.34l-18.83,18.83H33.83l-18.83-18.83v-56.34l18.83-18.83h378.34M413,18H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path d="M413,18c7.81,7.81,12.19,12.19,20,20v58c-7.81,7.81-12.19,12.19-20,20H33c-7.81-7.81-12.19-12.19-20-20v-58l20-20h380M413.41,17H32.59l-.29.29-20,20-.29.29v58.83l.29.29,20,20,.29.29h380.83l.29-.29,20-20,.29-.29v-58.83l-.29-.29-20-20-.29-.29h0Z"/>
+    </g>
+    <rect class="cls-3" x="33" y="40.33" width="379" height=".67"/>
+    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" class="cls-5" points="17 84 38 105 419 105.34 412 112 34.54 112 17 94.48 17 84"/>
   </g>
 </svg>

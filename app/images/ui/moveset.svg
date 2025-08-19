@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
+    <style>
+      .cls-1 {
+        fill: #4d4d4d;
+      }
+
+      .cls-2 {
+        filter: url(#drop-shadow-1);
+        opacity: .2;
+        stroke: #6e5597;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2, .cls-3 {
+        fill: gray;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient);
+      }
+    </style>
     <linearGradient id="linear-gradient" x1="449" y1="970" x2="1471" y2="970" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#999"/>
       <stop offset=".04" stop-color="#a0a0a0"/>
@@ -12,7 +32,7 @@
       <stop offset=".97" stop-color="#9d9d9d"/>
       <stop offset="1" stop-color="#999"/>
     </linearGradient>
-    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-1" x="451" y="1027" width="1005" height="31" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="-1"/>
       <feGaussianBlur result="blur" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".5"/>
@@ -22,11 +42,11 @@
   </defs>
   <g id="Moveset">
     <g>
-      <rect x="449" y="880" width="1022" height="180" rx="6" ry="6" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
-      <path d="m1465,882c2.21,0,4,1.79,4,4v168c0,2.21-1.79,4-4,4H455c-2.21,0-4-1.79-4-4v-168c0-2.21,1.79-4,4-4h1010m0-4H455c-4.42,0-8,3.58-8,8v168c0,4.42,3.58,8,8,8h1010c4.42,0,8-3.58,8-8v-168c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
-      <path d="m1465,880c3.31,0,6,2.69,6,6v168c0,3.31-2.69,6-6,6H455c-3.31,0-6-2.69-6-6v-168c0-3.31,2.69-6,6-6h1010m0-2H455c-4.42,0-8,3.58-8,8v168c0,4.42,3.58,8,8,8h1010c4.42,0,8-3.58,8-8v-168c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
-      <path d="m1465,878c4.42,0,8,3.58,8,8v168c0,4.42-3.58,8-8,8H455c-4.42,0-8-3.58-8-8v-168c0-4.42,3.58-8,8-8h1010m0-1H455c-4.96,0-9,4.04-9,9v168c0,4.96,4.04,9,9,9h1010c4.96,0,9-4.04,9-9v-168c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+      <polygon class="cls-4" points="467.83 1060 449 1041.17 449 898.83 467.83 880 1452.17 880 1471 898.83 1471 1041.17 1452.17 1060 467.83 1060"/>
+      <path class="cls-3" d="M1451.34,882l8.83,8.83,8.83,8.83v140.69l-17.66,17.66H468.66l-8.83-8.83-8.83-8.83v-140.69l17.66-17.66h982.69M1453,878H467l-20,20v144c7.81,7.81,12.19,12.19,20,20h986l20-20v-144c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path class="cls-1" d="M1452.17,880l9.41,9.41,9.41,9.41v142.34l-18.83,18.83H467.83l-9.41-9.41-9.41-9.41v-142.34l18.83-18.83h984.34M1453,878H467l-20,20v144c7.81,7.81,12.19,12.19,20,20h986l20-20v-144c-7.81-7.81-12.19-12.19-20-20h0Z"/>
+      <path d="M1453,878c7.81,7.81,12.19,12.19,20,20v144l-20,20H467c-7.81-7.81-12.19-12.19-20-20v-144l20-20h986M1453.41,877H466.59l-.29.29-20,20-.29.29v144.83l.29.29,10,10,10,10,.29.29h986.83l.29-.29,20-20,.29-.29v-144.83l-.29-.29-10-10-10-10-.29-.29h0Z"/>
     </g>
-    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" points="451 1028 470 1047 1469.06 1047.35 1469.06 1058.42 451 1058 451 1028" style="fill: gray; filter: url(#drop-shadow-1); opacity: .2; stroke: #6e5597; stroke-miterlimit: 10;"/>
+    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" class="cls-2" points="451 1027 475 1051 1456 1051.34 1449 1058 470.6 1058 451 1038.53 451 1027"/>
   </g>
 </svg>

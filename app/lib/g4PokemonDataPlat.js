@@ -1,4 +1,4 @@
-const g4PokemonData = 
+const g5PokemonData = 
 {
         "Latias": {
             "species": "Latias",
