@@ -1740,7 +1740,7 @@ const app = Vue.createApp({
             return object
         },
         svgColorClass(speed_comparison, enemy_data) {
-            console.log(speed_comparison, enemy_data)
+            // console.log(speed_comparison, enemy_data)
             const isFainted = enemy_data?.stats.hp?.value
             if (isFainted == 0) {
                 return 'grey-svg';
@@ -2488,7 +2488,7 @@ const app = Vue.createApp({
             return Object.values(object).map(entry => entry.species);
         },
         eHPType(valueToReturn, moveValue, slotIndex) {
-            console.log(valueToReturn, moveValue, slotIndex)
+            // console.log(valueToReturn, moveValue, slotIndex)
             if (moveValue == "Hidden Power") {
                 return this.hiddenPowerTypeCalc(this.mapper.properties.battle.opponent.team[slotIndex])
             }
@@ -3124,7 +3124,7 @@ const app = Vue.createApp({
             const species = this.mapper.properties.player.team[0].species.value
             const team_move = this.mapper.properties.player.team[0].moves[`${moveNumber - 1}`]?.move.value
             const battle_move = this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.move.value
-            console.log(team_move, battle_move)
+            // console.log(team_move, battle_move)
             if (state == `Battle` || state == `From Battle` || (state == `No Pokemon` && species != null)) {
                 if (battle_move) {
                     return battle_move
@@ -3339,7 +3339,7 @@ const app = Vue.createApp({
                     return this.dataSearch(moveData, x)
                 }),    
             }
-            console.log(obj)
+            // console.log(obj)
             return obj
         }, 
 
@@ -4438,7 +4438,6 @@ const app = Vue.createApp({
             var defendingType2 = this.mapper.properties.battle.opponent.active_pokemon.type_2.value ?? "Normal"
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
-            console.log(attackingType, defendingType1, defendingType2)
             var defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
             var pkmn_ability = this.mapper.properties.player.team[0].ability.value
             // if (defendingType1 && attackingType) {
