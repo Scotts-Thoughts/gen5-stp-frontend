@@ -59,10 +59,11 @@
             <img v-if="mapper.properties.meta.game_name.value == 'Platinum'"                 class="canvas" :src="`images/ui/badges_unobtained - plat.png`" />
             <img v-if="mapper.properties.meta.game_name.value == 'HeartGold and SoulSilver'" class="canvas" :src="`images/ui/badges_unobtained - hgss.png`" />
             <img class="canvas" :src="`images/ui/move_backgrounds.png`" />
-            <div>
+            <!-- <div>
                 <div class="gametimeClock">{{timer_formatted_time[0]}}</div>
                 <div class="gametimeFrames">{{timer_formatted_time[1]}}</div>
-            </div>
+            </div> -->
+            <Timer></Timer>
 
             <div>
                 <div class="ui1">
@@ -74,10 +75,12 @@
                     <br>
                     <button class="buttonStyle" @click="newRun">New Run</button><br>
                     <br>
-                    <button class="buttonStyle" @click="set_timer">Set Timer</button><br>
-                    <button @click="pauseUnpauseTime()" class="buttonStyle" style="background-color: rgb(201, 199, 100);">Toggle Pause Timer</button><br>
+                    <!-- <button class="buttonStyle" @click="set_timer">Set Timer</button><br>
+                    <button @click="pauseUnpauseTime()" class="buttonStyle" style="background-color: rgb(201, 199, 100);">Play/Pause</button><br>
                     Start Time Offset: <input type="text" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
-                    <br>
+                    <br> -->
+                    <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
+                    <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br><input type="text" class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
