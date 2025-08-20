@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
-    <linearGradient id="linear-gradient" x1="138" y1="275" x2="243" y2="275" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="262.83" y1="348" x2="413.17" y2="348" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#999"/>
       <stop offset=".04" stop-color="#a0a0a0"/>
       <stop offset=".21" stop-color="#b8b8b8"/>
@@ -14,19 +14,23 @@
     </linearGradient>
     <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
-      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feGaussianBlur result="blur" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
   </defs>
-  <g id="Evasion">
-    <g id="Evasion-2" data-name="Evasion">
-      <rect x="138" y="244" width="105" height="62" rx="6" ry="6" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
-      <path d="m237,246c2.21,0,4,1.79,4,4v50c0,2.21-1.79,4-4,4h-93c-2.21,0-4-1.79-4-4v-50c0-2.21,1.79-4,4-4h93m0-4h-93c-4.42,0-8,3.58-8,8v50c0,4.42,3.58,8,8,8h93c4.42,0,8-3.58,8-8v-50c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
-      <path d="m237,244c3.31,0,6,2.69,6,6v50c0,3.31-2.69,6-6,6h-93c-3.31,0-6-2.69-6-6v-50c0-3.31,2.69-6,6-6h93m0-2h-93c-4.42,0-8,3.58-8,8v50c0,4.42,3.58,8,8,8h93c4.42,0,8-3.58,8-8v-50c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
-      <path d="m237,242c4.42,0,8,3.58,8,8v50c0,4.42-3.58,8-8,8h-93c-4.42,0-8-3.58-8-8v-50c0-4.42,3.58-8,8-8h93m0-1h-93c-4.96,0-9,4.04-9,9v50c0,4.96,4.04,9,9,9h93c4.96,0,9-4.04,9-9v-50c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+  <g id="Badge">
+    <g id="Layer_26_copy_2" data-name="Layer 26 copy 2">
+      <g id="Screens_copy_2" data-name="Screens copy 2">
+        <g id="Evasion">
+          <polygon points="293.83 379 262.83 348 293.83 317 382.17 317 413.17 348 382.17 379 293.83 379" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+          <path d="m381.34,319l29,29-29,29h-86.69l-29-29,29-29h86.69m1.66-4h-90c-12.89,12.89-20.11,20.11-33,33h0c12.89,12.89,20.11,20.11,33,33h90c12.89-12.89,20.11-20.11,33-33h0c-12.89-12.89-20.11-20.11-33-33h0Z" style="fill: gray; stroke-width: 0px;"/>
+          <path d="m382.17,317l31,31-31,31h-88.34l-31-31,31-31h88.34m.83-2h-90c-12.89,12.89-20.11,20.11-33,33h0c12.89,12.89,20.11,20.11,33,33h90c12.89-12.89,20.11-20.11,33-33h0c-12.89-12.89-20.11-20.11-33-33h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+          <path d="m383,315c12.89,12.89,20.11,20.11,33,33h0c-12.89,12.89-20.11,20.11-33,33h-90c-12.89-12.89-20.11-20.11-33-33h0c12.89-12.89,20.11-20.11,33-33h90m.41-1h-90.83l-.29.29-33,33-.71.71.71.71,33,33,.29.29h90.83l.29-.29,33-33,.71-.71-.71-.71-33-33-.29-.29h0Z" style="stroke-width: 0px;"/>
+        </g>
+        <rect x="302.77" y="334.18" width="70.45" height=".82" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
+      </g>
     </g>
-    <rect x="152" y="261" width="77" height="1" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
   </g>
 </svg>

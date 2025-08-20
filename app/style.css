@@ -958,7 +958,7 @@ body {
     z-index: 5;
     /* top: 195px;
     left: 295px; old coordinates*/
-    top: 185px;
+    top: 239px;
     left: 149px;
     line-height: 60px;
     text-align: center;
@@ -976,7 +976,7 @@ body {
     z-index: 5;
     /* top: 195px;
     left: 295px; old coordinates*/
-    top: 185px;
+    top: 239px;
     left: 69px;
     line-height: 60px;
     text-align: center;
@@ -994,7 +994,7 @@ body {
     z-index: 5;
     /* top: 195px;
     left: 295px; old coordinates*/
-    top: 185px;
+    top: 239px;
     left: 228px;
     line-height: 60px;
     text-align: center;
@@ -1073,7 +1073,7 @@ img, span, div {
 }
 
 .ePkmnMoves {
-    top: -3px;
+    top: -5px;
     position: absolute;
     left: 258px;
     padding: 0;
@@ -1092,7 +1092,7 @@ img, span, div {
     table-layout: fixed;
     position: absolute;
     border: 1px solid #00000000;
-    line-height: 29.5px;
+    line-height: 30px;
     padding: 1px;
     width: 151px;
     top: 22px;
@@ -1166,8 +1166,8 @@ img, span, div {
     height: 32px;
 }
 .moveIcon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     margin-bottom: 2px;
 }
 
@@ -2056,21 +2056,21 @@ img, span, div {
     left: 32px;
 }
 .resetsLabel {
-    top: 166px;
+    top: 219px;
     left: 149px;
     width: 150px;
     text-align: center;
     border: 1px solid #ff000000;
 }
 .resetsLabel_2 {
-    top: 166px;
+    top: 219px;
     left: 69px;
     width: 150px;
     text-align: center;
     border: 1px solid #ff000000;
 }
 .resetsLabel_3 {
-    top: 166px;
+    top: 219px;
     left: 228px;
     width: 150px;
     text-align: center;
@@ -2104,13 +2104,13 @@ img, span, div {
 
 .accuracyModLabel {
     position: absolute;
-    top: 245px;
-    left: 31px;
+    top: 318px;
+    left: 72px;
 }
 .evasionModLabel {
     position: absolute;
-    top: 245px;
-    left: 158px;
+    top: 318px;
+    left: 306px;
 }
 .popUpsStyle {
     position: absolute;
@@ -2950,7 +2950,7 @@ img, span, div {
     line-height: 20px;
     text-align: center;
     width: 129px;
-    top: 0px;
+    top: -0.5px;
     left: 265px;
 }
 .ePkmnLevel {
@@ -2962,7 +2962,7 @@ img, span, div {
     line-height: 20px;
     text-align: center;
     width: 135px;
-    top: 0px;
+    top: -0.5px;
     left: 115px;
 }
 .speed_comparison {
@@ -2974,7 +2974,7 @@ img, span, div {
     line-height: 20px;
     text-align: center;
     width: 135px;
-    top: 21px;
+    top: 20px;
     left: 115px;
 }
 .seHp {
@@ -3256,16 +3256,16 @@ img, span, div {
     top: 380px;
 }
 .accuracyMod {
-    left: 13px;
-    top: 260px;
+    left: 54px;
+    top: 332px;
 }
 .evasionLabel {
     left: 137px;
     top: 230px;
 }
 .evasionMod {
-    left: 137px;
-    top: 260px;
+    left: 284px;
+    top: 332px;
 }
 .playerFieldEffects {
     position: absolute;
@@ -3317,16 +3317,18 @@ img, span, div {
 }
 .enemyMod {
     position: absolute;
-    border: 1px solid #00000000;
-    width: 28px;
+    border: 1px solid #16dfc400;
+    width: 67px;
     text-align: center;
+    font-size: 14px;
+    opacity: .8;
 }
 .stcd { top: -18px; width: 42px; height: 18px; left: -5px; font-size: 14px; }
-.e_attack { top: 2px; }
-.e_defense { top: 26px; }
-.e_special_attack { top: 50px; }
-.e_special_defense { top: 75px; }
-.e_speed { top: 98px; }
+.e_attack          { top: 52px; left: -31px }
+.e_defense         { top: 88px; left: -31px }
+.e_speed           { top: 15px; left: 36px }
+.e_special_attack  { top: 52px; left: 36px }
+.e_special_defense { top: 88px; left: 36px }
 
 .attackMod {
     top: 32px;
@@ -3478,7 +3480,7 @@ img, span, div {
 .stat_column_1 { left: 26px; padding-top: 1px; padding-left: 1px; }
 .stat_column_2 { left: 88px; }
 .stat_column_3 { left: 230px; padding-top: 1px; padding-left: 1px; }
-.stat_column_4 { left: 291px; }
+.stat_column_4 { left: 290px; }
 .detailed_ev_stat_row_1 { top: 54px; }
 .detailed_ev_stat_row_2 { top: 116px; }
 .detailed_ev_stat_row_3 { top: 178px; }

@@ -1,55 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
-    <style>
-      .cls-1 {
-        fill: url(#linear-gradient-2);
-      }
-
-      .cls-2 {
-        fill: #4d4d4d;
-      }
-
-      .cls-3 {
-        filter: url(#drop-shadow-2);
-      }
-
-      .cls-3, .cls-4, .cls-5 {
-        fill: #231f20;
-      }
-
-      .cls-4 {
-        filter: url(#drop-shadow-1);
-      }
-
-      .cls-6 {
-        fill: url(#linear-gradient-4);
-      }
-
-      .cls-7 {
-        fill: url(#linear-gradient-3);
-      }
-
-      .cls-8, .cls-9 {
-        fill: gray;
-      }
-
-      .cls-5 {
-        filter: url(#drop-shadow-3);
-      }
-
-      .cls-10 {
-        fill: url(#linear-gradient);
-      }
-
-      .cls-9 {
-        filter: url(#drop-shadow-4);
-        opacity: .2;
-        stroke: #6e5597;
-        stroke-miterlimit: 10;
-      }
-    </style>
-    <linearGradient id="linear-gradient" x1="230" y1="200" x2="376" y2="200" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="230" y1="253" x2="376" y2="253" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#999"/>
       <stop offset=".04" stop-color="#a0a0a0"/>
       <stop offset=".21" stop-color="#b8b8b8"/>
@@ -60,7 +12,7 @@
       <stop offset=".97" stop-color="#9d9d9d"/>
       <stop offset="1" stop-color="#999"/>
     </linearGradient>
-    <filter id="drop-shadow-1" x="242" y="182" width="124" height="7" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
       <feGaussianBlur result="blur" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
@@ -68,23 +20,23 @@
       <feComposite in="SourceGraphic"/>
     </filter>
     <linearGradient id="linear-gradient-2" x1="71" x2="217" xlink:href="#linear-gradient"/>
-    <filter id="drop-shadow-2" x="83" y="182" width="124" height="7" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
       <feGaussianBlur result="blur-2" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur-2" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <linearGradient id="linear-gradient-3" x1="42" y1="120.5" x2="404" y2="120.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="57" y1="148" x2="390" y2="148" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="15" y1="67" x2="431" y2="67" xlink:href="#linear-gradient"/>
-    <filter id="drop-shadow-3" x="28" y="35" width="391" height="13" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-3" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
       <feGaussianBlur result="blur-3" stdDeviation="2"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur-3" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <filter id="drop-shadow-4" x="17" y="84" width="402" height="28" filterUnits="userSpaceOnUse">
+    <filter id="drop-shadow-4" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="-1"/>
       <feGaussianBlur result="blur-4" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".5"/>
@@ -93,35 +45,41 @@
     </filter>
   </defs>
   <g id="Badge">
-    <g>
-      <polygon class="cls-10" points="243.83 252 230 238.17 230 161.83 243.83 148 362.17 148 376 161.83 376 238.17 362.17 252 243.83 252"/>
-      <path class="cls-8" d="M361.34,150l12.66,12.66v74.69l-12.66,12.66h-116.69l-12.66-12.66v-74.69l12.66-12.66h116.69M363,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
-      <path class="cls-2" d="M362.17,148l13.83,13.83v76.34l-13.83,13.83h-118.34l-13.83-13.83v-76.34l13.83-13.83h118.34M363,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
-      <path d="M363,146l15,15v78l-15,15h-120l-15-15v-78l15-15h120M363.41,145h-120.83l-.29.29-15,15-.29.29v78.83l.29.29,15,15,.29.29h120.83l.29-.29,15-15,.29-.29v-78.83l-.29-.29-15-15-.29-.29h0Z"/>
-    </g>
-    <rect class="cls-4" x="244" y="184" width="118" height=".59"/>
-    <g>
-      <polygon class="cls-1" points="84.83 252 71 238.17 71 161.83 84.83 148 203.17 148 217 161.83 217 238.17 203.17 252 84.83 252"/>
-      <path class="cls-8" d="M202.34,150l12.66,12.66v74.69l-12.66,12.66h-116.69l-12.66-12.66v-74.69l12.66-12.66h116.69M204,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
-      <path class="cls-2" d="M203.17,148l13.83,13.83v76.34l-13.83,13.83h-118.34l-13.83-13.83v-76.34l13.83-13.83h118.34M204,146h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z"/>
-      <path d="M204,146l15,15v78l-15,15h-120l-15-15v-78l15-15h120M204.41,145h-120.83l-.29.29-15,15-.29.29v78.83l.29.29,15,15,.29.29h120.83l.29-.29,15-15,.29-.29v-78.83l-.29-.29-15-15-.29-.29h0Z"/>
-    </g>
-    <rect class="cls-3" x="85" y="184" width="118" height=".59"/>
-    <g>
-      <polygon class="cls-7" points="60.83 164 42 145.17 42 95.83 60.83 77 385.17 77 404 95.83 404 145.17 385.17 164 60.83 164"/>
-      <path class="cls-8" d="M384.34,79l17.66,17.66v47.69l-17.66,17.66H61.66l-17.66-17.66v-47.69l17.66-17.66h322.69M386,75H60l-20,20v51l20,20h326c7.81-7.81,12.19-12.19,20-20v-51c-7.81-7.81-12.19-12.19-20-20h0Z"/>
-      <path class="cls-2" d="M385.17,77l18.83,18.83v49.34l-18.83,18.83H60.83l-18.83-18.83v-49.34l18.83-18.83h324.34M386,75H60l-20,20v51l20,20h326c7.81-7.81,12.19-12.19,20-20v-51c-7.81-7.81-12.19-12.19-20-20h0Z"/>
-      <path d="M386,75c7.81,7.81,12.19,12.19,20,20v51c-7.81,7.81-12.19,12.19-20,20H60l-20-20v-51l20-20h326M386.41,74H59.59l-.29.29-20,20-.29.29v51.83l.29.29,20,20,.29.29h326.83l.29-.29,20-20,.29-.29v-51.83l-.29-.29-20-20-.29-.29h0Z"/>
+    <g id="Layer_26_copy_2" data-name="Layer 26 copy 2">
+      <g id="Layer_29_copy_2" data-name="Layer 29 copy 2">
+        <g>
+          <polygon points="243.83 305 230 291.17 230 214.83 243.83 201 362.17 201 376 214.83 376 291.17 362.17 305 243.83 305" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+          <path d="m361.34,203l12.66,12.66v74.69l-12.66,12.66h-116.69l-12.66-12.66v-74.69l12.66-12.66h116.69m1.66-4h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z" style="fill: gray; stroke-width: 0px;"/>
+          <path d="m362.17,201l13.83,13.83v76.34l-13.83,13.83h-118.34l-13.83-13.83v-76.34l13.83-13.83h118.34m.83-2h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+          <path d="m363,199l15,15v78l-15,15h-120l-15-15v-78l15-15h120m.41-1h-120.83l-.29.29-15,15-.29.29v78.83l.29.29,15,15,.29.29h120.83l.29-.29,15-15,.29-.29v-78.83l-.29-.29-15-15-.29-.29h0Z" style="stroke-width: 0px;"/>
+        </g>
+        <rect x="244" y="237" width="118" height=".59" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
+      </g>
+      <g id="Layer_28_copy_2" data-name="Layer 28 copy 2">
+        <g>
+          <polygon points="84.83 305 71 291.17 71 214.83 84.83 201 203.17 201 217 214.83 217 291.17 203.17 305 84.83 305" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
+          <path d="m202.34,203l12.66,12.66v74.69l-12.66,12.66h-116.69l-12.66-12.66v-74.69l12.66-12.66h116.69m1.66-4h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z" style="fill: gray; stroke-width: 0px;"/>
+          <path d="m203.17,201l13.83,13.83v76.34l-13.83,13.83h-118.34l-13.83-13.83v-76.34l13.83-13.83h118.34m.83-2h-120l-15,15v78l15,15h120c5.86-5.86,9.14-9.14,15-15v-78c-5.86-5.86-9.14-9.14-15-15h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+          <path d="m204,199l15,15v78l-15,15h-120l-15-15v-78l15-15h120m.41-1h-120.83l-.29.29-15,15-.29.29v78.83l.29.29,15,15,.29.29h120.83l.29-.29,15-15,.29-.29v-78.83l-.29-.29-15-15-.29-.29h0Z" style="stroke-width: 0px;"/>
+        </g>
+        <rect x="85" y="237" width="118" height=".59" style="fill: #231f20; filter: url(#drop-shadow-2); stroke-width: 0px;"/>
+      </g>
+      <g>
+        <polygon points="75.83 217 57 198.17 57 97.83 75.83 79 371.17 79 390 97.83 390 198.17 371.17 217 75.83 217" style="fill: url(#linear-gradient-3); stroke-width: 0px;"/>
+        <path d="m370.34,81l17.66,17.66v98.69l-17.66,17.66H76.66l-17.66-17.66v-98.69l17.66-17.66h293.69m1.66-4H75c-7.81,7.81-12.19,12.19-20,20v102c7.81,7.81,12.19,12.19,20,20h297c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: gray; stroke-width: 0px;"/>
+        <path d="m371.17,79l18.83,18.83v100.34l-18.83,18.83H75.83l-18.83-18.83v-100.34l18.83-18.83h295.34m.83-2H75l-20,20v102l20,20h297c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+        <path d="m372,77c7.81,7.81,12.19,12.19,20,20v102c-7.81,7.81-12.19,12.19-20,20H75l-20-20v-102l20-20h297m.41-1H74.59l-.29.29-20,20-.29.29v102.83l.29.29,20,20,.29.29h297.83l.29-.29,20-20,.29-.29v-102.83l-.29-.29-20-20-.29-.29h0Z" style="stroke-width: 0px;"/>
+      </g>
     </g>
   </g>
   <g id="Timer">
     <g>
-      <polygon class="cls-6" points="33.83 114 15 95.17 15 38.83 33.83 20 412.17 20 431 38.83 431 95.17 412.17 114 33.83 114"/>
-      <path class="cls-8" d="M411.34,22l17.66,17.66v54.69l-17.66,17.66H34.66l-17.66-17.66v-54.69l17.66-17.66h376.69M413,18H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z"/>
-      <path class="cls-2" d="M412.17,20l18.83,18.83v56.34l-18.83,18.83H33.83l-18.83-18.83v-56.34l18.83-18.83h378.34M413,18H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z"/>
-      <path d="M413,18c7.81,7.81,12.19,12.19,20,20v58c-7.81,7.81-12.19,12.19-20,20H33c-7.81-7.81-12.19-12.19-20-20v-58l20-20h380M413.41,17H32.59l-.29.29-20,20-.29.29v58.83l.29.29,20,20,.29.29h380.83l.29-.29,20-20,.29-.29v-58.83l-.29-.29-20-20-.29-.29h0Z"/>
+      <polygon points="33.83 114 15 95.17 15 38.83 33.83 20 412.17 20 431 38.83 431 95.17 412.17 114 33.83 114" style="fill: url(#linear-gradient-4); stroke-width: 0px;"/>
+      <path d="m411.34,22l17.66,17.66v54.69l-17.66,17.66H34.66l-17.66-17.66v-54.69l17.66-17.66h376.69m1.66-4H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m412.17,20l18.83,18.83v56.34l-18.83,18.83H33.83l-18.83-18.83v-56.34l18.83-18.83h378.34m.83-2H33l-20,20v58c7.81,7.81,12.19,12.19,20,20h380c7.81-7.81,12.19-12.19,20-20v-58c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+      <path d="m413,18c7.81,7.81,12.19,12.19,20,20v58c-7.81,7.81-12.19,12.19-20,20H33c-7.81-7.81-12.19-12.19-20-20v-58l20-20h380m.41-1H32.59l-.29.29-20,20-.29.29v58.83l.29.29,20,20,.29.29h380.83l.29-.29,20-20,.29-.29v-58.83l-.29-.29-20-20-.29-.29h0Z" style="stroke-width: 0px;"/>
     </g>
-    <rect class="cls-5" x="33" y="40.33" width="379" height=".67"/>
-    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" class="cls-9" points="17 84 38 105 419 105.34 412 112 34.54 112 17 94.48 17 84"/>
+    <rect x="33" y="40.33" width="379" height=".67" style="fill: #231f20; filter: url(#drop-shadow-3); stroke-width: 0px;"/>
+    <polygon id="_highlight_" data-name="&amp;lt;highlight&amp;gt;" points="17 84 38 105 419 105.34 412 112 34.54 112 17 94.48 17 84" style="fill: gray; filter: url(#drop-shadow-4); opacity: .2; stroke: #6e5597; stroke-miterlimit: 10;"/>
   </g>
 </svg>

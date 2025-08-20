@@ -31,12 +31,15 @@ const game_variables =
             "Four Caitlin",
             "Four Marshal",
             "Alder",
+            "N",
+            "Cheren",
+            "Bianca",
         ],
         "champion" : [
             "Alder",
         ],
         "finalBattle" : [
-            "Alder",
+            "Ghetsis",
         ],
         "encountersMap" : {
         },

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen4 Frontend - v0.1.0</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.0.2</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -59,10 +59,6 @@
             <img v-if="mapper.properties.meta.game_name.value == 'Platinum'"                 class="canvas" :src="`images/ui/badges_unobtained - plat.png`" />
             <img v-if="mapper.properties.meta.game_name.value == 'HeartGold and SoulSilver'" class="canvas" :src="`images/ui/badges_unobtained - hgss.png`" />
             <img class="canvas" :src="`images/ui/move_backgrounds.png`" />
-            <!-- <div>
-                <div class="gametimeClock">{{timer_formatted_time[0]}}</div>
-                <div class="gametimeFrames">{{timer_formatted_time[1]}}</div>
-            </div> -->
             <Timer></Timer>
 
             <div>
@@ -75,10 +71,6 @@
                     <br>
                     <button class="buttonStyle" @click="newRun">New Run</button><br>
                     <br>
-                    <!-- <button class="buttonStyle" @click="set_timer">Set Timer</button><br>
-                    <button @click="pauseUnpauseTime()" class="buttonStyle" style="background-color: rgb(201, 199, 100);">Play/Pause</button><br>
-                    Start Time Offset: <input type="text" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
-                    <br> -->
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
                     <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br><input type="text" class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
@@ -87,7 +79,8 @@
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
                     </table>
                     <br>
-                    <button class="buttonStyle" onClick="openFolder('splits')">Open Splits Folder</button><br>
+                    <!-- <button class="buttonStyle" onClick="openFolder('splits')">Open Splits Folder</button><br> -->
+                    <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
                     <br>
                     <!-- Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
@@ -120,7 +113,6 @@
                             <tr><td>Delay:</td><td>{{disallow_delay}}</td></tr>
                             <tr><td>Blackout:</td><td>{{this.blackout}}</td></tr>
                             <tr><td>Enemy Graphic:</td><td>{{enemy_graphic}}</td></tr>
-                            <tr><td>game:</td><td>{{game['Black']}}</td></tr>
                         </table>
                     </div>
                 </div>
@@ -452,8 +444,11 @@
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
                     <div v-for="x in pkmnSlots">
-                        <img v-show="mapper.properties.battle.opponent.team_count.value > x" class="canvas eFaintTransition" :style="fade_enemy_mon_comparison(x)" :class="svgColorClass(speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison, mapper.properties.battle.opponent.team[x])" :src="`images/ui/speed_comp/${x}.svg`"/>
+                        <img v-show="mapper.properties.battle.opponent.team_count.value > x" class="canvas eFaintTransition" :style="fade_enemy_mon_comparison(x)" :class="svgColorClass(speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison, mapper.properties.battle.opponent.team[x])" style="left: -1px;" :src="`images/ui/speed_comp/${x}.svg`"/>
                     </div>
+                    <!-- <div v-for="x in pkmnSlots">
+                        <img v-show="mapper.properties.battle.opponent.team_count.value > x" class="canvas eFaintTransition colored-image ds" :style="fade_enemy_mon_comparison(x)" :src="`images/enemy-area/moves/${x}.svg`"/>
+                    </div> -->
                     <div v-for="x in pkmnSlots">
                         <img v-if="x < mapper.properties.battle.opponent.team_count.value" :src="`images/enemy-area/stats/${ui_type_color_modifier}/${x}.svg`" :style="fade_enemy_mon(x)" class="enemyPng eFaintTransition" :style="enemyFaint(x)">
                     </div>
@@ -474,11 +469,11 @@
                                     </div>
     
                                     <div class="enemyStatLabel eStatLabel eLabelLeft eLabel1" >Hp:</div>
-                                    <div class="enemyStatLabel eStatLabel eLabelLeft eLabel2" >Atk:</div>
-                                    <div class="enemyStatLabel eStatLabel eLabelLeft eLabel3" >Def:</div>
-                                    <div class="enemyStatLabel eStatLabel eLabelRight eLabel1">Spe:</div>
-                                    <div class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
-                                    <div class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
+                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.attack.value == 0"          class="enemyStatLabel eStatLabel eLabelLeft eLabel2" >Atk:</div>
+                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.defense.value == 0"         class="enemyStatLabel eStatLabel eLabelLeft eLabel3" >Def:</div>
+                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.speed.value == 0"           class="enemyStatLabel eStatLabel eLabelRight eLabel1">Spe:</div>
+                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_attack.value == 0"  class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
+                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_defense.value == 0" class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
     
                                     <div class="align_right eStatValue eValueLeft eValue1" >{{mapper.properties.battle.opponent.team[x].stats.hp_max}}</div>
                                     <div class="align_right eStatValue eValueLeft eValue2" >{{mapper.properties.battle.opponent.team[x].stats.attack}}</div>
@@ -487,6 +482,15 @@
                                     <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
                                     <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
     
+                                    <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
+                                        <div class="enemyStatModTable">
+                                            <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
+                                            <div v-for="modifier in modifier_values">
+                                                <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stageModifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="border ePkmnMoves">
                                         <table class="enemyMovesetTable">
                                             <tr v-show="mapper.properties.battle.opponent.team[x].moves[0].move.value != null">

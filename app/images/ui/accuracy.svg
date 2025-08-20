@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
   <defs>
-    <linearGradient id="linear-gradient" x1="15" y1="275" x2="120" y2="275" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="32.83" y1="348" x2="183.17" y2="348" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#999"/>
       <stop offset=".04" stop-color="#a0a0a0"/>
       <stop offset=".21" stop-color="#b8b8b8"/>
@@ -14,19 +14,23 @@
     </linearGradient>
     <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
-      <feGaussianBlur result="blur" stdDeviation="2"/>
+      <feGaussianBlur result="blur" stdDeviation="1"/>
       <feFlood flood-color="#000" flood-opacity=".75"/>
       <feComposite in2="blur" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
   </defs>
-  <g id="Accuracy">
-    <g id="Accuracy-2" data-name="Accuracy">
-      <rect x="15" y="244" width="105" height="62" rx="6" ry="6" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
-      <path d="m114,246c2.21,0,4,1.79,4,4v50c0,2.21-1.79,4-4,4H21c-2.21,0-4-1.79-4-4v-50c0-2.21,1.79-4,4-4h93m0-4H21c-4.42,0-8,3.58-8,8v50c0,4.42,3.58,8,8,8h93c4.42,0,8-3.58,8-8v-50c0-4.42-3.58-8-8-8h0Z" style="fill: gray; stroke-width: 0px;"/>
-      <path d="m114,244c3.31,0,6,2.69,6,6v50c0,3.31-2.69,6-6,6H21c-3.31,0-6-2.69-6-6v-50c0-3.31,2.69-6,6-6h93m0-2H21c-4.42,0-8,3.58-8,8v50c0,4.42,3.58,8,8,8h93c4.42,0,8-3.58,8-8v-50c0-4.42-3.58-8-8-8h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
-      <path d="m114,242c4.42,0,8,3.58,8,8v50c0,4.42-3.58,8-8,8H21c-4.42,0-8-3.58-8-8v-50c0-4.42,3.58-8,8-8h93m0-1H21c-4.96,0-9,4.04-9,9v50c0,4.96,4.04,9,9,9h93c4.96,0,9-4.04,9-9v-50c0-4.96-4.04-9-9-9h0Z" style="stroke-width: 0px;"/>
+  <g id="Badge">
+    <g id="Layer_26_copy_2" data-name="Layer 26 copy 2">
+      <g id="Accuracy_copy_2" data-name="Accuracy copy 2">
+        <g id="Accuracy">
+          <polygon points="63.83 379 32.83 348 63.83 317 152.17 317 183.17 348 152.17 379 63.83 379" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+          <path d="m151.34,319l29,29-29,29h-86.69l-29-29,29-29h86.69m1.66-4H63c-12.89,12.89-20.11,20.11-33,33h0c12.89,12.89,20.11,20.11,33,33h90c12.89-12.89,20.11-20.11,33-33h0c-12.89-12.89-20.11-20.11-33-33h0Z" style="fill: gray; stroke-width: 0px;"/>
+          <path d="m152.17,317l6.95,6.95,24.05,24.05-19.61,19.61-11.39,11.39H63.83l-6.95-6.95-24.05-24.05,19.61-19.61,11.39-11.39h88.34m.83-2H63c-12.89,12.89-20.11,20.11-33,33h0c12.89,12.89,20.11,20.11,33,33h90c12.89-12.89,20.11-20.11,33-33h0c-12.89-12.89-20.11-20.11-33-33h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+          <path d="m153,315c12.89,12.89,20.11,20.11,33,33h0c-12.89,12.89-20.11,20.11-33,33H63c-12.89-12.89-20.11-20.11-33-33h0c12.89-12.89,20.11-20.11,33-33h90m.41-1H62.59l-.29.29-16.5,16.5-16.5,16.5-.71.71.71.71,21.92,21.92,11.08,11.08.29.29h90.83l.29-.29,11.98-11.98,21.02-21.02.71-.71-.71-.71-25.46-25.46-7.54-7.54-.29-.29h0Z" style="stroke-width: 0px;"/>
+        </g>
+        <rect x="72.77" y="334.04" width="70.45" height=".96" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
+      </g>
     </g>
-    <rect x="29" y="261" width="77" height="1" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
   </g>
 </svg>

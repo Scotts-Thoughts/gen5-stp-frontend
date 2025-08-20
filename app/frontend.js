@@ -19,11 +19,6 @@ const MyStorage = new Proxy({}, {
     }
 });
 
-// Open the folder ./splits/ in the file explorer with node.js
-function openFolder(folderName) {
-    require('child_process').exec(`start .\\${folderName}\\`);
-}
-
 const Keys = {
     "ESCAPE":         0x1B,
     "BACKSPACE":      0x08,
@@ -447,7 +442,7 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
 }
 
 function logCopy(gameName, file_name, starterName, finished_run_count, evolution, evolution_label) {
-    var dirPathAttempts = evolution == true ? `./splits/${gameName}/${evolution_label}/attempts` : `./splits/${gameName}/${starterName}/attempts`;
+    var dirPathAttempts = evolution == true ? `./splits/${gameName}/${evolution_label}` : `./splits/${gameName}/${starterName}`;
     var dirPathFinishes = evolution == true ? `./splits/${gameName}/${evolution_label}/finishes` : `./splits/${gameName}/${starterName}/finishes`;
     fs.mkdir(dirPathFinishes, { recursive: true }, (err) => {
         fs.copyFile(
@@ -526,7 +521,7 @@ const app = Vue.createApp({
             starter                : "Heatran",
             pkmnNature             : "Adamant",
             pkmn_gender            : "Female",
-            ability           : null,
+            ability                : null,
             hidden_power_type      : "Dark",
             hidden_power_index     : 0,
             overlayNew             : "Chimchar",
@@ -837,18 +832,8 @@ const app = Vue.createApp({
                 "blackout_counter",
                 "ui_saturation",
                 "frame",
-                // "TM01","TM02","TM03","TM04","TM05","TM06","TM07","TM08","TM09","TM10","TM11","TM12","TM13","TM14","TM15","TM16","TM17","TM18","TM19","TM20","TM21","TM22","TM23","TM24","TM25","TM26","TM27","TM28","TM29","TM30","TM31","TM32","TM33","TM34","TM35","TM36","TM37","TM38","TM39","TM40","TM41","TM42","TM43","TM44","TM45","TM46","TM47","TM48","TM49","TM50","TM51","TM52","TM53","TM54","TM55","TM56","TM57","TM58","TM59","TM60","TM61","TM62","TM63","TM64","TM65","TM66","TM67","TM68","TM69","TM70","TM71","TM72","TM73","TM74","TM75","TM76","TM77","TM78","TM79","TM80","TM81","TM82","TM83","TM84","TM85","TM86","TM87","TM88","TM89","TM90","TM91","TM92","HM01","HM02","HM03","HM04","HM05","HM06","HM07","HM08",
             ],
-            //timer variables
             timer_startTimeOffset: MyStorage["timer_startTimeOffset"] ?? "00:00:00.00",
-            // timer_startTime:       MyStorage["timer_startTime"]       ?? 0,
-            // timer_pause:           MyStorage["timer_pause"]           ?? true,
-            // timer_formatted_time:  MyStorage["timer_formatted_time"]  ?? ["0", ".00"],
-            // timer_pause_time:      MyStorage["timer_pause_time"]      ?? 0,
-            // time_h:                MyStorage['time_h']                ?? 0,
-            // time_m:                MyStorage['time_m']                ?? 0,
-            // time_s:                MyStorage['time_s']                ?? 0,
-            // time_ms:               MyStorage['time_ms']               ?? 0,
             time_split_start:      MyStorage['time_split_start']      ?? "00:00:00:00",
             battle_start:          MyStorage['battle_start']          ?? 0,
             timer:                 new Timer(MyStorage),
@@ -887,109 +872,6 @@ const app = Vue.createApp({
             buffer_battle_friendship     : 0,
 
             search_term: "",
-
-            track_TMHM_viability: false,
-            // tmhm tracking
-            TM01: false, //Focus Punch
-            TM02: false, //Dragon Claw
-            TM03: false, //Water Pulse
-            TM04: false, //Calm Mind
-            TM05: false, //Roar
-            TM06: false, //Toxic
-            TM07: false, //Hail
-            TM08: false, //Bulk Up
-            TM09: false, //Bullet Seed
-            TM10: false, //Hidden Power
-            TM11: false, //Sunny Day
-            TM12: false, //Taunt
-            TM13: false, //Ice Beam
-            TM14: false, //Blizzard
-            TM15: false, //Hyper Beam
-            TM16: false, //Light Screen
-            TM17: false, //Protect
-            TM18: false, //Rain Dance
-            TM19: false, //Giga Drain
-            TM20: false, //Safeguard
-            TM21: false, //Frustration
-            TM22: false, //SolarBeam
-            TM23: false, //Iron Tail
-            TM24: false, //Thunderbolt
-            TM25: false, //Thunder
-            TM26: false, //Earthquake
-            TM27: false, //Return
-            TM28: false, //Dig
-            TM29: false, //Psychic
-            TM30: false, //Shadow Ball
-            TM31: false, //Brick Break
-            TM32: false, //Double Team
-            TM33: false, //Reflect
-            TM34: false, //Shock Wave
-            TM35: false, //Flamethrower
-            TM36: false, //Sludge Bomb
-            TM37: false, //Sandstorm
-            TM38: false, //Fire Blast
-            TM39: false, //Rock Tomb
-            TM40: false, //Aerial Ace
-            TM41: false, //Torment
-            TM42: false, //Facade
-            TM43: false, //Secret Power
-            TM44: false, //Rest
-            TM45: false, //Attract
-            TM46: false, //Thief
-            TM47: false, //Steel Wing
-            TM48: false, //Skill Swap
-            TM49: false, //Snatch
-            TM50: false, //Overheat
-            TM51: false, //Roost
-            TM52: false, //Focus Blast
-            TM53: false, //Energy Ball
-            TM54: false, //False Swipe
-            TM55: false, //Brine
-            TM56: false, //Fling
-            TM57: false, //Charge Beam
-            TM58: false, //Endure
-            TM59: false, //Dragon Pulse
-            TM60: false, //Drain Punch
-            TM61: false, //Will-O-Wisp
-            TM62: false, //Silver Wind
-            TM63: false, //Embargo
-            TM64: false, //Explosion
-            TM65: false, //Shadow Claw
-            TM66: false, //Payback
-            TM67: false, //Recycle
-            TM68: false, //Giga Impact
-            TM69: false, //Rock Polish
-            TM70: false, //Flash
-            TM71: false, //Stone Edge
-            TM72: false, //Avalanche
-            TM73: false, //Thunder Wave
-            TM74: false, //Gyro Ball
-            TM75: false, //Swords Dance
-            TM76: false, //Stealth Rock
-            TM77: false, //Psych Up
-            TM78: false, //Captivate
-            TM79: false, //Dark Pulse
-            TM80: false, //Rock Slide
-            TM81: false, //X-Scissor
-            TM82: false, //Sleep Talk
-            TM83: false, //Natural Gift
-            TM84: false, //Poison Jab
-            TM85: false, //Dream Eater
-            TM86: false, //Grass Knot
-            TM87: false, //Swagger
-            TM88: false, //Pluck
-            TM89: false, //U-turn
-            TM90: false, //Substitute
-            TM91: false, //Flash Cannon
-            TM92: false, //Trick Room
-            HM01: false, //Cut
-            HM02: false, //Fly
-            HM03: false, //Surf
-            HM04: false, //Strength
-            HM05: false, //Defog
-            HM06: false, //Rock Smash
-            HM07: false, //Waterfall
-            HM08: false, //Rock Climb
 
             // UI
             ui_saturation:                MyStorage["ui_saturation"]                ?? .6,
@@ -1261,10 +1143,10 @@ const app = Vue.createApp({
             const year      = this.ui_stats_styling_modifier
             const state     = this.mapper.properties.meta.state.value
             if (stat_type == 'Base Stats Average') {
-                return 'Gen4 Base Stat Averages'
+                return 'Gen5 Base Stat Averages'
             }
             if (stat_type == 'Base Stats Median') {
-                return 'Gen4 Base Stat Medians'
+                return 'Gen5 Base Stat Medians'
             }
             // stat_fix_lvl 
             if (year == '2023') {
@@ -1740,6 +1622,21 @@ const app = Vue.createApp({
     },
 
     methods: {
+        padTime(time) {
+            return time.toString().padStart(2, "0")
+        },
+        openFolder(folderName, game_name, path = "", path2 = "") {
+            const fs = require('fs');
+            const fullPath = `.\\${folderName}\\${game_name}\\${path}\\${path2}`;
+            console.log(fullPath);
+
+            if (!fs.existsSync(fullPath)) {
+                fs.mkdirSync(fullPath, { recursive: true });
+            }
+
+            // Correctly handle spaces in folder names
+            require('child_process').exec(`start "" "${fullPath}"`);
+        },
         fade_enemy_mon(slot) {
             const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
             if (enemy_hp > 0) {
@@ -1946,17 +1843,25 @@ const app = Vue.createApp({
             }
             return result;
         },
-        // Open the folder ./splits/ in the file explorer with node.js
-        openFolder(folderName) {
-            require('child_process').exec(`start .\\${folderName}\\`);
-        },
         average_median_stats(stat_label) {
             let sum = 0;
             let count = 0;
             let values = [];
             
+            // Map the stat_label to the correct base_stats property name
+            const statMapping = {
+                'hp': 'hp',
+                'atk': 'attack',
+                'def': 'defense', 
+                'spc_atk': 'special_attack',
+                'spc_def': 'special_defense',
+                'spd': 'speed'
+            };
+            
+            const actualStatName = statMapping[stat_label];
+            
             for (let pokemon of Object.values(this.g5PokemonData)) {
-                let stat = pokemon[`base_${stat_label}`];
+                let stat = pokemon.base_stats[actualStatName];
                 sum += stat;
                 count++;
                 values.push(stat);
@@ -2114,6 +2019,12 @@ const app = Vue.createApp({
                 let battle_spd = Math.floor(SpD * this.stageModifiersData.stats[mod_spd])
                 let battle_spe = Math.floor(SpE * this.stageModifiersData.stats[mod_spe])
                 this.stat_fix_lvl = this.mapper.properties.battle.player.active_pokemon.level.value
+                this.stat_fix_hp  = HP
+                this.stat_fix_atk = Atk
+                this.stat_fix_def = Def
+                this.stat_fix_spa = SpA
+                this.stat_fix_spd = SpD
+                this.stat_fix_spe = SpE
                 return {
                     "Hp" : battle_hp,
                     "Atk": battle_atk,
@@ -2124,33 +2035,6 @@ const app = Vue.createApp({
                 }
             }
             if (state == `From Battle`) {
-                let ability = this.ability
-                if (this.stat_fix_toggle = true) {
-                    this.stat_fix_toggle = false
-                    HP = this.mapper.properties.battle.player.active_pokemon.stats.hp_max.value
-                    Atk = this.mapper.properties.battle.player.active_pokemon.stats.attack.value
-                    Def = this.mapper.properties.battle.player.active_pokemon.stats.defense.value
-                    SpA = held_item == 'Choice Specs' ? choice_specs(this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value) : this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value
-                    SpD = this.mapper.properties.battle.player.active_pokemon.stats.special_defense.value
-                    SpE = this.mapper.properties.battle.player.active_pokemon.stats.speed.value
-                    if (status_condition == 'Paralyzed') {
-                        SpE = Math.floor(SpE / 4)
-                    }
-                    if (ability == 'Slow Start') {
-                        Atk = Math.floor(Atk * 0.5)
-                        SpE = Math.floor(SpE * 0.5)
-                    }
-                    if (this.mapper.properties.battle.player.active_pokemon.stats.defense.value < 2000) {
-                        this.stat_fix_lvl = this.mapper.properties.battle.player.active_pokemon.level.value
-                        this.stat_fix_hp  = HP
-                        this.stat_fix_atk = Atk
-                        this.stat_fix_def = Def
-                        this.stat_fix_spa = SpA
-                        this.stat_fix_spd = SpD
-                        this.stat_fix_spe = SpE
-                        this.stat_fix_toggle_2 = 500
-                    }
-                }
                 return {
                     "Hp" : this.stat_fix_hp,
                     "Atk": this.stat_fix_atk,
@@ -2226,12 +2110,6 @@ const app = Vue.createApp({
             const move_name = move_object.Move
             var strikethrough_tmhm = ""
             var strikethrough_tutor = ""
-            if (this.track_TMHM_viability == false) {
-                return {
-                    tmhm: strikethrough_tmhm,
-                    tutor: strikethrough_tutor,
-                }
-            }
             if (this.post_game_moves[game_name].tmhm.includes(move_name)) {
                 strikethrough_tmhm = "text-decoration: line-through;"
             }
@@ -3168,19 +3046,19 @@ const app = Vue.createApp({
             
             // Add comprehensive null checks
             if (!currentStarter) {
-                console.warn('No starter Pokemon defined');
+                // console.warn('No starter Pokemon defined');
                 return;
             }
             
             if (!this.game.dexData[currentStarter]) {
-                console.warn(`Pokemon data not found for: ${currentStarter}`);
+                // console.warn(`Pokemon data not found for: ${currentStarter}`);
                 return;
             }
             
             // Check if the required arrays exist
             if (!this.game.dexData[currentStarter].tm_hm_learnset || 
                 !this.game.dexData[currentStarter].levelup_moveset) {
-                console.warn(`Missing move data for ${currentStarter}:`, this.game.dexData[currentStarter]);
+                // console.warn(`Missing move data for ${currentStarter}:`, this.game.dexData[currentStarter]);
                 return;
             }
             
@@ -4533,7 +4411,7 @@ const app = Vue.createApp({
         //*Autosplitter
         const log_split = (x) => {
             const time = this.timer.formatted_time;
-            const opponent = this.mapper.properties.battle.opponent.name.value;
+            const opponent = this.mapper.properties.battle.opponent.trainer.value;
             console.log(`Autosplitter - Battle Ended: Split: ${opponent} at ${time[0]}${time[1]} (Gametime: ${this.gametimeSplit})`)
         }
         const autosplitter_process = () => {
@@ -4814,17 +4692,17 @@ const app = Vue.createApp({
                 this.full_data_str = full_data_str
                 this.simple_data = simple_data
                 this.deprecated_data_str = deprecated_data_str
-                console.log("Simple Data: ", simple_data)
-                console.log("Deprecated Data: ", deprecated_data_str)
+                // console.log("Simple Data: ", simple_data)
+                // console.log("Deprecated Data: ", deprecated_data_str)
             }
         }
 
         //write to file at the end of a key battle
         this.mapper.properties.meta.state.change(async (prop) => {
             console.log(`State Changed to "${prop.value}"`)
-            if (prop.value != 'From Battle' || this.mapper.properties.battle.player.team[0].stats.hp.value == 0) { return }
+            if (prop.value != 'From Battle' || this.mapper.properties.battle.player.active_pokemon.stats.hp.value == 0) { return }
             autosplitter_process()
-            console.log('Autosplitter Attempted to Run')
+            // console.log('Autosplitter Attempted to Run')
             if (prop.value == 'From Battle') {
                 // console.log('Starting split log process')
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
@@ -4836,13 +4714,13 @@ const app = Vue.createApp({
                 logData(gameName, this.full_data_str, this.attempt_number, this.starter, "Full", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 
                 //write deprecated split data
-                console.log("Autosplitter[this.game.gameName]:" + this.autosplitter[this.game.gameName])
-                console.log(this.autosplitter)
-                console.log("this.game:" + this.game)
-                console.log("this.game.gameName:" + this.game.gameName)
-                console.log("Trainer: " + trainer)
+                // console.log("Autosplitter[this.game.gameName]:" + this.autosplitter[this.game.gameName])
+                // console.log(this.autosplitter)
+                // console.log("this.game:" + this.game)
+                // console.log("this.game.gameName:" + this.game.gameName)
+                // console.log("Trainer: " + trainer)
                 if (this.autosplitter[this.game.gameName][trainer]) {
-                    console.log("Deprecated split attempted to be collected...")
+                    // console.log("Deprecated split attempted to be collected...")
                     logData(gameName, this.deprecated_data_str, this.attempt_number, this.starter, "Deprecated", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 }
                 
@@ -4858,7 +4736,7 @@ const app = Vue.createApp({
                     }
                 }
                 if(this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
-                    console.log("Simple split attempted to be collected...")
+                    // console.log("Simple split attempted to be collected...")
                     simpleSplit();
                 }
         
@@ -4896,7 +4774,7 @@ const app = Vue.createApp({
         });
 
         this.mapper.properties.player.team[0].exp.change(async (newProp, oldProp) => {
-            console.log("State - EXP Function 1", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
+            // console.log("State - EXP Function 1", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
             if (this.expBarAnimation == true) {
                 // console.log("Exp Bar function got here (1)...")
                 const species = this.mapper.properties.player.team[0].species.value ?? this.starter;
@@ -4913,7 +4791,7 @@ const app = Vue.createApp({
             }
         })
         this.mapper.properties.battle.player.active_pokemon.exp.change(async (newProp, oldProp) => {
-            console.log("State - EXP Function 2", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
+            // console.log("State - EXP Function 2", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
             if (this.mapper.properties.meta.state.value == "Battle") {
                 if (this.expBarAnimation == true) {
                     // console.log("Exp Bar function got here (2)...")
