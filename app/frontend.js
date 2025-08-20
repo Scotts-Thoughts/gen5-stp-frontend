@@ -520,7 +520,7 @@ const app = Vue.createApp({
             starter                : "Heatran",
             pkmnNature             : "Adamant",
             pkmn_gender            : "Female",
-            pkmn_ability           : null,
+            ability           : null,
             hidden_power_type      : "Dark",
             hidden_power_index     : 0,
             overlayNew             : "Chimchar",
@@ -539,7 +539,7 @@ const app = Vue.createApp({
             examined_trainer       : "",
             search_trainers        : "",
             
-            stat_fix_toggle        : false,
+            stat_fix_toggle        : true,
             stat_fix_toggle_2      : 0,
             stat_fix_lvl           : 0,
             stat_fix_hp            : 0,
@@ -548,6 +548,15 @@ const app = Vue.createApp({
             stat_fix_spe           : 0,
             stat_fix_spa           : 0,
             stat_fix_spd           : 0,
+
+            move_fix_name_1: "",
+            move_fix_name_2: "",
+            move_fix_name_3: "",
+            move_fix_name_4: "",
+            move_fix_pp_1: null,
+            move_fix_pp_2: null,
+            move_fix_pp_3: null,
+            move_fix_pp_4: null,
 
             customMovepool: {
                 "Torterra"     : "line-height: 16px;",
@@ -811,7 +820,7 @@ const app = Vue.createApp({
                 "backgroundSaturation",
                 "backgroundFlip",
                 "pkmnNature",
-                "pkmn_ability",
+                "ability",
                 "hidden_power_type",
                 "hidden_power_index",
                 "pkmn_gender",
@@ -1004,7 +1013,7 @@ const app = Vue.createApp({
             this.backgroundXOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundXOffset       ?? 0
             this.backgroundYOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundYOffset       ?? 0
             this.backgroundTexture      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundTexture       ?? `${this.g5PokemonData[this.starter].type_1}`
-            this.pkmn_ability           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.pkmn_ability           ?? g5PokemonData[this.starter].abilities[0]
+            this.ability           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.ability           ?? g5PokemonData[this.starter].abilities[0]
             this.attempt_number         = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.attempt_number         ?? 0
             this.finished_run_count     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.finished_run_count     ?? 0
             this.playerResets           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.playerResets           ?? 0
@@ -1084,7 +1093,7 @@ const app = Vue.createApp({
             //main pokemon settings
             this.pkmnNature             = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
             //! FIX_LATER Fix this implementation later
-            // this.pkmn_ability           = MyStorage[`${game}_${starter}`]?.pkmn_ability          ?? this.g5PokemonData[starter].abilities[0],
+            // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
             this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
             this.hidden_power_index     = MyStorage[`${game}_${starter}`]?.hidden_power_index    ?? 0,
             this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
@@ -1333,9 +1342,21 @@ const app = Vue.createApp({
             return timecode
         },
         game() {
-            const game = this.mapper.properties.meta.game_name.value
-            if (game == 'Platinum') { return this.game_variables['Platinum']; }
-            if (game == 'HeartGold and SoulSilver') { return this.game_variables['HeartGold and SoulSilver']; }
+            try {
+                if (!this.mapper?.properties?.meta?.game_name?.value) {
+                    return null;
+                }
+                
+                const game = this.mapper.properties.meta.game_name.value;
+                
+                if (!this.game_variables || !this.game_variables[game]) {
+                    return null;
+                }
+                
+                return this.game_variables[game];
+            } catch (error) {
+                return null;
+            }
         },
         enemy_mon_static() {
             // const opponent_id = this.mapper.properties.battle.opponent?.id?.value
@@ -1712,6 +1733,24 @@ const app = Vue.createApp({
     },
 
     methods: {
+        fade_enemy_mon(slot) {
+            const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
+            if (enemy_hp > 0) {
+                return
+            }
+            else {
+                return `opacity: .3; filter: grayscale(100%);`
+            }
+        },
+        fade_enemy_mon_comparison(slot) {
+            const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
+            if (enemy_hp > 0) {
+                return
+            }
+            else {
+                return `opacity: .3; filter: grayscale(100%) drop-shadow(0px 1px 2px #000000);`
+            }
+        },
         speed_comparison(enemy_slot, enemy_speed_incoming) {
             let object = {
                 comparison: "Outspeeds",
@@ -2067,6 +2106,7 @@ const app = Vue.createApp({
                 let battle_spa = Math.floor(SpA * this.stageModifiersData.stats[mod_spa])
                 let battle_spd = Math.floor(SpD * this.stageModifiersData.stats[mod_spd])
                 let battle_spe = Math.floor(SpE * this.stageModifiersData.stats[mod_spe])
+                this.stat_fix_lvl = this.mapper.properties.battle.player.active_pokemon.level.value
                 return {
                     "Hp" : battle_hp,
                     "Atk": battle_atk,
@@ -2077,6 +2117,7 @@ const app = Vue.createApp({
                 }
             }
             if (state == `From Battle`) {
+                let ability = this.ability
                 if (this.stat_fix_toggle = true) {
                     this.stat_fix_toggle = false
                     HP = this.mapper.properties.battle.player.active_pokemon.stats.hp_max.value
@@ -2084,7 +2125,14 @@ const app = Vue.createApp({
                     Def = this.mapper.properties.battle.player.active_pokemon.stats.defense.value
                     SpA = held_item == 'Choice Specs' ? choice_specs(this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value) : this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value
                     SpD = this.mapper.properties.battle.player.active_pokemon.stats.special_defense.value
-                    SpE = status_condition == 'Paralyzed' ? Math.floor(this.mapper.properties.battle.player.active_pokemon.stats.speed.value / 4) : this.mapper.properties.battle.player.active_pokemon.stats.speed.value
+                    SpE = this.mapper.properties.battle.player.active_pokemon.stats.speed.value
+                    if (status_condition == 'Paralyzed') {
+                        SpE = Math.floor(SpE / 4)
+                    }
+                    if (ability == 'Slow Start') {
+                        Atk = Math.floor(Atk * 0.5)
+                        SpE = Math.floor(SpE * 0.5)
+                    }
                     if (this.mapper.properties.battle.player.active_pokemon.stats.defense.value < 2000) {
                         this.stat_fix_lvl = this.mapper.properties.battle.player.active_pokemon.level.value
                         this.stat_fix_hp  = HP
@@ -2747,168 +2795,61 @@ const app = Vue.createApp({
             }
         },
         getTrainerGraphic() {
-            return {
-                state: false,
-                graphic: `images/trainers/roark.png`,
-                name: "Error - there is no trainer graphic to display. Use 'v-if' to disable rendering of this code through the .state property of this object.",
-            }
             if (this.mapper.properties.meta.state == `Battle`) {
-                let graphic = `images/trainers/roark.png`
+                let graphic = `images/trainers/Cress.png`
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let bytes = this.mapper.properties.battle.opponent.trainer.bytes
-                let id_value = this.mapper.properties.battle.opponent.id.value
+                let id_value = bytes
                 let displayGraphicState = true
-                if (this.selected_game == `Platinum` || this.selected_game == `Diamond and Pearl`) {
+                if (this.selected_game == `Black` || this.selected_game == `White`) {
                     switch (trainer) {
-                        case "Leader Roark":      graphic = `images/trainers/roark.png`;       break;
-                        case "Leader Gardenia":   graphic = `images/trainers/gardenia.png`;    break;
-                        case "Leader Fantina":    graphic = `images/trainers/fantina.png`;     break;
-                        case "Leader Wake":       graphic = `images/trainers/crasherwake.png`; break;
-                        case "Leader Maylene":    graphic = `images/trainers/maylene.png`;     break;
-                        case "Leader Candice":    graphic = `images/trainers/candice.png`;     break;
-                        case "Leader Volkner":    graphic = `images/trainers/volkner.png`;     break;
-                        case "Leader Byron":      graphic = `images/trainers/byron.png`;       break;
-                        case "Elite Four Aaron":  graphic = `images/trainers/aaron.png`;       break;
-                        case "Elite Four Bertha": graphic = `images/trainers/bertha.png`;      break;
-                        case "Elite Four Flint":  graphic = `images/trainers/flint.png`;       break;
-                        case "Elite Four Lucian": graphic = `images/trainers/lucian.png`;      break;
-                        case "Rival": {
+                        case "Cress":    graphic = `images/trainers/Cress.png`;    break;
+                        case "Cilan":    graphic = `images/trainers/Cilan.png`;    break;
+                        case "Chili":    graphic = `images/trainers/Chili.png`;    break;
+                        case "Lenora":   graphic = `images/trainers/Lenora.png`;   break;
+                        case "Burgh":    graphic = `images/trainers/Burgh.png`;    break;
+                        case "Elesa":    graphic = `images/trainers/Elesa.png`;    break;
+                        case "Clay":     graphic = `images/trainers/Clay.png`;     break;
+                        case "Skyla":    graphic = `images/trainers/Skyla.png`;    break;
+                        case "Drayden":  graphic = `images/trainers/Drayden.png`;  break;
+                        case "Iris":     graphic = `images/trainers/Iris.png`;     break;
+                        case "Shauntal": graphic = `images/trainers/Shauntal.png`; break;
+                        case "Caitlin":  graphic = `images/trainers/Caitlin.png`;  break;
+                        case "Grimsley": graphic = `images/trainers/Grimsley.png`; break;
+                        case "Marshal":  graphic = `images/trainers/Marshal.png`;  break;
+                        case "Cheren": {
                             switch (this.mapper.properties.battle.opponent.team_count.value) {
-                                case 1: graphic = `images/trainers/rival1mon.png`; break;
-                                case 2: graphic = `images/trainers/rival1mon.png`; break;
-                                case 4: graphic = `images/trainers/rival4mon.png`; break;
-                                case 5: graphic = `images/trainers/rival5mon.png`; break;
+                                case 1: graphic = `images/trainers/Cheren_12.png`; break;
+                                case 2: graphic = `images/trainers/Cheren_12.png`; break;
+                                case 3: graphic = `images/trainers/Cheren_12.png`; break;
+                                case 4: graphic = `images/trainers/Cheren_4.png`; break;
+                                case 5: displayGraphicState = false; break;
                                 case 6: displayGraphicState = false; break;
-                                default: graphic = `images/trainers/rival1mon.png`; break;
+                                default: graphic = `images/trainers/Cheren_12.png`; break;
                             }
                             break;
                         }   
-                        case "Commander Mars": {
-                            switch (id_value) {
-                                case 295: graphic = `images/trainers/mars.png`;  break;
-                                case 405: graphic = `images/trainers/mars2.png`; break;
-                                case 528: graphic = `images/trainers/mars.png`;  break;
-                                case 926: { // TODO
-                                    graphic = `images/trainers/mars.png`;  
-                                    displayGraphicState = false;
-                                    break; 
-                                } 
-                                default:  graphic = `images/trainers/mars.png`;  break;
-                            }
-                            break;
-                        }           
-                        case "Commander Jupiter": {
-                            switch (bytes) {
-                                case 406: graphic = `images/trainers/jupiter.png`; break;
-                                case 407: graphic = `images/trainers/jupiter.png`; break;
-                                case 927: { // TODO
-                                    graphic = `images/trainers/jupiter.png`; 
-                                    displayGraphicState = false;
-                                    break; 
-                                } 
-                                default:  graphic = `images/trainers/jupiter.png`; break;
-                            }
-                            break;
-                        }            
-                        case "Commander Saturn": {
-                            switch (bytes) {
-                                case 408: graphic = `images/trainers/saturn.png`; break;
-                                case 409: graphic = `images/trainers/saturn.png`; break; 
-                                default:  graphic = `images/trainers/saturn.png`; break;
-                            }
-                            break;
-                        }            
-                        case "Galactic Boss Cyrus": {
-                            switch (id_value) {
-                                case 403: graphic = `images/trainers/cyrus_1_2.png`; break;
-                                case 404: graphic = `images/trainers/cyrus_3.png`; break;
-                                case 913: graphic = `images/trainers/cyrus_1_2.png`; break;
-                                default:  graphic = `images/trainers/cyrus_3.png`;   break;
-                            }
-                            break;
-                        }            
-                        default: displayGraphicState = false; break;
-                    } 
-                }
-                if (this.selected_game == `HeartGold and SoulSilver`) {
-                    switch (trainer) {
-                        case "Leader Falkner":   graphic = `images/trainers/falkner.png`;      break;
-                        case "Leader Bugsy":     graphic = `images/trainers/bugsy.png`;        break;
-                        case "Leader Whitney":   graphic = `images/trainers/whitney.png`;      break;
-                        case "Leader Morty":     graphic = `images/trainers/morty.png`;        break;
-                        case "Leader Chuck":     graphic = `images/trainers/chuck.png`;        break;
-                        case "Leader Pryce":     graphic = `images/trainers/pryce.png`;        break;
-                        case "Leader Jasmine":   graphic = `images/trainers/jasmine.png`;      break;
-                        case "Leader Clair":     graphic = `images/trainers/clair.png`;        break;
-                        case "Leader Brock":     graphic = `images/trainers/brock.png`;        break;
-                        case "Leader Misty":     graphic = `images/trainers/misty.png`;        break;
-                        case "Leader Lt. Surge": graphic = `images/trainers/surge.png`;        break;
-                        case "Leader Erika":     graphic = `images/trainers/erika.png`;        break;
-                        case "Leader Sabrina":   graphic = `images/trainers/sabrina.png`;      break;
-                        case "Leader Janine":    graphic = `images/trainers/janine.png`;       break;
-                        case "Leader Blaine":    graphic = `images/trainers/blaine.png`;       break;
-                        case "Elite Four Will": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 245: graphic = `images/trainers/will.png`; break;
-                                case 702: displayGraphicState = false;          break;
-                                default:  displayGraphicState = false;          break;
+                        case "Bianca": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/Bianca_12.png`; break;
+                                case 2: graphic = `images/trainers/Bianca_12.png`; break;
+                                case 3: graphic = `images/trainers/Bianca_12.png`; break;
+                                case 4: graphic = `images/trainers/Bianca_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Bianca_12.png`; break;
                             }
                             break;
                         }   
-                        case "Elite Four Koga": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 247: graphic = `images/trainers/koga.png`; break;
-                                case 703: displayGraphicState = false;          break;
-                                default:  displayGraphicState = false;          break;
-                            }
-                            break;
-                        }   
-                        case "Elite Four Bruno": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 418: graphic = `images/trainers/bruno.png`; break;
-                                case 704: displayGraphicState = false;           break;
-                                default:  displayGraphicState = false;           break;
-                            }
-                            break;
-                        }   
-                        case "Elite Four Karen": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 246: graphic = `images/trainers/karen.png`; break;
-                                case 705: displayGraphicState = false;           break;
-                                default:  displayGraphicState = false;           break;
-                            }
-                            break;
-                        }   
-                        case "Passerby Boy": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 495: graphic = `images/trainers/passerby boy.png`; break;
-                                case 496: graphic = `images/trainers/passerby boy.png`; break;
-                                case 497: graphic = `images/trainers/passerby boy.png`; break;
-                                default:  graphic = `images/trainers/passerby boy.png`; break;
-                            }
-                            break;
-                        }
-                        case "Rival": {
-                            switch (this.mapper.properties.battle.opponent.trainer.bytes) {
-                                case 1:   graphic = `images/trainers/rival2.png`;    break;
-                                case 2:   graphic = `images/trainers/rival1.png`;    break;
-                                case 3:   graphic = `images/trainers/rival1.png`;    break;
-                                case 263: graphic = `images/trainers/rival3.png`;    break;
-                                case 264: graphic = `images/trainers/rival5.png`;    break;
-                                case 265: graphic = `images/trainers/rival1.png`;    break;
-                                case 266: graphic = `images/trainers/rival2.png`;    break;
-                                case 267: graphic = `images/trainers/rival3.png`;    break;
-                                case 268: graphic = `images/trainers/rival5.png`;    break;
-                                case 269: graphic = `images/trainers/rival2.png`;    break;
-                                case 270: graphic = `images/trainers/rival3.png`;    break;
-                                case 271: graphic = `images/trainers/rival4.png`;    break;
-                                case 272: graphic = `images/trainers/rival5.png`;    break;
-                                case 285: graphic = `images/trainers/rival6.png`;    break;
-                                case 286: graphic = `images/trainers/rival6.png`;    break;
-                                case 287: graphic = `images/trainers/rival6.png`;    break;
-                                case 288: graphic = `images/trainers/rival4.png`;    break;
-                                case 289: graphic = `images/trainers/rival4.png`;    break;
-                                default:  graphic = `images/trainers/rival1mon.png`; break;
+                        case "N": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/N_1.png`; break;
+                                case 2: graphic = `images/trainers/N_1.png`; break;
+                                case 3: graphic = `images/trainers/N_3.png`; break;
+                                case 4: graphic = `images/trainers/N_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Bianca_12.png`; break;
                             }
                             break;
                         }   
@@ -3125,8 +3066,17 @@ const app = Vue.createApp({
             const team_move = this.mapper.properties.player.team[0].moves[`${moveNumber - 1}`]?.move.value
             const battle_move = this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.move.value
             // console.log(team_move, battle_move)
-            if (state == `Battle` || state == `From Battle` || (state == `No Pokemon` && species != null)) {
+            if (state == `Battle` || (state == `No Pokemon` && species != null)) {
                 if (battle_move) {
+                    return battle_move
+                }
+            }
+            else if (state == `From Battle`) {
+                if (this[`move_fix_name_${moveNumber}`] != "") {
+                    return this[`move_fix_name_${moveNumber}`]
+                }
+                else {
+                    this[`move_fix_name_${moveNumber}`] = battle_move
                     return battle_move
                 }
             }
@@ -3178,11 +3128,22 @@ const app = Vue.createApp({
             const species = this.mapper.properties.player.team[0].species.value
             // const active_pokemonPv = this.mapper.properties.battle.player.active_pokemon.internals?.personality_value.value ?? 0
             // const teamPokemonPv = this.mapper.properties.player.team[0].internals?.personality_value.value  ?? 0
-            if (state == `Battle` || state == `From Battle` || (state == `No Pokemon` && species != null)) {
-                return this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.pp.value
+            const team_pp = this.mapper.properties.player.team[0]?.moves[`${moveNumber - 1}`]?.pp.value
+            const battle_pp = this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.pp.value
+            if (state == `Battle` || (state == `No Pokemon` && species != null)) {
+                return battle_pp
+            }
+            else if (state == `From Battle`) {
+                if (this[`move_fix_pp_${moveNumber}`] != null) {
+                    return this[`move_fix_pp_${moveNumber}`]
+                }
+                else {
+                    this[`move_fix_pp_${moveNumber}`] = battle_pp
+                    return battle_pp
+                }
             }
             else if (state == `Overworld`) {
-                return this.mapper.properties.player.team[0]?.moves[`${moveNumber - 1}`]?.pp.value
+                return team_pp
             }
             else if (state == `No Pokemon`) {
                 return
@@ -3357,24 +3318,46 @@ const app = Vue.createApp({
             if(!this.game?.dexData){ 
                 return;
             }
+            
             this.movepoolDefaultFontSize = 15;
             this.movepoolDefaultLineHeight = 16;
             this.movepoolDefaultContainerHeight = 992-(this.movepoolDefaultLineHeight+0);
-
+        
             //calculate new sizes
             let currentStarter = this.starter;
             if(currentStarter == undefined || currentStarter == null) {
-                if(this.mapper.properties.player.team[0].species) {
+                if(this.mapper?.properties?.player?.team?.[0]?.species?.value) {
                     currentStarter = this.mapper.properties.player.team[0].species.value;
                 }
                 else {
                     currentStarter = this.starter;
                 }
             }
+            
+            // Add comprehensive null checks
+            if (!currentStarter) {
+                console.warn('No starter Pokemon defined');
+                return;
+            }
+            
+            if (!this.game.dexData[currentStarter]) {
+                console.warn(`Pokemon data not found for: ${currentStarter}`);
+                return;
+            }
+            
+            // Check if the required arrays exist
+            if (!this.game.dexData[currentStarter].tm_hm_learnset || 
+                !this.game.dexData[currentStarter].levelup_moveset) {
+                console.warn(`Missing move data for ${currentStarter}:`, this.game.dexData[currentStarter]);
+                return;
+            }
+            
             let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].levelup_moveset.length;
-            if (this.show_tutor_moves) {
+            
+            if (this.show_tutor_moves && this.game.dexData[currentStarter].tutor_learnset) {
                 movepoolSize = movepoolSize + this.game.dexData[currentStarter].tutor_learnset.length;
             }
+            
             let maxSize = this.movepoolDefaultContainerHeight / this.movepoolDefaultLineHeight;
             let correctedLineHeight = this.movepoolDefaultContainerHeight / movepoolSize;
             let fontShrinkFactor = 0.77; //make this bigger to shrink the font more. 0.5 was the default in gen1-3. 0 = no shrinking. 1 or above will be *tiny*
@@ -4439,7 +4422,7 @@ const app = Vue.createApp({
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
             var defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
-            var pkmn_ability = this.mapper.properties.player.team[0].ability.value
+            var ability = this.mapper.properties.player.team[0].ability.value
             // if (defendingType1 && attackingType) {
             //     var defendingType1Effectiveness = this.typeEffectivenessArray[attackingType][defendingType1]
             // }
@@ -4457,7 +4440,7 @@ const app = Vue.createApp({
             var burnModifier = this.burnModifier(x)
             // console.log("Type1:",defendingType1Effectiveness)
             // console.log("Type2:",defendingType2Effectiveness)
-            if (pkmn_ability == "Tinted Lens") {
+            if (ability == "Tinted Lens") {
                 var type_multiple = defendingType1Effectiveness * defendingType2Effectiveness
                 if (type_multiple == 0) {}
                 else if (type_multiple < 1) {
@@ -4465,7 +4448,7 @@ const app = Vue.createApp({
                     defendingType2Effectiveness = type_multiple * 2
                 }
             }
-            if (power <= 60 && pkmn_ability == "Technician") {
+            if (power <= 60 && ability == "Technician") {
                 power = power * 1.5
             }
             // console.log("Recalculated:", defendingType2Effectiveness)
@@ -4537,8 +4520,8 @@ const app = Vue.createApp({
         })
 
         // Resets
-        if (this.selected_game == "Platinum" || this.selected_game == "Diamond and Pearl") {
-            this.mapper.properties?.flags?.new_game_1.change(async (newProp, oldProp) => {
+        if (this.selected_game == "Black") {
+            this.mapper.properties?.flags?.new_game.change(async (newProp, oldProp) => {
                 // This should resolve the issue in Cynthia's chamber where the timer would restart when resetting against her
                 if (newProp.value == true && parseInt(this.timer_formatted_time[0]) == 0) {
                     this.startTime()
@@ -4551,40 +4534,20 @@ const app = Vue.createApp({
                 }
             })
         }
-        if (this.selected_game == "HeartGold and SoulSilver") {
-            this.mapper.properties?.variables?.game_started.change(async (newProp, oldProp) => {
-                if (newProp.value == 56150 && parseInt(this.timer_formatted_time[0]) == 0) {
-                    this.startTime()
-                    this.blackout = false;
-                    this.attempt_number++
-                }
-                if (parseInt(this.timer_formatted_time[0]) > 0 && newProp.value != 0 && this.mapper.properties.overworld.map_name.value != 'Pokemon League - Map 7') { // TODO How do resets work in HGSS?
-                    this.blackout = false;
-                    if (this.disallow_faults == false) { this.playerResets++ }
-                    this.disallow_faults_function()
-                }
-            })
-        }
+
         //Blackouts
-        this.mapper.properties.battle.player.team[0].stats.hp.change((newProp, oldProp) => {
+        this.mapper.properties.battle.player.active_pokemon.stats.hp.change((newProp, oldProp) => {
             const state = this.mapper.properties.meta.state.value
             if (newProp.value == 0 && (state == `Battle`)) {
                 this.blackout = true;
             }
-        })
+        });
         this.mapper.properties.meta.state.change((newProp, oldProp) => {
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
-                if (game == 'Platinum' || game == 'Diamond and Pearl') {
+                if (game == 'Black') {
                     if (newProp.value == "Overworld" && oldProp.value == "From Battle") {
                         if (this.disallow_faults == false) { this.blackout_counter++ }
-                        this.disallow_faults_function()
-                    }
-                }
-                if (game == 'HeartGold and SoulSilver') {
-                    if (newProp.value == "Overworld" && oldProp.value == "From Battle") {
-                        if (this.disallow_faults == false) { this.blackout_counter++ }
-                        this.blackout = false;
                         this.disallow_faults_function()
                     }
                 }
@@ -4602,8 +4565,8 @@ const app = Vue.createApp({
         //     }
         //     //the odd/evenness may need to be flipped according to the selected ability
         //     //this code prevents abilities from swapping when the Pokemon evolves
-        //     if ((personalityValue % 2 == 0 && this.pkmn_ability == this.g5PokemonData[this.starter].abilities[1]) ||
-        //     (personalityValue % 2 == 1 && this.pkmn_ability == this.g5PokemonData[this.starter].abilities[0])) {
+        //     if ((personalityValue % 2 == 0 && this.ability == this.g5PokemonData[this.starter].abilities[1]) ||
+        //     (personalityValue % 2 == 1 && this.ability == this.g5PokemonData[this.starter].abilities[0])) {
         //     //     these checks are trying to flip the odd/even by adding an odd number multiple of 25
         //     //     in order to not disturb the nature calc. It's trying to maintain the gender calc too.
         //         if (personalityValue % 256 <= 11 && this.pkmn_gender != "Male") {
@@ -4620,7 +4583,7 @@ const app = Vue.createApp({
         //         }
         //     }
             
-        //     const ability   = this.pkmn_ability
+        //     const ability   = this.ability
         //     const species   = this.starter
         //     const pkmnData  = this.g5PokemonData[this.starter]
         //     const level     = 5
@@ -4752,8 +4715,8 @@ const app = Vue.createApp({
                 let time_string  = d.getHours().toString().padStart(2, "0") + ":" + d.getMinutes().toString().padStart(2, "0") + ":" + d.getSeconds().toString().padStart(2, "0")
                 let player_name  = this.mapper.properties.player.name.value
                 let pokemon      = this.starter
-                let trainer_name = this.mapper.properties.battle.opponent.name.value
-                let trainer_id           = this.mapper.properties.battle.opponent.id.value
+                let trainer_name = this.mapper.properties.battle.opponent.trainer.value
+                let trainer_id           = this.mapper.properties.battle.opponent.trainer.bytes
                 let location             = this.mapper.properties.overworld.map_name.value
                 let total_pokemon        = this.mapper.properties.battle.opponent.team_count.value
                 let real_time_total      = this.timer_formatted_time[0] + this.timer_formatted_time[1]
@@ -4795,7 +4758,7 @@ const app = Vue.createApp({
                 
                 //deprecated properties
                 let runIdentifier  = this.starter.toString() + this.attempt_number.toString()
-                let trainerName    = this.mapper.properties.battle.opponent.name.value
+                let trainerName    = this.mapper.properties.battle.opponent.trainer.value
                 let RTHours        = this.time_h
                 let RTMinutes      = this.time_m
                 let RTSeconds      = this.time_s
@@ -5024,16 +4987,11 @@ const app = Vue.createApp({
             console.log('Autosplitter Attempted to Run')
             if (prop.value == 'From Battle') {
                 // console.log('Starting split log process')
-                let trainer = this.mapper.properties.battle.opponent.name.value
-                let id = this.mapper.properties.battle.opponent.id.value
-                let gameName = 'Platinum'
-                let game_name = 'Platinum'
+                let trainer = this.mapper.properties.battle.opponent.trainer.value
+                let id = this.mapper.properties.battle.opponent.trainer.bytes
+                let gameName = 'Black'
+                let game_name = 'Black'
                 if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined) { return }
-                if (this.mapper.properties.meta.game_name.value == 'HeartGold and SoulSilver') {
-                    gameName = 'HGSS'
-                    game_name = 'HeartGold and SoulSilver'
-                }
-                
                 //write full split data
                 logData(gameName, this.full_data_str, this.attempt_number, this.starter, "Full", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 
