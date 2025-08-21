@@ -1,0 +1,6 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+T,Tepig,Bianca,1:05,0,0,5,0:01,1755803068.108,Tackle,Tail Whip,,
+T,Tepig,Cheren,1:34,0,0,5,0:03,1755803097.062,Tackle,Tail Whip,,
+T,Tepig,N,8:47,0,0,15,0:24,1755803530.113,Tackle,Flame Charge,Ember,Defense Curl
+T,Tepig,Bianca,10:31,0,0,15,0:30,1755803633.809,Tackle,Flame Charge,Ember,Defense Curl
+T,Tepig,Cheren,10:56,0,0,15,0:31,1755803658.773,Tackle,Flame Charge,Ember,Defense Curl

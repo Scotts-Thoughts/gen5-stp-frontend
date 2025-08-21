@@ -81,6 +81,9 @@
                     <br>
                     <!-- <button class="buttonStyle" onClick="openFolder('splits')">Open Splits Folder</button><br> -->
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
+                    <br><br>
+                    <button v-if="show_advanced_settings" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
+                    <!-- <button class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Write Byte Data</button> -->
                     <br>
                     <!-- Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
@@ -194,11 +197,12 @@
                         <tr><td>SpA:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
                         <tr><td>SpD:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
                     </table>
-                    <div>Abilities: ({{starter}} has {{g5PokemonData[starter].abilities.length}})</div>
-                    <select v-model="ability" class="dropdownMenu dropdown_menu_column3">
+                    <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
+                    <select v-model="pkmn_ability" class="dropdownMenu dropdown_menu_column3">
                         <option disabled value="">Select an ability</option>
-                        <option v-for="key in values_function(g5PokemonData[starter].abilities)" :value="`${key}`">{{key}}</option>
+                        <option v-for="key in values_function(pokedex_black[starter].abilities)" :value="`${key}`">{{key}}</option>
                     </select><br>
+                    <div>Ability Number: {{pokedex_black[starter].abilities.indexOf(pkmn_ability)}}</div>
                     <div>Nature:</div>
                     <select v-model="pkmnNature" class="dropdownMenu dropdown_menu_column3">
                         <option disabled value="">Select a Nature</option>
@@ -478,9 +482,9 @@
                                     <div class="align_right eStatValue eValueLeft eValue1" >{{mapper.properties.battle.opponent.team[x].stats.hp_max}}</div>
                                     <div class="align_right eStatValue eValueLeft eValue2" >{{mapper.properties.battle.opponent.team[x].stats.attack}}</div>
                                     <div class="align_right eStatValue eValueLeft eValue3" >{{mapper.properties.battle.opponent.team[x].stats.defense}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue1">{{mapper.properties.battle.opponent.team[x].stats.special_attack}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
+                                    <div class="align_right eStatValue eValueRight eValue1">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
+                                    <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_attack}}</div>
+                                    <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
     
                                     <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
                                         <div class="enemyStatModTable">
@@ -593,7 +597,7 @@
                 <div class="posAbs ">Ability:</div>
                 <div class="posAbs" style="left: 487px; width: 200px;">Held Item:</div>
             </div>
-            <div v-if="mapper.properties.meta.state.value == 'No Pokemon'"      class="ability">{{ability}}</div>
+            <div v-if="mapper.properties.meta.state.value == 'No Pokemon'"      class="ability">{{pkmn_ability}}</div>
             <div v-else-if="mapper.properties.meta.state.value != 'No Pokemon'" class="ability">{{mapper.properties.player?.team[0]?.ability?.value}}</div>
             <div class="heldItem">{{heldItem}}</div>
             <div class="genericLabels timerLabel">time played at 4x game speed</div>
@@ -657,6 +661,7 @@
     <!-- Misc. Data -->
     <script src="lib/misc/tmhm.js"></script>
     <script src="lib/game_variables.js"></script>
+    <script src="references/abilities.js"></script>
     <!-- VUE APP -->
     <script type="text/javascript" src="frontend.js"></script>
 </body>

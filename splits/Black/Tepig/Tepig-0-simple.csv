@@ -1,0 +1,19 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+A,Tepig,Bianca,16:38:27,0,0,5,0:14,1755790495.941,Tackle,Tail Whip,,
+A,Tepig,Cheren,16:39:02,0,1,5,0:16,1755790530.812,Tackle,Tail Whip,,
+A,Tepig,Bianca,16:45:34,0,2,5,0:17,1755790922.331,Tackle,Tail Whip,,
+A,Tepig,Cheren,16:46:01,0,2,5,0:18,1755790949.843,Tackle,Tail Whip,,
+A,Tepig,Bianca,1:00:00,0,0,5,1:33,1755794615.652,Tackle,Tail Whip,,
+A,Tepig,Bianca,1:00:00,0,0,5,1:34,1755794637.174,Tackle,Tail Whip,,
+A,Tepig,Bianca,1:00:00,0,0,6,2:24,1755795550.776,Tackle,Tail Whip,,
+A,Tepig,Bianca,1:00:00,0,7,6,2:43,1755795933.628,Tackle,Tail Whip,,
+A,Tepig,Bianca,1:00:00,0,10,8,2:46,1755795994.221,Tackle,Tail Whip,Ember,
+A,Tepig,Bianca,1:00:00,0,21,9,2:56,1755796272.335,Tackle,Tail Whip,Ember,Odor Sleuth
+A,Tepig,Bianca,1:00:00,0,21,9,2:57,1755796293.079,Tackle,Tail Whip,Ember,Odor Sleuth
+A,Tepig,Bianca,1:00:00,0,21,10,3:00,1755796358.521,Tackle,Tail Whip,Ember,Odor Sleuth
+A,Tepig,Bianca,1:00:00,0,21,10,3:01,1755796398.532,Tackle,Tail Whip,Ember,Odor Sleuth
+A,Tepig,Bianca,1:00:00,0,24,11,3:36,1755797139.244,Tackle,Tail Whip,Ember,Odor Sleuth
+A,Tepig,Bianca,1:00:00,0,30,5,0:13,1755798200.652,Tackle,Tail Whip,,
+A,Tepig,Cheren,1:00:00,0,30,5,0:15,1755798228.258,Tackle,Tail Whip,,
+A,Tepig,Cheren,1:00:00,0,30,6,0:19,1755798327.941,Tackle,Tail Whip,,
+A,Tepig,Elesa,1:00:00,1,40,42,24:55,1755802420.915,Arm Thrust,Assurance,Flame Charge,Ember

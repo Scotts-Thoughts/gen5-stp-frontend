@@ -1,0 +1,7 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+T,Psyduck,Bianca,1:00,0,0,5,0:01,1755805018.959,Water Sport,Scratch,Tail Whip,
+T,Psyduck,Cheren,1:31,0,0,5,0:03,1755805050.44,Water Sport,Scratch,Tail Whip,
+9,Psyduck,Bianca,4:10,1,0,5,0:02,1755805208.939,Water Sport,Scratch,Tail Whip,
+9,Psyduck,Cheren,4:39,1,0,5,0:03,1755805237.583,Water Sport,Scratch,Tail Whip,
+9,Psyduck,Bianca,10:08,2,0,5,0:02,1755805567.482,Water Sport,Scratch,Tail Whip,
+9,Psyduck,Cheren,11:14,2,0,5,0:06,1755805633.476,Water Sport,Scratch,Tail Whip,

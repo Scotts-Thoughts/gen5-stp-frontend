@@ -521,7 +521,7 @@ const app = Vue.createApp({
             starter                : "Heatran",
             pkmnNature             : "Adamant",
             pkmn_gender            : "Female",
-            ability                : null,
+            pkmn_ability           : null,
             hidden_power_type      : "Dark",
             hidden_power_index     : 0,
             overlayNew             : "Chimchar",
@@ -558,6 +558,20 @@ const app = Vue.createApp({
             move_fix_pp_2: null,
             move_fix_pp_3: null,
             move_fix_pp_4: null,
+
+            set_starter_stats_object: {
+                ivs: {
+                    hp: 31,
+                    atk: 31,
+                    def: 31,
+                    spe: 31,
+                    spa: 31,
+                    spd: 31,
+                },
+                gender: 10,
+                nature: 0,
+                ability: 0,
+            },
 
             customMovepool: {
                 "Torterra"     : "line-height: 16px;",
@@ -700,6 +714,7 @@ const app = Vue.createApp({
             natural_gift             : natural_gift,
             cross_generation_moves   : cross_generation_moves,
             hiddenpowers             : hiddenpowers,
+            ability_glossary         : ability_glossary,
 
             // Data (New as of 2024-06-02)
             // These files contain the most up-to-date data for both trainers and pokemon.
@@ -821,7 +836,7 @@ const app = Vue.createApp({
                 "backgroundSaturation",
                 "backgroundFlip",
                 "pkmnNature",
-                "ability",
+                "pkmn_ability",
                 "hidden_power_type",
                 "hidden_power_index",
                 "pkmn_gender",
@@ -902,7 +917,7 @@ const app = Vue.createApp({
             this.backgroundXOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundXOffset       ?? 0
             this.backgroundYOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundYOffset       ?? 0
             this.backgroundTexture      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundTexture       ?? `${this.g5PokemonData[this.starter].type_1}`
-            this.ability           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.ability           ?? g5PokemonData[this.starter].abilities[0]
+            this.pkmn_ability           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.pkmn_ability           ?? g5PokemonData[this.starter].abilities[0]
             this.attempt_number         = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.attempt_number         ?? 0
             this.finished_run_count     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.finished_run_count     ?? 0
             this.playerResets           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.playerResets           ?? 0
@@ -941,6 +956,37 @@ const app = Vue.createApp({
         this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
+        hidden_power_index(newValue) {
+            const ivs = this.hiddenpowers[this.hidden_power_type][newValue]
+            function translateIVsToObject(ivArray) {
+                const ivNames = ['hp', 'atk', 'def', 'spe', 'spa', 'spd'];
+                
+                if (ivArray.length !== 6) {
+                    throw new Error('IV array must have exactly 6 values');
+                }
+                
+                const ivs = {};
+                ivNames.forEach((name, index) => {
+                    ivs[name] = ivArray[index];
+                });
+                
+                return ivs;
+            }
+            this.set_starter_stats_object.ivs = translateIVsToObject(ivs)
+        },
+        pkmnNature(newValue) {
+            this.set_starter_stats_object.nature = newValue
+        },
+        pkmn_ability(newValue) {
+            for (const [key, value] of Object.entries(ability_glossary)) {
+                if (value === newValue) {
+                    this.set_starter_stats_object.ability = key;
+                    console.log(this.set_starter_stats_object.ability);
+                    return;
+                }
+            }
+            this.set_starter_stats_object.ability = 0;
+        },
         starter(newValue, oldValue) {
             const starter = newValue
             const game = this.mapper?.properties.meta.game_name.value
@@ -981,6 +1027,7 @@ const app = Vue.createApp({
             this.blackout_counter       = MyStorage[`${game}_${starter}`]?.blackout_counter      ?? 0,
             //main pokemon settings
             this.pkmnNature             = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
+            this.pkmn_ability            = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
             //! FIX_LATER Fix this implementation later
             // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
             this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
@@ -1427,7 +1474,6 @@ const app = Vue.createApp({
             const battle_pid   = this.mapper?.properties.player.team[0].internals.personality_value.value
             const battle_moves = this.mapper.properties.battle.player.active_pokemon.moves
             const team_moves   = this.mapper.properties.player.team[0].moves
-            debugger
             if (gamestate == `Overworld` && team_pid != battle_pid) {
                 return team_moves
             }
@@ -1622,6 +1668,170 @@ const app = Vue.createApp({
     },
 
     methods: {
+        async set_options() {
+            await this.mapper.properties.options.text_speed.set('Fast', false)
+        },
+        write_byte_data(data_object) {
+            const enable_debugging = false
+
+            const byteArrayEncrypted = this.mapper.properties.player.decrypted_mon_0.bytes.slice()
+            const byteArrayDecrypted = this.mapper.properties.player.team[0].raw.bytes.slice()
+            if (enable_debugging) {
+                console.log("byteArrayEncrypted", byteArrayEncrypted)
+                console.log("byteArrayDecrypted", byteArrayDecrypted)
+            }
+            
+            // PID Modification (Gender & Ability)
+            // Gender
+            const gender = this.pkmn_gender == 'Male' ? 255 : 0
+            byteArrayDecrypted[0x00] = gender // Only the first byte of the PID is used to calculate gender, it does not need to be set within the encrypted data structure
+            
+            // Ability
+            byteArrayDecrypted[0x15] = data_object.ability
+
+            // IVs
+            const iv = data_object.ivs // Grab data from the data_object
+            const iv_raw = (iv.hp << 0) | (iv.atk << 5) | (iv.def << 10) | (iv.spe << 15) | (iv.spa << 20) | (iv.spd << 25) | ((byteArrayDecrypted[0x3B] & 0xC0) << 24) // Find the raw value
+            byteArrayDecrypted[0x38] = (iv_raw >> 0) & 0xFF; // set byte 1
+            byteArrayDecrypted[0x39] = (iv_raw >> 8) & 0xFF; // set byte 2 
+            byteArrayDecrypted[0x3A] = (iv_raw >> 16) & 0xFF; // set byte 3
+            byteArrayDecrypted[0x3B] = (iv_raw >> 24) & 0xFF; // set byte 4
+
+            // Nature
+            const nature_data = this.natures[data_object.nature]
+            const nature_index = nature_data.modulo_value
+            byteArrayDecrypted[0x41] = nature_index
+
+            // Stats
+            const starter = this.starter
+            const pokedex = this.pokedex_black[starter]
+            const base_stats = pokedex.base_stats
+            
+            function calculate_hp(iv, ev, level, base_stat) {
+                return Math.floor((2 * base_stat + iv + Math.floor(ev / 4)) * level / 100) + level + 10
+            }
+            function calculate_other_stat(iv, ev, level, base_stat, nature_modifier) {
+                return Math.floor((Math.floor((2 * base_stat + iv + Math.floor(ev / 4)) * level / 100) + 5) * nature_modifier)
+            }
+            
+            let hp  = calculate_hp(iv.hp, 0, 5, base_stats.hp)
+            let atk = calculate_other_stat(iv.atk, 0, 5, base_stats.attack,          nature_data.nature_attack)
+            let def = calculate_other_stat(iv.def, 0, 5, base_stats.defense,         nature_data.nature_defense)
+            let spe = calculate_other_stat(iv.spe, 0, 5, base_stats.speed,           nature_data.nature_speed)
+            let spa = calculate_other_stat(iv.spa, 0, 5, base_stats.special_attack,  nature_data.nature_specialAttack)
+            let spd = calculate_other_stat(iv.spd, 0, 5, base_stats.special_defense, nature_data.nature_specialDefense)
+
+            byteArrayDecrypted[0x8C] = 5   // level
+            byteArrayDecrypted[0x8E] = hp  // current hp
+            byteArrayDecrypted[0x90] = hp  // max hp
+            byteArrayDecrypted[0x92] = atk // attack
+            byteArrayDecrypted[0x94] = def // defense
+            byteArrayDecrypted[0x96] = spe // speed
+            byteArrayDecrypted[0x98] = spa // special_attack
+            byteArrayDecrypted[0x9A] = spd // special_defense
+
+            // Reencrypt the data
+            let byteArrayReencrypted = this.encrypt_byte_data(byteArrayDecrypted)
+            // Log the reencrypted data
+            if (enable_debugging) { 
+                console.log("byteArrayReencrypted", byteArrayReencrypted) 
+            }
+            // Write the reencrypted data to the decrypted_mon_0 property
+            this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
+            this.mapper.properties.player.decrypted_mon_1.setBytes(byteArrayReencrypted, false)
+        },
+        encrypt_byte_data(array) {
+            const decryptedData = new Uint8Array(array);
+
+            function prngNext(prngSeed) {
+                const newSeed = (0x41C64E6D * prngSeed + 0x6073) >>> 0;
+                const value = (newSeed >>> 16) & 0xFFFF;
+                return { newSeed, value };
+            }
+
+            const shuffleOrders = {
+                0:  [0, 1, 2, 3],
+                1:  [0, 1, 3, 2],
+                2:  [0, 2, 1, 3],
+                3:  [0, 3, 1, 2],
+                4:  [0, 2, 3, 1],
+                5:  [0, 3, 2, 1],
+                6:  [1, 0, 2, 3],
+                7:  [1, 0, 3, 2],
+                8:  [2, 0, 1, 3],
+                9:  [3, 0, 1, 2],
+                10: [2, 0, 3, 1],
+                11: [3, 0, 2, 1],
+                12: [1, 2, 0, 3],
+                13: [1, 3, 0, 2],
+                14: [2, 1, 0, 3],
+                15: [3, 1, 0, 2],
+                16: [2, 3, 0, 1],
+                17: [3, 2, 0, 1],
+                18: [1, 2, 3, 0],
+                19: [1, 3, 2, 0],
+                20: [2, 1, 3, 0],
+                21: [3, 1, 2, 0],
+                22: [2, 3, 1, 0],
+                23: [3, 2, 1, 0]
+            };
+
+            let encryptedData = new Uint8Array(220);
+            let dataView = new DataView(encryptedData.buffer);
+
+            let pid = (decryptedData[0] |
+                    (decryptedData[1] << 8) |
+                    (decryptedData[2] << 16) |
+                    (decryptedData[3] << 24)) >>> 0;
+
+            // Copy unencrypted first 8 bytes
+            for (let i = 0; i < 8; i++) {
+                encryptedData[i] = decryptedData[i];
+            }
+
+            // Shuffle the blocks FORWARD
+            const shuffleId = ((pid & 0x3E000) >> 0xD) % 24;
+            let shuffleOrder = shuffleOrders[shuffleId];
+            let dataCopy = decryptedData.slice(0x08, 0x88);
+            let checksum = 0
+            for (let i = 0x08; i < 0x88; i += 2) {
+                checksum += (decryptedData[i] | (decryptedData[i + 1] << 8)) & 0xFFFF
+            }
+            checksum = checksum & 0xFFFF
+            encryptedData[0x06] = checksum & 0xFF
+            encryptedData[0x07] = (checksum >> 8) & 0xFF
+
+            for (let i = 0; i < 4; i++) {
+                encryptedData.set(
+                    dataCopy.slice(i * 0x20, i * 0x20 + 0x20),
+                    0x08 + shuffleOrder[i] * 0x20
+                );
+            }
+
+            // Encrypt block data (XOR with PRNG seeded by checksum)
+            let prngSeed = checksum
+            for (let i = 0x08; i < 0x88; i += 2) {
+                let prngFunction = prngNext(prngSeed);
+                let key = prngFunction.value;
+                prngSeed = Number((0x41c64e6dn * BigInt(prngSeed) + 0x6073n) & 0xffffffffn);
+
+                let data = (encryptedData[i] | (encryptedData[i + 1] << 8)) ^ key;
+                dataView.setUint16(i, data, true);
+            }
+
+            // Encrypt battle stats (XOR with PRNG seeded by PID)
+            prngSeed = pid;
+            for (let i = 0x88; i < 0xDB; i += 2) {
+                let prngFunction = prngNext(prngSeed);
+                let key = prngFunction.value;
+                prngSeed = Number((0x41c64e6dn * BigInt(prngSeed) + 0x6073n) & 0xffffffffn);
+
+                let data = (decryptedData[i] | (decryptedData[i + 1] << 8)) ^ key;
+                dataView.setUint16(i, data, true);
+            }
+
+            return [...encryptedData];
+        },
         padTime(time) {
             return time.toString().padStart(2, "0")
         },
@@ -1636,6 +1846,44 @@ const app = Vue.createApp({
 
             // Correctly handle spaces in folder names
             require('child_process').exec(`start "" "${fullPath}"`);
+        },
+        async add_testing_items() {
+            await this.mapper.properties.bag.money.set(200000, false)
+
+            await this.mapper.properties.bag.items[0].item.set("Max Repel", false)
+            await this.mapper.properties.bag.items[0].quantity.set(99, false)
+            await this.mapper.properties.bag.items[1].item.set("Charcoal", false)
+            await this.mapper.properties.bag.items[1].quantity.set(1, false)
+            await this.mapper.properties.bag.items[2].item.set("Silk Scarf", false)
+            await this.mapper.properties.bag.items[2].quantity.set(1, false)
+            await this.mapper.properties.bag.items[3].item.set("Mystic Water", false)
+            await this.mapper.properties.bag.items[3].quantity.set(1, false)
+            await this.mapper.properties.bag.items[4].item.set("Miracle Seed", false)
+            await this.mapper.properties.bag.items[4].quantity.set(1, false)
+
+            await this.mapper.properties.bag.medicine[0].item.set("Rare Candy", false)
+            await this.mapper.properties.bag.medicine[0].quantity.set(99, false)
+            await this.mapper.properties.bag.medicine[1].item.set("Max Elixir", false)
+            await this.mapper.properties.bag.medicine[1].quantity.set(99, false)
+            await this.mapper.properties.bag.medicine[2].item.set("PP Up", false)
+            await this.mapper.properties.bag.medicine[2].quantity.set(99, false)
+            await this.mapper.properties.bag.medicine[3].item.set("Full Restore", false)
+            await this.mapper.properties.bag.medicine[3].quantity.set(99, false)
+            await this.mapper.properties.bag.medicine[4].item.set("Full Heal", false)
+            await this.mapper.properties.bag.medicine[4].quantity.set(99, false)
+
+            for (let i = 1; i < 96; i++) {
+                if (i.toString().length == 1) { 
+                    i = `0${i}` 
+                }
+                await this.mapper.properties.bag.tmhm[i - 1].item.set(`TM${i}`, false)
+            }
+            for (let i = 1; i < 7; i++) {
+                if (i.toString().length == 1) { 
+                    i = `0${i}` 
+                }
+                await this.mapper.properties.bag.tmhm[95 + (i - 1)].item.set(`HM${i}`, false)
+            }
         },
         fade_enemy_mon(slot) {
             const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
@@ -1665,8 +1913,8 @@ const app = Vue.createApp({
             const state          = this.mapper.properties.meta.state.value
             const trainer        = this.capitalization_format(this.mapper.properties.battle.opponent.trainer.value)
             const trainer_number = this.mapper.properties.battle.opponent.trainer.bytes
-            let player_speed     = this.mapper.properties.battle.player.team[0].stats.speed.value
-            let enemy_speed      = this.mapper.properties.battle.opponent.team[0].stats.speed.value
+            let player_speed     = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.speed.value
+            let enemy_speed      = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_slot}_ram`].stats.speed.value
             let enemy_hp         = 1
 
             if (player_speed > enemy_speed) {
@@ -2257,107 +2505,6 @@ const app = Vue.createApp({
             this.evolution_splits_label =  MyStorage[`${game_name}_${this.starter}`]?.evolution_splits_label ?? `${evolution_family[evolution_family.length - 1]?.species}-line`
             this.copy_overlay_pokemon_from = MyStorage['copy_overlay_pokemon_from'] ?? ""
             this.copy_overlay_pokemon_to   = MyStorage['copy_overlay_pokemon_to']   ?? ""
-
-            // this.TM01 = MyStorage[`${game_name}_${this.starter}`].TM01 ?? false
-            // this.TM02 = MyStorage[`${game_name}_${this.starter}`].TM02 ?? false
-            // this.TM03 = MyStorage[`${game_name}_${this.starter}`].TM03 ?? false
-            // this.TM04 = MyStorage[`${game_name}_${this.starter}`].TM04 ?? false
-            // this.TM05 = MyStorage[`${game_name}_${this.starter}`].TM05 ?? false
-            // this.TM06 = MyStorage[`${game_name}_${this.starter}`].TM06 ?? false
-            // this.TM07 = MyStorage[`${game_name}_${this.starter}`].TM07 ?? false
-            // this.TM08 = MyStorage[`${game_name}_${this.starter}`].TM08 ?? false
-            // this.TM09 = MyStorage[`${game_name}_${this.starter}`].TM09 ?? false
-            // this.TM10 = MyStorage[`${game_name}_${this.starter}`].TM10 ?? false
-            // this.TM11 = MyStorage[`${game_name}_${this.starter}`].TM11 ?? false
-            // this.TM12 = MyStorage[`${game_name}_${this.starter}`].TM12 ?? false
-            // this.TM13 = MyStorage[`${game_name}_${this.starter}`].TM13 ?? false
-            // this.TM14 = MyStorage[`${game_name}_${this.starter}`].TM14 ?? false
-            // this.TM15 = MyStorage[`${game_name}_${this.starter}`].TM15 ?? false
-            // this.TM16 = MyStorage[`${game_name}_${this.starter}`].TM16 ?? false
-            // this.TM17 = MyStorage[`${game_name}_${this.starter}`].TM17 ?? false
-            // this.TM18 = MyStorage[`${game_name}_${this.starter}`].TM18 ?? false
-            // this.TM19 = MyStorage[`${game_name}_${this.starter}`].TM19 ?? false
-            // this.TM20 = MyStorage[`${game_name}_${this.starter}`].TM20 ?? false
-            // this.TM21 = MyStorage[`${game_name}_${this.starter}`].TM21 ?? false
-            // this.TM22 = MyStorage[`${game_name}_${this.starter}`].TM22 ?? false
-            // this.TM23 = MyStorage[`${game_name}_${this.starter}`].TM23 ?? false
-            // this.TM24 = MyStorage[`${game_name}_${this.starter}`].TM24 ?? false
-            // this.TM25 = MyStorage[`${game_name}_${this.starter}`].TM25 ?? false
-            // this.TM26 = MyStorage[`${game_name}_${this.starter}`].TM26 ?? false
-            // this.TM27 = MyStorage[`${game_name}_${this.starter}`].TM27 ?? false
-            // this.TM28 = MyStorage[`${game_name}_${this.starter}`].TM28 ?? false
-            // this.TM29 = MyStorage[`${game_name}_${this.starter}`].TM29 ?? false
-            // this.TM30 = MyStorage[`${game_name}_${this.starter}`].TM30 ?? false
-            // this.TM31 = MyStorage[`${game_name}_${this.starter}`].TM31 ?? false
-            // this.TM32 = MyStorage[`${game_name}_${this.starter}`].TM32 ?? false
-            // this.TM33 = MyStorage[`${game_name}_${this.starter}`].TM33 ?? false
-            // this.TM34 = MyStorage[`${game_name}_${this.starter}`].TM34 ?? false
-            // this.TM35 = MyStorage[`${game_name}_${this.starter}`].TM35 ?? false
-            // this.TM36 = MyStorage[`${game_name}_${this.starter}`].TM36 ?? false
-            // this.TM37 = MyStorage[`${game_name}_${this.starter}`].TM37 ?? false
-            // this.TM38 = MyStorage[`${game_name}_${this.starter}`].TM38 ?? false
-            // this.TM39 = MyStorage[`${game_name}_${this.starter}`].TM39 ?? false
-            // this.TM40 = MyStorage[`${game_name}_${this.starter}`].TM40 ?? false
-            // this.TM41 = MyStorage[`${game_name}_${this.starter}`].TM41 ?? false
-            // this.TM42 = MyStorage[`${game_name}_${this.starter}`].TM42 ?? false
-            // this.TM43 = MyStorage[`${game_name}_${this.starter}`].TM43 ?? false
-            // this.TM44 = MyStorage[`${game_name}_${this.starter}`].TM44 ?? false
-            // this.TM45 = MyStorage[`${game_name}_${this.starter}`].TM45 ?? false
-            // this.TM46 = MyStorage[`${game_name}_${this.starter}`].TM46 ?? false
-            // this.TM47 = MyStorage[`${game_name}_${this.starter}`].TM47 ?? false
-            // this.TM48 = MyStorage[`${game_name}_${this.starter}`].TM48 ?? false
-            // this.TM49 = MyStorage[`${game_name}_${this.starter}`].TM49 ?? false
-            // this.TM50 = MyStorage[`${game_name}_${this.starter}`].TM50 ?? false
-            // this.TM51 = MyStorage[`${game_name}_${this.starter}`].TM51 ?? false
-            // this.TM52 = MyStorage[`${game_name}_${this.starter}`].TM52 ?? false
-            // this.TM53 = MyStorage[`${game_name}_${this.starter}`].TM53 ?? false
-            // this.TM54 = MyStorage[`${game_name}_${this.starter}`].TM54 ?? false
-            // this.TM55 = MyStorage[`${game_name}_${this.starter}`].TM55 ?? false
-            // this.TM56 = MyStorage[`${game_name}_${this.starter}`].TM56 ?? false
-            // this.TM57 = MyStorage[`${game_name}_${this.starter}`].TM57 ?? false
-            // this.TM58 = MyStorage[`${game_name}_${this.starter}`].TM58 ?? false
-            // this.TM59 = MyStorage[`${game_name}_${this.starter}`].TM59 ?? false
-            // this.TM60 = MyStorage[`${game_name}_${this.starter}`].TM60 ?? false
-            // this.TM61 = MyStorage[`${game_name}_${this.starter}`].TM61 ?? false
-            // this.TM62 = MyStorage[`${game_name}_${this.starter}`].TM62 ?? false
-            // this.TM63 = MyStorage[`${game_name}_${this.starter}`].TM63 ?? false
-            // this.TM64 = MyStorage[`${game_name}_${this.starter}`].TM64 ?? false
-            // this.TM65 = MyStorage[`${game_name}_${this.starter}`].TM65 ?? false
-            // this.TM66 = MyStorage[`${game_name}_${this.starter}`].TM66 ?? false
-            // this.TM67 = MyStorage[`${game_name}_${this.starter}`].TM67 ?? false
-            // this.TM68 = MyStorage[`${game_name}_${this.starter}`].TM68 ?? false
-            // this.TM69 = MyStorage[`${game_name}_${this.starter}`].TM69 ?? false
-            // this.TM70 = MyStorage[`${game_name}_${this.starter}`].TM70 ?? false
-            // this.TM71 = MyStorage[`${game_name}_${this.starter}`].TM71 ?? false
-            // this.TM72 = MyStorage[`${game_name}_${this.starter}`].TM72 ?? false
-            // this.TM73 = MyStorage[`${game_name}_${this.starter}`].TM73 ?? false
-            // this.TM74 = MyStorage[`${game_name}_${this.starter}`].TM74 ?? false
-            // this.TM75 = MyStorage[`${game_name}_${this.starter}`].TM75 ?? false
-            // this.TM76 = MyStorage[`${game_name}_${this.starter}`].TM76 ?? false
-            // this.TM77 = MyStorage[`${game_name}_${this.starter}`].TM77 ?? false
-            // this.TM78 = MyStorage[`${game_name}_${this.starter}`].TM78 ?? false
-            // this.TM79 = MyStorage[`${game_name}_${this.starter}`].TM79 ?? false
-            // this.TM80 = MyStorage[`${game_name}_${this.starter}`].TM80 ?? false
-            // this.TM81 = MyStorage[`${game_name}_${this.starter}`].TM81 ?? false
-            // this.TM82 = MyStorage[`${game_name}_${this.starter}`].TM82 ?? false
-            // this.TM83 = MyStorage[`${game_name}_${this.starter}`].TM83 ?? false
-            // this.TM84 = MyStorage[`${game_name}_${this.starter}`].TM84 ?? false
-            // this.TM85 = MyStorage[`${game_name}_${this.starter}`].TM85 ?? false
-            // this.TM86 = MyStorage[`${game_name}_${this.starter}`].TM86 ?? false
-            // this.TM87 = MyStorage[`${game_name}_${this.starter}`].TM87 ?? false
-            // this.TM88 = MyStorage[`${game_name}_${this.starter}`].TM88 ?? false
-            // this.TM89 = MyStorage[`${game_name}_${this.starter}`].TM89 ?? false
-            // this.TM90 = MyStorage[`${game_name}_${this.starter}`].TM90 ?? false
-            // this.TM91 = MyStorage[`${game_name}_${this.starter}`].TM91 ?? false
-            // this.TM92 = MyStorage[`${game_name}_${this.starter}`].TM92 ?? false
-            // this.HM01 = MyStorage[`${game_name}_${this.starter}`].HM01 ?? false
-            // this.HM02 = MyStorage[`${game_name}_${this.starter}`].HM02 ?? false
-            // this.HM03 = MyStorage[`${game_name}_${this.starter}`].HM03 ?? false
-            // this.HM04 = MyStorage[`${game_name}_${this.starter}`].HM04 ?? false
-            // this.HM05 = MyStorage[`${game_name}_${this.starter}`].HM05 ?? false
-            // this.HM06 = MyStorage[`${game_name}_${this.starter}`].HM06 ?? false
-            // this.HM07 = MyStorage[`${game_name}_${this.starter}`].HM07 ?? false
-            // this.HM08 = MyStorage[`${game_name}_${this.starter}`].HM08 ?? false
         },
         reset() {
             this.backgroundBlur =        0,
@@ -3109,8 +3256,8 @@ const app = Vue.createApp({
                 return calculated_accuracy
             }
             if (state == `Battle`) {
-                let playerStage = this.mapper.properties.battle.player.active_pokemon.modifiers.accuracy?.value.toString()
-                let oppAStage = this.mapper.properties.battle.opponent.active_pokemon.modifiers.evasion?.value.toString()
+                let playerStage = this.mapper.properties.battle.player.active_pokemon.modifiers.accuracy?.value?.toString()
+                let oppAStage = this.mapper.properties.battle.opponent.active_pokemon.modifiers.evasion?.value?.toString()
                 let accuracyModifier = this.stageModifiersData["accuracy"][playerStage]
                 let evasionModifier = this.stageModifiersData["evasion"][oppAStage]
                 let modifiers = this.mapper.properties.battle.player.active_pokemon.modifiers
@@ -4193,6 +4340,13 @@ const app = Vue.createApp({
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
 
+        this.mapper.properties.player.team[0].level.change((newProp, oldProp) => {
+            const map = this.mapper.properties.overworld.map_index.value
+            if (map == 391 && newProp.value == 5) {
+                this.write_byte_data(this.set_starter_stats_object)
+            }
+        })
+
         //EXP BAR ANIMATION FUNCTION
         /* exp bar initialization */ 
         {
@@ -4233,13 +4387,17 @@ const app = Vue.createApp({
         // Resets
         if (this.selected_game == "Black") {
             this.mapper.properties?.flags?.new_game.change(async (newProp, oldProp) => {
+                // console.log("New Game Flag Changed")
+                // console.log(newProp)
+                // console.log(this.timer.formatted_time[0])
                 // This should resolve the issue in Cynthia's chamber where the timer would restart when resetting against her
-                if (newProp.value == true && parseInt(this.timer_formatted_time[0]) == 0) {
+                if (newProp.value == true && parseInt(this.timer.formatted_time[0]) == 0) {
                     // this.startTime()
                     this.timer.startTime(this.timer_startTimeOffset);
+                    this.set_options()
                     this.attempt_number++
                 }
-                if (parseInt(this.timer_formatted_time[0]) > 0 && newProp.value == false && oldProp.value == true) {
+                if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == false && oldProp.value == true) {
                     this.blackout = false;
                     if (this.disallow_faults == false) { this.playerResets++ }
                     this.disallow_faults_function()
@@ -4248,9 +4406,9 @@ const app = Vue.createApp({
         }
 
         //Blackouts
-        this.mapper.properties.battle.player.active_pokemon.stats.hp.change((newProp, oldProp) => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.change((newProp, oldProp) => {
             const state = this.mapper.properties.meta.state.value
-            if (newProp.value == 0 && (state == `Battle`)) {
+            if (newProp.value == 0 && state == `Battle` && this.mapper.properties.battle.opponent.trainer.value != '--') {
                 this.blackout = true;
             }
         });
@@ -4258,121 +4416,13 @@ const app = Vue.createApp({
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
                 if (game == 'Black') {
-                    if (newProp.value == "Overworld" && oldProp.value == "From Battle") {
+                    if (newProp.value == "Overworld" && oldProp.value == "Battle") {
                         if (this.disallow_faults == false) { this.blackout_counter++ }
                         this.disallow_faults_function()
                     }
                 }
             }
         });
-
-        //! FIX_LATER Can we set starting stats in generation 5? How?
-        // const setStartingStats = async () => {
-        //     //256 * 25 * 10 = 70400, gives a clean starting point where modulo 25 and modulo 256 are both 0
-        //     //this can really be anything divisible by 256 though
-        //     var personalityValue = 70400 + this.natures[this.pkmnNature]["modulo_value"];
-        //     if(this.pkmn_gender == "Male") {
-        //         //31 and 225 are the breakpoints for 87% gender ratio pokemon
-        //         personalityValue += 225;
-        //     }
-        //     //the odd/evenness may need to be flipped according to the selected ability
-        //     //this code prevents abilities from swapping when the Pokemon evolves
-        //     if ((personalityValue % 2 == 0 && this.ability == this.g5PokemonData[this.starter].abilities[1]) ||
-        //     (personalityValue % 2 == 1 && this.ability == this.g5PokemonData[this.starter].abilities[0])) {
-        //     //     these checks are trying to flip the odd/even by adding an odd number multiple of 25
-        //     //     in order to not disturb the nature calc. It's trying to maintain the gender calc too.
-        //         if (personalityValue % 256 <= 11 && this.pkmn_gender != "Male") {
-        //             personalityValue += 275; //adding 275 won't make the modulo exceed 31
-        //         }
-        //         else if (personalityValue % 256 > 11 && this.pkmn_gender != "Male") {
-        //             personalityValue += 1525; //1525 keeps the modulo between 0 and 31
-        //         }
-        //         else if (personalityValue % 256 <= 236 && this.pkmn_gender == "Male") {
-        //             personalityValue += 275; //adding 275 keeps the modulo between 225 and 255
-        //         }
-        //         else if (personalityValue % 256 > 236 && this.pkmn_gender == "Male") {
-        //             personalityValue += 1525; //1525 keeps the modulo between 225 and 255
-        //         }
-        //     }
-            
-        //     const ability   = this.ability
-        //     const species   = this.starter
-        //     const pkmnData  = this.g5PokemonData[this.starter]
-        //     const level     = 5
-        //     const natures   = this.natures[this.pkmnNature]
-        //     let player_starter = this.starter_choice
-
-        //     //* IV BLOCK CALCULATION
-        //     var hp_data       = this.hiddenpowers
-        //     var pkmn_hp       = this.hidden_power_type  
-        //     var pkmn_hp_index = this.hidden_power_index
-
-        //     var ivHp  = hp_data[pkmn_hp][pkmn_hp_index][0]
-        //     var ivAtk = hp_data[pkmn_hp][pkmn_hp_index][1]
-        //     var ivDef = hp_data[pkmn_hp][pkmn_hp_index][2]
-        //     var ivSpe = hp_data[pkmn_hp][pkmn_hp_index][3]
-        //     var ivSpA = hp_data[pkmn_hp][pkmn_hp_index][4]
-        //     var ivSpD = hp_data[pkmn_hp][pkmn_hp_index][5]
-
-        //     //Calculates the Pokemon's starting stats with the desired DVs
-        //     var hitpoints      = Math.floor((((2 * pkmnData.base_hp + ivHp + 0) * level)/100) + level + 10)
-        //     var attack         = Math.floor(Math.floor(((((2 * pkmnData.base_atk + ivAtk + 0) * level)/100) + 5)) * natures["nature_attack"])
-        //     var defense        = Math.floor(Math.floor(((((2 * pkmnData.base_def + ivDef + 0) * level)/100) + 5)) * natures["nature_defense"])
-        //     var specialAttack  = Math.floor(Math.floor(((((2 * pkmnData.base_spc_atk + ivSpA + 0) * level)/100) + 5)) * natures["nature_specialAttack"])
-        //     var specialDefense = Math.floor(Math.floor(((((2 * pkmnData.base_spc_def + ivSpD + 0) * level)/100) + 5)) * natures["nature_specialDefense"])
-        //     var speed          = Math.floor(Math.floor(((((2 * pkmnData.base_spd + ivSpe + 0) * level)/100) + 5)) * natures["nature_speed"])
-
-        //     if (this.legacy_starter_assignment) { this.mapper.properties.player.starter.set(player_starter, false) } //this needs to be turned off refilming Sudowoodo
-        //     await Promise.all([
-        //         //Set personality value & ablity
-        //         this.mapper.properties.player.team[0].internals.personality_value.set(personalityValue, false), 
-        //         this.mapper.properties.player.team[0].ability.set(ability, false), 
-        //         this.mapper.properties.player.team[0].stats.hp.set(hitpoints, false), 
-        //         this.mapper.properties.player.team[0].stats.hp_max.set(hitpoints, false), 
-        //         this.mapper.properties.player.team[0].stats.attack.set(attack, false), 
-        //         this.mapper.properties.player.team[0].stats.defense.set(defense, false), 
-        //         this.mapper.properties.player.team[0].stats.special_attack.set(specialAttack, false), 
-        //         this.mapper.properties.player.team[0].stats.special_defense.set(specialDefense, false), 
-        //         this.mapper.properties.player.team[0].stats.speed.set(speed, false), 
-        //         this.mapper.setBits([
-        //             {path: 'player.team.0.ivs.hp',              value: ivHp,  freeze: false},
-        //             {path: 'player.team.0.ivs.attack',          value: ivAtk, freeze: false},
-        //             {path: 'player.team.0.ivs.defense',         value: ivDef, freeze: false},
-        //             {path: 'player.team.0.ivs.speed',           value: ivSpe, freeze: false},
-        //             {path: 'player.team.0.ivs.special_attack',  value: ivSpA, freeze: false},
-        //             {path: 'player.team.0.ivs.special_defense', value: ivSpD, freeze: false},
-        //         ]),
-        //     ])
-        //     if (species == 'Regirock' || species == 'Regice' || species == 'Registeel') {
-        //         await Promise.all([
-        //             await this.mapper.properties.player.team[0].moves[0].pp.set(0, false),
-        //         ])
-        //     }
-        //     if (species == 'Shaymin') {
-        //         await Promise.all([
-        //             await this.mapper.properties.player.team[0].flags.fateful_encounter.set(true, false),
-        //         ])
-        //     }
-        // }
-        // this.mapper.properties.player.team[0].level.change(async (newProp) => {
-        //     if (this.mapper.properties.meta.game_name.value == "Platinum" && newProp == 5 && this.mapper.properties.overworld?.map_name?.value == "Route 201 - Map 1") {
-        //         await setStartingStats()
-        //     }
-        //     if (this.mapper.properties.meta.game_name.value == "HeartGold and SoulSilver" && newProp == 5 && this.mapper.properties.overworld?.map_index?.value == 61) {
-        //         await setStartingStats()
-        //     }
-        // });
-
-        // this.mapper.properties.player.starter.change(async (newProp) => {
-        //     if (newProp.value != this.starter_choice && this.mapper.properties.meta.game_name.value == "HeartGold and SoulSilver" && this.mapper.properties.overworld?.map_index?.value == 61) {
-        //         await Promise.all([
-        //             await this.mapper.properties.player.starter.set(this.starter_choice, false),
-        //         ])
-        //     }
-        // })
-        // this.mapper.properties.overworld.map_name.change(async (newProp) => {
-        //     console.log(newProp)
-        // });
 
         //Styling for stats in case they go above 999
         const stat_size_3_digit = "56px"
