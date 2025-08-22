@@ -1803,8 +1803,10 @@ const app = Vue.createApp({
             byteArrayDecrypted[0x3B] = (iv_raw >> 24) & 0xFF; // set byte 4
 
             // Nature
-            const nature_data = this.natures[this.simple_natures[data_object.nature]]
+            const nature_data = this.natures[data_object.nature]
             console.log(data_object)
+            console.log("Nature data", nature_data)
+            console.log("Modulo value", nature_data.modulo_value)
             const nature_index = nature_data.modulo_value
             byteArrayDecrypted[0x41] = nature_index // Set Nature
 
@@ -4472,6 +4474,7 @@ const app = Vue.createApp({
                 if (newProp.value == true && parseInt(this.timer.formatted_time[0]) == 0) {
                     // this.startTime()
                     this.timer.startTime(this.timer_startTimeOffset);
+                    console.log("Setting options...")
                     this.set_options()
                     this.attempt_number++
                 }
@@ -4482,6 +4485,13 @@ const app = Vue.createApp({
                 }
             })
         }
+
+        // Options
+        this.mapper.properties.overworld.map_index.change((newProp, oldProp) => {
+            if (newProp.value == 391 && oldProp.value == 0) {
+                this.set_options()
+            }
+        })
 
         //Blackouts
         this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.change((newProp, oldProp) => {
