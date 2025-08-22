@@ -38,11 +38,9 @@
             }" 
             :src="`images/pokemon/${starter}.png`" />
             <img class="canvas colored-image ds" src="images/ui/game_area.svg" />
-            <!-- <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/resets.svg)"></div> -->
             <div v-show="playerResets == 0 || blackout_counter == 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>
             <div v-show="playerResets > 0 && blackout_counter > 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer_2.svg)"></div>
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/moveset.svg)"></div>
-            <!-- <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/badges.svg)"></div> -->
             <img class="canvas" :src="`images/progress.png`" />
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/stats.svg)"></div>
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/stats.svg)"></div>
@@ -55,9 +53,6 @@
                 <img class="canvas colored-image ds " :src="`images/ui/nature arrows/${ui_stat_arrangement_modifier}/raises/${natures[pkmnNature].raises}.svg`" />
                 <img class="canvas colored-image ds " :src="`images/ui/nature arrows/${ui_stat_arrangement_modifier}/lowers/${natures[pkmnNature].lowers}.svg`" />
             </div>
-            <img v-if="mapper.properties.meta.game_name.value == 'Diamond and Pearl'"        class="canvas" :src="`images/ui/badges_unobtained.png`" />
-            <img v-if="mapper.properties.meta.game_name.value == 'Platinum'"                 class="canvas" :src="`images/ui/badges_unobtained - plat.png`" />
-            <img v-if="mapper.properties.meta.game_name.value == 'HeartGold and SoulSilver'" class="canvas" :src="`images/ui/badges_unobtained - hgss.png`" />
             <img class="canvas" :src="`images/ui/move_backgrounds.png`" />
             <Timer></Timer>
 
@@ -79,13 +74,13 @@
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
                     </table>
                     <br>
-                    <!-- <button class="buttonStyle" onClick="openFolder('splits')">Open Splits Folder</button><br> -->
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
                     <br><br>
                     <button v-if="show_advanced_settings" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
-                    <!-- <button class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Write Byte Data</button> -->
+                    <button v-if="show_advanced_settings" class="buttonStyle" @click="set_options()">Set Options</button>
+                    <button v-if="show_advanced_settings" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
                     <br>
-                    <!-- Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
+                    Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
                     <div v-if="editor == true">
                         <div>Moveset Updating:</div>
@@ -93,24 +88,13 @@
                         <input style="width: 150px;" type="text" v-model="move2_replacement" placeholder="Input move 2">
                         <input style="width: 150px;" type="text" v-model="move3_replacement" placeholder="Input move 3">
                         <input style="width: 150px;" type="text" v-model="move4_replacement" placeholder="Input move 4">
-                        <button class="buttonStyle buttonStyle_column3" @click="update_moveset">Update Party Moves</button>
-                        <button class="buttonStyle buttonStyle_column3" @click="update_battle_moveset">Update Battle Moves</button>
-                        <br>
-                        <br>
-                        <div>Item Updating:</div>
-                        <input style="width: 150px;" type="text" v-model="item1_replacement" placeholder="Input item 1">
-                        <input style="width: 150px;" type="text" v-model="item2_replacement" placeholder="Input item 2">
-                        <input style="width: 150px;" type="text" v-model="item3_replacement" placeholder="Input item 3">
-                        <input style="width: 150px;" type="text" v-model="item4_replacement" placeholder="Input item 4">
-                        <button class="buttonStyle buttonStyle_column3" @click="update_items">Update</button>
-                        <br>
-                        <br>
+                        <button class="buttonStyle buttonStyle_column3" @click="update_moveset">Update Moves</button>
                     </div>
-                    <br> -->
+                    <br>
                     <div v-if="editor == false && show_advanced_settings">
                         <div>Debugging:</div>
                         <table>
-                            <tr><td>State:</td><td>{{this.mapper.properties.meta.state.value}}</td></tr>
+                            <tr><td>State:</td><td>{{this.mapper.properties?.meta?.state.value}}</td></tr>
                             <tr><td>outcome_flags:</td><td>{{this.mapper.properties.battle.other.outcome_flags.value}}</td></tr>
                             <tr><td>Team Count:</td><td>{{this.mapper.properties.player.team_count.value}}</td></tr>
                             <tr><td>Delay:</td><td>{{disallow_delay}}</td></tr>

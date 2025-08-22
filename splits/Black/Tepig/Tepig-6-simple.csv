@@ -1,3 +1,5 @@
 player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
 Z,Tepig,Bianca,1:03,0,0,5,0:02,1755804725.952,Quick Attack,Magnet Rise,Metal Claw,Screech
 Z,Tepig,Cheren,1:37,0,0,5,0:03,1755804760.129,Quick Attack,Magnet Rise,Metal Claw,Screech
+T,Tepig,Bianca,21:07:25,0,2,5,0:14,1755881004.511,Scratch,Tail Whip,Ember,
+T,Tepig,Cheren,21:07:54,0,2,5,0:16,1755881032.866,Scratch,Tail Whip,Ember,

@@ -956,7 +956,27 @@ const app = Vue.createApp({
         this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
+        hidden_power_type(newValue) {
+            this.hidden_power_index = 0
+            const ivs = this.hiddenpowers[newValue][0]
+            function translateIVsToObject(ivArray) {
+                const ivNames = ['hp', 'atk', 'def', 'spe', 'spa', 'spd'];
+                
+                if (ivArray.length !== 6) {
+                    throw new Error('IV array must have exactly 6 values');
+                }
+                
+                const ivs = {};
+                ivNames.forEach((name, index) => {
+                    ivs[name] = ivArray[index];
+                });
+                
+                return ivs;
+            }
+            this.set_starter_stats_object.ivs = translateIVsToObject(ivs)
+        },
         hidden_power_index(newValue) {
+            if (this.hiddenpowers[this.hidden_power_type].length < newValue) { newValue = 0}
             const ivs = this.hiddenpowers[this.hidden_power_type][newValue]
             function translateIVsToObject(ivArray) {
                 const ivNames = ['hp', 'atk', 'def', 'spe', 'spa', 'spd'];
@@ -981,7 +1001,6 @@ const app = Vue.createApp({
             for (const [key, value] of Object.entries(ability_glossary)) {
                 if (value === newValue) {
                     this.set_starter_stats_object.ability = key;
-                    console.log(this.set_starter_stats_object.ability);
                     return;
                 }
             }
@@ -1669,25 +1688,111 @@ const app = Vue.createApp({
 
     methods: {
         async set_options() {
-            await this.mapper.properties.options.text_speed.set('Fast', false)
+            this.mapper.properties.options.text_speed.setBytes([0xC2], false)
+        },
+        update_moveset() {
+            const byteArrayDecrypted = this.mapper.properties.player.team[0].raw.bytes.slice()
+            const move_data = this.black_moves
+            // Clear bad egg flag
+            byteArrayDecrypted[0x04] = 0x00;
+            byteArrayDecrypted[0x05] = 0x00;
+
+            function split_to_little_endian_bytes(value) {
+                // Ensure the value is a 16-bit integer (0-65535)
+                const uint16 = value & 0xFFFF;
+                // Extract the low byte (least significant byte)
+                const lowByte = uint16 & 0xFF;
+                // Extract the high byte (most significant byte)
+                const highByte = (uint16 >> 8) & 0xFF;
+                // Return in little endian format: [lowByte, highByte]
+                return [lowByte, highByte];
+            }
+            var move1 = this.move_name(this.move1_replacement)
+            var move2 = this.move_name(this.move2_replacement)
+            var move3 = this.move_name(this.move3_replacement)
+            var move4 = this.move_name(this.move4_replacement)
+            var pp1   = move_data[this.move_name(move1)]?.pp ?? 0
+            var pp2   = move_data[this.move_name(move2)]?.pp ?? 0
+            var pp3   = move_data[this.move_name(move3)]?.pp ?? 0
+            var pp4   = move_data[this.move_name(move4)]?.pp ?? 0
+            var move1_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move1_replacement)]?.rom_id ?? 0)
+            var move2_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move2_replacement)]?.rom_id ?? 0)
+            var move3_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move3_replacement)]?.rom_id ?? 0)
+            var move4_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move4_replacement)]?.rom_id ?? 0)
+            console.log(move1_bytes)
+            console.log(move2_bytes)
+            console.log(move3_bytes)
+            console.log(move4_bytes)
+            if (move1 != "") {
+                byteArrayDecrypted[0x28] = move1_bytes[0];
+                byteArrayDecrypted[0x29] = move1_bytes[1];
+                byteArrayDecrypted[0x30] = pp1;
+                this.move_fix_name_1 = move1
+                this.move_fix_pp_1 = pp1
+            }
+            if (move2 != "") {
+                byteArrayDecrypted[0x2A] = move2_bytes[0];
+                byteArrayDecrypted[0x2B] = move2_bytes[1];
+                byteArrayDecrypted[0x31] = pp2;
+                this.move_fix_name_2 = move2
+                this.move_fix_pp_2 = pp2
+            }
+            if (move3 != "") {
+                byteArrayDecrypted[0x2C] = move3_bytes[0];
+                byteArrayDecrypted[0x2D] = move3_bytes[1];
+                byteArrayDecrypted[0x32] = pp3;
+                this.move_fix_name_3 = move3
+                this.move_fix_pp_3 = pp3
+            }
+            if (move4 != "") {
+                byteArrayDecrypted[0x2E] = move4_bytes[0];
+                byteArrayDecrypted[0x2F] = move4_bytes[1];
+                byteArrayDecrypted[0x33] = pp4;
+                this.move_fix_name_4 = move4
+                this.move_fix_pp_4 = pp4
+            }
+
+            // Reencrypt the data
+            let byteArrayReencrypted = this.encrypt_byte_data(byteArrayDecrypted)
+
+            // Write the reencrypted data to the decrypted_mon_0 property
+            this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
         },
         write_byte_data(data_object) {
-            const enable_debugging = false
+            const starter = this.starter
+            const pokedex = this.pokedex_black[starter]
 
-            const byteArrayEncrypted = this.mapper.properties.player.decrypted_mon_0.bytes.slice()
             const byteArrayDecrypted = this.mapper.properties.player.team[0].raw.bytes.slice()
-            if (enable_debugging) {
-                console.log("byteArrayEncrypted", byteArrayEncrypted)
-                console.log("byteArrayDecrypted", byteArrayDecrypted)
-            }
             
-            // PID Modification (Gender & Ability)
+            // Clear bad egg flag
+            byteArrayDecrypted[0x04] = 0x00;
+            byteArrayDecrypted[0x05] = 0x00;
+
             // Gender
-            const gender = this.pkmn_gender == 'Male' ? 255 : 0
-            byteArrayDecrypted[0x00] = gender // Only the first byte of the PID is used to calculate gender, it does not need to be set within the encrypted data structure
-            
+            const gender = this.pkmn_gender == 'Male' ? 254 : 1
             // Ability
-            byteArrayDecrypted[0x15] = data_object.ability
+            const ability_name = this.ability_glossary[data_object.ability]
+            const ability_index = pokedex.abilities.indexOf(ability_name)
+            byteArrayDecrypted[0x15] = parseInt(data_object.ability) // Set current ability
+            // Set PID
+            byteArrayDecrypted[0x00] = gender // Gender
+            switch (ability_index) {
+                case 0: { 
+                    byteArrayDecrypted[0x02] = 0x00; // Clear ability slot so that the ability can't change during evolution
+                    byteArrayDecrypted[0x42] = 0 // Clear Hidden Ability Flag
+                    break; 
+                }
+                case 1: { 
+                    byteArrayDecrypted[0x02] = 0x01; // Set ability slot so that the ability can't change during evolution
+                    byteArrayDecrypted[0x42] = 0 // Clear Hidden Ability Flag
+                    break; 
+                }
+                case 2: { 
+                    byteArrayDecrypted[0x02] = 0x00; // Documentation says that this is cleared for hidden abilities (unconfirmed)
+                    byteArrayDecrypted[0x42] = 1 // Set Hidden Ability Flag
+                    break; 
+                }
+            }
 
             // IVs
             const iv = data_object.ivs // Grab data from the data_object
@@ -1698,15 +1803,12 @@ const app = Vue.createApp({
             byteArrayDecrypted[0x3B] = (iv_raw >> 24) & 0xFF; // set byte 4
 
             // Nature
-            const nature_data = this.natures[data_object.nature]
+            const nature_data = this.natures[this.simple_natures[data_object.nature]]
+            console.log(data_object)
             const nature_index = nature_data.modulo_value
-            byteArrayDecrypted[0x41] = nature_index
+            byteArrayDecrypted[0x41] = nature_index // Set Nature
 
             // Stats
-            const starter = this.starter
-            const pokedex = this.pokedex_black[starter]
-            const base_stats = pokedex.base_stats
-            
             function calculate_hp(iv, ev, level, base_stat) {
                 return Math.floor((2 * base_stat + iv + Math.floor(ev / 4)) * level / 100) + level + 10
             }
@@ -1714,31 +1816,34 @@ const app = Vue.createApp({
                 return Math.floor((Math.floor((2 * base_stat + iv + Math.floor(ev / 4)) * level / 100) + 5) * nature_modifier)
             }
             
-            let hp  = calculate_hp(iv.hp, 0, 5, base_stats.hp)
-            let atk = calculate_other_stat(iv.atk, 0, 5, base_stats.attack,          nature_data.nature_attack)
-            let def = calculate_other_stat(iv.def, 0, 5, base_stats.defense,         nature_data.nature_defense)
-            let spe = calculate_other_stat(iv.spe, 0, 5, base_stats.speed,           nature_data.nature_speed)
-            let spa = calculate_other_stat(iv.spa, 0, 5, base_stats.special_attack,  nature_data.nature_specialAttack)
-            let spd = calculate_other_stat(iv.spd, 0, 5, base_stats.special_defense, nature_data.nature_specialDefense)
+            const base_stats = pokedex.base_stats
+            const level  = byteArrayDecrypted[0x8C]
+            const ev_hp  = byteArrayDecrypted[0x18]
+            const ev_atk = byteArrayDecrypted[0x19]
+            const ev_def = byteArrayDecrypted[0x1A]
+            const ev_spe = byteArrayDecrypted[0x1B]
+            const ev_spa = byteArrayDecrypted[0x1C]
+            const ev_spd = byteArrayDecrypted[0x1D]
+            let hp  = calculate_hp(iv.hp, ev_hp, level, base_stats.hp)
+            let atk = calculate_other_stat(iv.atk, ev_atk, level, base_stats.attack,          nature_data.nature_attack)
+            let def = calculate_other_stat(iv.def, ev_def, level, base_stats.defense,         nature_data.nature_defense)
+            let spe = calculate_other_stat(iv.spe, ev_spe, level, base_stats.speed,           nature_data.nature_speed)
+            let spa = calculate_other_stat(iv.spa, ev_spa, level, base_stats.special_attack,  nature_data.nature_specialAttack)
+            let spd = calculate_other_stat(iv.spd, ev_spd, level, base_stats.special_defense, nature_data.nature_specialDefense)
 
-            byteArrayDecrypted[0x8C] = 5   // level
-            byteArrayDecrypted[0x8E] = hp  // current hp
-            byteArrayDecrypted[0x90] = hp  // max hp
-            byteArrayDecrypted[0x92] = atk // attack
-            byteArrayDecrypted[0x94] = def // defense
-            byteArrayDecrypted[0x96] = spe // speed
-            byteArrayDecrypted[0x98] = spa // special_attack
-            byteArrayDecrypted[0x9A] = spd // special_defense
+            byteArrayDecrypted[0x8E] = hp  // set current hp
+            byteArrayDecrypted[0x90] = hp  // set max hp
+            byteArrayDecrypted[0x92] = atk // set attack
+            byteArrayDecrypted[0x94] = def // set defense
+            byteArrayDecrypted[0x96] = spe // set speed
+            byteArrayDecrypted[0x98] = spa // set special_attack
+            byteArrayDecrypted[0x9A] = spd // set special_defense
 
             // Reencrypt the data
             let byteArrayReencrypted = this.encrypt_byte_data(byteArrayDecrypted)
-            // Log the reencrypted data
-            if (enable_debugging) { 
-                console.log("byteArrayReencrypted", byteArrayReencrypted) 
-            }
+
             // Write the reencrypted data to the decrypted_mon_0 property
             this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
-            this.mapper.properties.player.decrypted_mon_1.setBytes(byteArrayReencrypted, false)
         },
         encrypt_byte_data(array) {
             const decryptedData = new Uint8Array(array);
@@ -1783,6 +1888,7 @@ const app = Vue.createApp({
                     (decryptedData[1] << 8) |
                     (decryptedData[2] << 16) |
                     (decryptedData[3] << 24)) >>> 0;
+            console.log("PID", pid)
 
             // Copy unencrypted first 8 bytes
             for (let i = 0; i < 8; i++) {
@@ -1792,6 +1898,7 @@ const app = Vue.createApp({
             // Shuffle the blocks FORWARD
             const shuffleId = ((pid & 0x3E000) >> 0xD) % 24;
             let shuffleOrder = shuffleOrders[shuffleId];
+            console.log("shuffleOrder", shuffleOrder)
             let dataCopy = decryptedData.slice(0x08, 0x88);
             let checksum = 0
             for (let i = 0x08; i < 0x88; i += 2) {
@@ -1829,7 +1936,7 @@ const app = Vue.createApp({
                 let data = (decryptedData[i] | (decryptedData[i + 1] << 8)) ^ key;
                 dataView.setUint16(i, data, true);
             }
-
+            console.log([...encryptedData])
             return [...encryptedData];
         },
         padTime(time) {
@@ -1985,33 +2092,6 @@ const app = Vue.createApp({
             await this.mapper.properties.bag.medicine[2].quantity.set(99, false)
             await this.mapper.properties.bag.medicine[3].item.set(item4, false)
             await this.mapper.properties.bag.medicine[3].quantity.set(99, false)
-        },
-        async update_moveset() {
-            const move_data = this.cross_generation_moves.g4
-            var move1 = this.move_name(this.move1_replacement)
-            var move2 = this.move_name(this.move2_replacement)
-            var move3 = this.move_name(this.move3_replacement)
-            var move4 = this.move_name(this.move4_replacement)
-            var pp1   = move_data[this.move_name(move1)]
-            var pp2   = move_data[this.move_name(move2)]
-            var pp3   = move_data[this.move_name(move3)]
-            var pp4   = move_data[this.move_name(move4)]
-            if (move1 != "") {
-                await this.mapper.properties.player.team[0].moves[0].move.set(move1, false)
-                await this.mapper.properties.player.team[0].moves[0].pp.set(pp1["PP"], false)
-            }
-            if (move2 != "") {
-                await this.mapper.properties.player.team[0].moves[1].move.set(move2, false)
-                await this.mapper.properties.player.team[0].moves[1].pp.set(pp2["PP"], false)
-            }
-            if (move3 != "") {
-                await this.mapper.properties.player.team[0].moves[2].move.set(move3, false)
-                await this.mapper.properties.player.team[0].moves[2].pp.set(pp3["PP"], false)
-            }
-            if (move4 != "") {
-                await this.mapper.properties.player.team[0].moves[3].move.set(move4, false)
-                await this.mapper.properties.player.team[0].moves[3].pp.set(pp4["PP"], false)
-            }
         },
         async update_battle_moveset() {
             if (this.mapper.properties.meta.state.value == "Battle") {
@@ -3060,7 +3140,7 @@ const app = Vue.createApp({
             }
         },
         move_name(move_string) { //converts move strings so that they are formatted correctly
-            if (move_string != undefined) {
+            if (move_string != undefined || move_string != "") {
                 if (move_string.toLowerCase() == "vicegrip")     { return "ViceGrip" }
                 if (move_string.toLowerCase() == "doubleslap")   { return "DoubleSlap" }
                 if (move_string.toLowerCase() == "double-edge")  { return "Double-Edge" }
@@ -4321,7 +4401,6 @@ const app = Vue.createApp({
                     return Math.floor(power * stabModifier * ability * itemBoost * burnModifier)
         },
     },
-    
 
 //--------- PROGRAM MOUNTED ---------------------------------------------------------------------------------------------------------------//
     mounted: async function () {
@@ -4335,14 +4414,13 @@ const app = Vue.createApp({
         this.mapper.deboucePath("battle.opponent.team")
         this.mapper.deboucePath("player.team.0.species") // TODO: requires testing
         await this.mapper.connect()
-        // this.updateTime()
         this.timer.update();
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
 
-        this.mapper.properties.player.team[0].level.change((newProp, oldProp) => {
+        this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {
             const map = this.mapper.properties.overworld.map_index.value
-            if (map == 391 && newProp.value == 5) {
+            if (newProp.value == 5 && oldProp.value == 0 && map == 391) {
                 this.write_byte_data(this.set_starter_stats_object)
             }
         })
@@ -4421,6 +4499,12 @@ const app = Vue.createApp({
                         this.disallow_faults_function()
                     }
                 }
+            }
+            if (newProp.value == "From Battle" && oldProp.value == "Battle") {
+                this.move_fix_pp_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.pp.value
+                this.move_fix_pp_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.pp.value
+                this.move_fix_pp_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.pp.value
+                this.move_fix_pp_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.pp.value
             }
         });
 

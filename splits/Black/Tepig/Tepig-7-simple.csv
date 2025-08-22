@@ -1,0 +1,10 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+A,Tepig,Bianca,1:48,0,0,5,0:04,1755881241.351,Headbutt,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,Cheren,2:09,0,0,5,0:05,1755881261.961,Headbutt,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,N,5:47,0,0,17,0:17,1755881479.776,Headbutt,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,Bianca,11:11,0,0,17,0:33,1755881804.084,Karate Chop,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,Cheren,11:51,0,0,17,0:35,1755881843.851,Karate Chop,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,Cress,13:21,0,0,18,0:40,1755881933.836,Karate Chop,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,N,33:45,0,0,20,1:30,1755883158.437,Karate Chop,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,N,48:16,0,1,20,1:42,1755884029.236,Karate Chop,Earthquake,Flame Charge,ThunderPunch
+A,Tepig,Lenora,50:23,0,1,22,1:48,1755884156.587,Karate Chop,Earthquake,Flame Charge,ThunderPunch
