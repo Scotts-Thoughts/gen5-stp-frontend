@@ -51,4 +51,22 @@ const typeBoostingItems = {
     //gen8 specific items
     "Blank Plate": "Normal",
     "Legend Plate": "Special",
+
+    "Fire Gem"    : "Fire",
+    "Water Gem"   : "Water",
+    "Electric Gem": "Electric",
+    "Grass Gem"   : "Grass",
+    "Ice Gem"     : "Ice",
+    "Fighting Gem": "Fighting",
+    "Poison Gem"  : "Poison",
+    "Ground Gem"  : "Ground",
+    "Flying Gem"  : "Flying",
+    "Psychic Gem" : "Psychic",
+    "Bug Gem"     : "Bug",
+    "Rock Gem"    : "Rock",
+    "Ghost Gem"   : "Ghost",
+    "Dragon Gem"  : "Dragon",
+    "Dark Gem"    : "Dark",
+    "Steel Gem"   : "Steel",
+    "Normal Gem"  : "Normal",
 }

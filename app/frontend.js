@@ -1969,6 +1969,40 @@ const app = Vue.createApp({
             await this.mapper.properties.bag.items[3].quantity.set(1, false)
             await this.mapper.properties.bag.items[4].item.set("Miracle Seed", false)
             await this.mapper.properties.bag.items[4].quantity.set(1, false)
+            await this.mapper.properties.bag.items[5].item.set("Fire Gem", false)
+            await this.mapper.properties.bag.items[5].quantity.set(10, false)
+            await this.mapper.properties.bag.items[6].item.set("Water Gem", false)
+            await this.mapper.properties.bag.items[6].quantity.set(10, false)
+            await this.mapper.properties.bag.items[7].item.set("Electric Gem", false)
+            await this.mapper.properties.bag.items[7].quantity.set(10, false)
+            await this.mapper.properties.bag.items[8].item.set("Grass Gem", false)
+            await this.mapper.properties.bag.items[8].quantity.set(10, false)
+            await this.mapper.properties.bag.items[9].item.set("Ice Gem", false)
+            await this.mapper.properties.bag.items[9].quantity.set(10, false)
+            await this.mapper.properties.bag.items[10].item.set("Fighting Gem", false)
+            await this.mapper.properties.bag.items[10].quantity.set(10, false)
+            await this.mapper.properties.bag.items[11].item.set("Poison Gem", false)
+            await this.mapper.properties.bag.items[11].quantity.set(10, false)
+            await this.mapper.properties.bag.items[12].item.set("Ground Gem", false)
+            await this.mapper.properties.bag.items[12].quantity.set(10, false)
+            await this.mapper.properties.bag.items[13].item.set("Flying Gem", false)
+            await this.mapper.properties.bag.items[13].quantity.set(10, false)
+            await this.mapper.properties.bag.items[14].item.set("Psychic Gem", false)
+            await this.mapper.properties.bag.items[14].quantity.set(10, false)
+            await this.mapper.properties.bag.items[15].item.set("Bug Gem", false)
+            await this.mapper.properties.bag.items[15].quantity.set(10, false)
+            await this.mapper.properties.bag.items[16].item.set("Rock Gem", false)
+            await this.mapper.properties.bag.items[16].quantity.set(10, false)
+            await this.mapper.properties.bag.items[17].item.set("Ghost Gem", false)
+            await this.mapper.properties.bag.items[17].quantity.set(10, false)
+            await this.mapper.properties.bag.items[18].item.set("Dragon Gem", false)
+            await this.mapper.properties.bag.items[18].quantity.set(10, false)
+            await this.mapper.properties.bag.items[19].item.set("Dark Gem", false)
+            await this.mapper.properties.bag.items[19].quantity.set(10, false)
+            await this.mapper.properties.bag.items[20].item.set("Steel Gem", false)
+            await this.mapper.properties.bag.items[20].quantity.set(10, false)
+            await this.mapper.properties.bag.items[21].item.set("Normal Gem", false)
+            await this.mapper.properties.bag.items[21].quantity.set(10, false)
 
             await this.mapper.properties.bag.medicine[0].item.set("Rare Candy", false)
             await this.mapper.properties.bag.medicine[0].quantity.set(99, false)
@@ -3327,6 +3361,7 @@ const app = Vue.createApp({
             // if (weather == 'Hail' && move == 'Blizzard' && state == 'Battle') {
             //     return `—`
             // }
+            let calculated_accuracy
             if (state == `Overworld`) {
                 let item_modifier = 1
                 switch (held_item) {
@@ -3334,7 +3369,12 @@ const app = Vue.createApp({
                     case "Zoom Lens": item_modifier = 4915/4096; break;
                     default: item_modifier = 1; break;
                 }
-                let calculated_accuracy = Math.floor(accuracy * item_modifier) <= 100 ? Math.floor(accuracy * item_modifier) : 100
+                if (item_modifier == 1) {
+                    return accuracy
+                }
+                else {
+                    calculated_accuracy = Math.floor(accuracy * item_modifier) <= 100 ? Math.floor(accuracy * item_modifier) : 100
+                }
                 return calculated_accuracy
             }
             if (state == `Battle`) {
@@ -4198,11 +4238,14 @@ const app = Vue.createApp({
             if (pkmn_object.species.value == null) { return }
             var heldItemValue = pkmn_object.held_item?.value
             var itemType = this.typeBoostingItems[heldItemValue]
+            var modifier = 1
             if (itemType == this.moveType(x)) {
-                return 1.2
+                modifier =1.2
             }
-            else   
-                return 1
+            if (heldItemValue?.includes("Gem")) {
+                modifier = 1.5
+            }
+            return modifier
         },
         abilityModifier(ability, attackingType, controller) {
             var healthPercentage = this.mapper.properties.battle[controller].active_pokemon.stats.hp / this.mapper.properties.battle[controller].active_pokemon.stats.hp_max

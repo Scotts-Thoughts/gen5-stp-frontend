@@ -1,3 +1,5 @@
 player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
 S,Reshiram,Bianca,37:38,0,0,5,2:19,1755900533.052,Fire Fang,Dragon Rage,,
 S,Reshiram,Cheren,38:00,0,0,5,2:20,1755900554.257,Fire Fang,Dragon Rage,,
+S,Reshiram,Bianca,1:55:13,0,0,5,0:05,1755905187.738,Fire Fang,Dragon Rage,,
+S,Reshiram,Cheren,1:56:14,0,0,5,0:08,1755905249.053,Fire Fang,Dragon Rage,,
