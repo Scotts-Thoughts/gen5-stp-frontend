@@ -774,6 +774,7 @@ const app = Vue.createApp({
             trainerBattles: 0,
             wildEncounters: 0,
             blackout: false,
+            run_complete: false,
 
             //STATE MANAGEMENT ---------------------------------------------------------------------------------//
             gameStarted:  true, //tracks if the player has a save game or not
@@ -1336,7 +1337,32 @@ const app = Vue.createApp({
                     return this.mapper.properties.player.team[0].held_item.value
             }
         },
+        single_battle() {
+            // Double battles and multi-battles
+            let trainer_id = this.mapper.properties.battle.opponent.id.value
+            switch (trainer_id) {
+                case 62 : return false
+                case 63 : return false
+                case 401: return false
+                case 402: return false
+            }
+            // Rotation battles
+            let trainer_name = this.mapper.properties.battle.opponent.trainer.value
+            switch (trainer_name) {
+                case 'Charles': return false
+                case 'Elm'    : return false
+                case 'Eileen' : return false
+                case 'Lou'    : return false
+                case 'Johnny' : return false
+                case 'Kiyo'   : return false
+                case 'Glinda' : return false
+            }
+            return true
+        },
         enemy_graphic() {
+            if (this.single_battle == false) {
+                return false
+            }
             let state = this.mapper.properties.meta.state.value
             let battle_type = this.mapper.properties.battle.opponent.trainer.value == '--' ? 'Wild' : 'Trainer'
             if (battle_type == 'Wild') {
@@ -1345,49 +1371,11 @@ const app = Vue.createApp({
             switch (state) {
                 case "Battle":
                     return true
+                case "To Battle":
+                    return true
                 default:
                     return false
             }
-            // let show = false
-            // let delay = false
-            // let trainer = this.mapper?.properties.battle.opponent.trainer?.value ?? "none"
-            // let id = this.mapper?.properties.battle.opponent?.id?.value ?? 0
-            // if (id == 0) { return false }
-            // switch (trainer) {
-            //     case "Leader Roark":         delay == true;
-            //     case "Leader Gardenia":      delay == true;
-            //     case "Leader Fantina":       delay == true;
-            //     case "Leader Maylene":       delay == true;
-            //     case "Leader Wake":          delay == true;
-            //     case "Leader Byron":         delay == true;
-            //     case "Leader Candice":       delay == true;
-            //     case "Leader Volkner":       delay == true;
-            //     case "Commander Mars":       delay == true;
-            //     case "Commander Jupiter":    delay == true;
-            //     case "Commander Saturn":     delay == true;
-            //     case "Galactica Boss Cyrus": delay == true;
-            //     case "Elite Four Aaron":     delay == true;
-            //     case "Elite Four Bertha":    delay == true;
-            //     case "Elite Four Flint":     delay == true;
-            //     case "Elite Four Lucian":    delay == true;
-            //     case "Champion Cynthia":     delay == true; break;
-            //     default: delay = false; break;
-            // }
-            // if (this.mapper.properties.meta.state.value == "Battle") {
-            //     show = true
-            // }
-            // if (this.mapper.properties.meta.state.value == "Battle" && show == true && delay == true) {
-            //     return true
-            // }
-            // if (this.mapper.properties.meta.state.value == "Battle" && show == true && delay == false) {
-            //     return true
-            // }
-            // if (this.mapper.properties.meta.state.value == "Battle" && delay == true) {
-            //     return true
-            // }
-            // else {
-            //     return false
-            // }
         },
         wild_pokemon() {
             if (this.wild_pokemon_display == false) { return false}
@@ -1415,13 +1403,13 @@ const app = Vue.createApp({
                 return `height: ${heights[totalPokemon]}; filter: saturate(${this.ui_saturation}) drop-shadow(0px 0px 1px #000000)`;
             }
             totalPokemon = this.mapper.properties.battle.opponent.team_count.value;
-            let game = this.mapper.properties.meta.game_name.value
-            let opponent_2            = this.mapper.properties.battle.opponent_2?.trainer.value
-            let opponent_team_count   = this.mapper.properties.battle.opponent.team_count.value;
-            let opponent_2_team_count = this.mapper.properties.battle.opponent_2?.team_count.value;
-            if (opponent_2 && game != "HeartGold and SoulSilver") {
-                totalPokemon = opponent_team_count + opponent_2_team_count
-            }
+            // let game = this.mapper.properties.meta.game_name.value
+            // let opponent_2            = this.mapper.properties.battle.opponent_2?.trainer.value
+            // let opponent_team_count   = this.mapper.properties.battle.opponent.team_count.value;
+            // let opponent_2_team_count = this.mapper.properties.battle.opponent_2?.team_count.value;
+            // if (opponent_2 && game != "HeartGold and SoulSilver") {
+            //     totalPokemon = opponent_team_count + opponent_2_team_count
+            // }
             return `height: ${heights[totalPokemon]}; filter: saturate(${this.ui_saturation}) drop-shadow(0px 0px 1px #000000)`;
         },
         play() {
@@ -2330,7 +2318,17 @@ const app = Vue.createApp({
             let SpE = 0
             // const active_pokemonPv = this.mapper.properties.battle.player.active_pokemon.internals.personality_value
             // const teamPokemonPv = this.mapper.properties.player.team[0].internals.personality_value
-            if (state == `Overworld` || state == `To Battle`) {
+            if (state == `No Pokemon`) {
+                return {
+                    "Hp" : this.g5PokemonData[this.starter].base_stats.hp,
+                    "Atk": this.g5PokemonData[this.starter].base_stats.attack,
+                    "Def": this.g5PokemonData[this.starter].base_stats.defense,
+                    "SpA": this.g5PokemonData[this.starter].base_stats.special_attack,
+                    "SpD": this.g5PokemonData[this.starter].base_stats.special_defense,
+                    "Spe": this.g5PokemonData[this.starter].base_stats.speed,
+                }
+            }
+            else if (state == `Overworld` || state == `To Battle`) {
                 HP = this.mapper.properties.player.team[0].stats.hp_max.value
                 Atk = this.mapper.properties.player.team[0].stats.attack.value
                 Def = this.mapper.properties.player.team[0].stats.defense.value
@@ -2363,7 +2361,7 @@ const app = Vue.createApp({
                     "Spe": SpE,
                 }
             }
-            if (state == `Battle`) {
+            else if (state == `Battle`) {
                 this.stat_fix_toggle = true
                 const mod_atk = this.mapper.properties.battle.player.active_pokemon.modifiers.attack.value
                 const mod_def = this.mapper.properties.battle.player.active_pokemon.modifiers.defense.value
@@ -2398,7 +2396,7 @@ const app = Vue.createApp({
                     "Spe": battle_spe,
                 }
             }
-            if (state == `From Battle`) {
+            else if (state == `From Battle`) {
                 return {
                     "Hp" : this.stat_fix_hp,
                     "Atk": this.stat_fix_atk,
@@ -2408,7 +2406,7 @@ const app = Vue.createApp({
                     "Spe": this.stat_fix_spe
                 }
             }
-            if (state == `No Pokemon`) {
+            else {
                 return {
                     "Hp" : this.g5PokemonData[this.starter].base_stats.hp,
                     "Atk": this.g5PokemonData[this.starter].base_stats.attack,
@@ -2747,6 +2745,7 @@ const app = Vue.createApp({
             this.finished_logs = false
             this.blackout_counter = 0
             this.playerId = 0
+            this.run_complete = false
             // this.playerName = "NINTEN"
 
             // this.updateTime()
@@ -2768,7 +2767,7 @@ const app = Vue.createApp({
             }
         },
         getTrainerGraphic() {
-            if (this.mapper.properties.meta.state == `Battle`) {
+            if (this.mapper.properties.meta.state == `Battle` || this.mapper.properties.meta.state == `To Battle`) {
                 let graphic = `images/trainers/Cress.png`
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let bytes = this.mapper.properties.battle.opponent.trainer.bytes
@@ -3053,7 +3052,7 @@ const app = Vue.createApp({
                     return battle_move
                 }
             }
-            else if (state == `Overworld`) {
+            else if (state == `Overworld` || state == `To Battle`) {
                 if (team_move) {
                     return team_move
                 }
@@ -3115,7 +3114,7 @@ const app = Vue.createApp({
                     return battle_pp
                 }
             }
-            else if (state == `Overworld`) {
+            else if (state == `Overworld` || state == `To Battle`) {
                 return team_pp
             }
             else if (state == `No Pokemon`) {
@@ -3171,7 +3170,7 @@ const app = Vue.createApp({
                 }
                 return this.mapper.properties.battle?.player?.active_pokemon[typeString]?.value
             }
-            if (this.mapper.properties.meta?.state?.value == `No Pokemon` || this.mapper.properties.meta?.state?.value == `Overworld`) {
+            if (this.mapper.properties.meta?.state?.value == `No Pokemon` || this.mapper.properties.meta?.state?.value == `Overworld` || this.mapper.properties.meta?.state?.value == `To Battle`) {
                 return this.g5PokemonData[species][type]
             }
         },
@@ -3362,7 +3361,7 @@ const app = Vue.createApp({
             //     return `—`
             // }
             let calculated_accuracy
-            if (state == `Overworld`) {
+            if (state == `Overworld` || state == `To Battle`) {
                 let item_modifier = 1
                 switch (held_item) {
                     case "Wide Lens": item_modifier = 4505/4096; break;
@@ -4256,7 +4255,7 @@ const app = Vue.createApp({
             var itemType = this.typeBoostingItems[heldItemValue]
             var modifier = 1
             if (itemType == this.moveType(x)) {
-                modifier =1.2
+                modifier = 1.2
             }
             if (heldItemValue?.includes("Gem")) {
                 modifier = 1.5
@@ -4408,36 +4407,38 @@ const app = Vue.createApp({
         },
         typeEffectiveness(x) { //x = move1.value
             const state = this.mapper.properties.meta.state.value
+            var enemy_party_position = this.mapper.properties.battle.opponent.party_position.value
+            var enemy_pokemon_data = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_party_position}_ram`]
+
             if (x == "Curse") {
                 return "—"
             }
-            if (x == null || x == undefined) {
+            if (x == null || x == undefined || x == "") {
                 return
             }
             var attackingType = this.moveType(x)
             var power = this.movePower(x)
-            var defendingType1 = this.mapper.properties.battle.opponent.active_pokemon.type_1.value ?? "Normal"
-            var defendingType2 = this.mapper.properties.battle.opponent.active_pokemon.type_2.value ?? "Normal"
+            var defendingType1 = enemy_pokemon_data?.type_1?.value ?? "Normal"
+            var defendingType2 = enemy_pokemon_data?.type_2?.value ?? "Normal"
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
             var defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
-            
+            var defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
+
             // var player_ability = this.mapper.properties.player.team[0].ability.value
             // var player_status = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
             var flare_boost = 1
             // ! Locate the status condition battle ram address
-
-            if (defendingType1 && attackingType) {
+            
+            if (defendingType1 && attackingType && state == 'Battle') {
                 var defendingType1Effectiveness = this.typeEffectivenessArray[attackingType][defendingType1]
             }
             if (defendingType2 && attackingType && (defendingType1 != defendingType2)) {
                 var defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
-            }
-            var stabModifier = this.determineSTAB(x)
-            var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
-            var enemy_party_position = this.mapper.properties.battle.opponent.party_position.value
+            }          
 
-            var enemy_pokemon_data = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_party_position}_ram`]
+            var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
+
             if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
                 ability = 0 
             }
@@ -4459,7 +4460,7 @@ const app = Vue.createApp({
             switch (state) {
                 case "Battle": {
                     player_item = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
-                    enemy_item = enemy_pokemon_data.held_item.value
+                    enemy_item = enemy_pokemon_data?.held_item?.value ?? ""
                     break
                 }
                 default: {
@@ -4472,6 +4473,12 @@ const app = Vue.createApp({
             var enemy_item_modifier = 1
             if (enemy_item == "Air Balloon" && attackingType == "Ground") {
                 enemy_item_modifier = 0
+            }
+
+            var stabModifier = this.determineSTAB(x)
+            var expert_belt_check = player_item.held_item.value
+            if (stabModifier == 1.5 && expert_belt_check == 'Expert Belt') {
+                stabModifier = 1.8
             }
 
             // var weatherBoost = this.weatherModifier(this.mapper.properties.battle.field.weather.value, x, this.moveType(x))
@@ -4489,7 +4496,7 @@ const app = Vue.createApp({
             if (power <= 60 && ability == "Technician") {
                 power = power * 1.5
             }
-            if (this.typeCalcs == true && this.mapper.properties.meta.state.value == "Battle") { //Handles type effectiveness calculations in battle
+            if (this.typeCalcs == true && state == "Battle" && this.single_battle == true) { //Handles type effectiveness calculations in battle
                 if (power == "—") { return "—" }
                 if (power == "-") { return "—" }
                 return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier)
@@ -4578,7 +4585,9 @@ const app = Vue.createApp({
                 }
                 if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == false && oldProp.value == true) {
                     this.blackout = false;
-                    if (this.disallow_faults == false) { this.playerResets++ }
+                    if (this.disallow_faults == false && this.run_complete == false) { 
+                        this.playerResets++ 
+                    }
                     this.disallow_faults_function()
                 }
             })
@@ -4596,23 +4605,6 @@ const app = Vue.createApp({
             const state = this.mapper.properties.meta.state.value
             if (newProp.value == 0 && state == `Battle` && this.mapper.properties.battle.opponent.trainer.value != '--') {
                 this.blackout = true;
-            }
-        });
-        this.mapper.properties.meta.state.change((newProp, oldProp) => {
-            const game = this.mapper.properties.meta.game_name.value
-            if (this.blackout == true) {
-                if (game == 'Black') {
-                    if (newProp.value == "Overworld" && oldProp.value == "Battle") {
-                        if (this.disallow_faults == false) { this.blackout_counter++ }
-                        this.disallow_faults_function()
-                    }
-                }
-            }
-            if (newProp.value == "From Battle" && oldProp.value == "Battle") {
-                this.move_fix_pp_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.pp.value
-                this.move_fix_pp_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.pp.value
-                this.move_fix_pp_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.pp.value
-                this.move_fix_pp_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.pp.value
             }
         });
 
@@ -4940,15 +4932,41 @@ const app = Vue.createApp({
         }
 
         //write to file at the end of a key battle
-        this.mapper.properties.meta.state.change(async (prop) => {
-            console.log(`State Changed to "${prop.value}"`)
-            if (prop.value != 'From Battle' || this.mapper.properties.battle.player.active_pokemon.stats.hp.value == 0) { return }
+        this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
+            const game = this.mapper.properties.meta.game_name.value
+            if (this.blackout == true) {
+                if (game == 'Black') {
+                    if (newProp.value == "Overworld" && oldProp.value == "Battle") {
+                        if (this.disallow_faults == false && this.run_complete == false) { 
+                            this.blackout_counter++ 
+                        }
+                        this.disallow_faults_function()
+                    }
+                }
+            }
+            if (newProp.value == "From Battle" && oldProp.value == "Battle") {
+                this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
+                this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
+                this.move_fix_name_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.move.value
+                this.move_fix_name_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.move.value
+                this.move_fix_pp_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.pp.value
+                this.move_fix_pp_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.pp.value
+                this.move_fix_pp_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.pp.value
+                this.move_fix_pp_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.pp.value
+            }
+
+            // console.log(`State Changed to "${newProp.value}"`)
+            // if (newProp.value != 'From Battle' || this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value == 0) { 
+            //     return 
+            // }
+            // console.log('Starting autosplitter process')
             autosplitter_process()
             // console.log('Autosplitter Attempted to Run')
-            if (prop.value == 'From Battle') {
-                // console.log('Starting split log process')
+            if (newProp.value == 'From Battle') {
+                console.log('Starting split log process')
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let id = this.mapper.properties.battle.opponent.trainer.bytes
+                console.log(trainer)
                 let gameName = 'Black'
                 let game_name = 'Black'
                 if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined) { return }
@@ -4990,6 +5008,7 @@ const app = Vue.createApp({
                 if (this.game.finalBattle.includes(trainer)) {
                     // this.stopTime()
                     this.timer.stopTime();
+                    this.run_complete = true
                     if (this.testRun == false) {
                         this.finished_run_count++
                     };

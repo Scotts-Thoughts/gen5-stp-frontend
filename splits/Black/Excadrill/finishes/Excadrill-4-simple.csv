@@ -1,0 +1,5 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+Stitch,Excadrill,Ghetsis,9:13,0,0,50,5:56,1755971118.271,DragonBreath,Slash,Extrasensory,Fusion Flare
+Stitch,Excadrill,Ghetsis,9:22,0,0,50,5:56,1755971147.97,DragonBreath,Slash,Extrasensory,Fusion Flare
+Stitch,Excadrill,Ghetsis,11:34,0,1,50,5:32,1755971300.01,DragonBreath,Slash,Extrasensory,Fusion Flare
+Stitch,Excadrill,Ghetsis,12:16,0,1,50,5:58,1755971524.44,DragonBreath,Slash,Extrasensory,Fusion Flare

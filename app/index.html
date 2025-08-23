@@ -94,12 +94,14 @@
                     <div v-if="editor == false && show_advanced_settings">
                         <div>Debugging:</div>
                         <table>
-                            <tr><td>State:</td><td>{{this.mapper.properties?.meta?.state.value}}</td></tr>
+                            <tr><td>State:</td><td>{{this.mapper.properties.meta.state.value}}</td></tr>
                             <tr><td>outcome_flags:</td><td>{{this.mapper.properties.battle.other.outcome_flags.value}}</td></tr>
                             <tr><td>Team Count:</td><td>{{this.mapper.properties.player.team_count.value}}</td></tr>
                             <tr><td>Delay:</td><td>{{disallow_delay}}</td></tr>
                             <tr><td>Blackout:</td><td>{{this.blackout}}</td></tr>
                             <tr><td>Enemy Graphic:</td><td>{{enemy_graphic}}</td></tr>
+                            <tr><td>Run Complete:</td><td>{{run_complete}}</td></tr>
+                            <tr><td>Single Battle:</td><td>{{single_battle}}</td></tr>
                         </table>
                     </div>
                 </div>

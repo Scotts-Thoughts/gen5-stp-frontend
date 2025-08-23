@@ -1060,7 +1060,7 @@ body {
 }
 .ePkmnTyping {
     position: absolute;
-    top: 126px;
+    top: 123px;
     right: 302px;
     display: flex;
     justify-content: flex-end;
