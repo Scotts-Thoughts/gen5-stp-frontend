@@ -4671,15 +4671,19 @@ const app = Vue.createApp({
                     this.set_options()
                     this.attempt_number++
                 }
-                if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == false && oldProp.value == true) {
-                    this.blackout = false;
-                    if (this.disallow_faults == false && this.run_complete == false) { 
-                        this.playerResets++ 
-                    }
-                    this.disallow_faults_function()
-                }
             })
         }
+        this.mapper.properties.player.name.change(async (newProp, oldProp) => {
+            console.log(newProp)
+            console.log(oldProp)
+            if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == "" && oldProp.value != "") {
+                this.blackout = false;
+                if (this.disallow_faults == false && this.run_complete == false) { 
+                    this.playerResets++ 
+                }
+                this.disallow_faults_function()
+            }
+        })
 
         // Options
         this.mapper.properties.overworld.map_index.change(async (newProp, oldProp) => {
