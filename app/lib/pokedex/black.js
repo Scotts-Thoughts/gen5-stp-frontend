@@ -64876,9 +64876,9 @@ const pokedex_black = {
         "egg_moves": [],
         "evolution_family": []
     },
-    "Tranquill": {
+    "Tranquil": {
         "rom_id": 520,
-        "species": "Tranquill",
+        "species": "Tranquil",
         "type_1": "Normal",
         "type_2": "Flying",
         "base_stats": {

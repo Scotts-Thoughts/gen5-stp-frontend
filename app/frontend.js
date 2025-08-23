@@ -4454,21 +4454,21 @@ const app = Vue.createApp({
             var defendingType2 = enemy_pokemon_data?.type_2?.value ?? "Normal"
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
-            var defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
-            var defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
 
             // var player_ability = this.mapper.properties.player.team[0].ability.value
             // var player_status = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
             var flare_boost = 1
             // ! Locate the status condition battle ram address
             
-            if (defendingType1 && attackingType && state == 'Battle') {
-                var defendingType1Effectiveness = this.typeEffectivenessArray[attackingType][defendingType1]
+            if (state == 'Battle') {
+                if (defendingType1 && attackingType) {
+                    defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
+                }
+                if (defendingType2 && attackingType && (defendingType1 != defendingType2)) {
+                    defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
+                }
             }
-            if (defendingType2 && attackingType && (defendingType1 != defendingType2)) {
-                var defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
-            }          
-
+            
             var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
 
             if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
@@ -4509,8 +4509,9 @@ const app = Vue.createApp({
 
             var stabModifier = this.determineSTAB(x)
             var expert_belt_check = player_item.held_item.value
-            if (stabModifier == 1.5 && expert_belt_check == 'Expert Belt') {
-                stabModifier = 1.8
+            var expert_belt_modifier = 1
+            if (defendingType1Effectiveness * defendingType2Effectiveness > 1 && expert_belt_check == 'Expert Belt') {
+                expert_belt_modifier = 1.2
             }
 
             // var weatherBoost = this.weatherModifier(this.mapper.properties.battle.field.weather.value, x, this.moveType(x))
@@ -4531,13 +4532,15 @@ const app = Vue.createApp({
             if (this.typeCalcs == true && state == "Battle" && this.single_battle == true) { //Handles type effectiveness calculations in battle
                 if (power == "—") { return "—" }
                 if (power == "-") { return "—" }
-                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier)
+                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier)
             }
-            else //handles out of battle cases
+            else { //handles out of battle cases
                 if (power == "—") { return power }
                 if (power == "-") { return "—" }
-                else 
+                else {
                     return Math.floor(power * stabModifier * ability * itemBoost * burnModifier)
+                }
+            }
         },
     },
 
