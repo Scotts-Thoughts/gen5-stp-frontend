@@ -4060,6 +4060,22 @@ const app = Vue.createApp({
                 var held_item = this.mapper.properties.player.team[0].held_item.value
                 return this.natural_gift[held_item]?.type ?? "Normal"
             }
+            else if (y == 'Techno Blast') {
+                let held_item = this.mapper.properties.player.team[0].held_item.value
+                let species = this.mapper.properties.player.team[0].species.value
+                if (species == "Genesect") {
+                    switch (held_item) {
+                        case "Shock Drive": return "Electric"; break;
+                        case "Burn Drive":  return "Fire"; break;
+                        case "Chill Drive": return "Ice"; break;
+                        case "Douse Drive": return "Water"; break;
+                        default: return "Normal"; break;
+                    }
+                }
+                else {
+                    return "Normal"
+                }
+            }
             else if (y) {
                 var move = this.black_moves[y]
                 if (move) return move.type
@@ -4391,6 +4407,7 @@ const app = Vue.createApp({
             }
         },
         typeEffectiveness(x) { //x = move1.value
+            const state = this.mapper.properties.meta.state.value
             if (x == "Curse") {
                 return "—"
             }
@@ -4404,24 +4421,63 @@ const app = Vue.createApp({
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
             var defendingType1Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType1]
-            var ability = this.mapper.properties.player.team[0].ability.value
-            // if (defendingType1 && attackingType) {
-            //     var defendingType1Effectiveness = this.typeEffectivenessArray[attackingType][defendingType1]
-            // }
+            
+            // var player_ability = this.mapper.properties.player.team[0].ability.value
+            // var player_status = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
+            var flare_boost = 1
+            // ! Locate the status condition battle ram address
+
+            if (defendingType1 && attackingType) {
+                var defendingType1Effectiveness = this.typeEffectivenessArray[attackingType][defendingType1]
+            }
             if (defendingType2 && attackingType && (defendingType1 != defendingType2)) {
                 var defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
             }
             var stabModifier = this.determineSTAB(x)
             var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
-            if (this.mapper.properties.battle.opponent.active_pokemon.ability.value == 'Levitate' && attackingType == 'Ground') {
+            var enemy_party_position = this.mapper.properties.battle.opponent.party_position.value
+
+            var enemy_pokemon_data = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_party_position}_ram`]
+            if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
                 ability = 0 
             }
-            var itemBoost = this.determineItemBoost(x, this.mapper.properties.player.team[0])
+            if (enemy_pokemon_data?.ability.value == 'Sap Sipper' && attackingType == 'Grass') {
+                ability = 0 
+            }
+            if (enemy_pokemon_data?.ability.value == 'Storm Drain' && attackingType == 'Water') {
+                ability = 0 
+            }
+            if (enemy_pokemon_data?.ability.value == 'Lightningrod' && attackingType == 'Electric') {
+                ability = 0 
+            }
+            if (enemy_pokemon_data?.ability.value == 'Flash Fire' && attackingType == 'Fire') {
+                ability = 0 
+            }
+
+            var player_item = ""
+            var enemy_item = ""
+            switch (state) {
+                case "Battle": {
+                    player_item = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
+                    enemy_item = enemy_pokemon_data.held_item.value
+                    break
+                }
+                default: {
+                    player_item = this.mapper.properties.player.team[0]
+                    break
+                }
+            }
+            var itemBoost = this.determineItemBoost(x, player_item)
+
+            var enemy_item_modifier = 1
+            if (enemy_item == "Air Balloon" && attackingType == "Ground") {
+                enemy_item_modifier = 0
+            }
+
             // var weatherBoost = this.weatherModifier(this.mapper.properties.battle.field.weather.value, x, this.moveType(x))
             var weatherBoost = 1
+
             var burnModifier = this.burnModifier(x)
-            // console.log("Type1:",defendingType1Effectiveness)
-            // console.log("Type2:",defendingType2Effectiveness)
             if (ability == "Tinted Lens") {
                 var type_multiple = defendingType1Effectiveness * defendingType2Effectiveness
                 if (type_multiple == 0) {}
@@ -4433,11 +4489,10 @@ const app = Vue.createApp({
             if (power <= 60 && ability == "Technician") {
                 power = power * 1.5
             }
-            // console.log("Recalculated:", defendingType2Effectiveness)
             if (this.typeCalcs == true && this.mapper.properties.meta.state.value == "Battle") { //Handles type effectiveness calculations in battle
                 if (power == "—") { return "—" }
                 if (power == "-") { return "—" }
-                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * ability * itemBoost * weatherBoost * burnModifier)
+                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier)
             }
             else //handles out of battle cases
                 if (power == "—") { return power }
