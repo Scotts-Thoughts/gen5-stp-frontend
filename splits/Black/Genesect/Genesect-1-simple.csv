@@ -1,0 +1,3 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+A,Genesect,Bianca,1:00,0,0,5,0:02,1755983418.814,Quick Attack,Magnet Rise,Metal Claw,Screech
+A,Genesect,Cheren,1:20,0,0,5,0:03,1755983438.817,Quick Attack,Magnet Rise,Metal Claw,Screech

@@ -790,6 +790,9 @@ const app = Vue.createApp({
             field_array:     ["Reflect", 0],
             last_initiated_field_effect: "Reflect",
 
+            encounters_route_1: MyStorage["encounters_route_1"] ?? false,
+            encounters_route_2: MyStorage["encounters_route_2"] ?? false,
+
             //Pokemon settings for local storage
             overlay_color: MyStorage["overlay_color"] ?? "#000000",
             imageXOffset : MyStorage["imageXOffset"]  ?? 0,
@@ -848,6 +851,8 @@ const app = Vue.createApp({
                 "blackout_counter",
                 "ui_saturation",
                 "frame",
+                "encounters_route_1",
+                "encounters_route_2",
             ],
             timer_startTimeOffset: MyStorage["timer_startTimeOffset"] ?? "00:00:00.00",
             time_split_start:      MyStorage['time_split_start']      ?? "00:00:00:00",
@@ -926,6 +931,8 @@ const app = Vue.createApp({
             this.evolution              = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution              ?? 0
             this.evolution_splits_label = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution_splits_label ?? 0
             this.frame                  = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.frame                  ?? 0
+            this.encounters_route_1     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_1     ?? false
+            this.encounters_route_2     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_2     ?? false
         }
         for (let i = 0; i < this.pokemon_settings.length; i++) {
             let propName = this.pokemon_settings[i];
@@ -954,9 +961,19 @@ const app = Vue.createApp({
                 }
             );
         }
-        this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
+        // this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
+        encounters_route_1(newValue) {
+            if (this.mapper.properties.overworld.map_index.value == 317) {
+                this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
+        encounters_route_2(newValue) {
+            if (this.mapper.properties.overworld.map_index.value == 319) {
+                this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
         hidden_power_type(newValue) {
             this.hidden_power_index = 0
             const ivs = this.hiddenpowers[newValue][0]
@@ -1015,7 +1032,7 @@ const app = Vue.createApp({
                 MyStorage[`${game}_${starter}`] = {};
             }
             //background texture settings
-            this.overlay_color          = MyStorage[`${game}_${starter}`]?.overlay_color    ?? this.default_colors[g5PokemonData[starter].type_1];
+            this.overlay_color          = MyStorage[`${game}_${starter}`]?.overlay_color    ?? this.default_colors[this.g5PokemonData[starter].type_1];
            
             this.evolution              = MyStorage[`${game}_${starter}`]?.evolution ?? false
             this.evolution_splits_label = MyStorage[`${game}_${starter}`]?.evolution_splits_label ?? ""
@@ -1028,7 +1045,7 @@ const app = Vue.createApp({
             this.imageSat               = MyStorage[`${game}_${starter}`]?.imageSat         ?? 100
             this.imageRotation          = MyStorage[`${game}_${starter}`]?.imageRotation    ?? 0
 
-            this.backgroundTexture      = MyStorage[`${game}_${starter}`]?.backgroundTexture     ?? `${this.g5PokemonData[starter].type_1}`
+            this.backgroundTexture      = MyStorage[`${game}_${starter}`]?.backgroundTexture     ?? `${this.pokedex_black[starter].type_1}`
             this.backgroundBlur         = MyStorage[`${game}_${starter}`]?.backgroundBlur        ?? 0,
             this.backgroundHue          = MyStorage[`${game}_${starter}`]?.backgroundHue         ?? 0,
             this.backgroundScale        = MyStorage[`${game}_${starter}`]?.backgroundScale       ?? 100,
@@ -1053,6 +1070,8 @@ const app = Vue.createApp({
             this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
             this.hidden_power_index     = MyStorage[`${game}_${starter}`]?.hidden_power_index    ?? 0,
             this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
+            this.encounters_route_1     = MyStorage[`${game}_${starter}`]?.encounters_route_1     ?? false
+            this.encounters_route_2     = MyStorage[`${game}_${starter}`]?.encounters_route_2     ?? false
             this.movepoolResize();
         },
         ui_stat_arrangement(newValue) {
@@ -1675,6 +1694,16 @@ const app = Vue.createApp({
     },
 
     methods: {
+        update_buffer_moves() {
+            this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
+            this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
+            this.move_fix_name_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.move.value
+            this.move_fix_name_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.move.value
+            this.move_fix_pp_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.pp.value
+            this.move_fix_pp_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.pp.value
+            this.move_fix_pp_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.pp.value
+            this.move_fix_pp_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.pp.value
+        },
         async set_options() {
             this.mapper.properties.options.text_speed.setBytes([0xC2], false)
         },
@@ -2586,6 +2615,8 @@ const app = Vue.createApp({
             this.time_ms =                    MyStorage['time_ms']                    ?? 0
             this.time_split_start =           MyStorage['time_split_start']           ?? "00:00:00:00"
             this.battle_start =               MyStorage['battle_start']               ?? 0
+            this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
+            this.encounters_route_2 =         MyStorage['encounters_route_2']         ?? false
 
             //Pokemon settings for local storage
             this.overlay_color = MyStorage[`${game_name}_${this.starter}`]?.overlay_color ?? this.default_colors[`${this.g5PokemonData[this.starter].type_1}`]
@@ -3067,7 +3098,7 @@ const app = Vue.createApp({
                 return this.moveType(move)
             }
             else {
-                return this.black_moves[this.getMove(x)]?.type?.toLowerCase()
+                return this.moveType(move)
             }
         },
         getMoveObject(moveNumber) {
@@ -3197,6 +3228,7 @@ const app = Vue.createApp({
                 if (move_string.toLowerCase() == "smokescreen")  { return "SmokeScreen" }
                 if (move_string.toLowerCase() == "sonicboom")    { return "SonicBoom" }
                 if (move_string.toLowerCase() == "will-o-wisp")  { return "Will-O-Wisp" }
+                if (move_string.toLowerCase() == "u-turn")       { return "U-Turn" }
                 else { return move_string }
             }
             else { return move_string }
@@ -4594,9 +4626,15 @@ const app = Vue.createApp({
         }
 
         // Options
-        this.mapper.properties.overworld.map_index.change((newProp, oldProp) => {
+        this.mapper.properties.overworld.map_index.change(async (newProp, oldProp) => {
             if (newProp.value == 391 && oldProp.value == 0) {
                 this.set_options()
+            }
+            if (newProp.value == 317 && this.encounters_route_1 == false) {
+                this.mapper.properties.overworld.encounters_enabled.set(false, false)
+            }
+            if (newProp.value == 319 && this.encounters_route_2 == false) {
+                this.mapper.properties.overworld.encounters_enabled.set(false, false)
             }
         })
 
@@ -4931,6 +4969,19 @@ const app = Vue.createApp({
             }
         }
 
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move1.move.change((newProp, oldProp) => {
+            this.update_buffer_moves()
+        })
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move2.move.change((newProp, oldProp) => {
+            this.update_buffer_moves()
+        })
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move3.move.change((newProp, oldProp) => {
+            this.update_buffer_moves()
+        })
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move4.move.change((newProp, oldProp) => {
+            this.update_buffer_moves()
+        })
+
         //write to file at the end of a key battle
         this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
             const game = this.mapper.properties.meta.game_name.value
@@ -4945,14 +4996,7 @@ const app = Vue.createApp({
                 }
             }
             if (newProp.value == "From Battle" && oldProp.value == "Battle") {
-                this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
-                this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
-                this.move_fix_name_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.move.value
-                this.move_fix_name_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.move.value
-                this.move_fix_pp_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.pp.value
-                this.move_fix_pp_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.pp.value
-                this.move_fix_pp_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.pp.value
-                this.move_fix_pp_4 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move4`]?.pp.value
+                this.update_buffer_moves()
             }
 
             // console.log(`State Changed to "${newProp.value}"`)

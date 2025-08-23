@@ -1,0 +1,16 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+T,Reshiram,Bianca,41,0,0,5,0:01,1755978448.84,Fire Fang,Dragon Rage,,
+T,Reshiram,Cheren,58,0,0,5,0:02,1755978465.998,Fire Fang,Dragon Rage,,
+T,Reshiram,N,3:56,0,0,5,0:11,1755978643.668,Fire Fang,Dragon Rage,,
+T,Reshiram,Bianca,5:55,0,0,7,0:17,1755978762.121,Fire Fang,Dragon Rage,,
+T,Reshiram,Cheren,6:17,0,0,8,0:18,1755978784.277,Fire Fang,Dragon Rage,Imprison,
+T,Reshiram,Cress,7:44,1,0,10,0:23,1755978871.331,Fire Fang,Dragon Rage,Imprison,
+T,Reshiram,Cheren,51:31,1,0,13,2:25,1755981498.818,Fire Fang,Dragon Rage,Imprison,
+T,Reshiram,N,53:47,1,0,14,2:32,1755981634.806,Fire Fang,Dragon Rage,Imprison,
+T,Reshiram,Lenora,56:40,1,1,17,2:41,1755981807.1,Fire Fang,Dragon Rage,Imprison,AncientPower
+T,Reshiram,Burgh,1:05:44,1,1,22,3:08,1755982352.081,Flamethrower,Dragon Rage,Imprison,AncientPower
+T,Reshiram,Bianca,1:06:47,1,1,23,3:11,1755982414.55,Flamethrower,Dragon Rage,Imprison,AncientPower
+T,Reshiram,Cheren,1:07:27,1,1,24,3:13,1755982454.371,Flamethrower,Dragon Rage,Imprison,AncientPower
+T,Reshiram,N,1:13:18,1,1,25,3:29,1755982805.668,Flamethrower,Dragon Rage,Imprison,AncientPower
+T,Reshiram,Elesa,1:15:32,1,1,28,3:36,1755982939.163,Flamethrower,Dragon Rage,Imprison,AncientPower
+T,Reshiram,Cheren,1:17:31,1,1,29,3:42,1755983058.747,Flamethrower,Dragon Rage,Imprison,AncientPower
