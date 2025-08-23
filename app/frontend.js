@@ -1694,6 +1694,59 @@ const app = Vue.createApp({
     },
 
     methods: {
+        enemy_form(x, species) {
+            const pokemon_data = this.mapper.properties.battle.opponent.team[x]
+            const form = pokemon_data.flags.alternate_form.value
+            switch (species) {
+                case "Basculin": {
+                    if (form == 0) { return "-1" }
+                    if (form == 1) { return "" }
+                }
+                case "Deerling": {
+                    if (form == 0) { return "-spring" }
+                    if (form == 1) { return "-summer" }
+                    if (form == 2) { return "-autumn" }
+                    if (form == 3) { return "-winter" }
+                }
+                case "Sawsbuck": {
+                    if (form == 0) { return "-spring" }
+                    if (form == 1) { return "-summer" }
+                    if (form == 2) { return "-autumn" }
+                    if (form == 3) { return "-winter" }
+                }
+                case "Burmy": {
+                    if (form == 0) { return "-plant" }
+                    if (form == 1) { return "-sandy" }
+                    if (form == 2) { return "-trash" }
+                }
+                case "Wormadam": {
+                    if (form == 0) { return "-plant" }
+                    if (form == 1) { return "-sandy" }
+                    if (form == 2) { return "-trash" }
+                }
+                case "Shellos": {
+                    if (form == 0) { return "-west" }
+                    if (form == 1) { return "-east" }
+                }
+                case "Gastrodon": {
+                    if (form == 0) { return "-west" }
+                    if (form == 1) { return "-east" }
+                }
+                case "Giratina": {
+                    if (form == 0) { return "-altered" }
+                    if (form == 1) { return "-origin" }
+                }
+                // case "Rotom": {
+                //     if (form == 0) { return "" }
+                //     if (form == 1) { return "-heat" }
+                //     if (form == 2) { return "-wash" }
+                //     if (form == 3) { return "-frost" }
+                //     if (form == 4) { return "-fan" }
+                //     if (form == 5) { return "-cut" }
+                // }
+            }
+            return ""
+        },
         update_buffer_moves() {
             this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
             this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
@@ -4662,23 +4715,23 @@ const app = Vue.createApp({
         if (document.getElementById("SpD") && this.get_stat()["SpD"].toString().length >= 4) { document.getElementById("SpD").style.fontSize = stat_size_4_digit }
         if (document.getElementById("Spe") && this.get_stat()["Spe"].toString().length <= 3) { document.getElementById("Spe").style.fontSize = stat_size_3_digit }
         if (document.getElementById("Spe") && this.get_stat()["Spe"].toString().length >= 4) { document.getElementById("Spe").style.fontSize = stat_size_4_digit }
-        this.mapper.properties.battle.player.active_pokemon.modifiers.attack.change(async () => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.modifiers.attack.change(async () => {
             if (this.get_stat()["Atk"].toString().length <= 3) { document.getElementById("Atk").style.fontSize = stat_size_3_digit }
             if (this.get_stat()["Atk"].toString().length >= 4) { document.getElementById("Atk").style.fontSize = stat_size_4_digit }
         })
-        this.mapper.properties.battle.player.active_pokemon.modifiers.defense.change(async () => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.modifiers.defense.change(async () => {
             if (this.get_stat()["Def"].toString().length <= 3) { document.getElementById("Def").style.fontSize = stat_size_3_digit }
             if (this.get_stat()["Def"].toString().length >= 4) { document.getElementById("Def").style.fontSize = stat_size_4_digit }
         })
-        this.mapper.properties.battle.player.active_pokemon.modifiers.special_attack.change(async () => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.modifiers.special_attack.change(async () => {
             if (this.get_stat()["SpA"].toString().length <= 3) { document.getElementById("SpA").style.fontSize = stat_size_3_digit }
             if (this.get_stat()["SpA"].toString().length >= 4) { document.getElementById("SpA").style.fontSize = stat_size_4_digit }
         })
-        this.mapper.properties.battle.player.active_pokemon.modifiers.special_defense.change(async () => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.modifiers.special_defense.change(async () => {
             if (this.get_stat()["SpD"].toString().length <= 3) { document.getElementById("SpD").style.fontSize = stat_size_3_digit }
             if (this.get_stat()["SpD"].toString().length >= 4) { document.getElementById("SpD").style.fontSize = stat_size_4_digit }
         })
-        this.mapper.properties.battle.player.active_pokemon.modifiers.speed.change(async () => {
+        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.modifiers.speed.change(async () => {
             if (this.get_stat()["Spe"].toString().length <= 3) { document.getElementById("Spe").style.fontSize = stat_size_3_digit }
             if (this.get_stat()["Spe"].toString().length >= 4) { document.getElementById("Spe").style.fontSize = stat_size_4_digit }
         })
