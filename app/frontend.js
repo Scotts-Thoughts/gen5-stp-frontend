@@ -3148,10 +3148,10 @@ const app = Vue.createApp({
         getMoveType(x) {
             const move = this.black_moves[this.getMove(x)]?.move
             if (move == 'Natural Gift') {
-                return this.moveType(move)
+                return this.moveType(move).toLowerCase()
             }
             else {
-                return this.moveType(move)
+                return this.moveType(move).toLowerCase()
             }
         },
         getMoveObject(moveNumber) {

@@ -8,7 +8,8 @@ const typeBoostingItems = {
     "Metal Coat":     "Steel",
     "Miracle Seed":   "Grass",
     "Mystic Water":   "Water",
-    "Never-Melt Ice": "Ice",  // This one's a bit tricky due to the original casing
+    "NeverMeltIce":   "Ice",  // This one's a bit tricky due to the original casing
+    "Never-Melt Ice": "Ice",
     "Pink Bow":       "Normal",
     "Poison Barb":    "Poison",
     "Polkadot Bow":   "Normal",
