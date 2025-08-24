@@ -5029,19 +5029,6 @@ const app = Vue.createApp({
             }
         }
 
-        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move1.move.change((newProp, oldProp) => {
-            this.update_buffer_moves()
-        })
-        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move2.move.change((newProp, oldProp) => {
-            this.update_buffer_moves()
-        })
-        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move3.move.change((newProp, oldProp) => {
-            this.update_buffer_moves()
-        })
-        this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves.move4.move.change((newProp, oldProp) => {
-            this.update_buffer_moves()
-        })
-
         //write to file at the end of a key battle
         this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
             const game = this.mapper.properties.meta.game_name.value
