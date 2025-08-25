@@ -498,7 +498,7 @@ const app = Vue.createApp({
             evolution_splits_label       : "",
             frame                        : false,
             selected_game                : MyStorage['selected_game'] ?? "Black",
-            available_games              : ["Black"], // ["Black", "White", "Black 2", "White 2"],
+            available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
             refilming_mode               : false,
             show_advanced_settings       : MyStorage['show_advanced_settings']        ?? false,
@@ -1903,7 +1903,7 @@ const app = Vue.createApp({
             let spa = calculate_other_stat(iv.spa, ev_spa, level, base_stats.special_attack,  nature_data.nature_specialAttack)
             let spd = calculate_other_stat(iv.spd, ev_spd, level, base_stats.special_defense, nature_data.nature_specialDefense)
 
-            byteArrayDecrypted[0x8E] = 1 // hp  // set current hp
+            byteArrayDecrypted[0x8E] = hp  // set current hp
             byteArrayDecrypted[0x90] = hp  // set max hp
             byteArrayDecrypted[0x92] = atk // set attack
             byteArrayDecrypted[0x94] = def // set defense

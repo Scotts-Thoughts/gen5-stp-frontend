@@ -19,7 +19,7 @@
       <feComposite in2="blur" operator="in"/>
       <feComposite in="SourceGraphic"/>
     </filter>
-    <linearGradient id="linear-gradient-2" x1="57" y1="148" x2="390" y2="148" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-2" x1="51" y1="148" x2="396" y2="148" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-3" x1="15" y1="67" x2="431" y2="67" xlink:href="#linear-gradient"/>
     <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
       <feOffset dx="1" dy="1"/>
@@ -48,10 +48,10 @@
         <rect x="165" y="237" width="118" height=".59" style="fill: #231f20; filter: url(#drop-shadow-1); stroke-width: 0px;"/>
       </g>
       <g>
-        <polygon points="75.83 217 57 198.17 57 97.83 75.83 79 371.17 79 390 97.83 390 198.17 371.17 217 75.83 217" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
-        <path d="m370.34,81l17.66,17.66v98.69l-17.66,17.66H76.66l-17.66-17.66v-98.69l17.66-17.66h293.69m1.66-4H75c-7.81,7.81-12.19,12.19-20,20v102c7.81,7.81,12.19,12.19,20,20h297c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: gray; stroke-width: 0px;"/>
-        <path d="m371.17,79l18.83,18.83v100.34l-18.83,18.83H75.83l-18.83-18.83v-100.34l18.83-18.83h295.34m.83-2H75l-20,20v102l20,20h297c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
-        <path d="m372,77c7.81,7.81,12.19,12.19,20,20v102c-7.81,7.81-12.19,12.19-20,20H75l-20-20v-102l20-20h297m.41-1H74.59l-.29.29-20,20-.29.29v102.83l.29.29,20,20,.29.29h297.83l.29-.29,20-20,.29-.29v-102.83l-.29-.29-20-20-.29-.29h0Z" style="stroke-width: 0px;"/>
+        <polygon points="69.83 217 51 198.17 51 97.83 69.83 79 377.17 79 396 97.83 396 198.17 377.17 217 69.83 217" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
+        <path d="m376.34,81l17.66,17.66v98.69l-17.66,17.66H70.66l-17.66-17.66v-98.69l17.66-17.66h305.69m1.66-4H69c-7.81,7.81-12.19,12.19-20,20v102c7.81,7.81,12.19,12.19,20,20h309c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: gray; stroke-width: 0px;"/>
+        <path d="m377.17,79l18.83,18.83v100.34l-18.83,18.83H69.83l-18.83-18.83v-100.34l18.83-18.83h307.34m.83-2H69l-20,20v102l20,20h309c7.81-7.81,12.19-12.19,20-20v-102c-7.81-7.81-12.19-12.19-20-20h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+        <path d="m378,77c7.81,7.81,12.19,12.19,20,20v102c-7.81,7.81-12.19,12.19-20,20H69l-20-20v-102l20-20h309m.41-1H68.59l-.29.29-20,20-.29.29v102.83l.29.29,20,20,.29.29h309.83l.29-.29,20-20,.29-.29v-102.83l-.29-.29-20-20-.29-.29h0Z" style="stroke-width: 0px;"/>
       </g>
     </g>
   </g>
