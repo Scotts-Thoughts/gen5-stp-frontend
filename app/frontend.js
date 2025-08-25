@@ -1903,7 +1903,7 @@ const app = Vue.createApp({
             let spa = calculate_other_stat(iv.spa, ev_spa, level, base_stats.special_attack,  nature_data.nature_specialAttack)
             let spd = calculate_other_stat(iv.spd, ev_spd, level, base_stats.special_defense, nature_data.nature_specialDefense)
 
-            byteArrayDecrypted[0x8E] = hp  // set current hp
+            byteArrayDecrypted[0x8E] = 1 // hp  // set current hp
             byteArrayDecrypted[0x90] = hp  // set max hp
             byteArrayDecrypted[0x92] = atk // set attack
             byteArrayDecrypted[0x94] = def // set defense
@@ -4003,11 +4003,9 @@ const app = Vue.createApp({
                     if (power > 200) { power = 200 } // Ensure power does not exceed 200
                     return power
                 }
-                let held_item_2 = this.mapper.properties.player.team[0].held_item.value
-                if (held_item_2 == 'Wise Glasses' && move.category == 'Special') {
-                    if (move.power != "—" && move.power != 0 && move.power != 1) {
-                        return Math.floor(move.power * 1.1)
-                    }
+                if (y == "Fling") {
+                    fling_power = this.get_fling_power()
+                    return fling_power
                 }
 
                 if (move.power == "—") { return "—"}
@@ -4017,6 +4015,637 @@ const app = Vue.createApp({
                     if (move) return move.power
             }
             return null
+        },
+        get_fling_power(held_item_2) {
+            const state = this.mapper.properties.meta.state.value
+            const held_item_overworld = this.mapper.properties.player.team[0].held_item.value
+            const held_item_battle = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.held_item.value
+            var switch_item = held_item_overworld
+            if (state == "Battle" || state == "From Battle") {
+                switch_item = held_item_battle
+            }
+            switch (switch_item) {
+                case "Master Ball"    : return "—";
+                case "Ultra Ball"     : return "—";
+                case "Great Ball"     : return "—";
+                case "Poké Ball"      : return "—";
+                case "Safari Ball"    : return "—";
+                case "Ball"           : return "—";
+                case "Dive Ball"      : return "—";
+                case "Nest Ball"      : return "—";
+                case "Repeat Ball"    : return "—";
+                case "Timer Ball"     : return "—";
+                case "Luxury Ball"    : return "—";
+                case "Premier Ball"   : return "—";
+                case "Dusk Ball"      : return "—";
+                case "Heal Ball"      : return "—";
+                case "Quick Ball"     : return "—";
+                case "Cherish Ball"   : return "—";
+                case "Potion"         : return 30;
+                case "Antidote"       : return 30;
+                case "Burn Heal"      : return 30;
+                case "Ice Heal	Ice"  : return 30;
+                case "Awakening"      : return 30;
+                case "Paralyze Heal"  : return 30;
+                case "Full Restore"   : return 30;
+                case "Max Potion"     : return 30;
+                case "Hyper Potion"   : return 30;
+                case "Super Potion"   : return 30;
+                case "Full Heal"      : return 30;
+                case "Revive"         : return 30;
+                case "Max Revive"     : return 30;
+                case "Fresh Water"    : return 30;
+                case "Soda Pop"       : return 30;
+                case "Lemonade"       : return 30;
+                case "Moomoo Milk"    : return 30;
+                case "Energy Powder"  : return 30;
+                case "Energy Root"    : return 30;
+                case "Heal Powder"    : return 30;
+                case "Revival Herb"   : return 30;
+                case "Ether"          : return 30;
+                case "Max Ether"      : return 30;
+                case "Elixir"         : return 30;
+                case "Max Elixir"     : return 30;
+                case "Lava Cookie"    : return 30;
+                case "Berry Juice"    : return 30;
+                case "Sacred Ash"     : return 30;
+                case "HP Up"          : return 30;
+                case "Protein"        : return 30;
+                case "Iron"           : return 30;
+                case "Carbos"         : return 30;
+                case "Calcium"        : return 30;
+                case "Rare Candy"     : return 30;
+                case "PP Up"          : return 30;
+                case "Zinc"           : return 30;
+                case "PP Max"         : return 30;
+                case "Old Gateau"     : return 30;
+                case "Guard Spec."    : return 30;
+                case "Dire Hit"       : return 30;
+                case "X Attack"       : return 30;
+                case "X Defense"      : return 30;
+                case "X Speed"        : return 30;
+                case "X Accuracy"     : return 30;
+                case "X Special"      : return 30;
+                case "X Sp. Def"      : return 30;
+                case "Poké Doll"      : return 30;
+                case "Fluffy Tail"    : return 30;
+                case "Blue Flute"     : return 30;
+                case "Yellow Flute"   : return 30;
+                case "Red Flute"      : return 30;
+                case "Black Flute"    : return 30;
+                case "White Flute"    : return 30;
+                case "Shoal Salt"     : return 30;
+                case "Shoal Shell"    : return 30;
+                case "Red Shard"      : return 30;
+                case "Blue Shard"     : return 30;
+                case "Yellow Shard"   : return 30;
+                case "Green Shard"    : return 30;
+                case "Super Repel"    : return 30;
+                case "Max Repel"      : return 30;
+                case "Escape Rope"    : return 30;
+                case "Repel"          : return 30;
+                case "Sun Stone"      : return 30;
+                case "Moon Stone"     : return 30;
+                case "Fire Stone"     : return 30;
+                case "Thunderstone"   : return 30;
+                case "Water Stone"    : return 30;
+                case "Leaf Stone"     : return 30;
+                case "TinyMushroom"   : return 30;
+                case "Big Mushroom"   : return 30;
+                case "Pearl"          : return 30;
+                case "Big Pearl"      : return 30;
+                case "Stardust"       : return 30;
+                case "Star Piece"     : return 30;
+                case "Nugget"         : return 30;
+                case "Heart Scale"    : return 30;
+                case "Honey"          : return 30;
+                case "Growth Mulch"   : return 30;
+                case "Damp Mulch"     : return 30;
+                case "Stable Mulch"   : return 30;
+                case "Gooey Mulch"    : return 30;
+                case "Root Fossil"    : return 100;
+                case "Claw Fossil"    : return 100;
+                case "Helix Fossil"   : return 100;
+                case "Dome Fossil"    : return 100;
+                case "Old Amber"      : return 100;
+                case "Armor Fossil"   : return 100;
+                case "Skull Fossil"   : return 100;
+                case "Rare Bone"      : return 100;
+                case "Shiny Stone"    : return 80;
+                case "Dusk Stone"     : return 80;
+                case "Dawn Stone"     : return 80;
+                case "Oval Stone"     : return 80;
+                case "Odd Keystone"   : return 80;
+                case "Griseous Orb"   : return 60;
+                case "Douse Drive"    : return 70;
+                case "Shock Drive"    : return 70;
+                case "Burn Drive"     : return 70;
+                case "Chill Drive"    : return 70;
+                case "Sweet Heart"    : return 30;
+                case "Adamant Orb"    : return 60;
+                case "Lustrous Orb"   : return 60;
+                case "Greet Mail"     : return 0;
+                case "Favored Mail"   : return 0;
+                case "RSVP Mail"      : return 0;
+                case "Thanks Mail"    : return 0;
+                case "Inquiry Mail"   : return 0;
+                case "Like Mail"      : return 0;
+                case "Reply Mail"     : return 0;
+                case "BridgeMail S"   : return 0;
+                case "BridgeMail D"   : return 0;
+                case "BridgeMail T"   : return 0;
+                case "BridgeMail V"   : return 0;
+                case "BridgeMail M"   : return 0;
+                case "Cheri Berry"    : return 10;
+                case "Chesto Berry"   : return 10;
+                case "Pecha Berry"    : return 10;
+                case "Rawst Berry"    : return 10;
+                case "Aspear Berry"   : return 10;
+                case "Leppa Berry"    : return 10;
+                case "Oran Berry"     : return 10;
+                case "Persim Berry"   : return 10;
+                case "Lum Berry"      : return 10;
+                case "Sitrus Berry"   : return 10;
+                case "Figy Berry"     : return 10;
+                case "Wiki Berry"     : return 10;
+                case "Mago Berry"     : return 10;
+                case "Aguav Berry"    : return 10;
+                case "Iapapa Berry"   : return 10;
+                case "Razz Berry"     : return 10;
+                case "Bluk Berry"     : return 10;
+                case "Nanab Berry"    : return 10;
+                case "Wepear Berry"   : return 10;
+                case "Pinap Berry"    : return 10;
+                case "Pomeg Berry"    : return 10;
+                case "Kelpsy Berry"   : return 10;
+                case "Qualot Berry"   : return 10;
+                case "Hondew Berry"   : return 10;
+                case "Grepa Berry"    : return 10;
+                case "Tamato Berry"   : return 10;
+                case "Cornn Berry"    : return 10;
+                case "Magost Berry"   : return 10;
+                case "Rabuta Berry"   : return 10;
+                case "Nomel Berry"    : return 10;
+                case "Spelon Berry"   : return 10;
+                case "Pamtre Berry"   : return 10;
+                case "Watmel Berry"   : return 10;
+                case "Durin Berry"    : return 10;
+                case "Belue Berry"    : return 10;
+                case "Occa Berry"     : return 10;
+                case "Passho Berry"   : return 10;
+                case "Wacan Berry"    : return 10;
+                case "Rindo Berry"    : return 10;
+                case "Yache Berry"    : return 10;
+                case "Chople Berry"   : return 10;
+                case "Kebia Berry"    : return 10;
+                case "Shuca Berry"    : return 10;
+                case "Coba Berry"     : return 10;
+                case "Payapa Berry"   : return 10;
+                case "Tanga Berry"    : return 10;
+                case "Charti Berry"   : return 10;
+                case "Kasib Berry"    : return 10;
+                case "Haban Berry"    : return 10;
+                case "Colbur Berry"   : return 10;
+                case "Babiri Berry"   : return 10;
+                case "Chilan Berry"   : return 10;
+                case "Liechi Berry"   : return 10;
+                case "Ganlon Berry"   : return 10;
+                case "Salac Berry"    : return 10;
+                case "Petaya Berry"   : return 10;
+                case "Apicot Berry"   : return 10;
+                case "Lansat Berry"   : return 10;
+                case "Starf Berry"    : return 10;
+                case "Enigma Berry"   : return 10;
+                case "Micle Berry"    : return 10;
+                case "Custap Berry"   : return 10;
+                case "Jaboca Berry"   : return 10;
+                case "Rowap Berry"    : return 10;
+                case "BrightPowder"   : return 10; 
+                case "White Herb"     : return 10;
+                case "Macho Brace"    : return 60;
+                case "Exp. Share"     : return 0;
+                case "Quick Claw"     : return 80;
+                case "Soothe Bell"    : return 10;
+                case "Mental Herb"    : return 10;
+                case "Choice Band"    : return 10;
+                case "King's Rock"    : return 30;
+                case "SilverPowder"   : return 10;
+                case "Amulet Coin"    : return 30;
+                case "Cleanse Tag"    : return 30;
+                case "Soul Dew"       : return 30;
+                case "DeepSeaTooth"   : return 90;
+                case "DeepSeaScale"   : return 30;
+                case "Smoke Ball"     : return 30;
+                case "Everstone"      : return 30;
+                case "Focus Band"     : return 10;
+                case "Lucky Egg"      : return 30;
+                case "Scope Lens"     : return 30;
+                case "Metal Coat"     : return 30;
+                case "Leftovers"      : return 10;
+                case "Dragon Scale"   : return 30;
+                case "Light Ball"     : return 30;
+                case "Soft Sand"      : return 10;
+                case "Hard Stone"     : return 100;
+                case "Miracle Seed"   : return 30;
+                case "BlackGlasses"   : return 30;
+                case "Black Belt"     : return 30;
+                case "Magnet"         : return 30;
+                case "Mystic Water"   : return 30;
+                case "Sharp Beak"     : return 50;
+                case "Poison Barb"    : return 80;
+                case "NeverMeltIce"   : return 30;
+                case "Spell Tag"      : return 30;
+                case "TwistedSpoon"   : return 30;
+                case "Charcoal"       : return 30;
+                case "Dragon Fang"    : return 70;
+                case "Silk Scarf"     : return 10;
+                case "Up-Grade"       : return 30;
+                case "Shell Bell"     : return 30;
+                case "Sea Incense"    : return 10;
+                case "Lax Incense"    : return 10;
+                case "Lucky Punch"    : return 40;
+                case "Metal Powder"   : return 10;
+                case "Thick Club"     : return 90;
+                case "Stick"          : return "ERR";
+                case "Red Scarf"      : return 0;
+                case "Blue Scarf"     : return 0;
+                case "Pink Scarf"     : return 0;
+                case "Green Scarf"    : return 0;
+                case "Yellow Scarf"   : return 0;
+                case "Wide Lens"      : return 10;
+                case "Muscle Band"    : return 10;
+                case "Wise Glasses"   : return 10;
+                case "Expert Belt"    : return 10;
+                case "Light Clay"     : return 30;
+                case "Life Orb"       : return 30;
+                case "Power Herb"     : return 10;
+                case "Toxic Orb"      : return 30;
+                case "Flame Orb"      : return 30;
+                case "Quick Powder"   : return 10;
+                case "Focus Sash"     : return 10;
+                case "Zoom Lens"      : return 10;
+                case "Metronome"      : return 30;
+                case "Iron Ball"      : return 130;
+                case "Lagging Tail"   : return 10;
+                case "Destiny Knot"   : return 10;
+                case "Black Sludge"   : return 30;
+                case "Rock"           : return 10;
+                case "Smooth Rock"    : return 10;
+                case "Heat Rock"      : return 60;
+                case "Damp Rock"      : return 60;
+                case "Grip Claw"      : return 90;
+                case "Choice Scarf"   : return 10;
+                case "Sticky Barb"    : return 80;
+                case "Power Bracer"   : return 70;
+                case "Power Belt"     : return 70;
+                case "Power Lens"     : return 70;
+                case "Power Band"     : return 70;
+                case "Power Anklet"   : return 70;
+                case "Power Weight"   : return 70;
+                case "Shed Shell"     : return 10;
+                case "Big Root"       : return 10;
+                case "Choice Specs"   : return 10;
+                case "Flame Plate"    : return 90;
+                case "Splash Plate"   : return 90;
+                case "Zap Plate"      : return 90;
+                case "Meadow Plate"   : return 90;
+                case "Icicle Plate"   : return 90;
+                case "Fist Plate"     : return 90;
+                case "Toxic Plate"    : return 90;
+                case "Earth Plate"    : return 90;
+                case "Sky Plate"      : return 90;
+                case "Mind Plate"     : return 90;
+                case "Insect Plate"   : return 90;
+                case "Stone Plate"    : return 90;
+                case "Spooky Plate"   : return 90;
+                case "Draco Plate"    : return 90;
+                case "Dread Plate"    : return 90;
+                case "Iron Plate"     : return 90;
+                case "Odd Incense"    : return 10;
+                case "Rock Incense"   : return 10;
+                case "Full Incense"   : return 10;
+                case "Wave Incense"   : return 10;
+                case "Rose Incense"   : return 10;
+                case "Luck Incense"   : return 10;
+                case "Pure Incense"   : return 10;
+                case "Protector"      : return 80;
+                case "Electirizer"    : return 80;
+                case "Magmarizer"     : return 80;
+                case "Dubious Disc"   : return 50;
+                case "Reaper Cloth"   : return 10;
+                case "Razor Claw"     : return 80;
+                case "Razor Fang"     : return 30;
+                case "TM01"           : return 0;
+                case "TM02"           : return 0;
+                case "TM03"           : return 0;
+                case "TM04"           : return 0;
+                case "TM05"           : return 0;
+                case "TM06"           : return 0;
+                case "TM07"           : return 0;
+                case "TM08"           : return 0;
+                case "TM09"           : return 0;
+                case "TM10"           : return 0;
+                case "TM11"           : return 0;
+                case "TM12"           : return 0;
+                case "TM13"           : return 0;
+                case "TM14"           : return 0;
+                case "TM15"           : return 0;
+                case "TM16"           : return 0;
+                case "TM17"           : return 0;
+                case "TM18"           : return 0;
+                case "TM19"           : return 0;
+                case "TM20"           : return 0;
+                case "TM21"           : return 0;
+                case "TM22"           : return 0;
+                case "TM23"           : return 0;
+                case "TM24"           : return 0;
+                case "TM25"           : return 0;
+                case "TM26"           : return 0;
+                case "TM27"           : return 0;
+                case "TM28"           : return 0;
+                case "TM29"           : return 0;
+                case "TM30"           : return 0;
+                case "TM31"           : return 0;
+                case "TM32"           : return 0;
+                case "TM33"           : return 0;
+                case "TM34"           : return 0;
+                case "TM35"           : return 0;
+                case "TM36"           : return 0;
+                case "TM37"           : return 0;
+                case "TM38"           : return 0;
+                case "TM39"           : return 0;
+                case "TM40"           : return 0;
+                case "TM41"           : return 0;
+                case "TM42"           : return 0;
+                case "TM43"           : return 0;
+                case "TM44"           : return 0;
+                case "TM45"           : return 0;
+                case "TM46"           : return 0;
+                case "TM47"           : return 0;
+                case "TM48"           : return 0;
+                case "TM49"           : return 0;
+                case "TM50"           : return 0;
+                case "TM51"           : return 0;
+                case "TM52"           : return 0;
+                case "TM53"           : return 0;
+                case "TM54"           : return 0;
+                case "TM55"           : return 0;
+                case "TM56"           : return 0;
+                case "TM57"           : return 0;
+                case "TM58"           : return 0;
+                case "TM59"           : return 0;
+                case "TM60"           : return 0;
+                case "TM61"           : return 0;
+                case "TM62"           : return 0;
+                case "TM63"           : return 0;
+                case "TM64"           : return 0;
+                case "TM65"           : return 0;
+                case "TM66"           : return 0;
+                case "TM67"           : return 0;
+                case "TM68"           : return 0;
+                case "TM69"           : return 0;
+                case "TM70"           : return 0;
+                case "TM71"           : return 0;
+                case "TM72"           : return 0;
+                case "TM73"           : return 0;
+                case "TM74"           : return 0;
+                case "TM75"           : return 0;
+                case "TM76"           : return 0;
+                case "TM77"           : return 0;
+                case "TM78"           : return 0;
+                case "TM79"           : return 0;
+                case "TM80"           : return 0;
+                case "TM81"           : return 0;
+                case "TM82"           : return 0;
+                case "TM83"           : return 0;
+                case "TM84"           : return 0;
+                case "TM85"           : return 0;
+                case "TM86"           : return 0;
+                case "TM87"           : return 0;
+                case "TM88"           : return 0;
+                case "TM89"           : return 0;
+                case "TM90"           : return 0;
+                case "TM91"           : return 0;
+                case "TM92"           : return 0;
+                case "HM01"           : return 0;
+                case "HM02"           : return 0;
+                case "HM03"           : return 0;
+                case "HM04"           : return 0;
+                case "HM05"           : return 0;
+                case "HM06"           : return 0;
+                case "Explorer Kit"   : return 0;
+                case "Loot Sack"      : return 0;
+                case "Rule Book"      : return 0;
+                case "Poké Radar"     : return 0;
+                case "Point Card"     : return 0;
+                case "Journal"        : return 0;
+                case "Seal Case"      : return 0;
+                case "Fashion Case"   : return 0;
+                case "Seal Bag"       : return 0;
+                case "Pal Pad	Pal"  : return 0;
+                case "Works Key"      : return 0;
+                case "Old Charm"      : return 0;
+                case "Galactic Key"   : return 0;
+                case "Red Chain"      : return 0;
+                case "Town Map"       : return 0;
+                case "Vs. Seeker"     : return 0;
+                case "Coin Case"      : return 0;
+                case "Old Rod"        : return 0;
+                case "Good Rod"       : return 0;
+                case "Super Rod"      : return 0;
+                case "Sprayduck"      : return 0;
+                case "Poffin Case"    : return 0;
+                case "Bicycle"        : return 0;
+                case "Suite Key"      : return 0;
+                case "Oak's Letter"   : return 0;
+                case "Lunar Wing"     : return 0;
+                case "Member Card"    : return 0;
+                case "Azure Flute"    : return 0;
+                case "S.S. Ticket"    : return 0;
+                case "Contest Passho" : return 0;
+                case "Magma Stone"    : return 0;
+                case "Parcel"         : return 0;
+                case "Coupon 1"       : return 0;
+                case "Coupon 2"       : return 0;
+                case "Coupon 3"       : return 0;
+                case "Storage Key"    : return 0;
+                case "Secret Potion"  : return 0;
+                case "Vs. Recorder"   : return 0;
+                case "Gracidea"       : return 0;
+                case "Secret Key"     : return 0;
+                case "Apricorn Box"   : return 0;
+                case "Unown Report"   : return 0;
+                case "Berry Pots"     : return 0;
+                case "Dowsing MCHN"   : return 0;
+                case "Blue Card"      : return 0;
+                case "Slowpoke Tail"  : return 0;
+                case "Clear Bell"     : return 0;
+                case "Card Key"       : return 0;
+                case "Basement Key"   : return 0;
+                case "Squirt Bottle"  : return 0;
+                case "Red Scale"      : return 0;
+                case "Lost Item"      : return 0;
+                case "Pass"           : return 0;
+                case "Machine Part"   : return 0;
+                case "Silver Wing"    : return 0;
+                case "Rainbow Wing"   : return 0;
+                case "Mystery Egg"    : return 0;
+                case "Red Apricorn"   : return 0;
+                case "Blu Apricorn"   : return 0;
+                case "Ylw Apricorn"   : return 0;
+                case "Grn Apricorn"   : return 0;
+                case "Pnk Apricorn"   : return 0;
+                case "Wht Apricorn"   : return 0;
+                case "Blk Apricorn"   : return 0;
+                case "Fast Ball"      : "—";
+                case "Level Ball"     : "—";
+                case "Lure Ball"      : "—";
+                case "Heavy Ball"     : "—";
+                case "Love Ball"      : "—";
+                case "Friend Ball"    : "—";
+                case "Moon Ball"      : "—";
+                case "Sport Ball"     : "—";
+                case "Park Ball"      : "—";
+                case "Photo Album"    : return 0;
+                case "GB Sounds"      : return 0;
+                case "Tidal Bell"     : return 0;
+                case "RageCandyBar"   : return 30;
+                case "Data Card 01"   : return 0;
+                case "Data Card 02"   : return 0;
+                case "Data Card 03"   : return 0;
+                case "Data Card 04"   : return 0;
+                case "Data Card 05"   : return 0;
+                case "Data Card 06"   : return 0;
+                case "Data Card 07"   : return 0;
+                case "Data Card 08"   : return 0;
+                case "Data Card 09"   : return 0;
+                case "Data Card 10"   : return 0;
+                case "Data Card 11"   : return 0;
+                case "Data Card 12"   : return 0;
+                case "Data Card 13"   : return 0;
+                case "Data Card 14"   : return 0;
+                case "Data Card 15"   : return 0;
+                case "Data Card 16"   : return 0;
+                case "Data Card 17"   : return 0;
+                case "Data Card 18"   : return 0;
+                case "Data Card 19"   : return 0;
+                case "Data Card 20"   : return 0;
+                case "Data Card 21"   : return 0;
+                case "Data Card 22"   : return 0;
+                case "Data Card 23"   : return 0;
+                case "Data Card 24"   : return 0;
+                case "Data Card 25"   : return 0;
+                case "Data Card 26"   : return 0;
+                case "Data Card 27"   : return 0;
+                case "Jade Orb"       : return 0;
+                case "Lock Capsule"   : return 0;
+                case "Red Orb IV"     : return 0;
+                case "Blue Orb IV"    : return 0;
+                case "Enigma Stone"   : return 0;
+                case "Prism Scale"    : return 30;
+                case "Eviolite"       : return 40;
+                case "Float Stone"    : return 30;
+                case "Rocky Helmet"   : return 60;
+                case "Air Balloon"    : return 10;
+                case "Red Card"       : return 10;
+                case "Ring Target"    : return 10;
+                case "Binding Band"   : return 30;
+                case "Absorb Bulb"    : return 30;
+                case "Cell Battery"   : return 30;
+                case "Eject Button"   : return 30;
+                case "Fire Gem"       : return 0;
+                case "Water Gem"      : return 0;
+                case "Electric Gem"   : return 0;
+                case "Grass Gem"      : return 0;
+                case "Ice Gem"        : return 0;
+                case "Fighting Gem"   : return 0;
+                case "Poison Gem"     : return 0;
+                case "Ground Gem"     : return 0;
+                case "Flying Gem"     : return 0;
+                case "Psychic Gem"    : return 0;
+                case "Bug Gem"        : return 0;
+                case "Rock Gem"       : return 0;
+                case "Ghost Gem"      : return 0;
+                case "Dragon Gem"     : return 0;
+                case "Dark Gem"       : return 0;
+                case "Steel Gem"      : return 0;
+                case "Normal Gem"     : return 0;
+                case "Health Wing"    : return "ERR";
+                case "Muscle Wing"    : return "ERR";
+                case "Resist Wing"    : return "ERR";
+                case "Genius Wing"    : return "ERR";
+                case "Clever Wing"    : return "ERR";
+                case "Swift Wing"     : return "ERR";
+                case "Pretty Wing"    : return "ERR";
+                case "Cover Fossil"   : return 100;
+                case "Plume Fossil"   : return 100;
+                case "Liberty Pass"   : return 0;
+                case "Pass Orb"       : return 0;
+                case "Dream Ball"     : return 0;
+                case "Poké Toy"       : return 0;
+                case "Prop Case"      : return 0;
+                case "Dragon Skull"   : return 0;
+                case "Balm Mushroom"  : return 30;
+                case "Big Nugget"     : return 30;
+                case "Pearl String"   : return 30;
+                case "Comet Shard"    : return 30;
+                case "Relic Copper"   : return 30;
+                case "Relic Silver"   : return 30;
+                case "Relic Gold"     : return 30;
+                case "Relic Vase"     : return 30;
+                case "Relic Band"     : return 30;
+                case "Relic Statue"   : return 30;
+                case "Relic Crown"    : return 30;
+                case "Casteliacone"   : return 30;
+                case "Dire Hit"       : return 30;
+                case "X Speed"        : return 30;
+                case "X Special"      : return 30;
+                case "X Sp. Def"      : return 30;
+                case "X Defend"       : return 30;
+                case "X Attack"       : return 30;
+                case "X Accuracy"     : return 30;
+                case "X Speed"        : return 30;
+                case "X Special"      : return 30;
+                case "X Sp. Def"      : return 30;
+                case "X Defend"       : return 30;
+                case "X Attack"       : return 30;
+                case "X Accuracy"     : return 30;
+                case "X Speed"        : return 30;
+                case "X Special"      : return 30;
+                case "X Sp. Def"      : return 30;
+                case "X Defend"       : return 30;
+                case "X Attack"       : return 30;
+                case "X Accuracy"     : return 30;
+                case "Ability Urge"   : return 0;
+                case "Item Drop"      : return 0;
+                case "Item Urge"      : return 0;
+                case "Reset Urge"     : return 0;
+                case "Dire Hit 3"     : return 0;
+                case "Light Stone"    : return 0;
+                case "Dark Stone"     : return 0;
+                case "TM93"           : return 0;
+                case "TM94"           : return 0;
+                case "TM95"           : return 0;
+                case "Xtransceiver"   : return 0;
+                case "God Stone"      : return 0;
+                case "Gram 1"         : return 0;
+                case "Gram 2"         : return 0;
+                case "Gram 3"         : return 0;
+                case "Xtransceiver"   : return 0;
+                case "Medal Box"      : return 0;
+                case "DNA Splicers"   : return 0;
+                case "DNA Splicers"   : return 0;
+                case "Permit"         : return 0;
+                case "Oval Charm"     : return 0;
+                case "Shiny Charm"    : return 0;
+                case "Plasma Card"    : return 0;
+                case "Grubby Hanky"   : return 0;
+                case "Colress Machine": return 0;
+                case "Dropped Item"   : return 0;
+                case "Dropped Item"   : return 0;
+                case "Reveal Glass"   : return 0;
+                default: return 0;
+            }
         },
         moveCategory(move) { //move = move.value
             if (move) {
@@ -4338,12 +4967,25 @@ const app = Vue.createApp({
             if (pkmn_object.species.value == null) { return }
             var heldItemValue = pkmn_object.held_item?.value
             var itemType = this.typeBoostingItems[heldItemValue]
+            var move_category = this.moveCategory(x)
             var modifier = 1
             if (itemType == this.moveType(x)) {
                 modifier = 1.2
             }
             if (heldItemValue?.includes("Gem")) {
                 modifier = 1.5
+            }
+            if (x.includes("Punch") && heldItemValue == "Iron Fist") {
+                modifier = 1.2
+            }
+            if (move_category == "Special" && heldItemValue == "Wise Glasses") {
+                modifier = 1.1
+            }
+            if (move_category == "Physical" && heldItemValue == "Muscle Band") {
+                modifier = 1.1
+            }
+            if (heldItemValue == "Life Orb") {
+                modifier = 1.3
             }
             return modifier
         },
@@ -4558,6 +5200,15 @@ const app = Vue.createApp({
             var enemy_item_modifier = 1
             if (enemy_item == "Air Balloon" && attackingType == "Ground") {
                 enemy_item_modifier = 0
+            }
+            if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground' && enemy_item == "Iron Ball") {
+                ability = 1 
+            }
+            if (attackingType == 'Ground' && defendingType1 == 'Flying' && enemy_item == "Iron Ball") {
+                defendingType1Effectiveness = 1 
+            }
+            if (attackingType == 'Ground' && defendingType2 == 'Flying' && enemy_item == "Iron Ball") {
+                defendingType2Effectiveness = 1 
             }
 
             var stabModifier = this.determineSTAB(x)
@@ -5029,12 +5680,12 @@ const app = Vue.createApp({
             }
         }
 
-        //write to file at the end of a key battle
-        this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
+        this.mapper.properties.battle.other.battle.change(async (newProp, oldProp) => {
+            console.log(newProp.value)
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
                 if (game == 'Black') {
-                    if (newProp.value == "Overworld" && oldProp.value == "Battle") {
+                    if (newProp.value == -1893922566 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
                         }
@@ -5042,6 +5693,10 @@ const app = Vue.createApp({
                     }
                 }
             }
+        })
+
+        //write to file at the end of a key battle
+        this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
             if (newProp.value == "From Battle" && oldProp.value == "Battle") {
                 this.update_buffer_moves()
             }
