@@ -3376,8 +3376,8 @@ const app = Vue.createApp({
                 return;
             }
             
-            this.movepoolDefaultFontSize = 15;
-            this.movepoolDefaultLineHeight = 16;
+            this.movepoolDefaultFontSize = 17;
+            this.movepoolDefaultLineHeight = 18;
             this.movepoolDefaultContainerHeight = 992-(this.movepoolDefaultLineHeight+0);
         
             //calculate new sizes
@@ -4975,9 +4975,6 @@ const app = Vue.createApp({
             if (heldItemValue?.includes("Gem")) {
                 modifier = 1.5
             }
-            if (x.includes("Punch") && heldItemValue == "Iron Fist") {
-                modifier = 1.2
-            }
             if (move_category == "Special" && heldItemValue == "Wise Glasses") {
                 modifier = 1.1
             }
@@ -5150,6 +5147,12 @@ const app = Vue.createApp({
             var defendingType1Effectiveness = 1
             var defendingType2Effectiveness = 1
 
+            var player_ability_modifier = 1
+            var player_ability = state == 'Battle' ? this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value : this.mapper.properties.player.team[0].ability.value
+            if (player_ability == "Iron Fist" && (x == 'Hammer Arm' || x == 'Sky Uppercut' || x == 'Ice Hammer' || x == 'Double Iron Bash' || x.includes("Punch"))) {
+                player_ability_modifier = 1.2
+            }
+
             // var player_ability = this.mapper.properties.player.team[0].ability.value
             // var player_status = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram
             var flare_boost = 1
@@ -5236,13 +5239,13 @@ const app = Vue.createApp({
             if (this.typeCalcs == true && state == "Battle" && this.single_battle == true) { //Handles type effectiveness calculations in battle
                 if (power == "—") { return "—" }
                 if (power == "-") { return "—" }
-                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier)
+                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier)
             }
             else { //handles out of battle cases
                 if (power == "—") { return power }
                 if (power == "-") { return "—" }
                 else {
-                    return Math.floor(power * stabModifier * ability * itemBoost * burnModifier)
+                    return Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier)
                 }
             }
         },
