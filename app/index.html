@@ -443,45 +443,66 @@
                     <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s team</div>
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
-                    <div v-for="x in pkmnSlots">
-                        <img v-show="mapper.properties.battle.opponent.team_count.value > x" class="canvas eFaintTransition" :style="fade_enemy_mon_comparison(x)" :class="svgColorClass(speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison, mapper.properties.battle.opponent.team[x])" style="left: -1px;" :src="`images/ui/speed_comp/${x}.svg`"/>
-                    </div>
-                    <!-- <div v-for="x in pkmnSlots">
-                        <img v-show="mapper.properties.battle.opponent.team_count.value > x" class="canvas eFaintTransition colored-image ds" :style="fade_enemy_mon_comparison(x)" :src="`images/enemy-area/moves/${x}.svg`"/>
-                    </div> -->
-                    <div v-for="x in pkmnSlots">
-                        <img v-if="x < mapper.properties.battle.opponent.team_count.value" :src="`images/enemy-area/stats/${ui_type_color_modifier}/${x}.svg`" :style="fade_enemy_mon(x)" class="enemyPng eFaintTransition" :style="enemyFaint(x)">
+                    <div v-for="x in pkmnSlots" :style="fade_stats(x)">
+                        <div v-if="x < mapper.properties.battle.opponent.team_count.value">
+                            <img class="canvas eFaintTransition" :style="fade_enemy_mon_comparison(x)" :class="svgColorClass(speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison, mapper.properties.battle.opponent.team[x])" style="left: -1px;" :src="`images/ui/speed_comp/${x}.svg`"/>
+                            <img :src="`images/enemy-area/stats/${ui_type_color_modifier}/${x}.svg`" :style="fade_enemy_mon(x)" class="enemyPng eFaintTransition" :style="enemyFaint(x)">
+                            <div class="colored-image" :style="`--overlay-color: ${overlay_color}; --url: url(images/ui/enemy_ui/${x}.svg)`"></div>
+                        </div>
                     </div>
 
                     <div class="enemyGraphic">
                         <div v-for="x in pkmnSlots" class="eFaintTransition" :style="enemyFaint(x)">
                             <div v-if="x < mapper.properties.battle.opponent.team_count.value" :class="`border slots ePkmnStyle ePkmn${x}`">
                                 <div :style="fade_enemy_mon(x)" class="eFaintTransition">
-                                    <img class="ePkmnSprite" :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
-                                    <!-- <img class="canvas" :src="`images/ui/speed_comp/${x}.svg`" /> -->
-                                    <div class="ePkmnLvlSpecies">{{enemy_mon_static[x]?.species}}</div>
-                                    <div class="ePkmnLevel" style="opacity: .7;">Lv: {{enemy_mon_static[x]?.level}}</div>
-                                    <div class="ePkmnAbility" style="opacity: .7;">{{enemy_mon_static[x]?.ability}}</div>
-                                    <div class="border ePkmnTyping">
-                                        <img class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_1?.toLowerCase()}.png`" />
-                                        <img v-show="g5PokemonData[enemy_mon_static[x]?.species]?.type_1 != g5PokemonData[enemy_mon_static[x]?.species]?.type_2" 
-                                            class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_2?.toLowerCase()}.png`" />
+                                    <div :style="fade_enemy_mon_text(x)" class="eFaintTransition">
+                                        <img class="ePkmnSprite" :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
+                                        <!-- <img class="canvas" :src="`images/ui/speed_comp/${x}.svg`" /> -->
+                                        <div class="border ePkmnTyping">
+                                            <img class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_1?.toLowerCase()}.png`" />
+                                            <img v-show="g5PokemonData[enemy_mon_static[x]?.species]?.type_1 != g5PokemonData[enemy_mon_static[x]?.species]?.type_2" 
+                                                class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_2?.toLowerCase()}.png`" />
+                                        </div>
+
+                                        <div class="ePkmnLvlSpecies">{{enemy_mon_static[x]?.species}}</div>
+                                        <div class="ePkmnLevel" style="opacity: .7;">Lv: {{enemy_mon_static[x]?.level}}</div>
+                                        <div class="ePkmnAbility" style="opacity: .7;">{{enemy_mon_static[x]?.ability}}</div>
+                                        <div class="speed_comparison">{{speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison}}</div>
+
+                                        <div class="enemyStatLabel eStatLabel eLabelLeft eLabel1" >Hp:</div>
+                                        <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.attack.value == 0"          class="enemyStatLabel eStatLabel eLabelLeft eLabel2" >Atk:</div>
+                                        <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.defense.value == 0"         class="enemyStatLabel eStatLabel eLabelLeft eLabel3" >Def:</div>
+                                        <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.speed.value == 0"           class="enemyStatLabel eStatLabel eLabelRight eLabel1">Spe:</div>
+                                        <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_attack.value == 0"  class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
+                                        <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_defense.value == 0" class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
+        
+                                        <div class="align_right eStatValue eValueLeft eValue1" >{{mapper.properties.battle.opponent.team[x].stats.hp_max}}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue2" >{{mapper.properties.battle.opponent.team[x].stats.attack}}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue3" >{{mapper.properties.battle.opponent.team[x].stats.defense}}</div>
+                                        <div class="align_right eStatValue eValueRight eValue1">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
+                                        <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_attack}}</div>
+                                        <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
+                                        <div class="border ePkmnMoves">
+                                            <table class="enemyMovesetTable">
+                                                <tr v-show="mapper.properties.battle.opponent.team[x].moves[0].move.value != null">
+                                                    <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[0].move.value]?.type?.toLowerCase()}.png`" /></th>
+                                                    <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[0].move.value}}</th>
+                                                </tr>
+                                                <tr v-show="mapper.properties.battle.opponent.team[x].moves[1].move.value != null">
+                                                    <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[1].move.value]?.type?.toLowerCase()}.png`" /></th>
+                                                    <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[1].move.value}}</th>
+                                                </tr>
+                                                <tr v-show="mapper.properties.battle.opponent.team[x].moves[2].move.value != null">
+                                                    <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[2].move.value]?.type?.toLowerCase()}.png`" /></th>
+                                                    <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[2].move.value}}</th>
+                                                </tr>
+                                                <tr v-show="mapper.properties.battle.opponent.team[x].moves[3].move.value != null">
+                                                    <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[3].move.value]?.type?.toLowerCase()}.png`" /></th>
+                                                    <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[3].move.value}}</th>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
-    
-                                    <div class="enemyStatLabel eStatLabel eLabelLeft eLabel1" >Hp:</div>
-                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.attack.value == 0"          class="enemyStatLabel eStatLabel eLabelLeft eLabel2" >Atk:</div>
-                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.defense.value == 0"         class="enemyStatLabel eStatLabel eLabelLeft eLabel3" >Def:</div>
-                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.speed.value == 0"           class="enemyStatLabel eStatLabel eLabelRight eLabel1">Spe:</div>
-                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_attack.value == 0"  class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
-                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_defense.value == 0" class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
-    
-                                    <div class="align_right eStatValue eValueLeft eValue1" >{{mapper.properties.battle.opponent.team[x].stats.hp_max}}</div>
-                                    <div class="align_right eStatValue eValueLeft eValue2" >{{mapper.properties.battle.opponent.team[x].stats.attack}}</div>
-                                    <div class="align_right eStatValue eValueLeft eValue3" >{{mapper.properties.battle.opponent.team[x].stats.defense}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue1">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_attack}}</div>
-                                    <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
-    
                                     <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
                                         <div class="enemyStatModTable">
                                             <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
@@ -490,28 +511,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="border ePkmnMoves">
-                                        <table class="enemyMovesetTable">
-                                            <tr v-show="mapper.properties.battle.opponent.team[x].moves[0].move.value != null">
-                                                <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[0].move.value]?.type?.toLowerCase()}.png`" /></th>
-                                                <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[0].move.value}}</th>
-                                            </tr>
-                                            <tr v-show="mapper.properties.battle.opponent.team[x].moves[1].move.value != null">
-                                                <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[1].move.value]?.type?.toLowerCase()}.png`" /></th>
-                                                <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[1].move.value}}</th>
-                                            </tr>
-                                            <tr v-show="mapper.properties.battle.opponent.team[x].moves[2].move.value != null">
-                                                <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[2].move.value]?.type?.toLowerCase()}.png`" /></th>
-                                                <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[2].move.value}}</th>
-                                            </tr>
-                                            <tr v-show="mapper.properties.battle.opponent.team[x].moves[3].move.value != null">
-                                                <th><img class="icons moveIcon" :src="`images/type-icons-circular/${black_moves[mapper.properties.battle.opponent.team[x].moves[3].move.value]?.type?.toLowerCase()}.png`" /></th>
-                                                <th class="align_left" style="font-size: 14px;">{{mapper.properties.battle.opponent.team[x].moves[3].move.value}}</th>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="speed_comparison">{{speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison}}</div>
                                 </div>
                             </div>
                         </div>

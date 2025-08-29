@@ -93,20 +93,20 @@
     <g id="Slot1_copy" data-name="Slot1 copy">
       <g id="Slot5" style="filter: url(#drop-shadow-1);">
         <g id="atk">
-          <path d="m1664,851h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19l-7,7Z" style="fill: url(#Stat_Atk_New_Sat); stroke-width: 0px;"/>
+          <path d="m1664,851h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_Atk_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="def">
-          <path d="m1664,887h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_Def_New_Sat); stroke-width: 0px;"/>
+          <path d="m1664,887h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_Def_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="spA">
-          <path d="m1733,851h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_SpA_New_Sat); stroke-width: 0px;"/>
+          <path d="m1733,851h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_SpA_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="spD">
-          <path d="m1733,887h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#New_SpD_Dark); stroke-width: 0px;"/>
+          <path d="m1733,887h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#New_SpD_Dark); stroke-width: 0px;"/>
         </g>
-        <path id="hp" d="m1664,815h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_HP_New_Sat); filter: url(#drop-shadow-2); stroke-width: 0px;"/>
+        <path id="hp" d="m1664,815h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_HP_New_Sat); filter: url(#drop-shadow-2); stroke-width: 0px;"/>
         <g id="spe">
-          <path d="m1733,815h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#New_Spe_Dark); stroke-width: 0px;"/>
+          <path d="m1733,815h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#New_Spe_Dark); stroke-width: 0px;"/>
         </g>
       </g>
     </g>

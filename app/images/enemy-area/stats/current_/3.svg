@@ -68,13 +68,6 @@
       <stop offset="1" stop-color="#1e993d"/>
       <stop offset="1" stop-color="#1e993d"/>
     </linearGradient>
-    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
-      <feOffset dx="0" dy="1"/>
-      <feGaussianBlur result="blur-2" stdDeviation="2"/>
-      <feFlood flood-color="#000" flood-opacity=".9"/>
-      <feComposite in2="blur-2" operator="in"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
     <linearGradient id="New_Spe_Dark" data-name="New Spe Dark" x1="1675" y1="631.5" x2="1740" y2="631.5" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#8c53a6"/>
       <stop offset=".04" stop-color="#9659b1"/>
@@ -93,20 +86,22 @@
     <g id="Slot1_copy" data-name="Slot1 copy">
       <g id="Slot4" style="filter: url(#drop-shadow-1);">
         <g id="atk">
-          <path d="m1664,684h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19l-7,7Z" style="fill: url(#Stat_Atk_New_Sat); stroke-width: 0px;"/>
+          <path d="m1664,684h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_Atk_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="def">
-          <path d="m1664,720h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_Def_New_Sat); stroke-width: 0px;"/>
+          <path d="m1664,720h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_Def_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="spA">
-          <path d="m1733,684h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_SpA_New_Sat); stroke-width: 0px;"/>
+          <path d="m1733,684h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_SpA_New_Sat); stroke-width: 0px;"/>
         </g>
         <g id="spD">
-          <path d="m1733,720h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#New_SpD_Dark); stroke-width: 0px;"/>
+          <path d="m1733,720h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#New_SpD_Dark); stroke-width: 0px;"/>
         </g>
-        <path id="hp" d="m1664,648h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#Stat_HP_New_Sat); filter: url(#drop-shadow-2); stroke-width: 0px;"/>
+        <g id="hp">
+          <path d="m1664,648h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#Stat_HP_New_Sat); stroke-width: 0px;"/>
+        </g>
         <g id="spe">
-          <path d="m1733,648h-51l-7-7v-19l7-7h51l7,7v19l-7,7Z" style="fill: url(#New_Spe_Dark); stroke-width: 0px;"/>
+          <path d="m1733,648h-51c-2.73-2.73-4.27-4.27-7-7v-19c2.73-2.73,4.27-4.27,7-7h51c2.73,2.73,4.27,4.27,7,7v19c-2.73,2.73-4.27,4.27-7,7Z" style="fill: url(#New_Spe_Dark); stroke-width: 0px;"/>
         </g>
       </g>
     </g>

@@ -550,6 +550,7 @@ const app = Vue.createApp({
             stat_fix_spa           : 0,
             stat_fix_spd           : 0,
 
+            held_item_fix: "",
             move_fix_name_1: "",
             move_fix_name_2: "",
             move_fix_name_3: "",
@@ -1352,6 +1353,8 @@ const app = Vue.createApp({
             switch (state) {
                 case "Battle":
                     return this.mapper.properties.battle.player.active_pokemon.held_item.value
+                case "From Battle":
+                    return this.held_item_fix
                 default:
                     return this.mapper.properties.player.team[0].held_item.value
             }
@@ -1697,6 +1700,7 @@ const app = Vue.createApp({
         enemy_form(x, species) {
             const pokemon_data = this.mapper.properties.battle.opponent.team[x]
             const form = pokemon_data.flags.alternate_form.value
+            const gender = pokemon_data.gender.value
             switch (species) {
                 case "Basculin": {
                     if (form == 0) { return "-1" }
@@ -1736,18 +1740,16 @@ const app = Vue.createApp({
                     if (form == 0) { return "-altered" }
                     if (form == 1) { return "-origin" }
                 }
-                // case "Rotom": {
-                //     if (form == 0) { return "" }
-                //     if (form == 1) { return "-heat" }
-                //     if (form == 2) { return "-wash" }
-                //     if (form == 3) { return "-frost" }
-                //     if (form == 4) { return "-fan" }
-                //     if (form == 5) { return "-cut" }
-                // }
+                case "Unfezant": {
+                    if      (gender == false) { return "-male" }
+                    else if (gender == true)  { return "-female" }
+                    else return ""
+                }
             }
             return ""
         },
         update_buffer_moves() {
+            this.held_item_fix = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.held_item.value
             this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
             this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
             this.move_fix_name_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.move.value
@@ -2098,13 +2100,31 @@ const app = Vue.createApp({
                 await this.mapper.properties.bag.tmhm[95 + (i - 1)].item.set(`HM${i}`, false)
             }
         },
+        fade_stats(slot) {
+            const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
+            if (enemy_hp > 0) {
+                return
+            }
+            else {
+                return `opacity: .6;`
+            }
+        },
         fade_enemy_mon(slot) {
             const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
             if (enemy_hp > 0) {
                 return
             }
             else {
-                return `opacity: .3; filter: grayscale(100%);`
+                return `filter: grayscale(100%);`
+            }
+        },
+        fade_enemy_mon_text(slot) {
+            const enemy_hp = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${slot}_ram`]?.stats?.hp?.value
+            if (enemy_hp > 0) {
+                return
+            }
+            else {
+                return `opacity: 0.3;`
             }
         },
         fade_enemy_mon_comparison(slot) {
