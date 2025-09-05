@@ -75,6 +75,7 @@
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr>
                     </table>
                     <br>
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
@@ -227,6 +228,12 @@
                                 <option>Automatic</option>
                                 <option>Movepool</option>
                                 <option>Splits</option>
+                            </select><br>
+                        <br>
+                        <div>Splits:</div>
+                            <select v-model="toggle_compare_splits" class="dropdownMenu">
+                                <option>Followup</option>
+                                <option>First</option>
                             </select><br>
                     </div>
                     <br>
@@ -521,31 +528,44 @@
                 <!-- Splits -->
                 <div v-else-if="right_ui == 'Splits'" key="7" :style="`filter: drop-shadow(0px 1px 1px)`" class="posAbs">
                     <div class="posAbs movepoolLabel">Splits</div>
-                    <table class="splits_table" cellspacing="0">
-                        <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
-                            <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left; padding-left: 5px;">Split</td>
-                            <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
-                            <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{previous_label}}</td>
-                            <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{current_label}}</td>
-                            <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
-                        </tr>
-                        <tr v-for="split in compare_splits">
-                            <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
-                            <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
-                            <td style="font-size: 16px; text-align: right;">{{split.previous_time}}</td>
-                            <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
-                            <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
-                        </tr>
-                        <!-- Demo Data -->
-                        <tr v-for="split in demo_split_data">
-                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.Trainer.toLowerCase()}.png`" /></td>
-                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.Trainer}}</td>
-                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right;">{{split.Previous}}</td>
-                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right;">{{split.Current}}</td>
-                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.Diff)">{{split.Diff}}</td>
-                        </tr>
-                    </table>
-                    <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                    <div v-if="toggle_compare_splits === 'Followup'">
+                        <table class="splits_table" cellspacing="0">
+                            <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
+                                <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left;  padding-left: 5px;">Split</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{previous_label}}</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{current_label}}</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
+                            </tr>
+                            <tr v-for="split in compare_splits">
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
+                                <td style="font-size: 16px; text-align: right;">{{split.previous_time}}</td>
+                                <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
+                                <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
+                            </tr>
+                        </table>
+                        <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                    </div>
+                    <div v-else-if="toggle_compare_splits === 'First'">
+                        <table  class="splits_table" cellspacing="0">
+                            <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
+                                <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left;  padding-left: 5px;">Split</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Time</td>
+                            </tr>
+                            <tr v-for="split in compare_splits">
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
+                                <td style="font-size: 16px; text-align: right;"></td>
+                                <td style="font-size: 16px; text-align: right;"></td>
+                                <td style="font-size: 16px; text-align: right; padding-right: 7px;">{{split.current_time}}</td>
+                            </tr>
+                        </table>
+                        <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                    </div>
                 </div>
                 <!-- Movepool -->
                 <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="`filter: drop-shadow(0px 1px 1px)`">

@@ -73,4 +73,5 @@ const auto_save_settings = [
     "collect_split_data",
     "previous_splits",
     "current_splits",
+    "toggle_compare_splits",
 ]

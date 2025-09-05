@@ -519,9 +519,10 @@ const app = Vue.createApp({
             right_ui                     : MyStorage['right_ui']               ?? "Automatic",
             previous_label               : MyStorage['previous_label']         ?? "Previous",
             current_label                : MyStorage['current_label']          ?? "Current",
-            collect_split_data           : MyStorage['collect_split_data']     ?? false,
+            collect_split_data           : MyStorage['collect_split_data']     ?? true,
             previous_splits              : MyStorage['previous_splits']         ?? [],
             current_splits               : MyStorage['current_splits']          ?? [],
+            toggle_compare_splits        : MyStorage['toggle_compare_splits']   ?? 'First',
             demo_splits                  : false,
             automatic_post_battle_splits : true,
 
