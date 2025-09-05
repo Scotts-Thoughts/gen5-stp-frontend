@@ -32,6 +32,7 @@ const game_variables =
             "Marshal",
             "Alder",
             "N",
+            "Ghetsis",
             "Cheren",
             "Bianca",
         ],

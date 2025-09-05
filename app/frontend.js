@@ -19,6 +19,20 @@ const MyStorage = new Proxy({}, {
     }
 });
 
+async function loadCsvFile() {
+    const file = await window.showOpenFilePicker({
+        id: "SplitsFolder",
+        types: [{
+            description: "Split files",
+            accept: { "text/csv": [".csv"] }
+        }]
+    });
+    const contents = await file[0].getFile();
+    const text = await contents.text();
+    return text;
+}
+
+
 const Keys = {
     "ESCAPE":         0x1B,
     "BACKSPACE":      0x08,
@@ -288,7 +302,7 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
         var dirPath  = refilming_mode == true ? `./splits/${gameName}/refilmed/${split_file_prefix}/` : `./splits/${gameName}/${split_file_prefix}/`;
         var filePath = path.join(dirPath, `${split_file_prefix}-${file_name}-simple.csv`);
         // Header
-        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "failures," + "level," + "game_time," + "battle_duration," + "move1," + "move2," + "move3," + "move4,\n"
+        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "failures," + "level," + "game_time," + "move1," + "move2," + "move3," + "move4,\n"
         if (testStatus == true) { 
             dirPath = `./splits/${gameName}/${split_file_prefix}/test_runs`; 
             switch (log_type) {
@@ -501,7 +515,15 @@ const app = Vue.createApp({
             available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
             refilming_mode               : false,
-            show_advanced_settings       : MyStorage['show_advanced_settings']        ?? false,
+            show_advanced_settings       : MyStorage['show_advanced_settings'] ?? false,
+            right_ui                     : MyStorage['right_ui']               ?? "Automatic",
+            previous_label               : MyStorage['previous_label']         ?? "Previous",
+            current_label                : MyStorage['current_label']          ?? "Current",
+            collect_split_data           : MyStorage['collect_split_data']     ?? false,
+            previous_splits              : MyStorage['previous_splits']         ?? [],
+            current_splits               : MyStorage['current_splits']          ?? [],
+            demo_splits                  : false,
+            automatic_post_battle_splits : true,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -716,6 +738,7 @@ const app = Vue.createApp({
             cross_generation_moves   : cross_generation_moves,
             hiddenpowers             : hiddenpowers,
             ability_glossary         : ability_glossary,
+            demo_split_data          : demo_split_data,
 
             // Data (New as of 2024-06-02)
             // These files contain the most up-to-date data for both trainers and pokemon.
@@ -965,6 +988,18 @@ const app = Vue.createApp({
         // this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
+        current_splits: {
+            handler: function (newVal, oldVal) {
+                MyStorage['current_splits'] = newVal
+            },
+            deep: true,
+        },
+        previous_splits: {
+            handler: function (newVal, oldVal) {
+                MyStorage['previous_splits'] = newVal
+            },
+            deep: true,
+        },
         encounters_route_1(newValue) {
             if (this.mapper.properties.overworld.map_index.value == 317) {
                 this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
@@ -1184,6 +1219,51 @@ const app = Vue.createApp({
         // },
     },
     computed: {
+        compare_splits() {
+            debugging_mode = true
+            if (debugging_mode == true) { console.log("compare_splits starting...") } 
+            if (debugging_mode == true) { console.log("...") } 
+            if (this.collect_split_data == true) {
+                if (debugging_mode == true) { console.log("collect_split_data == true") } 
+                const result = []
+
+                let lastPushedTrainer = null; // Keep track of the last pushed trainer
+                if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) } 
+
+                const trainersToSkip = ["Bianca", "Cheren", "N"]; // Trainers to skip
+                for (const x of this.previous_splits) {
+                    // if (debugging_mode == true) { console.log("For loop:", x) } 
+                    if (this.game.splits.includes(x.trainer)) {
+                        const default_string = "-"
+                        const cur_split = this.current_splits.find(y => y.trainer === x.trainer)
+                        const prev = this.convertDurationToSeconds(x.time)
+                        if (cur_split == undefined) { 
+                            if (x.trainer !== lastPushedTrainer && !trainersToSkip.includes(x.trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
+                                result.push({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                lastPushedTrainer = x.trainer; // Update the last pushed trainer
+                            }
+                            continue
+                        }
+                        const cur = this.convertDurationToSeconds(cur_split.time)
+                        const diff = cur - prev;
+                        const diff_abs = Math.abs(diff);
+                        const diff_sign = Math.sign(diff);
+                        const diff_m = Math.floor(diff_abs / 60);
+                        const diff_s = diff_abs % 60;
+                        var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
+                        if (diff_str == "+0:00") { diff_str = "0:00" }
+                        console.log({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                        if (x.trainer !== lastPushedTrainer && !trainersToSkip.includes(x.trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
+                            console.log({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+
+                            result.push({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                            lastPushedTrainer = x.trainer; // Update the last pushed trainer
+                        }
+                    }
+                }
+                return result
+            }
+        },
         g5PokemonData() {
             const game = this.mapper.properties.meta.game_name.value
             switch (game) {
@@ -1697,6 +1777,47 @@ const app = Vue.createApp({
     },
 
     methods: {
+        convertDurationToSeconds(duration) {
+            const parts = duration.split(':').map(part => parseInt(part, 10));
+            if (parts.length === 1) {
+                return parts[0];
+            } else if (parts.length === 2) {
+                return parts[0] * 60 + parts[1];
+            } else if (parts.length === 3) {
+                return parts[0] * 3600 + parts[1] * 60 + parts[2];
+            }
+        },
+        convertSecondsToDuration(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+        
+            if (hours > 0) {
+                return `${hours}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+            } else if (minutes > 0) {
+                return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+            } else {
+                var seconds = remainingSeconds
+                if (remainingSeconds < 10) { seconds = "0" + remainingSeconds.toString() }
+                return `0:${String(seconds)}`
+            }
+        },
+        async load_splits() {
+            const text = await loadCsvFile();
+            const rows = text.split("\n").slice(1).filter(x => x !== '');
+            const results = []
+            for (const row of rows) {
+                const columns = row.split(",");
+                results.push({trainer: columns[2], time: columns[3]})
+            }
+            this.previous_splits = results;
+        },
+        split_diff_color(difference_string) {
+            if (difference_string === "-")          { return "color: black" }
+            if (difference_string === "+0:00")      { return "color: black" }
+            if (difference_string.charAt(0) == "+") { return "color: red" }
+            if (difference_string.charAt(0) == "-") { return "color: green" }
+        },
         enemy_form(x, species) {
             const pokemon_data = this.mapper.properties.battle.opponent.team[x]
             const form = pokemon_data.flags.alternate_form.value
@@ -1791,10 +1912,10 @@ const app = Vue.createApp({
             var move2_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move2_replacement)]?.rom_id ?? 0)
             var move3_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move3_replacement)]?.rom_id ?? 0)
             var move4_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move4_replacement)]?.rom_id ?? 0)
-            console.log(move1_bytes)
-            console.log(move2_bytes)
-            console.log(move3_bytes)
-            console.log(move4_bytes)
+            // console.log(move1_bytes)
+            // console.log(move2_bytes)
+            // console.log(move3_bytes)
+            // console.log(move4_bytes)
             if (move1 != "") {
                 byteArrayDecrypted[0x28] = move1_bytes[0];
                 byteArrayDecrypted[0x29] = move1_bytes[1];
@@ -1876,9 +1997,9 @@ const app = Vue.createApp({
 
             // Nature
             const nature_data = this.natures[data_object.nature]
-            console.log(data_object)
-            console.log("Nature data", nature_data)
-            console.log("Modulo value", nature_data.modulo_value)
+            // console.log(data_object)
+            // console.log("Nature data", nature_data)
+            // console.log("Modulo value", nature_data.modulo_value)
             const nature_index = nature_data.modulo_value
             byteArrayDecrypted[0x41] = nature_index // Set Nature
 
@@ -1962,7 +2083,7 @@ const app = Vue.createApp({
                     (decryptedData[1] << 8) |
                     (decryptedData[2] << 16) |
                     (decryptedData[3] << 24)) >>> 0;
-            console.log("PID", pid)
+            // console.log("PID", pid)
 
             // Copy unencrypted first 8 bytes
             for (let i = 0; i < 8; i++) {
@@ -1972,7 +2093,7 @@ const app = Vue.createApp({
             // Shuffle the blocks FORWARD
             const shuffleId = ((pid & 0x3E000) >> 0xD) % 24;
             let shuffleOrder = shuffleOrders[shuffleId];
-            console.log("shuffleOrder", shuffleOrder)
+            // console.log("shuffleOrder", shuffleOrder)
             let dataCopy = decryptedData.slice(0x08, 0x88);
             let checksum = 0
             for (let i = 0x08; i < 0x88; i += 2) {
@@ -2010,7 +2131,7 @@ const app = Vue.createApp({
                 let data = (decryptedData[i] | (decryptedData[i + 1] << 8)) ^ key;
                 dataView.setUint16(i, data, true);
             }
-            console.log([...encryptedData])
+            // console.log([...encryptedData])
             return [...encryptedData];
         },
         padTime(time) {
@@ -2019,7 +2140,7 @@ const app = Vue.createApp({
         openFolder(folderName, game_name, path = "", path2 = "") {
             const fs = require('fs');
             const fullPath = `.\\${folderName}\\${game_name}\\${path}\\${path2}`;
-            console.log(fullPath);
+            // console.log(fullPath);
 
             if (!fs.existsSync(fullPath)) {
                 fs.mkdirSync(fullPath, { recursive: true });
@@ -5700,6 +5821,12 @@ const app = Vue.createApp({
                 this.deprecated_data_str = deprecated_data_str
                 // console.log("Simple Data: ", simple_data)
                 // console.log("Deprecated Data: ", deprecated_data_str)
+                if (this.collect_split_data == true && this.mapper.properties.meta.state.value == "From Battle" && this.mapper.properties.battle.opponent.trainer.value != '--') {
+                    this.current_splits.push({
+                        trainer: trainer_name, 
+                        time:    real_time_hmmss,
+                    })
+                }
             }
         }
 
@@ -5723,7 +5850,9 @@ const app = Vue.createApp({
             if (newProp.value == "From Battle" && oldProp.value == "Battle") {
                 this.update_buffer_moves()
             }
-
+            if (newProp.value == "To Battle" && oldProp.value == "Overworld" && this.automatic_post_battle_splits == true) {
+                this.right_ui = "Automatic"
+            }
             // console.log(`State Changed to "${newProp.value}"`)
             // if (newProp.value != 'From Battle' || this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value == 0) { 
             //     return 
@@ -5767,6 +5896,11 @@ const app = Vue.createApp({
                 if(this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
                     // console.log("Simple split attempted to be collected...")
                     simpleSplit();
+                    if (this.automatic_post_battle_splits == true) {
+                        // this.battle_summary_header = `${this.capitalization_format(trainer)} Summary`
+                        this.right_ui = "Splits"
+                        // this.automatic_splits = true
+                    }
                 }
         
                 if (this.game.champion.includes(trainer)) {

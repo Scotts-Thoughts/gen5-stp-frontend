@@ -1,0 +1,33 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
+Stitch,Gothita,Bianca,51,0,0,5,0:01,1756424111.767,Pound,Confusion,,
+Stitch,Gothita,Cheren,1:14,0,0,5,0:02,1756424134.384,Pound,Confusion,,
+Stitch,Gothita,N,5:01,0,0,8,0:13,1756424361.793,Pound,Confusion,Tickle,
+Stitch,Gothita,Bianca,6:53,0,0,10,0:18,1756424473.577,Pound,Confusion,Tickle,Fake Tears
+Stitch,Gothita,Cheren,8:36,0,0,12,0:23,1756424576.693,Pound,Confusion,Tickle,Fake Tears
+Stitch,Gothita,Cress,10:13,0,0,14,0:27,1756424673.529,Pound,Confusion,Tickle,Fake Tears
+Stitch,Gothita,Cheren,14:53,0,0,17,0:40,1756424953.284,Psybeam,Pound,Fake Tears,Tickle
+Stitch,Gothita,N,21:07,0,1,20,0:58,1756425327.087,Psybeam,Pound,Fake Tears,Tickle
+Stitch,Gothita,Lenora,26:42,0,7,24,1:14,1756425662.229,Psybeam,Pound,Fake Tears,Faint Attack
+Stitch,Gothita,Burgh,40:38,0,7,30,1:52,1756426498.666,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothita,Bianca,41:46,0,7,31,1:55,1756426566.662,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothita,Cheren,42:49,0,7,31,1:58,1756426629.844,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothorita,N,47:45,0,8,32,2:11,1756426925.345,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothorita,Elesa,50:09,0,8,34,2:18,1756427069.629,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothorita,Cheren,51:49,0,8,35,2:23,1756427169.967,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothorita,Clay,58:05,1,8,37,2:38,1756427545.953,Psybeam,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothorita,Bianca,1:02:37,1,9,39,2:50,1756427817.317,Psychic,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothitelle,N,1:10:06,1,9,42,3:10,1756428266.894,Psychic,Psyshock,Fake Tears,Grass Knot
+Stitch,Gothitelle,Skyla,1:16:21,1,9,44,3:27,1756428641.212,Psychic,Psyshock,Charge Beam,Grass Knot
+Stitch,Gothitelle,Cheren,1:18:15,1,9,45,3:32,1756428755.476,Psychic,Psyshock,Charge Beam,Grass Knot
+Stitch,Gothitelle,Brycen,1:23:53,1,9,48,3:46,1756429093.758,Psychic,Psyshock,Charge Beam,Grass Knot
+Stitch,Gothitelle,Bianca,1:38:23,1,9,52,4:24,1756429963.32,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Drayden,1:45:26,1,9,55,4:42,1756430386.97,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Cheren,1:47:51,1,9,56,4:49,1756430531.434,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Shauntal,2:02:10,7,9,61,5:17,1756431390.207,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Caitlin,2:03:05,7,9,62,5:19,1756431445.514,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Marshal,2:03:59,7,9,62,5:22,1756431499.598,Psychic,Shadow Ball,Charge Beam,Grass Knot
+Stitch,Gothitelle,Grimsley,2:09:49,16,9,65,5:26,1756431849.916,Psychic,Rest,Charge Beam,Grass Knot
+Stitch,Gothitelle,Grimsley,2:10:33,17,9,65,5:26,1756431893.077,Psychic,Rest,Charge Beam,Grass Knot
+Stitch,Gothitelle,N,2:15:58,18,9,65,5:38,1756432218.556,Psychic,Rest,Charge Beam,Hidden Power
+Stitch,Gothitelle,N,2:22:18,22,10,68,5:41,1756432598.625,Psychic,Rest,Charge Beam,Hidden Power
+Stitch,Gothitelle,Ghetsis,2:23:31,22,10,68,5:44,1756432671.935,Psychic,Rest,Charge Beam,Hidden Power

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.0.2</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.13</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -117,6 +117,7 @@
                     <div>Search Pokemon:</div>
                     <input type="text" v-model="search_term" placeholder="Search for a species">
                     <!-- <button class="buttonStyle set_starter_button" @click="update_rom_starter_and_intro_mon">Set ROM Starter</button><br> -->
+                    <button class="buttonStyle comparison_button" @click="load_splits()">Load split file to compare splits</button><br>
                     <br>
                     <table>
                         <tr>
@@ -219,14 +220,15 @@
                         <option>Base Stats Average</option>
                         <option>Base Stats Median</option>
                     </select><br>
-                    <!-- <div v-if="show_advanced_settings">
+                    <div v-if="show_advanced_settings">
                         <br>
-                        <div>Right Display:</div>
-                            <select v-model="right_display" class="dropdownMenu">
-                                <option>Styling</option>
-                                <option>Trainer</option>
+                        <div>Right UI:</div>
+                            <select v-model="right_ui" class="dropdownMenu">
+                                <option>Automatic</option>
+                                <option>Movepool</option>
+                                <option>Splits</option>
                             </select><br>
-                    </div> -->
+                    </div>
                     <br>
                     <div v-if="right_display == 'Trainer' && show_advanced_settings">
                         <div>Search Trainers:</div>
@@ -351,7 +353,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Moveset -->
             </table>
@@ -517,8 +518,37 @@
                     </div> 
                     <img v-if="getTrainerGraphic().state == true" :src="getTrainerGraphic().graphic" style="position: absolute; top: 0px;">
                 </div>
+                <!-- Splits -->
+                <div v-else-if="right_ui == 'Splits'" key="7" :style="`filter: drop-shadow(0px 1px 1px)`" class="posAbs">
+                    <div class="posAbs movepoolLabel">Splits</div>
+                    <table class="splits_table" cellspacing="0">
+                        <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
+                            <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left; padding-left: 5px;">Split</td>
+                            <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
+                            <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{previous_label}}</td>
+                            <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{current_label}}</td>
+                            <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
+                        </tr>
+                        <tr v-for="split in compare_splits">
+                            <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
+                            <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
+                            <td style="font-size: 16px; text-align: right;">{{split.previous_time}}</td>
+                            <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
+                            <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
+                        </tr>
+                        <!-- Demo Data -->
+                        <tr v-for="split in demo_split_data">
+                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.Trainer.toLowerCase()}.png`" /></td>
+                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.Trainer}}</td>
+                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right;">{{split.Previous}}</td>
+                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right;">{{split.Current}}</td>
+                            <td v-if="demo_splits == true" style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.Diff)">{{split.Diff}}</td>
+                        </tr>
+                    </table>
+                    <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                </div>
                 <!-- Movepool -->
-                <div v-else key="6" :style="`filter: drop-shadow(0px 1px 1px)`">
+                <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="`filter: drop-shadow(0px 1px 1px)`">
                     <table class="movepoolDemo" cellspacing="0" :style="movepoolResize()">
                         <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '2px solid #000'}">
                             <th class="movepool_header movepool_way">Way</th>
@@ -657,6 +687,7 @@
     <script src="lib/misc/tmhm.js"></script>
     <script src="lib/game_variables.js"></script>
     <script src="references/abilities.js"></script>
+    <script src="lib/demo_split_data.js"></script>
     <!-- VUE APP -->
     <script type="text/javascript" src="frontend.js"></script>
 </body>

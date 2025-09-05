@@ -67,4 +67,10 @@ const auto_save_settings = [
     "show_advanced_settings",
     "legacy_starter_assignment",
     "set_rom_starter_automatically",
+    "right_ui",
+    "previous_label",
+    "current_label",
+    "collect_split_data",
+    "previous_splits",
+    "current_splits",
 ]

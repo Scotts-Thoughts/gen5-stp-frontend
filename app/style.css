@@ -573,11 +573,11 @@ body {
 .movepoolLabel {
     position: absolute;
     font-family: titan;
-    font-size: 30px;
-    top: 19px;
+    font-size: 26px;
+    top: 22px;
     left: 1472px;
     text-align: center;
-    width: 448px;
+    width: 446px;
     border: 1px solid #df2c2c00;
     z-index: 10101;
 }
@@ -1169,6 +1169,12 @@ img, span, div {
     width: 24px;
     height: 24px;
     margin-bottom: 2px;
+}
+.splitIcon {
+    width: 47.5px;
+    height: 47.5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .enemyMods {
@@ -3504,4 +3510,22 @@ img, span, div {
 .ev_stats_gained {
     padding-top: 36px;
     font-size: 18px;
+}
+.splits_table {
+    display: block;
+    position: absolute;
+    /* border: 1px solid #00ff0d00; */
+    background-color: #ffffff;
+    font-size: 12px;
+    line-height: 24px;
+    width: 404px;
+    height: 722px;
+    font-family: play;
+    left: 1494px;
+    top: 58px;
+    opacity: .9;
+    border: none;
+}
+.splits_table tr:nth-child(odd) {
+    background-color: #cfcfcf;
 }
