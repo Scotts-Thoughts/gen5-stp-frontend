@@ -87,7 +87,7 @@ const g5tmhmMapping = [
   { tmhmIndex: "TM86", Move: "Grass Knot" },
   { tmhmIndex: "TM87", Move: "Swagger" },
   { tmhmIndex: "TM88", Move: "Pluck" },
-  { tmhmIndex: "TM89", Move: "U-turn" },
+  { tmhmIndex: "TM89", Move: "U-Turn" },
   { tmhmIndex: "TM90", Move: "Substitute" },
   { tmhmIndex: "TM91", Move: "Flash Cannon" },
   { tmhmIndex: "TM92", Move: "Trick Room" },

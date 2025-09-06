@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.13</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.15</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -76,6 +76,7 @@
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
                     </table>
                     <br>
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
@@ -154,7 +155,7 @@
                     <table>
                         <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr>
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
-                        <!-- <tr><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
+                        <tr><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
                         <!-- <tr><td>Frame:</td><td><input class="checkBoxStyle" type="checkbox" v-model="frame"/></td></tr> -->
                     </table>
                     <div v-if="evolution == true">
@@ -510,12 +511,12 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
-                                        <div class="enemyStatModTable">
-                                            <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
-                                            <div v-for="modifier in modifier_values">
-                                                <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stageModifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
+                                        <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
+                                            <div class="enemyStatModTable">
+                                                <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
+                                                <div v-for="modifier in modifier_values">
+                                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stageModifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -540,7 +541,7 @@
                             <tr v-for="split in compare_splits">
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
-                                <td style="font-size: 16px; text-align: right;">{{split.previous_time}}</td>
+                                <td style="font-size: 16px; text-align: right;">{{split.previous_time == "0:00" ? "-" : split.previous_time}}</td>
                                 <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
                                 <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
                             </tr>

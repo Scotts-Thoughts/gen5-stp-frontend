@@ -74,4 +74,5 @@ const auto_save_settings = [
     "previous_splits",
     "current_splits",
     "toggle_compare_splits",
+    "automatic_post_battle_splits",
 ]

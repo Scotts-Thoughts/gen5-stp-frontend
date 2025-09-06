@@ -524,7 +524,7 @@ const app = Vue.createApp({
             current_splits               : MyStorage['current_splits']          ?? [],
             toggle_compare_splits        : MyStorage['toggle_compare_splits']   ?? 'First',
             demo_splits                  : false,
-            automatic_post_battle_splits : true,
+            automatic_post_battle_splits : MyStorage['automatic_post_battle_splits'] ?? true,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -597,77 +597,6 @@ const app = Vue.createApp({
                 ability: 0,
             },
 
-            customMovepool: {
-                "Torterra"     : "line-height: 16px;",
-                "Infernape"    : "line-height: 15px;",
-                "Empoleon"     : "line-height: 15px;",
-                "Cresselia"    : "line-height: 18px;",
-                "Heatran"      : "line-height: 18px;",
-                "Machop"       : "line-height: 16.54px;",
-                "Machoke"      : "line-height: 16.26px;",
-                "Machamp"      : "line-height: 15.47px;",
-                "Combee"       : "line-height: 19px;",
-                "Vespiquen"    : "line-height: 16.82px;",
-                "Shellos"      : "line-height: 19px;",
-                "Gastrodon"    : "line-height: 16.54px;",
-                "Swinub"       : "line-height: 18.42px;",
-                "Piloswine"    : "line-height: 15.99px;",
-                "Mamoswine"    : "line-height: 14.77px;",
-                "Bonsly"       : "line-height: 19.13px;",
-                "Sudowoodo"    : "line-height: 18.41px;",
-                "Snorunt"      : "line-height: 19px;",    // no tutor moves
-                "Froslass"     : "line-height: 17.42px;", // no tutor moves
-                "Carnivine"    : "line-height: 18.42px;", // no tutor moves
-                "Snover"       : "line-height: 18.06px;",
-                "Abomasnow"    : "line-height: 16.25px;", // no tutor moves
-                "Riolu"        : "line-height: 16.54px;",
-                "Lucario"      : "line-height: 15.47px;", // no tutor moves
-                "Giratina"     : "line-height: 16.25px;", // no tutor moves
-                "Arceus"       : "line-height: 13.74px;", // no tutor moves
-                "Gible"        : "line-height: 17.42px;", // no tutor moves
-                "Gabite"       : "line-height: 16.82px;", // no tutor moves
-                "Garchomp"     : "line-height: 13.74px;", // no tutor moves
-                "Shaymin"      : "line-height: 19.52px;",
-                "Shaymin - Sky": "line-height: 19.52px;",
-                "Feraligatr"   : "line-height: 15.49px;",
-                "Mewtwo"       : "line-height: 11.62px;",
-                "Pidgey"       : "line-height: 19px;",
-                "Pidgeotto"    : "line-height: 19px;",
-                "Pidgeot"      : "line-height: 19px;",
-                "Glameow"      : "line-height: 17.5px;",
-                "Purugly"      : "line-height: 17.5px;",
-                "Starly"       : "line-height: 19px;",
-                "Staravia"     : "line-height: 19px;",
-                "Staraptor"    : "line-height: 19px;",
-                "Heracross"    : "line-height: 19px;",
-                "Stunky"       : "line-height: 20px;",
-                "Skuntank"     : "line-height: 18px;",
-                "Croagunk"     : "line-height: 17.75px;",
-                "Toxicroak"    : "line-height: 15.74px;",
-                "Yanma"        : "line-height: 20px;",
-                "Yanmega"      : "line-height: 18.75px;",
-                "Zubat"        : "line-height: 19px;",
-                "Golbat"       : "line-height: 17.75px;",
-                "Crobat"       : "line-height: 18.75px;",
-                "Murkrow"      : "line-height: 20.34px;",
-                "Honchkrow"    : "line-height: 20.75px;",
-                "Sneasel"      : "line-height: 15.99px;",
-                "Weavile"      : "line-height: 14.35px;",
-                "Drifloon"     : "line-height: 18.4px;",
-                "Drifblim"     : "line-height: 16.82px;",
-                "Aipom"        : "line-height: 17.41px;",
-                "Ambipom"      : "line-height: 16.25px;",
-                "Lickitung"    : "line-height: 15.48px;",
-                "Lickilicky"   : "line-height: 14.55px;",
-                "Tangela"      : "line-height: 18px;",
-                "Tangrowth"    : "line-height: 15.99px;",
-                "Chatot"       : "line-height: 20px;",
-                "Bronzor"      : "line-height: 18.4px;",
-                "Bronzong"     : "line-height: 15.47px;",
-                "Rhyhorn"      : "line-height: 18.05px;",
-                "Rhydon"       : "line-height: 14.35px;",
-                "Rhyperior"    : "line-height: 13.74px;",
-            },
             simple_natures: {
                 "0" : "Hardy",
                 "1" : "Lonely",
@@ -1221,7 +1150,7 @@ const app = Vue.createApp({
     },
     computed: {
         compare_splits() {
-            debugging_mode = true
+            debugging_mode = false
             if (debugging_mode == true) { console.log("compare_splits starting...") } 
             if (debugging_mode == true) { console.log("...") } 
             if (this.collect_split_data == true) {
@@ -1232,7 +1161,27 @@ const app = Vue.createApp({
                 if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) } 
 
                 const trainersToSkip = ["Bianca", "Cheren", "N"]; // Trainers to skip
-                for (const x of this.previous_splits) {
+
+                let default_splits = [
+                    { trainer: "Chili",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Lenora",   time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Burgh",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Elesa",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Clay",     time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Skyla",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Brycen",   time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Drayden",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Shauntal", time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Grimsley", time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Caitlin",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Marshal",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Ghetsis",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                ]
+                let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
+                console.log(this.previous_splits)
+                console.log(default_splits)
+                console.log(previous_splits_data)
+                for (const x of previous_splits_data) {
                     // if (debugging_mode == true) { console.log("For loop:", x) } 
                     if (this.game.splits.includes(x.trainer)) {
                         const default_string = "-"
@@ -1468,6 +1417,7 @@ const app = Vue.createApp({
             }
             let state = this.mapper.properties.meta.state.value
             let battle_type = this.mapper.properties.battle.opponent.trainer.value == '--' ? 'Wild' : 'Trainer'
+            // console.log(battle_type)
             if (battle_type == 'Wild') {
                 return false
             }
@@ -2916,14 +2866,6 @@ const app = Vue.createApp({
                 return valueToReturn
             }
         },
-        customFormats() {
-            var currentMon = this.starter
-            // var currentMon = this.mapper?.properties?.player?.team[0]?.species?.value ?? this.starter
-            if (this.starter != currentMon) {
-                return this.customMovepool[currentMon]
-            }
-            return this.customMovepool[this.starter]
-        },
         enemyFaint(slotIndex) {
             return
             let opponent = 1
@@ -3491,7 +3433,7 @@ const app = Vue.createApp({
                 }), 
                 tmhm: pkmn.tm_hm_learnset.map(x => {
                     return {
-                        ...{tmhm: tmhmMapping.find(y => y.Move == x)?.tmhmIndex??"TM01"},
+                        ...{tmhm: tmhmMapping.find(y => y.Move == x)?.tmhmIndex??"ERR"},
                         ...this.dataSearch(moveData, x)
                     }
                 }),     
@@ -3518,9 +3460,12 @@ const app = Vue.createApp({
                 return;
             }
             
-            this.movepoolDefaultFontSize = 17;
-            this.movepoolDefaultLineHeight = 18;
-            this.movepoolDefaultContainerHeight = 992-(this.movepoolDefaultLineHeight+0);
+            let small_line_height = 19;
+            let resize_threshold = 20;
+            this.movepoolDefaultFontSize = 14;
+            this.movepoolDefaultLineHeight = 17;
+            this.movepoolDefaultContainerHeight = 993-(this.movepoolDefaultLineHeight);
+            let maxSize = this.movepoolDefaultContainerHeight / this.movepoolDefaultLineHeight;
         
             //calculate new sizes
             let currentStarter = this.starter;
@@ -3546,24 +3491,33 @@ const app = Vue.createApp({
             
             // Check if the required arrays exist
             if (!this.game.dexData[currentStarter].tm_hm_learnset || 
-                !this.game.dexData[currentStarter].levelup_moveset) {
+                !this.game.dexData[currentStarter].level_up_learnset) {
                 // console.warn(`Missing move data for ${currentStarter}:`, this.game.dexData[currentStarter]);
                 return;
             }
             
-            let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].levelup_moveset.length;
-            
+            let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].level_up_learnset.length;
+
             if (this.show_tutor_moves && this.game.dexData[currentStarter].tutor_learnset) {
                 movepoolSize = movepoolSize + this.game.dexData[currentStarter].tutor_learnset.length;
             }
             
-            let maxSize = this.movepoolDefaultContainerHeight / this.movepoolDefaultLineHeight;
             let correctedLineHeight = this.movepoolDefaultContainerHeight / movepoolSize;
             let fontShrinkFactor = 0.77; //make this bigger to shrink the font more. 0.5 was the default in gen1-3. 0 = no shrinking. 1 or above will be *tiny*
             //This is fairly arbitrary. This formula reduces the font size gradually based on the shrink factor
-            let correctedFontSize = this.movepoolDefaultFontSize * Math.pow(correctedLineHeight / this.movepoolDefaultLineHeight,fontShrinkFactor); 
-            if(movepoolSize > (maxSize)){
+            let correctedFontSize = this.movepoolDefaultFontSize * Math.pow(correctedLineHeight / this.movepoolDefaultLineHeight, fontShrinkFactor); 
+            
+            if (movepoolSize > (maxSize)) {
                 return "line-height: " + correctedLineHeight + "px; font-size: "+correctedFontSize+"px;";
+            }
+            else if (movepoolSize < resize_threshold) {
+                return "line-height: " + small_line_height + "px; font-size: "+this.movepoolDefaultFontSize+"px;";
+            }
+            else if (movepoolSize < resize_threshold) {
+                return "line-height: " + small_line_height + "px; font-size: "+this.movepoolDefaultFontSize+"px;";
+            }
+            else {
+                return "line-height: " + correctedLineHeight + "px; font-size: "+this.movepoolDefaultFontSize+"px;";
             }
         },
         
@@ -5470,8 +5424,8 @@ const app = Vue.createApp({
             })
         }
         this.mapper.properties.player.name.change(async (newProp, oldProp) => {
-            console.log(newProp)
-            console.log(oldProp)
+            // console.log(newProp)
+            // console.log(oldProp)
             if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == "" && oldProp.value != "") {
                 this.blackout = false;
                 if (this.disallow_faults == false && this.run_complete == false) { 
@@ -5832,7 +5786,7 @@ const app = Vue.createApp({
         }
 
         this.mapper.properties.battle.other.battle.change(async (newProp, oldProp) => {
-            console.log(newProp.value)
+            // console.log(newProp.value)
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
                 if (game == 'Black') {
