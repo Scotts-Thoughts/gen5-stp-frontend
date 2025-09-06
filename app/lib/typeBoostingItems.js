@@ -1,6 +1,7 @@
 const typeBoostingItems = {
     "Black Belt":     "Fighting",
     "Black Glasses":  "Dark",
+    "BlackGlasses":   "Dark",
     "Charcoal":       "Fire",
     "Dragon Fang":    "Dragon",
     "Hard Stone":     "Rock",
@@ -15,6 +16,7 @@ const typeBoostingItems = {
     "Polkadot Bow":   "Normal",
     "Sharp Beak":     "Flying",
     "Silver Powder":  "Bug",
+    "SilverPowder":   "Bug",
     "Soft Sand":      "Ground",
     "Spell Tag":      "Ghost",
     "Twisted Spoon":  "Psychic",

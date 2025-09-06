@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.17</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.18</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -539,7 +539,7 @@
                                 <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
                             </tr>
                             <tr v-for="split in compare_splits">
-                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer?.toLowerCase()}.png`" /></td>
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
                                 <td style="font-size: 16px; text-align: right;">{{split.previous_time == "0:00" ? "-" : split.previous_time}}</td>
                                 <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
@@ -558,7 +558,7 @@
                                 <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Time</td>
                             </tr>
                             <tr v-for="split in compare_splits">
-                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${split.trainer?.toLowerCase()}.png`" /></td>
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
                                 <td style="font-size: 16px; text-align: right;"></td>
                                 <td style="font-size: 16px; text-align: right;"></td>

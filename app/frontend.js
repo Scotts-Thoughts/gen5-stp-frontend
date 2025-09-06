@@ -863,6 +863,7 @@ const app = Vue.createApp({
     created() {
         if (MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]) {  
             this.overlay_color          = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].overlay_color           ?? this.default_colors[g5PokemonData[this.starter].type_1];
+            this.ui_saturation          = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].ui_saturation           ?? .6;
             this.imageXOffset           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageXOffset            ?? 0;
             this.imageYOffset           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageYOffset            ?? 0;
             this.imageScale             = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageScale              ?? 1;
@@ -999,6 +1000,7 @@ const app = Vue.createApp({
             }
             //background texture settings
             this.overlay_color          = MyStorage[`${game}_${starter}`]?.overlay_color    ?? this.default_colors[this.g5PokemonData[starter].type_1];
+            this.ui_saturation          = MyStorage[`${game}_${starter}`]?.ui_saturation    ?? 0.6;
            
             this.evolution              = MyStorage[`${game}_${starter}`]?.evolution ?? false
             this.evolution_splits_label = MyStorage[`${game}_${starter}`]?.evolution_splits_label ?? ""
@@ -1160,54 +1162,63 @@ const app = Vue.createApp({
                 let lastPushedTrainer = null; // Keep track of the last pushed trainer
                 if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) } 
 
-                const trainersToSkip = ["Bianca", "Cheren", "N"]; // Trainers to skip
+                const trainersToSkip = ["Bianca", "Cheren"]; // Trainers to skip
 
                 let default_splits = [
-                    { trainer: "Chili",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Lenora",   time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Burgh",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Elesa",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Clay",     time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Skyla",    time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Brycen",   time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Drayden",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Shauntal", time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Grimsley", time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Caitlin",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Marshal",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Ghetsis",  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Chili",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Lenora",   id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Burgh",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Elesa",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Clay",     id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Skyla",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Brycen",   id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Drayden",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Shauntal", id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Grimsley", id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Caitlin",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Marshal",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "N",        id: 587,  time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Ghetsis",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                 ]
                 let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
-                console.log(this.previous_splits)
-                console.log(default_splits)
-                console.log(previous_splits_data)
+                // console.log(this.previous_splits)
+                // console.log(default_splits)
+                // console.log(previous_splits_data)
                 for (const x of previous_splits_data) {
-                    // if (debugging_mode == true) { console.log("For loop:", x) } 
-                    if (this.game.splits.includes(x.trainer)) {
-                        const default_string = "-"
-                        const cur_split = this.current_splits.find(y => y.trainer === x.trainer)
-                        const prev = this.convertDurationToSeconds(x.time)
-                        if (cur_split == undefined) { 
-                            if (x.trainer !== lastPushedTrainer && !trainersToSkip.includes(x.trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                                result.push({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
-                                lastPushedTrainer = x.trainer; // Update the last pushed trainer
-                            }
+                    // if (debugging_mode == true) { console.log("For loop:", x) }
+                    // Final N battle is ID 587
+                    let trainer = x.trainer
+                    let id = x.id
+                    if (this.game.splits.includes(trainer)) {
+                        if (trainer == "N" && id !== 587) {
                             continue
                         }
-                        const cur = this.convertDurationToSeconds(cur_split.time)
-                        const diff = cur - prev;
-                        const diff_abs = Math.abs(diff);
-                        const diff_sign = Math.sign(diff);
-                        const diff_m = Math.floor(diff_abs / 60);
-                        const diff_s = diff_abs % 60;
-                        var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
-                        if (diff_str == "+0:00") { diff_str = "0:00" }
-                        console.log({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-                        if (x.trainer !== lastPushedTrainer && !trainersToSkip.includes(x.trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                            console.log({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-
-                            result.push({trainer: x.trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-                            lastPushedTrainer = x.trainer; // Update the last pushed trainer
+                        else {
+                            const default_string = "-"
+                            const cur_split = this.current_splits.find(y => y.trainer === trainer)
+                            const prev = this.convertDurationToSeconds(x.time)
+                            if (cur_split == undefined) { 
+                                if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
+                                    result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                    lastPushedTrainer = trainer; // Update the last pushed trainer
+                                }
+                                continue
+                            }
+                            const cur = this.convertDurationToSeconds(cur_split.time)
+                            const diff = cur - prev;
+                            const diff_abs = Math.abs(diff);
+                            const diff_sign = Math.sign(diff);
+                            const diff_m = Math.floor(diff_abs / 60);
+                            const diff_s = diff_abs % 60;
+                            var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
+                            if (diff_str == "+0:00") { diff_str = "0:00" }
+                            console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                            if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
+                                console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+    
+                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                                lastPushedTrainer = trainer; // Update the last pushed trainer
+                            }
                         }
                     }
                 }
@@ -3552,10 +3563,13 @@ const app = Vue.createApp({
                     default: item_modifier = 1; break;
                 }
                 if (item_modifier == 1) {
-                    return accuracy
+                    return accuracy 
                 }
                 else {
                     calculated_accuracy = Math.floor(accuracy * item_modifier) <= 100 ? Math.floor(accuracy * item_modifier) : 100
+                }
+                if (calculated_accuracy >= 100) { 
+                    calculated_accuracy = 100 
                 }
                 return calculated_accuracy
             }
@@ -5516,7 +5530,7 @@ const app = Vue.createApp({
                 let player_name  = this.mapper.properties.player.name.value
                 let pokemon      = this.starter
                 let trainer_name = this.mapper.properties.battle.opponent.trainer.value
-                let trainer_id           = this.mapper.properties.battle.opponent.trainer.bytes
+                let trainer_id           = this.mapper.properties.battle.opponent.id.bytes
                 let location             = this.mapper.properties.overworld.map_name.value
                 let total_pokemon        = this.mapper.properties.battle.opponent.team_count.value
                 const formattedTime = this.timer.formatted_time;
@@ -5782,6 +5796,7 @@ const app = Vue.createApp({
                     this.current_splits.push({
                         trainer: trainer_name, 
                         time:    real_time_hmmss,
+                        id:      trainer_id,
                     })
                 }
             }
@@ -5851,13 +5866,14 @@ const app = Vue.createApp({
                     }
                 }
                 if (this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
-                    console.log("Simple split attempted to be collected...")
                     simpleSplit();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
-                        console.log("Switching to splits UI...")
-                        // this.battle_summary_header = `${this.capitalization_format(trainer)} Summary`
-                        this.right_ui = "Splits"
-                        // this.automatic_splits = true
+                        if (trainer == "N" && id !== 587) {
+
+                        }
+                        else {
+                            this.right_ui = "Splits"
+                        }
                     }
                 }
         

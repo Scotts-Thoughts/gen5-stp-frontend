@@ -51,6 +51,7 @@ const game_variables =
             "Grimsley",
             "Caitlin",
             "Marshal",
+            "N",
             "Ghetsis",
         ],
         "champion" : [
