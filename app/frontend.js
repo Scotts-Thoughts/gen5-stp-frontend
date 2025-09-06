@@ -2898,6 +2898,8 @@ const app = Vue.createApp({
             }
         },
         newRun() {
+            this.compared_splits = []
+            this.current_splits  = []
             // const timeRegex = /(\d+):(\d{2}):(\d{2})\.(\d{2})/;
             // const timeOffsetArray = this.timer_startTimeOffset.match(timeRegex)?.slice(1,5).map(x => parseInt(x)) ?? [0,0,0,0];
             // const timeOffset = timeOffsetArray[0] * 3600000 + timeOffsetArray[1] * 60000 + timeOffsetArray[2] * 1000 + timeOffsetArray[3] * 10;
@@ -5848,10 +5850,11 @@ const app = Vue.createApp({
                         split_data: this.split_data
                     }
                 }
-                if(this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
-                    // console.log("Simple split attempted to be collected...")
+                if (this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
+                    console.log("Simple split attempted to be collected...")
                     simpleSplit();
-                    if (this.automatic_post_battle_splits == true) {
+                    if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
+                        console.log("Switching to splits UI...")
                         // this.battle_summary_header = `${this.capitalization_format(trainer)} Summary`
                         this.right_ui = "Splits"
                         // this.automatic_splits = true

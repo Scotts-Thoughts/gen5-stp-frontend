@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.16</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.17</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -335,12 +335,12 @@
                                 <div :class="`playerMods ${ui_stat_arrangement_modifier}${stat.mod_abrv}Mod`" style="font-family: play;">{{ stageModifiers(mapper.properties.battle.player.active_pokemon.modifiers[stat.path].value) }}</div>
                             </div>
                             <div :style="{ opacity: statLabelOpacity()[stat.name]}" :class="`stat_label_style stat_row_${stat[`stat_row`]} stat_column_${stat.label_column}`">{{stat.label}}</div>
-                            <div v-if="stats_setting == 'Base Stats'"          :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
-                            <div v-if="stats_setting == 'IVs'"                 :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} dv`">{{get_iv(`${stat.name}`)}}/31</div>
-                            <div v-if="stats_setting == 'EVs'"                 :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
-                            <div v-if="stats_setting == 'Detailed EVs'"        :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
-                            <div v-if="stats_setting == 'Base Stats Median'"   :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).median}}</div>
-                            <div v-if="stats_setting == 'Base Stats Average'"  :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).average}}</div>
+                            <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
+                            <div v-if="stats_setting == 'IVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} dv`">{{get_iv(`${stat.name}`)}}/31</div>
+                            <div v-if="stats_setting == 'EVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
+                            <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
+                            <div v-if="stats_setting == 'Base Stats Median'"   :id="stat.abrv" :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).median}}</div>
+                            <div v-if="stats_setting == 'Base Stats Average'"  :id="stat.abrv" :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).average}}</div>
 
                             <div v-if="stats_setting == 'Automatic'"  
                                 :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`" 
