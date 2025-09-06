@@ -1285,7 +1285,7 @@ const pokedex_black = {
         "weight": 32,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Compoundeyes",
+            "Compound Eyes",
             "Tinted Lens"
         ],
         "level_up_learnset": [
@@ -5423,7 +5423,7 @@ const pokedex_black = {
         "weight": 30,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Compoundeyes",
+            "Compound Eyes",
             "Tinted Lens",
             "Run Away"
         ],
@@ -24023,7 +24023,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Speed Boost",
-            "Compoundeyes",
+            "Compound Eyes",
             "Frisk"
         ],
         "level_up_learnset": [
@@ -33432,7 +33432,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Shield Dust",
-            "Compoundeyes"
+            "Compound Eyes"
         ],
         "level_up_learnset": [
             [
@@ -35911,7 +35911,7 @@ const pokedex_black = {
         "weight": 5.5,
         "growth_rate": "Erratic",
         "abilities": [
-            "Compoundeyes",
+            "Compound Eyes",
             "Run Away"
         ],
         "level_up_learnset": [
@@ -74724,7 +74724,7 @@ const pokedex_black = {
         "weight": 0.6,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Compoundeyes",
+            "Compound Eyes",
             "Unnerve",
             "Swarm"
         ],
@@ -74851,7 +74851,7 @@ const pokedex_black = {
         "weight": 14.3,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Compoundeyes",
+            "Compound Eyes",
             "Unnerve",
             "Swarm"
         ],
