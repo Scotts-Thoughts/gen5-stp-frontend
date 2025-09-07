@@ -20,6 +20,7 @@ const typeBoostingItems = {
     "Soft Sand":      "Ground",
     "Spell Tag":      "Ghost",
     "Twisted Spoon":  "Psychic",
+    "TwistedSpoon":   "Psychic",
 
     //Gen3 Items
     "Silk Scarf": "Normal",

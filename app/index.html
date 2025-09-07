@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.18</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.19</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -75,17 +75,18 @@
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Debugging-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="debugging_mode"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
                     </table>
                     <br>
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
                     <br><br>
-                    <button v-if="show_advanced_settings" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
-                    <button v-if="show_advanced_settings" class="buttonStyle" @click="set_options()">Set Options</button>
-                    <button v-if="show_advanced_settings" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
+                    <button v-if="debugging_mode == true" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
+                    <button v-if="debugging_mode == true" class="buttonStyle" @click="set_options()">Set Options</button>
+                    <button v-if="debugging_mode == true" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
                     <br>
-                    Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
+                    Moveset Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
                     <div v-if="editor == true">
                         <div>Moveset Updating:</div>
@@ -96,7 +97,7 @@
                         <button class="buttonStyle buttonStyle_column3" @click="update_moveset">Update Moves</button>
                     </div>
                     <br>
-                    <div v-if="editor == false && show_advanced_settings">
+                    <div v-if="editor == false && debugging_mode == true">
                         <div>Debugging:</div>
                         <table>
                             <tr><td>State:</td><td>{{this.mapper.properties.meta.state.value}}</td></tr>
@@ -155,7 +156,7 @@
                     <table>
                         <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr>
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
-                        <tr><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
                         <!-- <tr><td>Frame:</td><td><input class="checkBoxStyle" type="checkbox" v-model="frame"/></td></tr> -->
                     </table>
                     <div v-if="evolution == true">
@@ -182,24 +183,24 @@
                         <option v-for="(key, index) in hiddenpowers[hidden_power_type]" :value="`${index}`">{{key}}</option>
                     </select><br>
                     <table style="font-size: 11px; line-height: 14px;">
-                        <tr><td>HP: </td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td></tr>
-                        <tr><td>Atk:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td></tr>
-                        <tr><td>Def:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td></tr>
-                        <tr><td>Spe:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td></tr>
-                        <tr><td>SpA:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
-                        <tr><td>SpD:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
+                        <tr><td>HP: </td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td><td>Spe:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td></tr>
+                        <tr><td>Atk:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td><td>SpA:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
+                        <tr><td>Def:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td><td>SpD:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
                     </table>
+                    <br>
                     <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
                     <select v-model="pkmn_ability" class="dropdownMenu dropdown_menu_column3">
                         <option disabled value="">Select an ability</option>
                         <option v-for="key in values_function(pokedex_black[starter].abilities)" :value="`${key}`">{{key}}</option>
                     </select><br>
-                    <div>Ability Number: {{pokedex_black[starter].abilities.indexOf(pkmn_ability)}}</div>
+                    <div style="font-size: 11px; line-height: 14px;">Ability: {{pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1 == 3 ? 'Hidden Ability' : pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1}}</div>
+                    <br>
                     <div>Nature:</div>
                     <select v-model="pkmnNature" class="dropdownMenu dropdown_menu_column3">
                         <option disabled value="">Select a Nature</option>
                         <option v-for="key in values_function(simple_natures)" :value="`${key}`">{{natureLabels(`${key}`)}}</option>
                     </select><br>
+                    <br>
                     <div>Gender:</div>
                     <select v-model="pkmn_gender" class="dropdownMenu">
                         <option>Female</option>
@@ -225,17 +226,16 @@
                     <div v-if="show_advanced_settings">
                         <br>
                         <div>Right UI:</div>
-                            <select v-model="right_ui" class="dropdownMenu">
-                                <option>Automatic</option>
-                                <option>Movepool</option>
-                                <option>Splits</option>
-                            </select><br>
-                        <br>
+                        <select v-model="right_ui" class="dropdownMenu">
+                            <option>Automatic</option>
+                            <option>Movepool</option>
+                            <option>Splits</option>
+                        </select><br>
                         <div>Splits:</div>
-                            <select v-model="toggle_compare_splits" class="dropdownMenu">
-                                <option>Followup</option>
-                                <option>First</option>
-                            </select><br>
+                        <select v-model="toggle_compare_splits" class="dropdownMenu">
+                            <option>Followup</option>
+                            <option>First</option>
+                        </select><br>
                     </div>
                     <br>
                     <div v-if="right_display == 'Trainer' && show_advanced_settings">
@@ -332,7 +332,7 @@
                     <div style="z-index: 100000;">
                         <div v-for="stat in stat_object">
                             <div v-if="stat.name != 'Hp' && mapper.properties.meta.state.value == 'Battle'">
-                                <div :class="`playerMods ${ui_stat_arrangement_modifier}${stat.mod_abrv}Mod`" style="font-family: play;">{{ stageModifiers(mapper.properties.battle.player.active_pokemon.modifiers[stat.path].value) }}</div>
+                                <div :class="`playerMods hp_spd_${stat.mod_abrv}Mod`" style="font-family: play;">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers[stat.path].value) }}</div>
                             </div>
                             <div :style="{ opacity: statLabelOpacity()[stat.name]}" :class="`stat_label_style stat_row_${stat[`stat_row`]} stat_column_${stat.label_column}`">{{stat.label}}</div>
                             <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
@@ -515,7 +515,7 @@
                                             <div class="enemyStatModTable">
                                                 <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
                                                 <div v-for="modifier in modifier_values">
-                                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stageModifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
+                                                    <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stage_modifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -620,14 +620,14 @@
                     <div v-show="mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value != 0 && mapper.properties.meta.state == `Battle`">
                         <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/accuracy.svg)"></div>
                         <div class="genericLabels accuracyModLabel">accuracy:</div>
-                        <div class="popUpsStyle accuracyMod">{{ mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value }}</div>
+                        <div class="popUpsStyle accuracyMod">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value) }}</div>
                     </div>
                 </transition>
                 <transition name="fade1">
                     <div v-show="mapper.properties.battle.player.active_pokemon.modifiers.evasion.value != 0 && mapper.properties.meta.state == `Battle`">
                         <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/evasion.svg)"></div>
                         <div class="genericLabels evasionModLabel">evasion:</div>
-                        <div class="popUpsStyle evasionMod">{{ mapper.properties.battle.player.active_pokemon.modifiers.evasion.value }}</div>
+                        <div class="popUpsStyle evasionMod">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers.evasion.value) }}</div>
                     </div>
                 </transition>
             </div>

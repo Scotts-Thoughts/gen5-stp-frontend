@@ -2792,7 +2792,7 @@ img, span, div {
     vertical-align: middle; /* to align it with the text */
     width: 108px;
     height: 108px;
-    top: 30px;
+    top: 22px;
     left: 2px;
     filter: drop-shadow(1px 1px 2px);
 }

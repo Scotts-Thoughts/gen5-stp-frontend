@@ -504,6 +504,7 @@ const app = Vue.createApp({
         return {
             ready                        : false,
             mapper                       : null,
+            debugging_mode               : true,
             state                        : "No Pokemon",
             editor                       : false,
             game_variables               : null,
@@ -2229,7 +2230,7 @@ const app = Vue.createApp({
             const state          = this.mapper.properties.meta.state.value
             const trainer        = this.capitalization_format(this.mapper.properties.battle.opponent.trainer.value)
             const trainer_number = this.mapper.properties.battle.opponent.trainer.bytes
-            let player_speed     = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.speed.value
+            let player_speed     = this.get_stat().Spe
             let enemy_speed      = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_slot}_ram`].stats.speed.value
             let enemy_hp         = 1
 
@@ -2489,61 +2490,60 @@ const app = Vue.createApp({
             }
         },
         get_stat() {
-            const state = this.mapper.properties.meta.state.value
-            const held_item = this.mapper.properties.player.team[0].held_item.value
+            const state       = this.mapper.properties.meta.state.value
+            const held_item   = this.mapper.properties.player.team[0].held_item.value
+            const power_items = ['Power Belt', 'Power Anklet', 'Power Band', 'Power Lens', 'Power Bracer', 'Power Anklet', 'Power Belt', 'Macho Brace']
+            
+            let not_fully_evolved = true //! Add a toggle for this that dynamically changes with the species
+            let species = this.starter
+            
             var status_condition = this.mapper.properties.player.team[0].status_condition.value
-            function choice_specs(stat) {
-                return Math.floor(stat * 1.5)
-            }
+            
             let HP  = 0
             let Atk = 0
             let Def = 0
             let SpA = 0
             let SpD = 0
             let SpE = 0
+            let final_stat_hp  = 0
+            let final_stat_atk = 0
+            let final_stat_def = 0
+            let final_stat_spa = 0
+            let final_stat_spd = 0
+            let final_stat_spe = 0
             // const active_pokemonPv = this.mapper.properties.battle.player.active_pokemon.internals.personality_value
             // const teamPokemonPv = this.mapper.properties.player.team[0].internals.personality_value
             if (state == `No Pokemon`) {
-                return {
-                    "Hp" : this.g5PokemonData[this.starter].base_stats.hp,
-                    "Atk": this.g5PokemonData[this.starter].base_stats.attack,
-                    "Def": this.g5PokemonData[this.starter].base_stats.defense,
-                    "SpA": this.g5PokemonData[this.starter].base_stats.special_attack,
-                    "SpD": this.g5PokemonData[this.starter].base_stats.special_defense,
-                    "Spe": this.g5PokemonData[this.starter].base_stats.speed,
-                }
+                final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.starter].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.starter].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
             }
             else if (state == `Overworld` || state == `To Battle`) {
                 HP = this.mapper.properties.player.team[0].stats.hp_max.value
                 Atk = this.mapper.properties.player.team[0].stats.attack.value
                 Def = this.mapper.properties.player.team[0].stats.defense.value
-                SpA = held_item == 'Choice Specs' ? choice_specs(this.mapper.properties.player.team[0].stats.special_attack.value) : this.mapper.properties.player.team[0].stats.special_attack.value
+                SpA = this.mapper.properties.player.team[0].stats.special_attack.value
                 SpD = this.mapper.properties.player.team[0].stats.special_defense.value
                 SpE = status_condition == 'Paralyzed' ? Math.floor(this.mapper.properties.player.team[0].stats.speed.value / 4) : this.mapper.properties.player.team[0].stats.speed.value
                 if (this.stat_fix_toggle_2 > 0) {
                     this.stat_fix_toggle_2 -= 1
-                    HP = this.stat_fix_hp
-                    Atk = this.stat_fix_hp
-                    Def = this.stat_fix_hp
-                    SpA = this.stat_fix_hp
-                    SpD = this.stat_fix_hp
-                    SpE = this.stat_fix_hp
-                    return {
-                        "Hp" : HP,
-                        "Atk": Atk,
-                        "Def": Def,
-                        "SpA": SpA,
-                        "SpD": SpD,
-                        "Spe": SpE
-                    }
+                    final_stat_hp  = this.stat_fix_hp
+                    final_stat_atk = this.stat_fix_hp
+                    final_stat_def = this.stat_fix_hp
+                    final_stat_spa = this.stat_fix_hp
+                    final_stat_spd = this.stat_fix_hp
+                    final_stat_spe = this.stat_fix_hp
                 }
-                return {
-                    "Hp" : HP,
-                    "Atk": Atk,
-                    "Def": Def,
-                    "SpA": SpA,
-                    "SpD": SpD,
-                    "Spe": SpE,
+                else {
+                    final_stat_hp  = HP
+                    final_stat_atk = Atk
+                    final_stat_def = Def
+                    final_stat_spa = SpA
+                    final_stat_spd = SpD
+                    final_stat_spe = SpE
                 }
             }
             else if (state == `Battle`) {
@@ -2556,7 +2556,7 @@ const app = Vue.createApp({
                 HP  = this.mapper.properties.battle.player.active_pokemon.stats.hp_max.value
                 Atk = this.mapper.properties.battle.player.active_pokemon.stats.attack.value
                 Def = this.mapper.properties.battle.player.active_pokemon.stats.defense.value
-                SpA = held_item == 'Choice Specs' ? choice_specs(this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value) : this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value
+                SpA = this.mapper.properties.battle.player.active_pokemon.stats.special_attack.value
                 SpD = this.mapper.properties.battle.player.active_pokemon.stats.special_defense.value
                 SpE = status_condition == 'Paralyzed' ? Math.floor(this.mapper.properties.battle.player.active_pokemon.stats.speed.value / 4) : this.mapper.properties.battle.player.active_pokemon.stats.speed.value
                 let battle_hp  = HP
@@ -2572,34 +2572,78 @@ const app = Vue.createApp({
                 this.stat_fix_spa = SpA
                 this.stat_fix_spd = SpD
                 this.stat_fix_spe = SpE
-                return {
-                    "Hp" : battle_hp,
-                    "Atk": battle_atk,
-                    "Def": battle_def,
-                    "SpA": battle_spa,
-                    "SpD": battle_spd,
-                    "Spe": battle_spe,
-                }
+
+                final_stat_hp  = battle_hp
+                final_stat_atk = battle_atk
+                final_stat_def = battle_def
+                final_stat_spa = battle_spa
+                final_stat_spd = battle_spd
+                final_stat_spe = battle_spe
             }
             else if (state == `From Battle`) {
-                return {
-                    "Hp" : this.stat_fix_hp,
-                    "Atk": this.stat_fix_atk,
-                    "Def": this.stat_fix_def,
-                    "SpA": this.stat_fix_spa,
-                    "SpD": this.stat_fix_spd,
-                    "Spe": this.stat_fix_spe
-                }
+                final_stat_hp  = this.stat_fix_hp
+                final_stat_atk = this.stat_fix_atk
+                final_stat_def = this.stat_fix_def
+                final_stat_spa = this.stat_fix_spa
+                final_stat_spd = this.stat_fix_spd
+                final_stat_spe = this.stat_fix_spe
             }
             else {
-                return {
-                    "Hp" : this.g5PokemonData[this.starter].base_stats.hp,
-                    "Atk": this.g5PokemonData[this.starter].base_stats.attack,
-                    "Def": this.g5PokemonData[this.starter].base_stats.defense,
-                    "SpA": this.g5PokemonData[this.starter].base_stats.special_attack,
-                    "SpD": this.g5PokemonData[this.starter].base_stats.special_defense,
-                    "Spe": this.g5PokemonData[this.starter].base_stats.speed,
+                final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.starter].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.starter].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
+            }
+
+            // Calculate the effect of held items
+            if (state != 'No Pokemon') {
+                if (power_items.includes(held_item)) {
+                    final_stat_spe = Math.floor(final_stat_spe * 0.5)
                 }
+                else if (held_item == 'Iron Ball') {
+                    final_stat_spe = Math.floor(final_stat_spe * 0.5)
+                }
+                else if (held_item == 'Choice Specs') {
+                    final_stat_spa = Math.floor(final_stat_spa * 1.5)
+                }
+                else if (held_item == 'Eviolite' && not_fully_evolved == true) {
+                    final_stat_def = Math.floor(final_stat_def * 1.5)
+                    final_stat_spd = Math.floor(final_stat_spd * 1.5)
+                }
+                else if (species == 'Pikachu' && held_item == 'Light Ball') {
+                    final_stat_atk = Math.floor(final_stat_atk * 2)
+                    final_stat_spa = Math.floor(final_stat_spa * 2)
+                }
+                else if (species == 'Ditto' && held_item == 'Quick Powder') {
+                    final_stat_spe = Math.floor(final_stat_spe * 2)
+                }
+                else if (species == 'Ditto' && held_item == 'Metal Powder') {
+                    final_stat_def = Math.floor(final_stat_def * 2)
+                }
+                else if ((species == 'Marowak' || species == 'Cubone') && held_item == 'Thick Club') {
+                    final_stat_atk = Math.floor(final_stat_atk * 2)
+                }
+                else if (species == 'Clamperl' && held_item == 'DeepSeaTooth') {
+                    final_stat_spa = Math.floor(final_stat_spa * 2)
+                }
+                else if (species == 'Clamperl' && held_item == 'DeepSeaScale') {
+                    final_stat_spd = Math.floor(final_stat_spd * 2)
+                }
+                else if ((species == 'Latias' || species == 'Latios') && held_item == 'Soul Dew') {
+                    final_stat_spa = Math.floor(final_stat_spa * 1.5)
+                    final_stat_spd = Math.floor(final_stat_spd * 1.5)
+                }
+            }
+            // Return the calculated stats
+            return {
+                "Hp" : final_stat_hp,
+                "Atk": final_stat_atk,
+                "Def": final_stat_def,
+                "SpA": final_stat_spa,
+                "SpD": final_stat_spd,
+                "Spe": final_stat_spe,
             }
         },
         statLabelOpacity() {
@@ -2806,6 +2850,10 @@ const app = Vue.createApp({
             this.evolution_splits_label =  MyStorage[`${game_name}_${this.starter}`]?.evolution_splits_label ?? `${evolution_family[evolution_family.length - 1]?.species}-line`
             this.copy_overlay_pokemon_from = MyStorage['copy_overlay_pokemon_from'] ?? ""
             this.copy_overlay_pokemon_to   = MyStorage['copy_overlay_pokemon_to']   ?? ""
+
+            if (this.pokedex_black[this.starter].abilities.indexOf(this.pkmn_ability) == -1) {
+                this.pkmn_ability = this.pokedex_black[this.starter].abilities[0]
+            }
         },
         reset() {
             this.backgroundBlur =        0,
@@ -3563,7 +3611,7 @@ const app = Vue.createApp({
                     default: item_modifier = 1; break;
                 }
                 if (item_modifier == 1) {
-                    return accuracy 
+                    calculated_accuracy = accuracy 
                 }
                 else {
                     calculated_accuracy = Math.floor(accuracy * item_modifier) <= 100 ? Math.floor(accuracy * item_modifier) : 100
@@ -3871,7 +3919,7 @@ const app = Vue.createApp({
                 var pkmnData = this.gen3data.find(x => x.dexNumber === y.toString())
                 return pkmnData[x]
         },
-        stageModifiers(y) {
+        stage_modifiers(y) {
             if (y === null) {
                 return "nu"
             }
@@ -5243,6 +5291,7 @@ const app = Vue.createApp({
         },
         typeEffectiveness(x) { //x = move1.value
             const state = this.mapper.properties.meta.state.value
+            const species = this.starter
             var enemy_party_position = this.mapper.properties.battle.opponent.party_position.value
             var enemy_pokemon_data = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_party_position}_ram`]
 
@@ -5310,7 +5359,7 @@ const app = Vue.createApp({
                     break
                 }
             }
-            var itemBoost = this.determineItemBoost(x, player_item)
+            let itemBoost = this.determineItemBoost(x, player_item)
 
             var enemy_item_modifier = 1
             if (enemy_item == "Air Balloon" && attackingType == "Ground") {
@@ -5324,6 +5373,22 @@ const app = Vue.createApp({
             }
             if (attackingType == 'Ground' && defendingType2 == 'Flying' && enemy_item == "Iron Ball") {
                 defendingType2Effectiveness = 1 
+            }
+
+            if (species == 'Mime Jr.' && player_item.held_item.value == 'Odd Incense' && attackingType == "Psychic") {
+                itemBoost = 1.2
+            }
+            else if (species == 'Bonsly' && player_item.held_item.value == 'Rock Incense' && attackingType == "Rock") {
+                itemBoost = 1.2
+            }
+            else if (species == 'Budew' && player_item.held_item.value == 'Rose Incense' && attackingType == "Grass") {
+                itemBoost = 1.2
+            }
+            else if (species == 'Azurill' && player_item.held_item.value == 'Sea Incense' && attackingType == "Water") {
+                itemBoost = 1.2
+            }
+            else if (species == 'Mantyke' && player_item.held_item.value == 'Wave Incense' && attackingType == "Water") {
+                itemBoost = 1.2
             }
 
             var stabModifier = this.determineSTAB(x)
