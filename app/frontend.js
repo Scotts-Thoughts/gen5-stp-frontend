@@ -511,7 +511,6 @@ const app = Vue.createApp({
             autosplitter_toggle          : true,
             evolution                    : false,
             evolution_splits_label       : "",
-            frame                        : false,
             selected_game                : MyStorage['selected_game'] ?? "Black",
             available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
@@ -670,6 +669,7 @@ const app = Vue.createApp({
             hiddenpowers             : hiddenpowers,
             ability_glossary         : ability_glossary,
             demo_split_data          : demo_split_data,
+            unobtainable_moves       : unobtainable_moves,
 
             // Data (New as of 2024-06-02)
             // These files contain the most up-to-date data for both trainers and pokemon.
@@ -2696,20 +2696,17 @@ const app = Vue.createApp({
             const total   = hp + atk + def + spa + spd + spe
             return total
         },
-        post_game_move_style(move_object) {
-            const game_name = 'Platinum' //change this to be dynamic when adding more games
-            const move_name = move_object.Move
-            var strikethrough_tmhm = ""
-            var strikethrough_tutor = ""
-            if (this.post_game_moves[game_name].tmhm.includes(move_name)) {
-                strikethrough_tmhm = "text-decoration: line-through;"
+        getBannedMoveStyle(move_object) {
+            const move_name = move_object.move
+            if (this.unobtainable_moves.Banned.includes(move_name)) {
+                return "opacity: 0.5; text-decoration: line-through;"
             }
-            if (this.post_game_moves[game_name].tutor.includes(move_name)) {
-                strikethrough_tutor = "text-decoration: line-through;"
-            }
-            return {
-                tmhm: strikethrough_tmhm,
-                tutor: strikethrough_tutor,
+        },
+        getUnobtainableMoveStyle(move_object) {
+            const game_name = this.selected_game //change this to be dynamic when adding more games
+            const move_name = move_object.move
+            if (this.unobtainable_moves[game_name].includes(move_name)) {
+                return "opacity: 0.5; text-decoration: line-through;"
             }
         },
         copy_overlay_properties() {
@@ -2826,7 +2823,6 @@ const app = Vue.createApp({
             this.imageFlip =     MyStorage[`${game_name}_${this.starter}`]?.imageFlip ?? false
             this.imageSat =      MyStorage[`${game_name}_${this.starter}`]?.imageSat ?? 100
             this.imageRotation = MyStorage[`${game_name}_${this.starter}`]?.imageRotation ?? 0
-            this.frame =         MyStorage[`${game_name}_${this.starter}`]?.frame ?? false
 
             //background texture settings
             this.backgroundBlur =        MyStorage[`${game_name}_${this.starter}`]?.backgroundBlur ?? 0

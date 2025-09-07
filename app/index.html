@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.19</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.20</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -21,7 +21,6 @@
                 'filter': `blur(${backgroundBlur}px) hue-rotate(${backgroundHue}deg) brightness(${backgroundBrightness}%) contrast(${backgroundContrast}%) saturate(${backgroundSaturation}%)` ,
                 'transform': `scale(${backgroundScale}%) ${backgroundFlip ? 'rotateY(180deg)' : ''} translate(${backgroundXOffset}px, ${-backgroundYOffset}px)`
             }"/>
-            <img v-if="frame == true" class="canvas" src="images/elements/frame.png" />
             <img class="canvas" :src="`images/elements/pokeball.png`" />
             <img class="pokemon_art" ref="pokemon_art"
             :style="{
@@ -119,7 +118,6 @@
                     </select>
                     <div>Search Pokemon:</div>
                     <input type="text" v-model="search_term" placeholder="Search for a species">
-                    <!-- <button class="buttonStyle set_starter_button" @click="update_rom_starter_and_intro_mon">Set ROM Starter</button><br> -->
                     <button class="buttonStyle comparison_button" @click="load_splits()">Load split file to compare splits</button><br>
                     <br>
                     <table>
@@ -157,7 +155,6 @@
                         <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr>
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
-                        <!-- <tr><td>Frame:</td><td><input class="checkBoxStyle" type="checkbox" v-model="frame"/></td></tr> -->
                     </table>
                     <div v-if="evolution == true">
                         <div>Forms:</div>
@@ -168,11 +165,6 @@
                         Splits Label: <input type="text" v-model="evolution_splits_label"/><br>
                     </div>
                     <br>
-                    <!-- <div>Hidden Power:</div>
-                    <select v-model="hidden_power_type" class="dropdownMenu dropdown_menu_column3">
-                        <option disabled value="">Select a Hidden Power type</option>
-                        <option v-for="key in values_function(hiddenPowerTypes)" :value="`${key}`">{{key}}</option>
-                    </select><br> -->
                     <div>Hidden Power:</div>
                     <select v-model="hidden_power_type" class="dropdownMenu dropdown_menu_column3">
                         <option disabled value="">Select a Hidden Power type</option>
@@ -513,7 +505,6 @@
                                         </div>
                                         <div v-if="mapper.properties.meta.state.value == 'Battle'" class="ePkmnStats">
                                             <div class="enemyStatModTable">
-                                                <!-- <div v-show="statusConditionConverter(mapper.properties.battle.opponent_2.active_pokemon.status_condition?.value) != ``" class="enemyMod stcd">BRN</div> -->
                                                 <div v-for="modifier in modifier_values">
                                                     <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value != 0" class="enemyMod" :class="`e_${modifier}`">{{stage_modifiers(mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.[modifier].value)}}</div>
                                                 </div>
@@ -580,7 +571,7 @@
                             <th class="movepool_header movepool_tableC">Acc.</th>
                             <th class="movepool_header movepool_tableC">PP</th>
                         </tr>
-                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).level" :class="{ 'first-row': index === 0 }">
+                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).level" :class="{ 'first-row': index === 0 }" :style="getBannedMoveStyle(x)">
                             <td class="movepool_way">{{x.Level}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
@@ -589,7 +580,7 @@
                             <td class="movepool_tableC">{{x.accuracy}}%</td>
                             <td class="movepool_tableC">{{x.pp}}</td>
                         </tr>
-                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).tmhm" :style="post_game_move_style(x)?.tmhm">
+                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).tmhm" :style="getUnobtainableMoveStyle(x)">
                             <td v-if="x.Move == 'Whirlpool'" class="movepool_way">HM05</td>
                             <td v-else class="movepool_way">{{x.tmhm}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
@@ -698,7 +689,6 @@
     <script src="lib/moves/natural_gift.js"></script>
     <script src="lib/moves/cross_generation_moves.js"></script>
     <script src="lib/g5tmhmMapping.js"></script>
-    <!-- Data Objects (New as of 2024-06-02) -->
     <!-- Pokedex -->
     <script src="lib/pokedex/black.js"></script>
     <!-- Trainers -->
@@ -709,6 +699,7 @@
     <script src="lib/game_variables.js"></script>
     <script src="references/abilities.js"></script>
     <script src="lib/demo_split_data.js"></script>
+    <script src="lib/moves/unobtainable_moves.js"></script>
     <!-- VUE APP -->
     <script type="text/javascript" src="frontend.js"></script>
 </body>
