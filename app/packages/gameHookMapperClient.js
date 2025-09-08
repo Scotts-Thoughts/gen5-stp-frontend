@@ -59,7 +59,7 @@ class GameHookMapperClient {
     _signalrClient
     _properties
     _propertiesMap
-    _debouceTimeout = 1
+    _debouceTimeout = 10
     _debouceList = []
     _debouceMap
 
@@ -304,22 +304,26 @@ class GameHookMapperClient {
         }
 
         this._signalrClient.on('PropertiesChanged', (propertiesChanged) => {
-            if (that._properties && that._properties.length > 0) {
-                for (const propertyChanged of propertiesChanged) {
-                    let property = that._propertiesMap.get(propertyChanged.path)
-                    if (!property) {
-                        console.warn(`[GameHook Client] Could not find a related property in PropertyUpdated event for: ${propertyChanged.path}`)
-                        return
+            try {       
+                if (that._properties && that._properties.length > 0) {
+                    for (const propertyChanged of propertiesChanged) {
+                        let property = that._propertiesMap.get(propertyChanged.path)
+                        if (!property) {
+                            console.warn(`[GameHook Client] Could not find a related property in PropertyUpdated event for: ${propertyChanged.path}`)
+                            return
+                        }
+                        if (that._debouceMap.has(propertyChanged.path)) {
+                            this._debouceMap.get(propertyChanged.path).timeoutFrames = this._debouceTimeout
+                            this._debouceMap.get(propertyChanged.path).newProperty = propertyChanged
+                        } else {
+                            updateProperty(propertyChanged)
+                        }
                     }
-                    if (that._debouceMap.has(propertyChanged.path)) {
-                        this._debouceMap.get(propertyChanged.path).timeoutFrames = this._debouceTimeout
-                        this._debouceMap.get(propertyChanged.path).newProperty = propertyChanged
-                    } else {
-                        updateProperty(propertyChanged)
-                    }
+                } else {
+                    console.debug('[GameHook Client] Mapper is not loaded, throwing away PropertiesChanged event.')
                 }
-            } else {
-                console.debug('[GameHook Client] Mapper is not loaded, throwing away PropertiesChanged event.')
+            } catch (e) {
+                console.error(e);
             }
         })
 
@@ -343,10 +347,12 @@ class GameHookMapperClient {
             } catch {}
         });
         this._signalrClient.on('InstanceReset', () => { this.onMapperUnloaded() });
-        this._signalrClient.on('GameHookError', (err) => { this.onGameHookError(err) })
-        this._signalrClient.on('DriverError', (err) => { this.onDriverError(err) })
-        this._signalrClient.on('SendDriverRecovered', () => { this.onDriverRecovered() })
-        this._signalrClient.on('UiBuilderScreenSaved', (id) => { this.onUiBuilderScreenSaved(id) })
+        this._signalrClient.on('GameHookError', (err) => { this.onGameHookError(err) });
+        this._signalrClient.on('DriverError', (err) => { this.onDriverError(err) });
+        this._signalrClient.on('SendDriverRecovered', () => { this.onDriverRecovered() });
+        this._signalrClient.on('UiBuilderScreenSaved', (id) => { this.onUiBuilderScreenSaved(id) });
+        this._signalrClient.on('Error', () => { });
+        this._signalrClient.on('Hello', () => { });
 
 
         const result = await this._establishConnection()
@@ -418,6 +424,7 @@ class GameHookMapperClient {
                     if (x.body) {
                         throw new Error(x.body)
                     } else {
+                        console.log(x)
                         throw new Error('Unknown error')
                     }
                 }

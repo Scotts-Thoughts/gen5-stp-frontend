@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.21</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.22</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -15,8 +15,8 @@
             </select>
             Not receiving data...
         </div>
-        <div v-else>
-            <img class="canvas" ref="background_texture" :src="textures[backgroundTexture].path" 
+        <div v-else-if="mapper && mapper.properties">
+            <img class="canvas" ref="background_texture" :src="currentTexturePath" 
             :style="{ 
                 'filter': `blur(${backgroundBlur}px) hue-rotate(${backgroundHue}deg) brightness(${backgroundBrightness}%) contrast(${backgroundContrast}%) saturate(${backgroundSaturation}%)` ,
                 'transform': `scale(${backgroundScale}%) ${backgroundFlip ? 'rotateY(180deg)' : ''} translate(${backgroundXOffset}px, ${-backgroundYOffset}px)`
@@ -70,6 +70,7 @@
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
                     <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br><input type="text" class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
+                    <button v-if="debugging_mode == true" class="buttonStyle set_button_style" @click="this.timer.update();">Update Timer</button><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>

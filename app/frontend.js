@@ -177,7 +177,6 @@ class KeyHook {
         this.process = require("child_process").spawn("keyhook.exe");
 
         // general logging
-        // this.process.on("spawn", () => console.log("Keyboard hook started!"));
         this.process.stderr.on("data", (data) => console.error(`${data}`));
         
         // handle output of the keyboard hook
@@ -767,7 +766,7 @@ const app = Vue.createApp({
             use_custom_background: MyStorage["use_custom_background"] ?? false,
             backgroundXOffset    : MyStorage["backgroundXOffset"]     ?? 0,
             backgroundYOffset    : MyStorage["backgroundYOffset"]     ?? 0,
-            backgroundTexture    : MyStorage["backgroundTexture"]     ?? 'Bug 1',
+            backgroundTexture    : MyStorage["backgroundTexture"]     ?? 'Bug',
             backgroundBrightness : MyStorage["backgroundBrightness"]  ?? 100,
             backgroundContrast   : MyStorage["backgroundContrast"]    ?? 100,
             backgroundSaturation : MyStorage["backgroundSaturation"]  ?? 100,
@@ -918,7 +917,6 @@ const app = Vue.createApp({
                 }
             );
         }
-        // this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
         backgroundTexture(newValue) {
@@ -1272,10 +1270,7 @@ const app = Vue.createApp({
                         const diff_s = diff_abs % 60;
                         var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
                         if (diff_str == "+0:00") { diff_str = "0:00" }
-                        // console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
                         if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                            // console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-
                             result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
                             lastPushedTrainer = trainer; // Update the last pushed trainer
                         }
@@ -1298,7 +1293,6 @@ const app = Vue.createApp({
             const voltorb_flip_trigger = this.mapper.properties.screen.voltorb_flip.activate_voltorb_flip.value
             const map = this.mapper.properties.overworld.map_name.value 
             if (voltorb_flip_trigger == 160 && map == 'Goldenrod City - Map 31') {
-                console.log("Voltorb Flip Active")
                 return true
             }
             else {
@@ -1797,6 +1791,12 @@ const app = Vue.createApp({
                 textures: Object.keys(this.textures)
             }
         },
+        currentTexturePath() {
+            if (!this.backgroundTexture || !this.textures[this.backgroundTexture]) {
+                return this.textures['Bug']?.path || '';
+            }
+            return this.textures[this.backgroundTexture].path;
+        },
     },
 
     methods: {
@@ -1973,10 +1973,6 @@ const app = Vue.createApp({
             var move2_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move2_replacement)]?.rom_id ?? 0)
             var move3_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move3_replacement)]?.rom_id ?? 0)
             var move4_bytes = split_to_little_endian_bytes(move_data[this.move_name(this.move4_replacement)]?.rom_id ?? 0)
-            // console.log(move1_bytes)
-            // console.log(move2_bytes)
-            // console.log(move3_bytes)
-            // console.log(move4_bytes)
             if (move1 != "") {
                 byteArrayDecrypted[0x28] = move1_bytes[0];
                 byteArrayDecrypted[0x29] = move1_bytes[1];
@@ -2058,9 +2054,6 @@ const app = Vue.createApp({
 
             // Nature
             const nature_data = this.natures[data_object.nature]
-            // console.log(data_object)
-            // console.log("Nature data", nature_data)
-            // console.log("Modulo value", nature_data.modulo_value)
             const nature_index = nature_data.modulo_value
             byteArrayDecrypted[0x41] = nature_index // Set Nature
 
@@ -2144,7 +2137,6 @@ const app = Vue.createApp({
                     (decryptedData[1] << 8) |
                     (decryptedData[2] << 16) |
                     (decryptedData[3] << 24)) >>> 0;
-            // console.log("PID", pid)
 
             // Copy unencrypted first 8 bytes
             for (let i = 0; i < 8; i++) {
@@ -2154,7 +2146,6 @@ const app = Vue.createApp({
             // Shuffle the blocks FORWARD
             const shuffleId = ((pid & 0x3E000) >> 0xD) % 24;
             let shuffleOrder = shuffleOrders[shuffleId];
-            // console.log("shuffleOrder", shuffleOrder)
             let dataCopy = decryptedData.slice(0x08, 0x88);
             let checksum = 0
             for (let i = 0x08; i < 0x88; i += 2) {
@@ -2192,7 +2183,6 @@ const app = Vue.createApp({
                 let data = (decryptedData[i] | (decryptedData[i + 1] << 8)) ^ key;
                 dataView.setUint16(i, data, true);
             }
-            // console.log([...encryptedData])
             return [...encryptedData];
         },
         padTime(time) {
@@ -2201,7 +2191,6 @@ const app = Vue.createApp({
         openFolder(folderName, game_name, path = "", path2 = "") {
             const fs = require('fs');
             const fullPath = `.\\${folderName}\\${game_name}\\${path}\\${path2}`;
-            // console.log(fullPath);
 
             if (!fs.existsSync(fullPath)) {
                 fs.mkdirSync(fullPath, { recursive: true });
@@ -2346,7 +2335,6 @@ const app = Vue.createApp({
             return object
         },
         svgColorClass(speed_comparison, enemy_data) {
-            // console.log(speed_comparison, enemy_data)
             const isFainted = enemy_data?.stats.hp?.value
             if (isFainted == 0) {
                 return 'grey-svg';
@@ -2442,7 +2430,6 @@ const app = Vue.createApp({
         hgss_badge_check(x) {
             const badge          = this.mapper.properties.player.badges[x].value
             const state          = this.mapper.properties.meta.state.value          
-            // console.log(global_pointer)
             if (badge == true && state!= `No Pokemon`) {
                 return true
             }
@@ -2989,14 +2976,12 @@ const app = Vue.createApp({
             var color = await this.colorPick()
             this.set_pokemon_prop("overlay_color", color)
             this.overlay_color = color
-            // console.log(MyStorage.entries())
         },
         clear_overlay_color() {
             starterType = this.g5PokemonData[this.starter].type_1;
             newColor = getComputedStyle(document.documentElement).getPropertyValue("--"+starterType.toLowerCase());
             this.set_pokemon_prop("overlay_color", newColor)
             this.overlay_color = newColor;
-            // this.load_pokemon_sprite_settings()
         },
         set_pokemon_prop(property_name, value) {
             MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] = {
@@ -3014,7 +2999,6 @@ const app = Vue.createApp({
             return Object.values(object).map(entry => entry.species);
         },
         eHPType(valueToReturn, moveValue, slotIndex) {
-            // console.log(valueToReturn, moveValue, slotIndex)
             if (moveValue == "Hidden Power") {
                 return this.hiddenPowerTypeCalc(this.mapper.properties.battle.opponent.team[slotIndex])
             }
@@ -3323,7 +3307,6 @@ const app = Vue.createApp({
                     return_value = Math.floor(return_value / 4)
                 }
             }
-            // console.log(stat, state, currentStat, modifier, stageModification, return_value) 
             return return_value
         },
         getEnemyStat(statName, statValue, slotIndex) { //stat = the name of the stat ie. "hp", "attack", "defense", etc.
@@ -3353,7 +3336,6 @@ const app = Vue.createApp({
             const species = this.mapper.properties.player.team[0].species.value
             const team_move = this.mapper.properties.player.team[0].moves[`${moveNumber - 1}`]?.move.value
             const battle_move = this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.move.value
-            // console.log(team_move, battle_move)
             if (state == `Battle` || (state == `No Pokemon` && species != null)) {
                 if (battle_move) {
                     return battle_move
@@ -3414,8 +3396,6 @@ const app = Vue.createApp({
         getPP(moveNumber) {
             const state = this.mapper.properties.meta.state.value
             const species = this.mapper.properties.player.team[0].species.value
-            // const active_pokemonPv = this.mapper.properties.battle.player.active_pokemon.internals?.personality_value.value ?? 0
-            // const teamPokemonPv = this.mapper.properties.player.team[0].internals?.personality_value.value  ?? 0
             const team_pp = this.mapper.properties.player.team[0]?.moves[`${moveNumber - 1}`]?.pp.value
             const battle_pp = this.mapper.properties.battle.player.active_pokemon?.moves[`move${moveNumber}`]?.pp.value
             if (state == `Battle` || (state == `No Pokemon` && species != null)) {
@@ -5511,17 +5491,18 @@ const app = Vue.createApp({
     mounted: async function () {
         const that = this
         this.mapper = new GameHookMapperClient()
-        this.mapper.onConnected = (x) => this.ready = true
-        this.mapper.onDisconnected = (x) => this.ready = false
-        this.mapper._debouceTimeout = 10
+        this.mapper.onMapperLoaded = (x) => this.ready = true
+        this.mapper.onMapperUnloaded = (x) => this.ready = false
+
+        this.mapper._debouceTimeout = 3
         // this.mapper.deboucePath("battle.player.active_pokemon.modifiers")
         this.mapper.deboucePath("battle.opponent.active_pokemon")
         this.mapper.deboucePath("battle.opponent.team")
         this.mapper.deboucePath("player.team.0")
         await this.mapper.connect()
-        this.timer.update();
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
+        this.timer.update();
 
         this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {
             const map = this.mapper.properties.overworld.map_index.value
@@ -5659,9 +5640,7 @@ const app = Vue.createApp({
             console.log(`Autosplitter - Battle Ended: Split: ${opponent} at ${time[0]}${time[1]} (Gametime: ${this.gametimeSplit})`)
         }
         const autosplitter_process = () => {
-            // console.log("Checking if autosplitter is on...")
             if (this.autosplitter_toggle == true) {
-                // console.log("Began Autosplitter Process")
                 d = new Date()
                 battle_end = Date.now()
                 //values
@@ -5936,8 +5915,6 @@ const app = Vue.createApp({
                 this.full_data_str = full_data_str
                 this.simple_data = simple_data
                 this.deprecated_data_str = deprecated_data_str
-                // console.log("Simple Data: ", simple_data)
-                // console.log("Deprecated Data: ", deprecated_data_str)
                 if (this.collect_split_data == true && this.mapper.properties.meta.state.value == "From Battle" && this.mapper.properties.battle.opponent.trainer.value != '--') {
                     this.current_splits.push({
                         trainer: trainer_name, 
@@ -5949,7 +5926,6 @@ const app = Vue.createApp({
         }
 
         this.mapper.properties.battle.other.battle.change(async (newProp, oldProp) => {
-            // console.log(newProp.value)
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
                 if (game == 'Black') {
@@ -5971,15 +5947,8 @@ const app = Vue.createApp({
             if (newProp.value == "To Battle" && oldProp.value == "Overworld" && this.automatic_post_battle_splits == true) {
                 this.right_ui = "Automatic"
             }
-            // console.log(`State Changed to "${newProp.value}"`)
-            // if (newProp.value != 'From Battle' || this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value == 0) { 
-            //     return 
-            // }
-            // console.log('Starting autosplitter process')
             autosplitter_process()
-            // console.log('Autosplitter Attempted to Run')
             if (newProp.value == 'From Battle') {
-                // console.log('Starting split log process')
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let id = this.mapper.properties.battle.opponent.id.value
                 let gameName = 'Black'
@@ -5989,13 +5958,7 @@ const app = Vue.createApp({
                 logData(gameName, this.full_data_str, this.attempt_number, this.starter, "Full", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 
                 //write deprecated split data
-                // console.log("Autosplitter[this.game.gameName]:" + this.autosplitter[this.game.gameName])
-                // console.log(this.autosplitter)
-                // console.log("this.game:" + this.game)
-                // console.log("this.game.gameName:" + this.game.gameName)
-                // console.log("Trainer: " + trainer)
                 if (this.autosplitter[this.game.gameName][trainer]) {
-                    // console.log("Deprecated split attempted to be collected...")
                     logData(gameName, this.deprecated_data_str, this.attempt_number, this.starter, "Deprecated", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 }
                 
@@ -6010,9 +5973,6 @@ const app = Vue.createApp({
                         split_data: this.split_data
                     }
                 }
-                // console.log(trainer, id)
-                // console.log(this.game.splits.includes(trainer))
-                console.log(this.game.finalBattle.includes(trainer))
                 if (this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
                     simpleSplit();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
@@ -6047,7 +6007,6 @@ const app = Vue.createApp({
                     //use then so that logCopy doesn't touch any files until logData finishes
                     logData(gameName, this.simple_data_str, this.attempt_number, this.starter, "Simple", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                     .then(() => {
-                            // console.log("Run complete - moving attempt files to finished folder.")
                             logCopy(gameName, this.attempt_number, this.starter, this.finished_run_count, this.evolution, this.evolution_splits_label);
                         })
                         .catch(error => {
@@ -6059,15 +6018,12 @@ const app = Vue.createApp({
                         ...MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`],
                         split_data: this.split_data
                     }
-                    // console.log("Data transfer finished.")
                 }
             }
         });
 
         this.mapper.properties.player.team[0].exp.change(async (newProp, oldProp) => {
-            // console.log("State - EXP Function 1", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
             if (this.expBarAnimation == true) {
-                // console.log("Exp Bar function got here (1)...")
                 const species = this.mapper.properties.player.team[0].species.value ?? this.starter;
                 const growthRate = this.g5PokemonData[species]?.growth_rate ?? this.g5PokemonData[this.starter].growth_rate;
                 const expPoints = newProp.value;
@@ -6076,18 +6032,14 @@ const app = Vue.createApp({
                 this.expBarState.species = species;
                 this.expBarState.expPoints = expPoints;
 
-                // console.log("exp changed", {species, growthRate, expPoints})
-
                 if (this.$refs.expBar) {
                     this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
                 }
             }
         })
         this.mapper.properties.battle.player.active_pokemon.exp.change(async (newProp, oldProp) => {
-            // console.log("State - EXP Function 2", this.mapper.properties.meta.state.value, this.mapper.properties.player.team[0].exp.value)
             if (this.mapper.properties.meta.state.value == "Battle") {
                 if (this.expBarAnimation == true) {
-                    // console.log("Exp Bar function got here (2)...")
                     const prevSpecies = this.expBarState.species;
                     const prevExpPoints = this.expBarState.expPoints;
                     const prevGrowthRate = this.g5PokemonData[prevSpecies].growth_rate;
@@ -6102,17 +6054,11 @@ const app = Vue.createApp({
 
                     this.expBarState.species = newSpecies;
                     this.expBarState.expPoints = newExpPoints;
-
-                    // console.log("battle exp changed", 
-                    //     {species: prevSpecies, expPoints: prevExpPoints, growthRate: prevGrowthRate},
-                    //     {species: newSpecies, expPoints: newExpPoints, growthRate: newGrowthRate}
-                    // )
                     
                     const animationMaxDuration = 500;
     
                     // did we switch out?
                     if (prevSpecies != newSpecies) {
-                        // console.log("switched out");
                         // dont animate, just set newExpStats.percent
                         if (this.$refs.expBar) {
                             this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
@@ -6121,12 +6067,10 @@ const app = Vue.createApp({
                     // same pokemon but exp changed
                     else {
                         if (prevExpPoints == newExpPoints) { 
-                            // console.log("exp unchanged", {prevExpPoints, newExpPoints});
                             return
                         }
 
                         if (prevExpStats.level == newExpStats.level) {
-                            // console.log("same level", {prevExpStats, newExpStats});
                             let diffExp = newExpStats.percent - prevExpStats.percent
                             let animationDuration = Math.ceil(diffExp * animationMaxDuration)
                             // animate width to newExpStats.percent
@@ -6136,7 +6080,6 @@ const app = Vue.createApp({
                             }
                             await this.sleep(animationDuration + 50);
                         } else {
-                            // console.log("level up", {prevExpStats, newExpStats});
                             let diffExp1 = 1 - prevExpStats.percent
                             let animationDuration1 = Math.ceil(diffExp1 * animationMaxDuration)
                             let diffExp2 = newExpStats.percent
