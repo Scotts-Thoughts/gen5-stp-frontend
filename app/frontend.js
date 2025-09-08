@@ -210,6 +210,11 @@ class KeyHook {
         else
             type = "up";
 
+        // Log key press information to console
+        // if (down) {
+        //     console.log(`Key pressed: ${key || 'UNKNOWN'} (keyCode: ${keyCode})`);
+        // }
+
         if (!this._listeners[type]) return;
         for (const listener of this._listeners[type]) {
             listener({
@@ -515,6 +520,7 @@ const app = Vue.createApp({
             starter_choice               : "Tepig",
             refilming_mode               : false,
             show_advanced_settings       : MyStorage['show_advanced_settings'] ?? false,
+            showPopup                    : false,
             right_ui                     : MyStorage['right_ui']               ?? "Automatic",
             previous_label               : MyStorage['previous_label']         ?? "Previous",
             current_label                : MyStorage['current_label']          ?? "Current",
@@ -531,14 +537,15 @@ const app = Vue.createApp({
             disallow_delay : 2000,
             
             // Editor variables
-            move1_replacement: "",
-            move2_replacement: "",
-            move3_replacement: "",
-            move4_replacement: "",
-            item1_replacement: "Rare Candy",
-            item2_replacement: "PP Up",
-            item3_replacement: "Full Restore",
-            item4_replacement: "Max Elixir",
+            move1_replacement: MyStorage['move1_replacement'] ?? "",
+            move2_replacement: MyStorage['move2_replacement'] ?? "",
+            move3_replacement: MyStorage['move3_replacement'] ?? "",
+            move4_replacement: MyStorage['move4_replacement'] ?? "",
+            held_item_replacement: MyStorage['held_item_replacement'] ?? "",
+            item1_replacement: MyStorage['item1_replacement'] ?? "Rare Candy",
+            item2_replacement: MyStorage['item2_replacement'] ?? "PP Up",
+            item3_replacement: MyStorage['item3_replacement'] ?? "Full Restore",
+            item4_replacement: MyStorage['item4_replacement'] ?? "Max Elixir",
 
             // POKEMON CONFIG (components) ---------------------------------//
             starter                : "Heatran",
@@ -1016,6 +1023,7 @@ const app = Vue.createApp({
         starter(newValue, oldValue) {
             const starter = newValue
             const game = this.mapper?.properties.meta.game_name.value
+            const state = this.mapper?.properties.meta.state.value
             MyStorage['starter'] = newValue
             if (!MyStorage[`${game}_${starter}`]) {
                 MyStorage[`${game}_${starter}`] = {};
@@ -1045,6 +1053,18 @@ const app = Vue.createApp({
             this.backgroundContrast     = MyStorage[`${game}_${starter}`]?.backgroundContrast    ?? this.default_texture_settings('backgroundContrast', 100)
             this.backgroundSaturation   = MyStorage[`${game}_${starter}`]?.backgroundSaturation  ?? this.default_texture_settings('backgroundSaturation', 100)
             
+            //main pokemon settings
+            this.pkmnNature   = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
+            this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
+            //! FIX_LATER Fix this implementation later
+            // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
+            this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
+            this.hidden_power_index     = MyStorage[`${game}_${starter}`]?.hidden_power_index    ?? 0,
+            this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
+            this.encounters_route_1     = MyStorage[`${game}_${starter}`]?.encounters_route_1     ?? false
+            this.encounters_route_2     = MyStorage[`${game}_${starter}`]?.encounters_route_2     ?? false
+            
+            // Evolution management
             if (this.evolution != true) {
                 this.evolution              = MyStorage[`${game}_${starter}`]?.evolution              ?? false
                 this.evolution_splits_label = MyStorage[`${game}_${starter}`]?.evolution_splits_label ?? ""
@@ -1057,18 +1077,7 @@ const app = Vue.createApp({
             else {
 
             }
-            
-            //main pokemon settings
-            this.pkmnNature   = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
-            this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
-            //! FIX_LATER Fix this implementation later
-            // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
-            this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
-            this.hidden_power_index     = MyStorage[`${game}_${starter}`]?.hidden_power_index    ?? 0,
-            this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
-            this.encounters_route_1     = MyStorage[`${game}_${starter}`]?.encounters_route_1     ?? false
-            this.encounters_route_2     = MyStorage[`${game}_${starter}`]?.encounters_route_2     ?? false
-            
+
             this.movepoolResize();
         },
         ui_stat_arrangement(newValue) {
@@ -1816,6 +1825,87 @@ const app = Vue.createApp({
     },
 
     methods: {
+        toggle_encounters() {
+            this.encounters_route_1 = !this.encounters_route_1
+            this.encounters_route_2 = !this.encounters_route_2
+            if (this.mapper.properties.overworld.map_index.value == 317) {
+                this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_1, false)
+            }
+            if (this.mapper.properties.overworld.map_index.value == 319) {
+                this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_2, false)
+            }
+        },
+        decimalToPercentage(decimal) {
+            return Math.round(decimal * 100);
+        },
+        calculate_ev_benefit(stat_name) {
+            const state = this.mapper.properties.meta.state.value
+            if (state == 'No Pokemon') {
+                return
+            }
+
+            let level = this.mapper.properties.player.team[0].level.value
+            let species = this.starter
+            let nature = this.mapper.properties.player.team[0].nature.value
+            let nature_modifiers = this.natures[nature]
+
+            let iv_hp = this.mapper.properties.player.team[0].ivs.hp.value
+            let iv_atk = this.mapper.properties.player.team[0].ivs.attack.value
+            let iv_def = this.mapper.properties.player.team[0].ivs.defense.value
+            let iv_spa = this.mapper.properties.player.team[0].ivs.special_attack.value
+            let iv_spd = this.mapper.properties.player.team[0].ivs.special_defense.value
+            let iv_spe = this.mapper.properties.player.team[0].ivs.speed.value
+            
+            function calculate_hp(iv, effort_value, level, base_stat) {
+                return Math.floor((2 * base_stat + iv + Math.floor(effort_value / 4)) * level / 100) + level + 10
+            }
+            function calculate_other_stat(iv, effort_value, level, base_stat, nature_modifier) {
+                return Math.floor((Math.floor((2 * base_stat + iv + Math.floor(effort_value / 4)) * level / 100) + 5) * nature_modifier)
+            }
+
+            switch (stat_name) {
+                case 'hp': {
+                    let current_stat = this.get_stat().Hp
+                    let no_ev_stat   = calculate_hp(iv_hp, 0, level, this.g5PokemonData[species].base_stats.hp)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                case 'attack': {
+                    let current_stat = this.get_stat().Atk
+                    let no_ev_stat   = calculate_other_stat(iv_atk, 0, level, this.g5PokemonData[species].base_stats.attack, nature_modifiers.nature_attack)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                case 'defense': {
+                    let current_stat = this.get_stat().Def
+                    let no_ev_stat   = calculate_other_stat(iv_def, 0, level, this.g5PokemonData[species].base_stats.defense, nature_modifiers.nature_defense)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                case 'special_attack': {
+                    let current_stat = this.get_stat().SpA
+                    let no_ev_stat   = calculate_other_stat(iv_spa, 0, level, this.g5PokemonData[species].base_stats.special_attack, nature_modifiers.nature_specialAttack)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                case 'special_defense': {
+                    let current_stat = this.get_stat().SpD
+                    let no_ev_stat   = calculate_other_stat(iv_spd, 0, level, this.g5PokemonData[species].base_stats.special_defense, nature_modifiers.nature_specialDefense)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                case 'speed': {
+                    let current_stat = this.get_stat().Spe
+                    let no_ev_stat   = calculate_other_stat(iv_spe, 0, level, this.g5PokemonData[species].base_stats.speed, nature_modifiers.nature_speed)
+                    let difference   = current_stat - no_ev_stat
+                    return difference
+                }
+                default: {
+                    return
+                }
+            }
+
+        },
         print_texture_settings() {
             const string = `
                 'backgroundBlur'       : ${this.backgroundBlur},
@@ -1834,7 +1924,6 @@ const app = Vue.createApp({
         },
         default_texture_settings(setting_name_string, fallback_value) {
             const texture = this.backgroundTexture
-            console.log(texture)
             const data = this.textures[texture]
             const return_value = data[setting_name_string] ?? fallback_value
             
@@ -2019,6 +2108,10 @@ const app = Vue.createApp({
 
             // Write the reencrypted data to the decrypted_mon_0 property
             this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
+        },
+        update_held_item() {
+            this.mapper.properties.player.team[0].held_item.set(this.held_item_replacement, false)
+            this.held_item_fix = this.held_item_replacement
         },
         write_byte_data(data_object) {
             const starter = this.starter
@@ -2210,6 +2303,17 @@ const app = Vue.createApp({
 
             // Correctly handle spaces in folder names
             require('child_process').exec(`start "" "${fullPath}"`);
+        },
+        togglePopup() {
+            this.showPopup = !this.showPopup;
+        },
+        closePopup() {
+            this.showPopup = false;
+        },
+        popupAction(action) {
+            console.log(`Popup action selected: ${action}`);
+            // Add your custom logic here for each menu option
+            this.closePopup();
         },
         async add_testing_items() {
             await this.mapper.properties.bag.money.set(200000, false)
@@ -2818,63 +2922,82 @@ const app = Vue.createApp({
             }
         },
         copy_overlay_properties() {
-            const copy_from = this.copy_overlay_pokemon_from
-            const copy_to   = this.copy_overlay_pokemon_to
-            const game_name = this.mapper.properties.meta.game_name.value
-            const from      = `${game_name}_${copy_from}`
-            const to        = `${game_name}_${copy_to}`
-        
-            if (!MyStorage[`${game_name}_${copy_from}`]) {
-                console.log("The Pokemon you are trying to copy from does not have overlay data stored for it.")
+            const copy_from = this.copy_overlay_pokemon_from.trim()
+            const copy_to = this.copy_overlay_pokemon_to.trim()
+            const game_name = this.mapper?.properties.meta.game_name.value
+            
+            // Validation
+            if (!copy_from || !copy_to) {
+                console.log("Please enter both source and destination Pokemon names.")
                 return
             }
-            if (MyStorage[`${game_name}_${copy_to}`]) {
-                MyStorage[`${game_name}_${copy_to}`] = {};
+            
+            if (copy_from === copy_to) {
+                console.log("Source and destination Pokemon cannot be the same.")
+                return
             }
             
-            // Update Vue data properties - this should trigger reactivity
-            this.overlay_color          = MyStorage[from].overlay_color
-            this.backgroundBlur         = MyStorage[from].backgroundBlur        
-            this.backgroundHue          = MyStorage[from].backgroundHue        
-            this.backgroundScale        = MyStorage[from].backgroundScale       
-            this.backgroundUrl          = MyStorage[from].backgroundUrl         
-            this.backgroundFlip         = MyStorage[from].backgroundFlip        
-            this.use_custom_background  = MyStorage[from].use_custom_background 
-            this.backgroundXOffset      = MyStorage[from].backgroundXOffset     
-            this.backgroundYOffset      = MyStorage[from].backgroundYOffset     
-            this.backgroundTexture      = MyStorage[from].backgroundTexture     
-            this.backgroundBrightness   = MyStorage[from].backgroundBrightness  
-            this.backgroundContrast     = MyStorage[from].backgroundContrast    
-            this.backgroundSaturation   = MyStorage[from].backgroundSaturation  
-            this.ui_saturation          = MyStorage[from].ui_saturation  
-            this.evolution              = MyStorage[from].evolution  
-            this.evolution_splits_label = MyStorage[from].evolution_splits_label  
+            const from_key = `${game_name}_${copy_from}`
+            const to_key = `${game_name}_${copy_to}`
             
-            // Update storage for the target Pokemon
-            MyStorage[to].overlay_color          = MyStorage[from].overlay_color
-            MyStorage[to].backgroundBlur         = MyStorage[from].backgroundBlur       
-            MyStorage[to].backgroundHue          = MyStorage[from].backgroundHue       
-            MyStorage[to].backgroundScale        = MyStorage[from].backgroundScale      
-            MyStorage[to].backgroundUrl          = MyStorage[from].backgroundUrl        
-            MyStorage[to].backgroundFlip         = MyStorage[from].backgroundFlip       
-            MyStorage[to].use_custom_background  = MyStorage[from].use_custom_background
-            MyStorage[to].backgroundXOffset      = MyStorage[from].backgroundXOffset    
-            MyStorage[to].backgroundYOffset      = MyStorage[from].backgroundYOffset    
-            MyStorage[to].backgroundTexture      = MyStorage[from].backgroundTexture    
-            MyStorage[to].backgroundBrightness   = MyStorage[from].backgroundBrightness 
-            MyStorage[to].backgroundContrast     = MyStorage[from].backgroundContrast   
-            MyStorage[to].backgroundSaturation   = MyStorage[from].backgroundSaturation 
-            MyStorage[to].ui_saturation          = MyStorage[from].ui_saturation 
-            MyStorage[to].evolution              = MyStorage[from].evolution 
-            MyStorage[to].evolution_splits_label = MyStorage[from].evolution_splits_label 
-        
-            // Force Vue to update the DOM by using $nextTick
-            this.$nextTick(() => {
-                // Manually trigger the overlay_color watcher if needed
-                if (this.overlay_color) {
-                    document.documentElement.style.setProperty('--overlay-color', this.overlay_color);
+            // Check if source Pokemon has data
+            if (!MyStorage[from_key]) {
+                console.log(`The Pokemon "${copy_from}" does not have overlay data stored for it.`)
+                return
+            }
+            
+            // Initialize destination Pokemon data if it doesn't exist
+            if (!MyStorage[to_key]) {
+                MyStorage[to_key] = {}
+            }
+            
+            // List of all styling properties to copy
+            const stylingProperties = [
+                // Overlay color and UI settings
+                'overlay_color',
+                'ui_saturation',
+                
+                // Background texture settings
+                'backgroundTexture',
+                'backgroundBlur',
+                'backgroundHue',
+                'backgroundScale',
+                'backgroundUrl',
+                'backgroundFlip',
+                'use_custom_background',
+                'backgroundXOffset',
+                'backgroundYOffset',
+                'backgroundBrightness',
+                'backgroundContrast',
+                'backgroundSaturation',
+                
+                // Evolution settings (optional - user might want to copy these too)
+                'evolution',
+                'evolution_splits_label'
+            ]
+            
+            // Copy properties from source to destination in MyStorage
+            stylingProperties.forEach(prop => {
+                if (MyStorage[from_key].hasOwnProperty(prop)) {
+                    MyStorage[to_key][prop] = MyStorage[from_key][prop]
                 }
-            });
+            })
+            
+            // Update Vue data properties for immediate visual update
+            // Only update if the destination Pokemon is currently selected
+            if (this.starter === copy_to) {
+                stylingProperties.forEach(prop => {
+                    if (MyStorage[from_key].hasOwnProperty(prop)) {
+                        this[prop] = MyStorage[from_key][prop]
+                    }
+                })
+            }
+            
+            // Save the input values for persistence
+            MyStorage['copy_overlay_pokemon_from'] = copy_from
+            MyStorage['copy_overlay_pokemon_to'] = copy_to
+            
+            console.log(`Successfully copied overlay settings from "${copy_from}" to "${copy_to}".`)
         },
         load_all_settings() {
             const game_name                    = this.mapper.properties.meta.game_name.value
@@ -2927,6 +3050,12 @@ const app = Vue.createApp({
             this.battle_start =               MyStorage['battle_start']               ?? 0
             this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
             this.encounters_route_2 =         MyStorage['encounters_route_2']         ?? false
+            this.editor =                     MyStorage['editor']                     ?? false
+            this.held_item_replacement =      MyStorage['held_item_replacement']      ?? ""
+            this.move1_replacement =          MyStorage['move1_replacement']          ?? ""
+            this.move2_replacement =          MyStorage['move2_replacement']          ?? ""
+            this.move3_replacement =          MyStorage['move3_replacement']          ?? ""
+            this.move4_replacement =          MyStorage['move4_replacement']          ?? ""
 
             //Pokemon settings for local storage
             this.overlay_color = MyStorage[`${game_name}_${this.starter}`]?.overlay_color ?? this.default_colors[`${this.g5PokemonData[this.starter].type_1}`]
@@ -5529,6 +5658,16 @@ const app = Vue.createApp({
         this.pokemon_list = this.species_function(this.g5PokemonData)
         this.timer.update();
 
+
+        this.mapper.properties.player.team[0].species.change(async (newProp, oldProp) => {
+            const state = this.mapper.properties.meta.state.value
+            if ((state == "Battle" || state == "From Battle") && this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value != 0) {
+                this.starter = newProp.value
+            }
+            else if (state == "Overworld") {
+                this.starter = newProp.value
+            }
+        })
         this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {
             const map = this.mapper.properties.overworld.map_index.value
             if (newProp.value == 5 && oldProp.value == 0 && map == 391) {
@@ -5627,6 +5766,7 @@ const app = Vue.createApp({
         //Styling for stats in case they go above 999
         const stat_size_3_digit = "56px"
         const stat_size_4_digit = "43px"
+        //! BUG - if you refresh with any display other than Automatic or Base Stats it will resize the values incorrectly based on the attack value rather the text size
         if (document.getElementById("Atk") && this.get_stat()["Atk"].toString().length <= 3) { document.getElementById("Atk").style.fontSize = stat_size_3_digit }
         if (document.getElementById("Atk") && this.get_stat()["Atk"].toString().length >= 4) { document.getElementById("Atk").style.fontSize = stat_size_4_digit }
         if (document.getElementById("Def") && this.get_stat()["Def"].toString().length <= 3) { document.getElementById("Def").style.fontSize = stat_size_3_digit }
@@ -6136,56 +6276,48 @@ const app = Vue.createApp({
             }
         })
         //keybinds
-        keyhook.registerShortCut('F13', async () => { // Show IVs
-            console.log("Key: F13 pressed: DVs displayed.")
+        keyhook.registerShortCut('F13', async () => {
+            console.log("Key: F13 pressed: IVs displayed.")
             this.stats_setting = "IVs";
         });
-        keyhook.registerShortCut('F14', async () => { // Show EVs
-            console.log("Key: F14 pressed: Stat experience displayed.")
+        keyhook.registerShortCut('F14', async () => {
+            console.log("Key: F14 pressed: EVs displayed.")
             if (this.stats_setting == "EVs") {
                 this.stats_setting = "Detailed EVs";
                 return
             }
             this.stats_setting = "EVs";
         });
-        keyhook.registerShortCut('F15', async () => { // Show Base Stats
+        keyhook.registerShortCut('F15', async () => {
             console.log("Key: F15 pressed. Base Stats displayed.")
             this.stats_setting = "Base Stats";
         });
-        keyhook.registerShortCut('F16', async () => { // Automatic
+        keyhook.registerShortCut('F16', async () => {
             console.log("Key: F16 pressed. Stats are displaying automatically now.")
             this.stats_setting = "Automatic";
         });
-
-        keyhook.registerShortCut('F17', async () => { // Inventory
-            console.log("Key: F17 pressed. Automatic battle graphics will be displayed.")
-            this.right_panel = "Battle Graphic";
+        keyhook.registerShortCut('F17', async () => {
+            console.log("Key: F17 pressed. Right panel toggled.")
+            this.right_ui = this.right_ui == 'Automatic' ? 'Splits' : 'Automatic';
         });
-        keyhook.registerShortCut('F18', async () => { // Trainer Graphic during Battle
-            console.log("Key: F18 pressed. Inventory displayed.")
-            this.right_panel = "Inventory";
+        keyhook.registerShortCut('F18', async () => {
+            console.log(`Key: F18 pressed. Splits style changed.`)
+            this.toggle_compare_splits = this.toggle_compare_splits == "First" ? "Followup" : "First";
         });
-        keyhook.registerShortCut('F19', async () => { // Trainer Graphic during Battle
-            console.log("Key: F19 pressed. Movepool displayed.")
-            this.right_panel = "Movepool";
+        keyhook.registerShortCut('F19', async () => {
+            console.log(`Key: F19 pressed. Cycling through unobtainable moves settings...`)
+            this.unobtainable_moves_toggle = this.unobtainable_moves_toggle == "Never Cross Out" ? "Cross Out When Starter is Obtained" : this.unobtainable_moves_toggle == "Cross Out When Starter is Obtained" ? "Cross Out After First Badge" : this.unobtainable_moves_toggle == "Cross Out After First Badge" ? "Always Cross Out" : "Never Cross Out";
         });
-        keyhook.registerShortCut('F20', async () => { // Trainer Graphic during Battle
-            console.log(`Key: F20 pressed. Bonk counter displayed. (Bonk = ${this.bonk})`)
-            this.bonk = !this.bonk;
+        // keyhook.registerShortCut('F20', async () => {
+        //     console.log(`Key: F22 pressed. Unused shortcut.`)
+        // });
+        // keyhook.registerShortCut('F21', async () => {
+        //     console.log(`Key: F21 pressed. Unused shortcut.`)
+        // });
+        keyhook.registerShortCut('F22', async () => {
+            console.log(`Key: F22 pressed. Toggle Encounters.`)
+            this.toggle_encounters()
         });
-
-
-
-        //UNUSED F Keys
-        keyhook.registerShortCut('F21', async () => { // Trainer Graphic during Battle
-            console.log(`Key: F21 pressed. This shortcut is currently unused...`)
-        });
-        keyhook.registerShortCut('F22', async () => { // Trainer Graphic during Battle
-            console.log(`Key: F22 pressed. This shortcut is currently unused...`)
-        });
-
-
-
         keyhook.registerShortCut('F23', async () => { // Clear Timer and Metrics
             this.newRun()
         });

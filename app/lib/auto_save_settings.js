@@ -69,4 +69,10 @@ const auto_save_settings = [
     "automatic_post_battle_splits",
     "unobtainable_moves_toggle",
     "search_term",
+    "editor",
+    "held_item_replacement",
+    "move1_replacement",
+    "move2_replacement",
+    "move3_replacement",
+    "move4_replacement",
 ]

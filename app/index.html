@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.23</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.24</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -80,20 +80,24 @@
                     </table>
                     <br>
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
-                    <br><br>
-                    <button v-if="debugging_mode == true" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
-                    <button v-if="debugging_mode == true" class="buttonStyle" @click="set_options()">Set Options</button>
-                    <button v-if="debugging_mode == true" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
                     <br>
-                    Moveset Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
+                    <button class="buttonStyle" @click="togglePopup">Keyboard Shortcuts</button>
+                    <br><br>
+                    Pokemon Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
                     <div v-if="editor == true">
+                        <button v-if="debugging_mode == true" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
+                        <button v-if="debugging_mode == true" class="buttonStyle" @click="set_options()">Set Options</button>
+                        <button v-if="debugging_mode == true" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
                         <div>Moveset Updating:</div>
-                        <input style="width: 150px;" type="text" v-model="move1_replacement" placeholder="Input move 1">
-                        <input style="width: 150px;" type="text" v-model="move2_replacement" placeholder="Input move 2">
-                        <input style="width: 150px;" type="text" v-model="move3_replacement" placeholder="Input move 3">
-                        <input style="width: 150px;" type="text" v-model="move4_replacement" placeholder="Input move 4">
+                        <input style="width: 140px;" type="text" v-model="move1_replacement" placeholder="Input move 1">
+                        <input style="width: 140px;" type="text" v-model="move2_replacement" placeholder="Input move 2">
+                        <input style="width: 140px;" type="text" v-model="move3_replacement" placeholder="Input move 3">
+                        <input style="width: 140px;" type="text" v-model="move4_replacement" placeholder="Input move 4">
                         <button class="buttonStyle buttonStyle_column3" @click="update_moveset">Update Moves</button>
+                        <div>Held Item:</div>
+                        <input style="width: 280px;" type="text" v-model="held_item_replacement" placeholder="Input move 1">
+                        <button class="buttonStyle buttonStyle_column3" @click="update_held_item">Update Item</button>
                     </div>
                     <br>
                     <div v-if="editor == false && debugging_mode == true">
@@ -119,7 +123,6 @@
                     <div>Search Pokemon:</div>
                     <input type="text" v-model="search_term" placeholder="Search for a species">
                     <button class="buttonStyle comparison_button" @click="load_splits()">Load split file to compare splits</button><br>
-                    <br>
                     <table>
                         <tr>
                             <td>Attempt Number:</td>
@@ -154,14 +157,14 @@
                     <table>
                         <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr>
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
-                        <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
+                        <!-- <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
                     </table>
                     <div v-if="evolution == true">
-                        <div>Forms:</div>
+                        <!-- <div>Forms:</div>
                         <div v-for="evolution in g5PokemonData[starter].evolution_family">
                             <div>- {{evolution.species}}</div>
                         </div>
-                        <br>
+                        <br> -->
                         Splits Label: <input type="text" v-model="evolution_splits_label"/><br>
                     </div>
                     <br>
@@ -175,9 +178,9 @@
                         <option v-for="(key, index) in hiddenpowers[hidden_power_type]" :value="`${index}`">{{key}}</option>
                     </select><br>
                     <table style="font-size: 11px; line-height: 14px;">
-                        <tr><td>HP: </td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td><td>Spe:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td></tr>
-                        <tr><td>Atk:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td><td>SpA:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
-                        <tr><td>Def:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td><td>SpD:</td><td>{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
+                        <tr><td>HP: </td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td><td style="padding-left: 20px;">Spe:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td></tr>
+                        <tr><td>Atk:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td><td style="padding-left: 20px;">SpA:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
+                        <tr><td>Def:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td><td style="padding-left: 20px;">SpD:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
                     </table>
                     <br>
                     <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
@@ -204,6 +207,15 @@
                         <tr><td>Route 1</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_1"/></td></tr>
                         <tr><td>Route 2</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_2"/></td></tr>
                     </table>
+                    <br>
+                    <div>Player Party Count: {{mapper.properties.player.team_count.value > 6 ? 0 : mapper.properties.player.team_count.value}}</div>
+                    <br>
+                    <div>EVs:</div>
+                    <table>
+                        <tr><td>HP: </td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td></tr>
+                        <tr><td>Atk:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.attack}}</td> <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('attack')}})</td> <td>SpA:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_attack}}</td> <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_attack')}})</td></tr>
+                        <tr><td>Def:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.defense}}</td><td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('defense')}})</td><td>SpD:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_defense}}</td><td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_defense')}})</td></tr>
+                    </table>
                 </div>
                 <div class="ui3">
                     <div>Stat Display:</div>
@@ -211,6 +223,7 @@
                         <option>Automatic</option>
                         <option>IVs</option>
                         <option>EVs</option>
+                        <option>Detailed EVs</option>
                         <option>Base Stats</option>
                         <option>Base Stats Average</option>
                         <option>Base Stats Median</option>
@@ -220,7 +233,6 @@
                         <div>Right UI:</div>
                         <select v-model="right_ui" class="dropdownMenu">
                             <option>Automatic</option>
-                            <option>Movepool</option>
                             <option>Splits</option>
                         </select><br>
                         <div>Unobtainable Moves:</div>
@@ -280,12 +292,39 @@
                         <br>
                     </div>
                     <div v-if="show_advanced_settings">
-                        <div>Copy Overlay Settings:</div>
-                        Copy from: <input type="text" v-model="copy_overlay_pokemon_from"/><br>
-                        Copy to: <input type="text" v-model="copy_overlay_pokemon_to"/><br>
-                        <button @click="copy_overlay_properties()" class="buttonStyle">Copy Overlay Settings</button><br>
+                        <div>Copy Texture Settings:</div>
+                        <table>
+                            <tr><td>Copy from:</td><td><input type="text" v-model="copy_overlay_pokemon_from"/></td></tr>
+                            <tr><td>Copy to:</td>  <td><input type="text" v-model="copy_overlay_pokemon_to"/></td></tr>
+                        </table>
+                        <button @click="copy_overlay_properties()" class="buttonStyle">Copy Texture Settings</button><br>
                         <br>
                     </div>
+                </div>
+            </div>
+
+            <!-- POPUP MENU -->
+            <div v-if="showPopup" class="popup-overlay" @click="closePopup">
+                <div class="popup-menu" @click.stop>
+                    <div class="popup-header">
+                        <h3>Keyboard Shortcuts</h3>
+                        <button class="popup-close" @click="closePopup">&times;</button>
+                    </div>
+                    <table>
+                        <tr><td>Stats</td></tr>
+                        <tr><td>F13</td><td> - </td><td>IVs</td></tr>
+                        <tr><td>F14</td><td> - </td><td>EVs</td></tr>
+                        <tr><td>F15</td><td> - </td><td>Base Stats</td></tr>
+                        <tr><td>F16</td><td> - </td><td>Automatic Stats (default)</td></tr>
+                        <tr><td>Right Panel</td></tr>
+                        <tr><td>F17</td><td> - </td><td>Cycling Movepool/Splits</td></tr>
+                        <tr><td>F18</td><td> - </td><td>Cycling First/Followup Splits Style</td></tr>
+                        <tr><td>F19</td><td> - </td><td>Increment Unobtainable Moves Setting</td></tr>
+                        <tr><td>Overlay</td></tr>
+                        <tr><td>F22</td><td> - </td><td>Toggle Encounters</td></tr>
+                        <tr><td>F23</td><td> - </td><td>New Run (clear timer and metrics)</td></tr>
+                        <tr><td>F24</td><td> - </td><td>Pause/Unpause the timer</td></tr>
+                    </table>
                 </div>
             </div>
 
@@ -338,7 +377,9 @@
                             <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
                             <div v-if="stats_setting == 'IVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} dv`">{{get_iv(`${stat.name}`)}}/31</div>
                             <div v-if="stats_setting == 'EVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
-                            <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
+                            <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style detailed_ev_stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} devs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
+                            <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style detailed_ev_stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} percentage_evs`">{{decimalToPercentage(mapper.properties.player.team[0].evs[stat.path].value / 255) }}%</div>
+                            <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style detailed_ev_stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} ev_stats_gained`">+{{calculate_ev_benefit(stat.path)}}</div>
                             <div v-if="stats_setting == 'Base Stats Median'"   :id="stat.abrv" :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).median}}</div>
                             <div v-if="stats_setting == 'Base Stats Average'"  :id="stat.abrv" :class="`average_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{average_median_stats(stat.object_identifier).average}}</div>
 
@@ -545,7 +586,7 @@
                                 <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
                             </tr>
                         </table>
-                        <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                        <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/splits.svg)"></div>
                     </div>
                     <div v-else-if="toggle_compare_splits === 'First'">
                         <table  class="splits_table" cellspacing="0">
@@ -564,7 +605,7 @@
                                 <td style="font-size: 16px; text-align: right; padding-right: 7px;">{{split.current_time}}</td>
                             </tr>
                         </table>
-                        <div class="colored-image ds" style="--url: url(images/ui/splits.svg)"></div>
+                        <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/splits.svg)"></div>
                     </div>
                 </div>
                 <!-- Movepool -->
