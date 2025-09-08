@@ -212,14 +212,14 @@ body {
     border: 1px solid #ff000000;
 }
 .ui2 {
-    font-size: 16px;
+    font-size: 13px;
     position: fixed;
     left: 772px;
-    top: 30px;
+    top: 24px;
     width: 320px;
     z-index: 5;
     height: 740px;
-    line-height: 18px;
+    line-height: 14px;
     text-transform: capitalize;
     text-align: left;
     font-family: play;
@@ -228,14 +228,14 @@ body {
     border: 1px solid #ff000000;
 }
 .ui3 {
-    font-size: 14px;
+    font-size: 13px;
     position: fixed;
     left: 1112px;
-    top: 30px;
+    top: 24px;
     width: 435px;
     z-index: 5;
     height: 780px;
-    line-height: 16px;
+    line-height: 14px;
     text-transform: capitalize;
     text-align: left;
     font-family: play;
@@ -425,10 +425,10 @@ body {
     font-family: play;
     font-size: 24px;
     line-height: 26px;
-    top: 360px;
-    left: -10px;
-    width: 420px;
-    height: 420px;
+    top: 350px;
+    left: 22px;
+    width: 400px;
+    height: 400px;
 }
 .colored-image {
     position: absolute;

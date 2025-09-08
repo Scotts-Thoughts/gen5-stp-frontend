@@ -4,7 +4,7 @@ const MyStorage = new Proxy({}, {
             localStorage.removeItem(prop);
         else
             localStorage.setItem(prop, JSON.stringify(value));
-        return true
+        return true;
     },
     get: (_, prop) => {
         if (prop === "clear")
@@ -525,6 +525,7 @@ const app = Vue.createApp({
             toggle_compare_splits        : MyStorage['toggle_compare_splits']   ?? 'First',
             demo_splits                  : false,
             automatic_post_battle_splits : MyStorage['automatic_post_battle_splits'] ?? true,
+            unobtainable_moves_toggle    : MyStorage['unobtainable_moves_toggle']    ?? "Always Cross Out",
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -651,25 +652,25 @@ const app = Vue.createApp({
             statLabelOpacityValue: 0.1, //used when a stage modifier is applied
 
             //DATA ---------------------------------------------------------------------------------------------//
-            stageModifiersData       : stageModifiersData,
-            typeEffectivenessArray   : typeEffectivenessArray,
-            typeData                 : typeData,
-            typeBoostingItems        : typeBoostingItems,
-            hiddenPowerTypes         : hiddenPowerTypes,
-            textures                 : textures,
-            default_colors           : default_colors,
-            autosplitter             : autosplitter,
-            post_game_moves          : post_game_moves,
-            auto_save_settings       : auto_save_settings,
-            natures                  : natures,
-            hiddenpower_type_selector: hiddenpower_type_selector,
-            game_variables           : game_variables,
-            natural_gift             : natural_gift,
-            cross_generation_moves   : cross_generation_moves,
-            hiddenpowers             : hiddenpowers,
-            ability_glossary         : ability_glossary,
-            demo_split_data          : demo_split_data,
-            unobtainable_moves       : unobtainable_moves,
+            stageModifiersData        : stageModifiersData,
+            typeEffectivenessArray    : typeEffectivenessArray,
+            typeData                  : typeData,
+            typeBoostingItems         : typeBoostingItems,
+            hiddenPowerTypes          : hiddenPowerTypes,
+            textures                  : textures,
+            default_colors            : default_colors,
+            autosplitter              : autosplitter,
+            post_game_moves           : post_game_moves,
+            auto_save_settings        : auto_save_settings,
+            natures                   : natures,
+            hiddenpower_type_selector : hiddenpower_type_selector,
+            game_variables            : game_variables,
+            natural_gift              : natural_gift,
+            cross_generation_moves    : cross_generation_moves,
+            hiddenpowers              : hiddenpowers,
+            ability_glossary          : ability_glossary,
+            demo_split_data           : demo_split_data,
+            unobtainable_moves_object : unobtainable_moves_object,
 
             // Data (New as of 2024-06-02)
             // These files contain the most up-to-date data for both trainers and pokemon.
@@ -920,6 +921,19 @@ const app = Vue.createApp({
         // this.hgss_trainers = this.extractTrainerInfo(this.trainers_hgss)
     },
     watch: {
+        backgroundTexture(newValue) {
+            this.backgroundBlur         = this.default_texture_settings('backgroundBlur', 0)
+            this.backgroundHue          = this.default_texture_settings('backgroundHue', 0)
+            this.backgroundScale        = this.default_texture_settings('backgroundScale', 100)
+            this.backgroundUrl          = this.default_texture_settings('backgroundUrl', "")
+            this.backgroundFlip         = this.default_texture_settings('backgroundFlip', false)
+            this.use_custom_background  = this.default_texture_settings('use_custom_background', false)
+            this.backgroundXOffset      = this.default_texture_settings('backgroundXOffset', 0)
+            this.backgroundYOffset      = this.default_texture_settings('backgroundYOffset', 0)
+            this.backgroundBrightness   = this.default_texture_settings('backgroundBrightness', 100)
+            this.backgroundContrast     = this.default_texture_settings('backgroundContrast', 100)
+            this.backgroundSaturation   = this.default_texture_settings('backgroundSaturation', 100)
+        },
         current_splits: {
             handler: function (newVal, oldVal) {
                 MyStorage['current_splits'] = newVal
@@ -1015,17 +1029,17 @@ const app = Vue.createApp({
             this.imageRotation          = MyStorage[`${game}_${starter}`]?.imageRotation    ?? 0
 
             this.backgroundTexture      = MyStorage[`${game}_${starter}`]?.backgroundTexture     ?? `${this.pokedex_black[starter].type_1}`
-            this.backgroundBlur         = MyStorage[`${game}_${starter}`]?.backgroundBlur        ?? 0,
-            this.backgroundHue          = MyStorage[`${game}_${starter}`]?.backgroundHue         ?? 0,
-            this.backgroundScale        = MyStorage[`${game}_${starter}`]?.backgroundScale       ?? 100,
-            this.backgroundUrl          = MyStorage[`${game}_${starter}`]?.backgroundUrl         ?? "",
-            this.backgroundFlip         = MyStorage[`${game}_${starter}`]?.backgroundFlip        ?? false,
-            this.use_custom_background  = MyStorage[`${game}_${starter}`]?.use_custom_background ?? false,
-            this.backgroundXOffset      = MyStorage[`${game}_${starter}`]?.backgroundXOffset     ?? 0,
-            this.backgroundYOffset      = MyStorage[`${game}_${starter}`]?.backgroundYOffset     ?? 0,
-            this.backgroundBrightness   = MyStorage[`${game}_${starter}`]?.backgroundBrightness  ?? 100,
-            this.backgroundContrast     = MyStorage[`${game}_${starter}`]?.backgroundContrast    ?? 100,
-            this.backgroundSaturation   = MyStorage[`${game}_${starter}`]?.backgroundSaturation  ?? 100,
+            this.backgroundBlur         = MyStorage[`${game}_${starter}`]?.backgroundBlur        ?? this.default_texture_settings('backgroundBlur', 0)
+            this.backgroundHue          = MyStorage[`${game}_${starter}`]?.backgroundHue         ?? this.default_texture_settings('backgroundHue', 0)
+            this.backgroundScale        = MyStorage[`${game}_${starter}`]?.backgroundScale       ?? this.default_texture_settings('backgroundScale', 100)
+            this.backgroundUrl          = MyStorage[`${game}_${starter}`]?.backgroundUrl         ?? this.default_texture_settings('backgroundUrl', "")
+            this.backgroundFlip         = MyStorage[`${game}_${starter}`]?.backgroundFlip        ?? this.default_texture_settings('backgroundFlip', false)
+            this.use_custom_background  = MyStorage[`${game}_${starter}`]?.use_custom_background ?? this.default_texture_settings('use_custom_background', false)
+            this.backgroundXOffset      = MyStorage[`${game}_${starter}`]?.backgroundXOffset     ?? this.default_texture_settings('backgroundXOffset', 0)
+            this.backgroundYOffset      = MyStorage[`${game}_${starter}`]?.backgroundYOffset     ?? this.default_texture_settings('backgroundYOffset', 0)
+            this.backgroundBrightness   = MyStorage[`${game}_${starter}`]?.backgroundBrightness  ?? this.default_texture_settings('backgroundBrightness', 100)
+            this.backgroundContrast     = MyStorage[`${game}_${starter}`]?.backgroundContrast    ?? this.default_texture_settings('backgroundContrast', 100)
+            this.backgroundSaturation   = MyStorage[`${game}_${starter}`]?.backgroundSaturation  ?? this.default_texture_settings('backgroundSaturation', 100)
             //Attempts and finishes
             this.attempt_number         = MyStorage[`${game}_${starter}`]?.attempt_number        ?? 0,
             this.finished_run_count     = MyStorage[`${game}_${starter}`]?.finished_run_count    ?? 0,
@@ -1166,7 +1180,10 @@ const app = Vue.createApp({
                 const trainersToSkip = ["Bianca", "Cheren"]; // Trainers to skip
 
                 let default_splits = [
+                    { trainer: "Trio",     id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                     { trainer: "Chili",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Cilan",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Cress",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                     { trainer: "Lenora",   id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                     { trainer: "Burgh",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                     { trainer: "Elesa",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
@@ -1182,44 +1199,85 @@ const app = Vue.createApp({
                     { trainer: "Ghetsis",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                 ]
                 let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
-                // console.log(this.previous_splits)
-                // console.log(default_splits)
-                // console.log(previous_splits_data)
+                
+                // Check if any of the individual Chili/Cilan/Cress trainers are in current splits
+                const chiliInCurrent = this.current_splits.find(y => y.trainer === "Chili")
+                const cilanInCurrent = this.current_splits.find(y => y.trainer === "Cilan")
+                const cressInCurrent = this.current_splits.find(y => y.trainer === "Cress")
+                const anyChiliGroupInCurrent = chiliInCurrent || cilanInCurrent || cressInCurrent
+                
                 for (const x of previous_splits_data) {
-                    // if (debugging_mode == true) { console.log("For loop:", x) }
                     // Final N battle is ID 587
                     let trainer = x.trainer
-                    let id = x.id
-                    if (this.game.splits.includes(trainer)) {
-                        if (trainer == "N" && id !== 587) {
+                    const final_n_battle_id = 587
+                    
+                    // Handle Chili/Cilan/Cress combined split
+                    if (trainer === "Trio") {
+                        if (anyChiliGroupInCurrent) {
+                            // Skip the combined split if any individual trainer is in current splits
+                            continue
+                        } else {
+                            // Show combined split if no individual trainers are in current splits
+                            const default_string = "-"
+                            const prev = this.convertDurationToSeconds(x.time)
+                            if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
+                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                lastPushedTrainer = trainer;
+                            }
                             continue
                         }
-                        else {
-                            const default_string = "-"
-                            const cur_split = this.current_splits.find(y => y.trainer === trainer)
-                            const prev = this.convertDurationToSeconds(x.time)
-                            if (cur_split == undefined) { 
-                                if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                                    result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
-                                    lastPushedTrainer = trainer; // Update the last pushed trainer
-                                }
-                                continue
-                            }
-                            const cur = this.convertDurationToSeconds(cur_split.time)
-                            const diff = cur - prev;
-                            const diff_abs = Math.abs(diff);
-                            const diff_sign = Math.sign(diff);
-                            const diff_m = Math.floor(diff_abs / 60);
-                            const diff_s = diff_abs % 60;
-                            var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
-                            if (diff_str == "+0:00") { diff_str = "0:00" }
-                            console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                    }
+                    
+                    // Skip individual Chili/Cilan/Cress if the combined split should be shown
+                    if ((trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") && !anyChiliGroupInCurrent) {
+                        continue
+                    }
+                    
+                    // Skip individual Chili/Cilan/Cress if they're not in current splits (when combined split is shown)
+                    if ((trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") && anyChiliGroupInCurrent) {
+                        // Only process if this specific trainer is in current splits
+                        const specificTrainerInCurrent = this.current_splits.find(y => y.trainer === trainer)
+                        if (!specificTrainerInCurrent) {
+                            continue
+                        }
+                    }
+                    
+                    // Process all trainers, but only process N if his current split ID is 587
+                    if (this.game.splits.includes(trainer)) {
+                        const default_string = "-"
+                        let cur_split = this.current_splits.find(y => y.trainer === trainer)
+                        
+                        const prev = this.convertDurationToSeconds(x.time)
+                        if (cur_split == undefined) { 
                             if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                                console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-    
-                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
                                 lastPushedTrainer = trainer; // Update the last pushed trainer
                             }
+                            continue
+                        }
+                        
+                        // For N, only process if current split ID is 587, otherwise show default values
+                        if (trainer === "N" && cur_split.id !== final_n_battle_id) {
+                            if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
+                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                lastPushedTrainer = trainer;
+                            }
+                            continue
+                        }
+                        const cur = this.convertDurationToSeconds(cur_split.time)
+                        const diff = cur - prev;
+                        const diff_abs = Math.abs(diff);
+                        const diff_sign = Math.sign(diff);
+                        const diff_m = Math.floor(diff_abs / 60);
+                        const diff_s = diff_abs % 60;
+                        var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
+                        if (diff_str == "+0:00") { diff_str = "0:00" }
+                        // console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                        if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
+                            // console.log({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+
+                            result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                            lastPushedTrainer = trainer; // Update the last pushed trainer
                         }
                     }
                 }
@@ -1429,7 +1487,6 @@ const app = Vue.createApp({
             }
             let state = this.mapper.properties.meta.state.value
             let battle_type = this.mapper.properties.battle.opponent.trainer.value == '--' ? 'Wild' : 'Trainer'
-            // console.log(battle_type)
             if (battle_type == 'Wild') {
                 return false
             }
@@ -1437,6 +1494,9 @@ const app = Vue.createApp({
                 case "Battle":
                     return true
                 case "To Battle":
+                    if (this.mapper.properties.overworld.map_index.value == 317) {
+                        return false
+                    }
                     return true
                 default:
                     return false
@@ -1740,6 +1800,39 @@ const app = Vue.createApp({
     },
 
     methods: {
+        print_texture_settings() {
+            const string = `
+                'backgroundBlur'       : '${this.backgroundBlur}',
+                'backgroundHue'        : '${this.backgroundHue}',
+                'backgroundScale'      : '${this.backgroundScale}',
+                'backgroundUrl'        : '${this.backgroundUrl}',
+                'backgroundFlip'       : '${this.backgroundFlip}',
+                'use_custom_background': '${this.use_custom_background}',
+                'backgroundXOffset'    : '${this.backgroundXOffset}',
+                'backgroundYOffset'    : '${this.backgroundYOffset}',
+                'backgroundBrightness' : '${this.backgroundBrightness}',
+                'backgroundContrast'   : '${this.backgroundContrast}',
+                'backgroundSaturation' : '${this.backgroundSaturation}',
+            `
+            console.log(string)
+        },
+        default_texture_settings(setting_name_string, fallback_value) {
+            const texture = this.backgroundTexture
+            const data = this.textures[texture]
+            const return_value = data[setting_name_string]
+            
+            // Convert string values to appropriate types
+            if (return_value === 'true') return true
+            if (return_value === 'false') return false
+            if (return_value === '') return fallback_value
+            
+            // Try to convert to number if it's a numeric string
+            if (!isNaN(return_value) && !isNaN(parseFloat(return_value))) {
+                return parseFloat(return_value)
+            }
+            
+            return return_value
+        },
         convertDurationToSeconds(duration) {
             const parts = duration.split(':').map(part => parseInt(part, 10));
             if (parts.length === 1) {
@@ -1825,6 +1918,11 @@ const app = Vue.createApp({
                     if (form == 1) { return "-origin" }
                 }
                 case "Unfezant": {
+                    if      (gender == false) { return "-male" }
+                    else if (gender == true)  { return "-female" }
+                    else return ""
+                }
+                case "Jellicent": {
                     if      (gender == false) { return "-male" }
                     else if (gender == true)  { return "-female" }
                     else return ""
@@ -2696,17 +2794,28 @@ const app = Vue.createApp({
             const total   = hp + atk + def + spa + spd + spe
             return total
         },
-        getBannedMoveStyle(move_object) {
+        getUnobtainableMoveStyle(move_object, type_of_move) {
+            const unobtainable_moves_toggle = this.unobtainable_moves_toggle
+            const state = this.mapper.properties.meta.state.value
             const move_name = move_object.move
-            if (this.unobtainable_moves.Banned.includes(move_name)) {
-                return "opacity: 0.5; text-decoration: line-through;"
+            const unobtainable_moves = this.unobtainable_moves_object[type_of_move]
+            const opacity = 0.3
+            const animation_duration = 1.5 // seconds
+
+            if (unobtainable_moves_toggle == "Never Cross Out") {
+                return `transition: opacity ${animation_duration}s;`
             }
-        },
-        getUnobtainableMoveStyle(move_object) {
-            const game_name = this.selected_game //change this to be dynamic when adding more games
-            const move_name = move_object.move
-            if (this.unobtainable_moves[game_name].includes(move_name)) {
-                return "opacity: 0.5; text-decoration: line-through;"
+            else if (state != "No Pokemon" && unobtainable_moves_toggle == "Cross Out When Starter is Obtained" && unobtainable_moves.includes(move_name)) {
+                return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
+            }
+            else if (this.mapper.properties.player.badges[0].value == true && unobtainable_moves_toggle == "Cross Out After First Badge" && unobtainable_moves.includes(move_name)) {
+                return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
+            }
+            else if (unobtainable_moves_toggle == "Always Cross Out" && unobtainable_moves.includes(move_name)) {
+                return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
+            }
+            else {
+                return `transition: opacity ${animation_duration}s;`
             }
         },
         copy_overlay_properties() {
@@ -2802,14 +2911,6 @@ const app = Vue.createApp({
             this.full_data_str =              MyStorage['full_data_str']              ?? ""
             this.deprecated_data_str =        MyStorage['deprecated_data_str']        ?? ""
             this.simple_data =                MyStorage['simple_data']                ?? ""
-            this.timer_startTime =            MyStorage['timer_startTime']            ?? 0
-            this.timer_pause =                MyStorage['timer_pause']                ?? true
-            this.timer_formatted_time =       MyStorage['timer_formatted_time']       ?? ["0", ".00"]
-            this.timer_pause_time =           MyStorage['timer_pause_time']           ?? 0
-            this.time_h =                     MyStorage['time_h']                     ?? 0
-            this.time_m =                     MyStorage['time_m']                     ?? 0
-            this.time_s =                     MyStorage['time_s']                     ?? 0
-            this.time_ms =                    MyStorage['time_ms']                    ?? 0
             this.time_split_start =           MyStorage['time_split_start']           ?? "00:00:00:00"
             this.battle_start =               MyStorage['battle_start']               ?? 0
             this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
@@ -2952,18 +3053,12 @@ const app = Vue.createApp({
                 return
             }
         },
-        newRun() {
+        async newRun() {
             this.compared_splits = []
             this.current_splits  = []
-            // const timeRegex = /(\d+):(\d{2}):(\d{2})\.(\d{2})/;
-            // const timeOffsetArray = this.timer_startTimeOffset.match(timeRegex)?.slice(1,5).map(x => parseInt(x)) ?? [0,0,0,0];
-            // const timeOffset = timeOffsetArray[0] * 3600000 + timeOffsetArray[1] * 60000 + timeOffsetArray[2] * 1000 + timeOffsetArray[3] * 10;
+
             this.starter_received = false,
 
-            // this.timer_pause = true
-            // this.timer_startTime = Date.now() - timeOffset
-            // this.timer_pause_time = Date.now()
-            // this.timer_formatted_time = [ "0", ".00" ]
             this.timer.setTimer(this.timer_startTimeOffset)
             
             this.playerResets = 0
@@ -2971,10 +3066,6 @@ const app = Vue.createApp({
             this.blackout_counter = 0
             this.playerId = 0
             this.run_complete = false
-            // this.playerName = "NINTEN"
-
-            // this.updateTime()
-            this.timer.update();
         },
         //fixes species that contain special characters in their names
         speciesSpecialCharacters(species) {
@@ -3890,17 +3981,6 @@ const app = Vue.createApp({
             if (this.pick == true)
                 var type = this.g5PokemonData[this.starter].type_2
                 return `images/elements/types/${type.toLowerCase()}.png`
-        },
-
-        //BADGE GRAPHIC RECALL
-        badgeGraphic(x) {
-            if (x.value == true) {
-                var badge = x.path.toString().substring(14)
-                return `images/badges/${badge}.png`
-            }
-            else if (x.value == false) {   
-                return null
-            }
         },
         
         //GENERAL FUNCTIONS
@@ -5386,6 +5466,9 @@ const app = Vue.createApp({
             else if (species == 'Mantyke' && player_item.held_item.value == 'Wave Incense' && attackingType == "Water") {
                 itemBoost = 1.2
             }
+            else if (player_item.held_item.value == null && x == 'Acrobatics') {
+                itemBoost = 2
+            }
 
             var stabModifier = this.determineSTAB(x)
             var expert_belt_check = player_item.held_item.value
@@ -5434,7 +5517,7 @@ const app = Vue.createApp({
         // this.mapper.deboucePath("battle.player.active_pokemon.modifiers")
         this.mapper.deboucePath("battle.opponent.active_pokemon")
         this.mapper.deboucePath("battle.opponent.team")
-        this.mapper.deboucePath("player.team.0.species") // TODO: requires testing
+        this.mapper.deboucePath("player.team.0")
         await this.mapper.connect()
         this.timer.update();
         this.load_all_settings()
@@ -5461,7 +5544,9 @@ const app = Vue.createApp({
             let expStats = this.calcExpStats(growthRate, expPoints);
             if (function_logging == true) { console.log(expStats) }
             const width = (expStats.percent * 100) + "%";
-            this.$refs.expBar.style.width = width
+            if (this.$refs.expBar) {
+                this.$refs.expBar.style.width = width
+            }
             if (function_logging == true) { console.log(width) }
 
             this.expBarState.species = species;
@@ -5591,7 +5676,7 @@ const app = Vue.createApp({
                 let player_name  = this.mapper.properties.player.name.value
                 let pokemon      = this.starter
                 let trainer_name = this.mapper.properties.battle.opponent.trainer.value
-                let trainer_id           = this.mapper.properties.battle.opponent.id.bytes
+                let trainer_id           = this.mapper.properties.battle.opponent.id.value
                 let location             = this.mapper.properties.overworld.map_name.value
                 let total_pokemon        = this.mapper.properties.battle.opponent.team_count.value
                 const formattedTime = this.timer.formatted_time;
@@ -5894,13 +5979,12 @@ const app = Vue.createApp({
             autosplitter_process()
             // console.log('Autosplitter Attempted to Run')
             if (newProp.value == 'From Battle') {
-                console.log('Starting split log process')
+                // console.log('Starting split log process')
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
-                let id = this.mapper.properties.battle.opponent.trainer.bytes
-                console.log(trainer)
+                let id = this.mapper.properties.battle.opponent.id.value
                 let gameName = 'Black'
                 let game_name = 'Black'
-                if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined) { return }
+                if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined || trainer == '--') { return }
                 //write full split data
                 logData(gameName, this.full_data_str, this.attempt_number, this.starter, "Full", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
                 
@@ -5926,11 +6010,16 @@ const app = Vue.createApp({
                         split_data: this.split_data
                     }
                 }
+                // console.log(trainer, id)
+                // console.log(this.game.splits.includes(trainer))
+                console.log(this.game.finalBattle.includes(trainer))
                 if (this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
                     simpleSplit();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
-                        if (trainer == "N" && id !== 587) {
-
+                        if (trainer == "N") {
+                            if (id == 587) {
+                                this.right_ui = "Splits"
+                            }
                         }
                         else {
                             this.right_ui = "Splits"
@@ -5946,6 +6035,9 @@ const app = Vue.createApp({
                 if (this.game.finalBattle.includes(trainer)) {
                     // this.stopTime()
                     this.timer.stopTime();
+                    if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
+                        this.right_ui = "Splits"
+                    }
                     this.run_complete = true
                     if (this.testRun == false) {
                         this.finished_run_count++
@@ -5986,7 +6078,9 @@ const app = Vue.createApp({
 
                 // console.log("exp changed", {species, growthRate, expPoints})
 
-                this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                if (this.$refs.expBar) {
+                    this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                }
             }
         })
         this.mapper.properties.battle.player.active_pokemon.exp.change(async (newProp, oldProp) => {
@@ -6020,7 +6114,9 @@ const app = Vue.createApp({
                     if (prevSpecies != newSpecies) {
                         // console.log("switched out");
                         // dont animate, just set newExpStats.percent
-                        this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                        if (this.$refs.expBar) {
+                            this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                        }
                     } 
                     // same pokemon but exp changed
                     else {
@@ -6034,8 +6130,10 @@ const app = Vue.createApp({
                             let diffExp = newExpStats.percent - prevExpStats.percent
                             let animationDuration = Math.ceil(diffExp * animationMaxDuration)
                             // animate width to newExpStats.percent
-                            this.$refs.expBar.style.transition = `width ${animationDuration}ms ease-in-out`;
-                            this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                            if (this.$refs.expBar) {
+                                this.$refs.expBar.style.transition = `width ${animationDuration}ms ease-in-out`;
+                                this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                            }
                             await this.sleep(animationDuration + 50);
                         } else {
                             // console.log("level up", {prevExpStats, newExpStats});
@@ -6044,20 +6142,28 @@ const app = Vue.createApp({
                             let diffExp2 = newExpStats.percent
                             let animationDuration2 = Math.ceil(diffExp2 * animationMaxDuration)
                             // animate width to 100%
-                            this.$refs.expBar.style.transition = `width ${animationDuration1}ms ease-in`;
-                            this.$refs.expBar.style.width = "100%";
+                            if (this.$refs.expBar) {
+                                this.$refs.expBar.style.transition = `width ${animationDuration1}ms ease-in`;
+                                this.$refs.expBar.style.width = "100%";
+                            }
                             await this.sleep(animationDuration1 + 50);
                             // dont animate, set width to 0%
-                            this.$refs.expBar.style.transition = null;
-                            this.$refs.expBar.style.width = "0%";
+                            if (this.$refs.expBar) {
+                                this.$refs.expBar.style.transition = null;
+                                this.$refs.expBar.style.width = "0%";
+                            }
                             await this.sleep(50);
                             // animate width to newExpStats.percent
-                            this.$refs.expBar.style.transition = `width ${animationDuration2}ms ease-out`;
-                            this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                            if (this.$refs.expBar) {
+                                this.$refs.expBar.style.transition = `width ${animationDuration2}ms ease-out`;
+                                this.$refs.expBar.style.width = (newExpStats.percent * 100) + "%";
+                            }
                             await this.sleep(animationDuration2 + 50);
                         }
                     }
-                    this.$refs.expBar.style.transition = null;
+                    if (this.$refs.expBar) {
+                        this.$refs.expBar.style.transition = null;
+                    }
                 }
             }
         })

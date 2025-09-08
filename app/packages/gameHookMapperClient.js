@@ -59,7 +59,7 @@ class GameHookMapperClient {
     _signalrClient
     _properties
     _propertiesMap
-    _debouceTimeout = 10
+    _debouceTimeout = 1
     _debouceList = []
     _debouceMap
 

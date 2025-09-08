@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.20</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.21</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -15,8 +15,8 @@
             </select>
             Not receiving data...
         </div>
-        <div v-else class="">
-            <img class="canvas" ref="background_texture" :src="textures[backgroundTexture]" 
+        <div v-else>
+            <img class="canvas" ref="background_texture" :src="textures[backgroundTexture].path" 
             :style="{ 
                 'filter': `blur(${backgroundBlur}px) hue-rotate(${backgroundHue}deg) brightness(${backgroundBrightness}%) contrast(${backgroundContrast}%) saturate(${backgroundSaturation}%)` ,
                 'transform': `scale(${backgroundScale}%) ${backgroundFlip ? 'rotateY(180deg)' : ''} translate(${backgroundXOffset}px, ${-backgroundYOffset}px)`
@@ -223,6 +223,13 @@
                             <option>Movepool</option>
                             <option>Splits</option>
                         </select><br>
+                        <div>Unobtainable Moves:</div>
+                        <select v-model="unobtainable_moves_toggle" class="dropdownMenu">
+                            <option>Never Cross Out</option>
+                            <option>Cross Out When Starter is Obtained</option>
+                            <option>Cross Out After First Badge</option>
+                            <option>Always Cross Out</option>
+                        </select><br>
                         <div>Splits:</div>
                         <select v-model="toggle_compare_splits" class="dropdownMenu">
                             <option>Followup</option>
@@ -269,6 +276,7 @@
                             <tr><td>Hue:        </td><td><input type="range" min="0"    max="358" v-model="backgroundHue"/></td></tr>
                             <tr><td>Flip:       </td><td><input class="checkBoxStyle" type="checkbox" v-model="backgroundFlip"/></td></tr>
                         </table>
+                        <button @click="print_texture_settings()" class="buttonStyle">Log Color Settings</button><br>
                         <br>
                     </div>
                     <div v-if="show_advanced_settings">
@@ -571,7 +579,7 @@
                             <th class="movepool_header movepool_tableC">Acc.</th>
                             <th class="movepool_header movepool_tableC">PP</th>
                         </tr>
-                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).level" :class="{ 'first-row': index === 0 }" :style="getBannedMoveStyle(x)">
+                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
                             <td class="movepool_way">{{x.Level}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
@@ -580,7 +588,7 @@
                             <td class="movepool_tableC">{{x.accuracy}}%</td>
                             <td class="movepool_tableC">{{x.pp}}</td>
                         </tr>
-                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).tmhm" :style="getUnobtainableMoveStyle(x)">
+                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).tmhm" :style="getUnobtainableMoveStyle(x, selected_game)">
                             <td v-if="x.Move == 'Whirlpool'" class="movepool_way">HM05</td>
                             <td v-else class="movepool_way">{{x.tmhm}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
