@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Scott's Thoughts Gen5 Frontend - v0.1.24</title>
+    <title>Scott's Thoughts Gen5 Frontend - v0.1.25</title>
     <link rel="stylesheet" href="style.css" id="cssStylesheet">
 </head>
 
@@ -36,7 +36,7 @@
                 `
             }" 
             :src="`images/pokemon/${starter}.png`" />
-            <img class="canvas colored-image ds" src="images/ui/game_area.svg" />
+            <div class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/game_area.svg)"></div>
             <div v-show="playerResets == 0 || blackout_counter == 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>
             <div v-show="playerResets > 0 && blackout_counter > 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer_2.svg)"></div>
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/moveset.svg)"></div>
@@ -77,6 +77,7 @@
                         <tr v-if="show_advanced_settings"><td>Debugging-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="debugging_mode"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
+                        <!-- <tr v-if="show_advanced_settings"><td>Second Screen Toggle:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_toggle"/></td></tr> -->
                     </table>
                     <br>
                     <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
@@ -111,6 +112,7 @@
                             <tr><td>Enemy Graphic:</td><td>{{enemy_graphic}}</td></tr>
                             <tr><td>Run Complete:</td><td>{{run_complete}}</td></tr>
                             <tr><td>Single Battle:</td><td>{{single_battle}}</td></tr>
+                            <tr><td>Second Screen:</td><td>{{second_screen_check}}</td></tr>
                         </table>
                     </div>
                 </div>
@@ -209,7 +211,8 @@
                     </table>
                     <br>
                     <div>Player Party Count: {{mapper.properties.player.team_count.value > 6 ? 0 : mapper.properties.player.team_count.value}}</div>
-                    <br>
+                    <div>Overworld HP: {{mapper.properties.player.team[0].stats.hp.value}} / {{mapper.properties.player.team[0].stats.hp_max.value}}</div>
+                    <div>Status: {{mapper.properties.player.team[0].status_condition.value}}</div>
                     <div>EVs:</div>
                     <table>
                         <tr><td>HP: </td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td></tr>
@@ -565,6 +568,7 @@
                         </div>
                     </div> 
                     <img v-if="getTrainerGraphic().state == true" :src="getTrainerGraphic().graphic" style="position: absolute; top: 0px;">
+                    <img v-if="second_screen_check" class="canvas" src="images/ui/second_screen.png" />
                 </div>
                 <!-- Splits -->
                 <div v-else-if="right_ui == 'Splits'" key="7" :style="`filter: drop-shadow(0px 1px 1px)`" class="posAbs">

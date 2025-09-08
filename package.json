@@ -1,6 +1,6 @@
 {
   "name": "gen5-overlay-app",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "A minimal Electron application",
   "main": "./main.js",
   "build": {
@@ -22,6 +22,7 @@
     "electron-builder": "^24.4.0"
   },
   "dependencies": {
-    "@electron-toolkit/utils": "^1.0.2"
+    "@electron-toolkit/utils": "^1.0.2",
+    "node-key-sender": "^1.0.11"
   }
 }

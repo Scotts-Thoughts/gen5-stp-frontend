@@ -247,7 +247,7 @@ body {
     pointer-events: auto; 
     position: relative; 
     width: 280px; 
-    height: 24px; 
+    height: 22px; 
     font-size: 15px; 
     background: #9eff86; 
     font-family: Play;
@@ -456,6 +456,7 @@ body {
     -webkit-mask-image: var(--url); /* fallback, just to be safe */
     mask-image: var(--url); /* use the alpha channel of provided image as a mask of this layer */
     mix-blend-mode: color; /* color blend mode, I'm not sure if 'color' is the right one - might need to be changed */
+    transition: background-color 1s ease-in-out; /* smooth transition between colors over 1 second */
 }
 .ds {
     filter: drop-shadow(0px 0px 1px #000000c5);

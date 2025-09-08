@@ -281,6 +281,17 @@ class KeyHook {
     stop() {
         return this.process.kill();
     }
+
+    // Virtual key emission methods
+    sendVirtualKey(keyName) {
+        try {
+            const keySender = require('node-key-sender');
+            keySender.sendKey(keyName);
+            console.log(`Virtual key sent: ${keyName}`);
+        } catch (error) {
+            console.error(`Failed to send virtual key ${keyName}:`, error);
+        }
+    }
 }
 const keyhook = new KeyHook();
 
@@ -289,6 +300,7 @@ const fs = require("fs");
 const path = require("path");
 const { finished } = require('stream');
 const Timer = require("./logic/Timer.js");
+const keySender = require('node-key-sender');
 
 for (let folder of ['splits', 'splits/Platinum', 'splits/HGSS']) {
     if (!fs.existsSync(folder)) {
@@ -531,6 +543,7 @@ const app = Vue.createApp({
             demo_splits                  : false,
             automatic_post_battle_splits : MyStorage['automatic_post_battle_splits'] ?? true,
             unobtainable_moves_toggle    : MyStorage['unobtainable_moves_toggle']    ?? "Always Cross Out",
+            second_screen_toggle         : MyStorage['second_screen_toggle']         ?? false,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -1165,30 +1178,38 @@ const app = Vue.createApp({
         playerName(newName) {
             MyStorage['playerName'] = newName;
         },
-        // evolution(newValue) {
-        //     if (this.ready == false) { return }
-        //     const evolution_family = this.game.evolutions[this.starterString]?.evolution_family
-        //     const family_length = evolution_family.length
-        //     const split_label = `${evolution_family[evolution_family.length - 1]?.species}-line`
-        //     // console.log(evolution_family)
-        //     if (newValue == true) {
-        //         this.evolution_splits_label = split_label
-        //     }
-        //     if (newValue == false) {
-        //         this.evolution_splits_label = ""
-        //     }
-        //     for (let i = 0; i < family_length; i++) {
-        //         MyStorage[evolution_family[i].species] = {
-        //             ...MyStorage[evolution_family[i].species],
-        //             evolution             : newValue,
-        //             evolution_splits_label: this.evolution_splits_label,
-        //             attempt_number        : this.attempt_number,
-        //             finished_run_count    : this.finished_run_count,
-        //         };
-        //     }
-        // },
     },
     computed: {
+        second_screen_check() {
+            if (this.second_screen_toggle == false) {
+                return false
+            }
+            const state = this.mapper.properties.meta.state.value
+            if ((state == "To Battle" || state == "Battle") && this.mapper.properties.battle.opponent.team_count.value < 5) {
+                keyhook.sendVirtualKey(0x83)
+                return true
+            }
+            else {
+                keyhook.sendVirtualKey(0x84)
+                return false
+            }
+        },
+        hp_tracker_style() {
+            const state = this.mapper.properties.meta.state.value
+            const hp = this.mapper.properties.player.team[0].stats.hp.value
+            const hp_max = this.mapper.properties.player.team[0].stats.hp_max.value
+            const hp_percentage = hp / hp_max
+            const status_condition = this.mapper.properties.player.team[0].status_condition.value
+            if (state == "Overworld" && hp_percentage != 1) {
+                return "--overlay-color: rgb(255, 98, 98);"
+            }
+            else if (status_condition != null) {
+                return "--overlay-color: rgb(98, 192, 255);"
+            }
+            else {
+                return "--overlay-color: #39b54a;"
+            }
+        },
         compare_splits() {
             debugging_mode = false
             if (debugging_mode == true) { console.log("compare_splits starting...") } 
