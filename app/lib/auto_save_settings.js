@@ -68,4 +68,5 @@ const auto_save_settings = [
     "toggle_compare_splits",
     "automatic_post_battle_splits",
     "unobtainable_moves_toggle",
+    "search_term",
 ]

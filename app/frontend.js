@@ -508,8 +508,8 @@ const app = Vue.createApp({
             editor                       : false,
             game_variables               : null,
             autosplitter_toggle          : true,
-            evolution                    : false,
-            evolution_splits_label       : "",
+            evolution                    : MyStorage["evolution"] ?? false,
+            evolution_splits_label       : MyStorage["evolution_splits_label"] ?? "",
             selected_game                : MyStorage['selected_game'] ?? "Black",
             available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
@@ -780,13 +780,12 @@ const app = Vue.createApp({
                 "imageFlip",
                 "imageSat",
                 "imageRotation",
+
                 "backgroundBlur",
                 "backgroundHue",
                 "backgroundScale",
                 "backgroundUrl",
                 "use_custom_background",
-                "attempt_number",
-                "pb_time",
                 "backgroundXOffset",
                 "backgroundYOffset",
                 "backgroundTexture",
@@ -794,6 +793,9 @@ const app = Vue.createApp({
                 "backgroundContrast",
                 "backgroundSaturation",
                 "backgroundFlip",
+
+                "attempt_number",
+                "pb_time",
                 "pkmnNature",
                 "pkmn_ability",
                 "hidden_power_type",
@@ -847,7 +849,7 @@ const app = Vue.createApp({
             buffer_battle_special_defense: 0,
             buffer_battle_friendship     : 0,
 
-            search_term: "",
+            search_term: MyStorage["search_term"] ?? "",
 
             // UI
             ui_saturation:                MyStorage["ui_saturation"]                ?? .6,
@@ -871,6 +873,7 @@ const app = Vue.createApp({
             this.imageFlip              = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageFlip               ?? false;
             this.imageSat               = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageSat                ?? 100
             this.imageRotation          = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].imageRotation           ?? 0
+
             this.backgroundBlur         = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundBlur          ?? 0
             this.backgroundHue          = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundHue           ?? 0
             this.backgroundScale        = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundScale         ?? 100
@@ -879,13 +882,14 @@ const app = Vue.createApp({
             this.backgroundXOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundXOffset       ?? 0
             this.backgroundYOffset      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundYOffset       ?? 0
             this.backgroundTexture      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`].backgroundTexture       ?? `${this.g5PokemonData[this.starter].type_1}`
+            
             this.pkmn_ability           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.pkmn_ability           ?? g5PokemonData[this.starter].abilities[0]
             this.attempt_number         = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.attempt_number         ?? 0
             this.finished_run_count     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.finished_run_count     ?? 0
             this.playerResets           = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.playerResets           ?? 0
             this.blackout_counter       = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.blackout_counter       ?? 0
-            this.evolution              = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution              ?? 0
-            this.evolution_splits_label = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution_splits_label ?? 0
+            this.evolution              = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution              ?? false
+            this.evolution_splits_label = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.evolution_splits_label ?? ""
             this.frame                  = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.frame                  ?? 0
             this.encounters_route_1     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_1     ?? false
             this.encounters_route_2     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_2     ?? false
@@ -919,19 +923,24 @@ const app = Vue.createApp({
         }
     },
     watch: {
-        backgroundTexture(newValue) {
-            this.backgroundBlur         = this.default_texture_settings('backgroundBlur', 0)
-            this.backgroundHue          = this.default_texture_settings('backgroundHue', 0)
-            this.backgroundScale        = this.default_texture_settings('backgroundScale', 100)
-            this.backgroundUrl          = this.default_texture_settings('backgroundUrl', "")
-            this.backgroundFlip         = this.default_texture_settings('backgroundFlip', false)
-            this.use_custom_background  = this.default_texture_settings('use_custom_background', false)
-            this.backgroundXOffset      = this.default_texture_settings('backgroundXOffset', 0)
-            this.backgroundYOffset      = this.default_texture_settings('backgroundYOffset', 0)
-            this.backgroundBrightness   = this.default_texture_settings('backgroundBrightness', 100)
-            this.backgroundContrast     = this.default_texture_settings('backgroundContrast', 100)
-            this.backgroundSaturation   = this.default_texture_settings('backgroundSaturation', 100)
-        },
+        // backgroundTexture(newValue) {
+        //     const game = this.selected_game
+        //     const starter = this.starter
+        //     console.log(game, starter, MyStorage[`${game}_${starter}`].backgroundTexture, newValue)
+        //     if (MyStorage[`${game}_${starter}`].backgroundTexture !== newValue) {
+        //         this.backgroundBlur         = this.default_texture_settings('backgroundBlur', 0)
+        //         this.backgroundHue          = this.default_texture_settings('backgroundHue', 0)
+        //         this.backgroundScale        = this.default_texture_settings('backgroundScale', 100)
+        //         this.backgroundUrl          = this.default_texture_settings('backgroundUrl', "")
+        //         this.backgroundFlip         = this.default_texture_settings('backgroundFlip', false)
+        //         this.use_custom_background  = this.default_texture_settings('use_custom_background', false)
+        //         this.backgroundXOffset      = this.default_texture_settings('backgroundXOffset', 0)
+        //         this.backgroundYOffset      = this.default_texture_settings('backgroundYOffset', 0)
+        //         this.backgroundBrightness   = this.default_texture_settings('backgroundBrightness', 100)
+        //         this.backgroundContrast     = this.default_texture_settings('backgroundContrast', 100)
+        //         this.backgroundSaturation   = this.default_texture_settings('backgroundSaturation', 100)
+        //     }
+        // },
         current_splits: {
             handler: function (newVal, oldVal) {
                 MyStorage['current_splits'] = newVal
@@ -1014,9 +1023,6 @@ const app = Vue.createApp({
             //background texture settings
             this.overlay_color          = MyStorage[`${game}_${starter}`]?.overlay_color    ?? this.default_colors[this.g5PokemonData[starter].type_1];
             this.ui_saturation          = MyStorage[`${game}_${starter}`]?.ui_saturation    ?? 0.6;
-           
-            this.evolution              = MyStorage[`${game}_${starter}`]?.evolution ?? false
-            this.evolution_splits_label = MyStorage[`${game}_${starter}`]?.evolution_splits_label ?? ""
             
             this.frame                  = MyStorage[`${game}_${starter}`]?.frame ?? false
             this.imageXOffset           = MyStorage[`${game}_${starter}`]?.imageXOffset     ?? 0;
@@ -1038,14 +1044,23 @@ const app = Vue.createApp({
             this.backgroundBrightness   = MyStorage[`${game}_${starter}`]?.backgroundBrightness  ?? this.default_texture_settings('backgroundBrightness', 100)
             this.backgroundContrast     = MyStorage[`${game}_${starter}`]?.backgroundContrast    ?? this.default_texture_settings('backgroundContrast', 100)
             this.backgroundSaturation   = MyStorage[`${game}_${starter}`]?.backgroundSaturation  ?? this.default_texture_settings('backgroundSaturation', 100)
-            //Attempts and finishes
-            this.attempt_number         = MyStorage[`${game}_${starter}`]?.attempt_number        ?? 0,
-            this.finished_run_count     = MyStorage[`${game}_${starter}`]?.finished_run_count    ?? 0,
-            this.playerResets           = MyStorage[`${game}_${starter}`]?.playerResets          ?? 0,
-            this.blackout_counter       = MyStorage[`${game}_${starter}`]?.blackout_counter      ?? 0,
+            
+            if (this.evolution != true) {
+                this.evolution              = MyStorage[`${game}_${starter}`]?.evolution              ?? false
+                this.evolution_splits_label = MyStorage[`${game}_${starter}`]?.evolution_splits_label ?? ""
+
+                this.attempt_number     = MyStorage[`${game}_${starter}`]?.attempt_number     ?? 0
+                this.finished_run_count = MyStorage[`${game}_${starter}`]?.finished_run_count ?? 0
+                this.playerResets       = MyStorage[`${game}_${starter}`]?.playerResets       ?? 0
+                this.blackout_counter   = MyStorage[`${game}_${starter}`]?.blackout_counter   ?? 0
+            }
+            else {
+
+            }
+            
             //main pokemon settings
-            this.pkmnNature             = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
-            this.pkmn_ability            = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
+            this.pkmnNature   = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
+            this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
             //! FIX_LATER Fix this implementation later
             // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
             this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
@@ -1053,6 +1068,7 @@ const app = Vue.createApp({
             this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
             this.encounters_route_1     = MyStorage[`${game}_${starter}`]?.encounters_route_1     ?? false
             this.encounters_route_2     = MyStorage[`${game}_${starter}`]?.encounters_route_2     ?? false
+            
             this.movepoolResize();
         },
         ui_stat_arrangement(newValue) {
@@ -1802,29 +1818,25 @@ const app = Vue.createApp({
     methods: {
         print_texture_settings() {
             const string = `
-                'backgroundBlur'       : '${this.backgroundBlur}',
-                'backgroundHue'        : '${this.backgroundHue}',
-                'backgroundScale'      : '${this.backgroundScale}',
-                'backgroundUrl'        : '${this.backgroundUrl}',
-                'backgroundFlip'       : '${this.backgroundFlip}',
-                'use_custom_background': '${this.use_custom_background}',
-                'backgroundXOffset'    : '${this.backgroundXOffset}',
-                'backgroundYOffset'    : '${this.backgroundYOffset}',
-                'backgroundBrightness' : '${this.backgroundBrightness}',
-                'backgroundContrast'   : '${this.backgroundContrast}',
-                'backgroundSaturation' : '${this.backgroundSaturation}',
+                'backgroundBlur'       : ${this.backgroundBlur},
+                'backgroundHue'        : ${this.backgroundHue},
+                'backgroundScale'      : ${this.backgroundScale},
+                'backgroundUrl'        : "${this.backgroundUrl}",
+                'backgroundFlip'       : ${this.backgroundFlip},
+                'use_custom_background': ${this.use_custom_background},
+                'backgroundXOffset'    : ${this.backgroundXOffset},
+                'backgroundYOffset'    : ${this.backgroundYOffset},
+                'backgroundBrightness' : ${this.backgroundBrightness},
+                'backgroundContrast'   : ${this.backgroundContrast},
+                'backgroundSaturation' : ${this.backgroundSaturation},
             `
             console.log(string)
         },
         default_texture_settings(setting_name_string, fallback_value) {
             const texture = this.backgroundTexture
+            console.log(texture)
             const data = this.textures[texture]
-            const return_value = data[setting_name_string]
-            
-            // Convert string values to appropriate types
-            if (return_value === 'true') return true
-            if (return_value === 'false') return false
-            if (return_value === '') return fallback_value
+            const return_value = data[setting_name_string] ?? fallback_value
             
             // Try to convert to number if it's a numeric string
             if (!isNaN(return_value) && !isNaN(parseFloat(return_value))) {
@@ -2811,45 +2823,58 @@ const app = Vue.createApp({
             const game_name = this.mapper.properties.meta.game_name.value
             const from      = `${game_name}_${copy_from}`
             const to        = `${game_name}_${copy_to}`
-
+        
             if (!MyStorage[`${game_name}_${copy_from}`]) {
                 console.log("The Pokemon you are trying to copy from does not have overlay data stored for it.")
+                return
             }
             if (MyStorage[`${game_name}_${copy_to}`]) {
                 MyStorage[`${game_name}_${copy_to}`] = {};
             }
-            this.overlay_color         = MyStorage[from].overlay_color
-            this.backgroundBlur        = MyStorage[from].backgroundBlur        
-            this.backgroundHue         = MyStorage[from].backgroundHue        
-            this.backgroundScale       = MyStorage[from].backgroundScale       
-            this.backgroundUrl         = MyStorage[from].backgroundUrl         
-            this.backgroundFlip        = MyStorage[from].backgroundFlip        
-            this.use_custom_background = MyStorage[from].use_custom_background 
-            this.backgroundXOffset     = MyStorage[from].backgroundXOffset     
-            this.backgroundYOffset     = MyStorage[from].backgroundYOffset     
-            this.backgroundTexture     = MyStorage[from].backgroundTexture     
-            this.backgroundBrightness  = MyStorage[from].backgroundBrightness  
-            this.backgroundContrast    = MyStorage[from].backgroundContrast    
-            this.backgroundSaturation  = MyStorage[from].backgroundSaturation  
-            this.backgroundBlur        = MyStorage[from].backgroundBlur  
-            this.ui_saturation         = MyStorage[from].ui_saturation  
-            this.evolution             = MyStorage[from].evolution  
             
-            MyStorage[to].overlay_color         = MyStorage[from].overlay_color
-            MyStorage[to].backgroundBlur        = MyStorage[from].backgroundBlur       
-            MyStorage[to].backgroundHue         = MyStorage[from].backgroundHue       
-            MyStorage[to].backgroundScale       = MyStorage[from].backgroundScale      
-            MyStorage[to].backgroundUrl         = MyStorage[from].backgroundUrl        
-            MyStorage[to].backgroundFlip        = MyStorage[from].backgroundFlip       
-            MyStorage[to].use_custom_background = MyStorage[from].use_custom_background
-            MyStorage[to].backgroundXOffset     = MyStorage[from].backgroundXOffset    
-            MyStorage[to].backgroundYOffset     = MyStorage[from].backgroundYOffset    
-            MyStorage[to].backgroundTexture     = MyStorage[from].backgroundTexture    
-            MyStorage[to].backgroundBrightness  = MyStorage[from].backgroundBrightness 
-            MyStorage[to].backgroundContrast    = MyStorage[from].backgroundContrast   
-            MyStorage[to].backgroundSaturation  = MyStorage[from].backgroundSaturation 
-            MyStorage[to].ui_saturation         = MyStorage[from].ui_saturation 
-            MyStorage[to].evolution             = MyStorage[from].evolution 
+            // Update Vue data properties - this should trigger reactivity
+            this.overlay_color          = MyStorage[from].overlay_color
+            this.backgroundBlur         = MyStorage[from].backgroundBlur        
+            this.backgroundHue          = MyStorage[from].backgroundHue        
+            this.backgroundScale        = MyStorage[from].backgroundScale       
+            this.backgroundUrl          = MyStorage[from].backgroundUrl         
+            this.backgroundFlip         = MyStorage[from].backgroundFlip        
+            this.use_custom_background  = MyStorage[from].use_custom_background 
+            this.backgroundXOffset      = MyStorage[from].backgroundXOffset     
+            this.backgroundYOffset      = MyStorage[from].backgroundYOffset     
+            this.backgroundTexture      = MyStorage[from].backgroundTexture     
+            this.backgroundBrightness   = MyStorage[from].backgroundBrightness  
+            this.backgroundContrast     = MyStorage[from].backgroundContrast    
+            this.backgroundSaturation   = MyStorage[from].backgroundSaturation  
+            this.ui_saturation          = MyStorage[from].ui_saturation  
+            this.evolution              = MyStorage[from].evolution  
+            this.evolution_splits_label = MyStorage[from].evolution_splits_label  
+            
+            // Update storage for the target Pokemon
+            MyStorage[to].overlay_color          = MyStorage[from].overlay_color
+            MyStorage[to].backgroundBlur         = MyStorage[from].backgroundBlur       
+            MyStorage[to].backgroundHue          = MyStorage[from].backgroundHue       
+            MyStorage[to].backgroundScale        = MyStorage[from].backgroundScale      
+            MyStorage[to].backgroundUrl          = MyStorage[from].backgroundUrl        
+            MyStorage[to].backgroundFlip         = MyStorage[from].backgroundFlip       
+            MyStorage[to].use_custom_background  = MyStorage[from].use_custom_background
+            MyStorage[to].backgroundXOffset      = MyStorage[from].backgroundXOffset    
+            MyStorage[to].backgroundYOffset      = MyStorage[from].backgroundYOffset    
+            MyStorage[to].backgroundTexture      = MyStorage[from].backgroundTexture    
+            MyStorage[to].backgroundBrightness   = MyStorage[from].backgroundBrightness 
+            MyStorage[to].backgroundContrast     = MyStorage[from].backgroundContrast   
+            MyStorage[to].backgroundSaturation   = MyStorage[from].backgroundSaturation 
+            MyStorage[to].ui_saturation          = MyStorage[from].ui_saturation 
+            MyStorage[to].evolution              = MyStorage[from].evolution 
+            MyStorage[to].evolution_splits_label = MyStorage[from].evolution_splits_label 
+        
+            // Force Vue to update the DOM by using $nextTick
+            this.$nextTick(() => {
+                // Manually trigger the overlay_color watcher if needed
+                if (this.overlay_color) {
+                    document.documentElement.style.setProperty('--overlay-color', this.overlay_color);
+                }
+            });
         },
         load_all_settings() {
             const game_name                    = this.mapper.properties.meta.game_name.value
@@ -2931,7 +2956,7 @@ const app = Vue.createApp({
 
             const evolution_family = this.g5PokemonData[this.starter]?.evolution_family ?? [ {species: null, method: null,}, {species: null, method: null,}, {species: null, method: null,}, ]
             this.evolution =               MyStorage[`${game_name}_${this.starter}`]?.evolution              ?? false
-            this.evolution_splits_label =  MyStorage[`${game_name}_${this.starter}`]?.evolution_splits_label ?? `${evolution_family[evolution_family.length - 1]?.species}-line`
+            this.evolution_splits_label =  MyStorage[`${game_name}_${this.starter}`]?.evolution_splits_label ?? ""
             this.copy_overlay_pokemon_from = MyStorage['copy_overlay_pokemon_from'] ?? ""
             this.copy_overlay_pokemon_to   = MyStorage['copy_overlay_pokemon_to']   ?? ""
 
@@ -5494,7 +5519,7 @@ const app = Vue.createApp({
         this.mapper.onMapperLoaded = (x) => this.ready = true
         this.mapper.onMapperUnloaded = (x) => this.ready = false
 
-        this.mapper._debouceTimeout = 3
+        this.mapper._debouceTimeout = 15
         // this.mapper.deboucePath("battle.player.active_pokemon.modifiers")
         this.mapper.deboucePath("battle.opponent.active_pokemon")
         this.mapper.deboucePath("battle.opponent.team")

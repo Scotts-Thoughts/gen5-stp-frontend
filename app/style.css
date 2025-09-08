@@ -325,7 +325,7 @@ body {
 .g4movepool {
     /* display: block; */
     position: absolute;
-    /* border: 1px solid #00ff0d00; */
+    /* border: 1px solid #00ff0d; */
     background-color: #e3212100;
     font-size: 22px;
     width: 476px;
@@ -380,6 +380,7 @@ body {
     width: 62px;
 }
 .g4mp_pp {
+    /* border: 1px solid #ff0000; */
     width: 42px;
 }
 .g4mp_spacer {
