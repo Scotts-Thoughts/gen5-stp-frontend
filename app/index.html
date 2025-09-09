@@ -374,7 +374,7 @@
                     <div style="z-index: 100000;">
                         <div v-for="stat in stat_object">
                             <div v-if="stat.name != 'Hp' && mapper.properties.meta.state.value == 'Battle'">
-                                <div :class="`playerMods hp_spd_${stat.mod_abrv}Mod`" style="font-family: play;">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers[stat.path].value) }}</div>
+                                <div :class="`playerMods hp_spd_${stat.mod_abrv}Mod`" style="font-family: play;">{{ stage_modifiers(n_battle_data_fix.modifiers[stat.path].value) }}</div>
                             </div>
                             <div :style="{ opacity: statLabelOpacity()[stat.name]}" :class="`stat_label_style stat_row_${stat[`stat_row`]} stat_column_${stat.label_column}`">{{stat.label}}</div>
                             <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
@@ -399,10 +399,12 @@
             <!--------- BADGE ICONS ---------------------------------------------------------------------------------------------------------------------->
             <div>
                 <div v-for="x in badges">
-                    <div v-if="mapper.properties.player.badges[x].value == true && mapper.properties.meta.state != `No Pokemon`">
-                        <img v-if="selected_game == 'Black' || selected_game == 'White'" class="badge" :src="`images/badges/${x}.png`"/>
-                        <img v-if="selected_game == 'Black 2' || selected_game == 'White 2'" class="badge" :src="`images/badges/bw2/${x}.png`"/>
-                    </div>
+                    <transition name="fade1">
+                        <div v-if="mapper.properties.player.badges[x].value == true && mapper.properties.meta.state != `No Pokemon`">
+                            <img v-if="selected_game == 'Black' || selected_game == 'White'" class="badge" :src="`images/badges/${x}.png`"/>
+                            <img v-if="selected_game == 'Black 2' || selected_game == 'White 2'" class="badge" :src="`images/badges/bw2/${x}.png`"/>
+                        </div>
+                    </transition>
                 </div>
             </div>
 
@@ -423,8 +425,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('1')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove('1')}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.battle.player.active_pokemon.moves.move1.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value != 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.player.team[0].moves[0].move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move1?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[0]?.move.value)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('1'))" />
                     </th>
@@ -447,8 +449,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('2')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove('2')}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.battle.player.active_pokemon.moves.move2.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value != 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.player.team[0].moves[1].move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move2?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[1]?.move.value)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('2'))" />
                     </th>
@@ -463,8 +465,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('3')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove("3")}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.battle.player.active_pokemon.moves.move3.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value != 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.player.team[0].moves[2].move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move3?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[2]?.move.value)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('3'))" />
                     </th>
@@ -479,8 +481,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('4')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove("4")}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.battle.player.active_pokemon.moves.move4.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value != 'Battle'" class="align_right g4mp_power">{{typeEffectiveness(mapper.properties.player.team[0].moves[3].move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move4?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[3]?.move.value)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('4'))" />
                     </th>
@@ -492,15 +494,15 @@
             <!-- Right Hand Information Area -->
             <transition name="fade1">
                 <!-- Enemy Team Display -->
-                <div v-if="enemy_graphic == true" style="position: absolute;" key="1">
+                <div v-if="enemy_graphic == true && battlePokemonCrop != false" style="position: absolute;" key="1">
                     <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s team</div>
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
                     <div v-for="x in pkmnSlots" :style="fade_stats(x)">
                         <div v-if="x < mapper.properties.battle.opponent.team_count.value">
                             <img class="canvas eFaintTransition" :style="fade_enemy_mon_comparison(x)" :class="svgColorClass(speed_comparison(x, mapper.properties.battle.opponent.team[x]?.stats.speed.value).comparison, mapper.properties.battle.opponent.team[x])" style="left: -1px;" :src="`images/ui/speed_comp/${x}.svg`"/>
-                            <img :src="`images/enemy-area/stats/${ui_type_color_modifier}/${x}.svg`" :style="fade_enemy_mon(x)" class="enemyPng eFaintTransition" :style="enemyFaint(x)">
                             <div class="colored-image" :style="`--overlay-color: ${overlay_color}; --url: url(images/ui/enemy_ui/${x}.svg)`"></div>
+                            <img :src="`images/enemy-area/stats/${ui_type_color_modifier}/${x}.svg`" :style="fade_enemy_mon(x)" class="enemyPng eFaintTransition" :style="enemyFaint(x)">
                         </div>
                     </div>
 
@@ -661,17 +663,17 @@
             <!--------- BATTLE POP UPS -------------------------------------------------------------------------------------------------------------------->
             <div style="position: absolute;">
                 <transition name="fade1">
-                    <div v-show="mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value != 0 && mapper.properties.meta.state == `Battle`">
+                    <div v-show="get_acc_eva_mod('accuracy') != 0 && mapper.properties.meta.state == `Battle`">
                         <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/accuracy.svg)"></div>
                         <div class="genericLabels accuracyModLabel">accuracy:</div>
-                        <div class="popUpsStyle accuracyMod">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value) }}</div>
+                        <div class="popUpsStyle accuracyMod">{{ get_acc_eva_mod('accuracy') }}</div>
                     </div>
                 </transition>
                 <transition name="fade1">
-                    <div v-show="mapper.properties.battle.player.active_pokemon.modifiers.evasion.value != 0 && mapper.properties.meta.state == `Battle`">
+                    <div v-show="get_acc_eva_mod('evasion') != 0 && mapper.properties.meta.state == `Battle`">
                         <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/evasion.svg)"></div>
                         <div class="genericLabels evasionModLabel">evasion:</div>
-                        <div class="popUpsStyle evasionMod">{{ stage_modifiers(mapper.properties.battle.player.active_pokemon.modifiers.evasion.value) }}</div>
+                        <div class="popUpsStyle evasionMod">{{ get_acc_eva_mod('evasion') }}</div>
                     </div>
                 </transition>
             </div>
@@ -688,7 +690,7 @@
                 <div class="posAbs" style="left: 487px; width: 200px;">Held Item:</div>
             </div>
             <div v-if="mapper.properties.meta.state.value == 'No Pokemon'"      class="ability">{{pkmn_ability}}</div>
-            <div v-else-if="mapper.properties.meta.state.value != 'No Pokemon'" class="ability">{{mapper.properties.player?.team[0]?.ability?.value}}</div>
+            <div v-else-if="mapper.properties.meta.state.value != 'No Pokemon'" class="ability">{{pokemon_dynamic_ability}}</div>
             <div class="heldItem">{{heldItem}}</div>
             <div class="genericLabels timerLabel">time played at 4x game speed</div>
 

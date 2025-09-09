@@ -1,0 +1,6 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,move1,move2,move3,move4,
+A,Snivy,Bianca,1:07,0,0,5,0:02,1757351815.911,Tackle,Leer,,
+A,Snivy,Cheren,1:27,0,0,5,0:03,1757351835.583,Tackle,Leer,,
+A,Snivy,N,4:56,0,0,14,0:15,1757352045.004,Tackle,Growth,Vine Whip,Wrap
+A,Snivy,Bianca,5:49,0,0,14,0:18,1757352098.321,Tackle,Growth,Vine Whip,Wrap
+A,Snivy,Cheren,6:17,0,0,14,0:19,1757352126.393,Tackle,Growth,Vine Whip,Wrap

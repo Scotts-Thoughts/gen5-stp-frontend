@@ -1,0 +1,5 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,move1,move2,move3,move4,
+A,Servine,Chili,9:00,0,0,17,0:29,1757352289.342,Tackle,Growth,Vine Whip,Leaf Tornado
+A,Servine,Cheren,12:47,0,0,18,0:42,1757352516.079,Tackle,Growth,Vine Whip,Leaf Tornado
+A,Servine,N,19:18,0,0,19,1:00,1757352906.94,Tackle,Growth,Vine Whip,Leaf Tornado
+A,Servine,Lenora,45:34,1,1,22,1:20,1757354483.347,Tackle,Growth,Leech Seed,Leaf Tornado

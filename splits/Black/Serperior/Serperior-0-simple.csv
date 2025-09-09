@@ -1,0 +1,29 @@
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,move1,move2,move3,move4,
+A,Serperior,Burgh,1:44:54,0,0,36,1:58,1757358042.873,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Bianca,1:51:32,0,0,37,2:03,1757358441.411,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Cheren,1:54:39,0,0,37,2:12,1757358627.74,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,N,1:56:53,0,0,37,2:18,1757358762.238,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Elesa,1:59:57,0,0,61,2:27,1757358946.328,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Elesa,2:03:34,0,0,61,2:27,1757359162.571,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Cheren,2:06:58,0,0,61,2:37,1757359367.114,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Clay,2:23:52,0,0,61,3:01,1757360380.886,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Bianca,2:24:44,0,0,61,3:03,1757360433.373,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Cheren,2:37:38,0,0,61,2:32,1757361207.443,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,N,2:40:20,0,0,62,3:19,1757361368.678,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Skyla,2:47:50,0,0,62,3:41,1757361819.453,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Cheren,2:49:33,0,0,63,3:46,1757361922.065,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Brycen,2:56:25,0,0,64,4:06,1757362333.792,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Bianca,3:08:51,0,0,65,4:43,1757363079.752,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Drayden,3:15:19,0,0,66,5:01,1757363468.211,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Cheren,3:17:38,0,0,67,5:07,1757363607.561,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Shauntal,3:22:36,0,0,68,5:20,1757363904.691,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Marshal,3:23:43,0,0,68,5:24,1757363972.433,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Grimsley,3:24:48,0,0,69,5:27,1757364037.394,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Caitlin,3:25:48,0,0,80,5:30,1757364096.594,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Shauntal,4:31:54,2,0,68,5:20,1757368062.781,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Marshal,4:33:09,2,0,68,5:24,1757368138.48,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Grimsley,4:39:46,2,0,80,5:40,1757368535.445,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,Caitlin,4:40:45,2,0,80,5:43,1757368594.385,Return,Coil,Leech Seed,Leaf Blade
+A,Serperior,N,6:17:54,7,0,50,7:41,1757374422.625,DragonBreath,Slash,Extrasensory,Fusion Flare
+A,Serperior,N,7:08:39,11,0,50,10:31,1757381787.706,DragonBreath,Slash,Extrasensory,Fusion Flare
+A,Serperior,N,7:09:51,11,0,50,6:18,1757381859.683,DragonBreath,Slash,Extrasensory,Fusion Flare
