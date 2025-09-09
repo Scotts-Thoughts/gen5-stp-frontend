@@ -427,8 +427,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('1')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove('1')}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move1?.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[0]?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move1?.move.value, 1)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[0]?.move.value, 1)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('1'))" />
                     </th>
@@ -451,8 +451,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('2')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove('2')}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move2?.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[1]?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move2?.move.value, 2)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[1]?.move.value, 2)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('2'))" />
                     </th>
@@ -467,8 +467,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('3')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove("3")}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move3?.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[2]?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move3?.move.value, 3)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[2]?.move.value, 3)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('3'))" />
                     </th>
@@ -483,8 +483,8 @@
                         <img class="moveset_typeIcons centered-content dropshadow" :src="`images/type-icons-circular/${getMoveType('4')}.png`" />
                     </th>
                     <th class="align_left g4mp_move">{{getMove("4")}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move4?.move.value)}}</th>
-                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[3]?.move.value)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Battle' || mapper.properties.meta.state.value == 'From Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves.move4?.move.value, 4)}}</th>
+                    <th v-if="mapper.properties.meta.state.value == 'Overworld' || mapper.properties.meta.state.value == 'To Battle'" class="align_right g4mp_power">{{typeEffectiveness(n_battle_data_fix.moves[3]?.move.value, 4)}}</th>
                     <th class="align_right g4mp_category">
                         <img class="centered-content dropshadow" :src="moveCategoryIcon(getMove('4'))" />
                     </th>

@@ -594,6 +594,7 @@ const app = Vue.createApp({
             stat_fix_spd           : 0,
 
             held_item_fix: "",
+            fix_ability: "",
             move_fix_name_1: "",
             move_fix_name_2: "",
             move_fix_name_3: "",
@@ -602,6 +603,10 @@ const app = Vue.createApp({
             move_fix_pp_2: null,
             move_fix_pp_3: null,
             move_fix_pp_4: null,
+            move_fix_power_1: 0,
+            move_fix_power_2: 0,
+            move_fix_power_3: 0,
+            move_fix_power_4: 0,
 
             set_starter_stats_object: {
                 ivs: {
@@ -1183,6 +1188,9 @@ const app = Vue.createApp({
         pokemon_dynamic_ability() {
             const state = this.mapper.properties.meta.state.value
             let pokemon_data = this.n_battle_data_fix
+            if (state == 'From Battle') {
+                return this.fix_ability
+            }
             return pokemon_data.ability.value
         },
         n_battle_data_fix_friendship() {
@@ -1635,6 +1643,10 @@ const app = Vue.createApp({
             return object
         },
         heldItem() {
+            const state = this.mapper.properties.meta.state.value
+            if (state == 'From Battle') {
+                return this.held_item_fix
+            }
             const pokemon_data = this.n_battle_data_fix_friendship
             return pokemon_data.held_item.value
         },
@@ -2202,6 +2214,8 @@ const app = Vue.createApp({
         },
         update_buffer_moves() {
             this.held_item_fix = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.held_item.value
+            console.log(this.held_item_fix)
+            this.fix_ability = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value
             this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
             this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
             this.move_fix_name_3 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move3`]?.move.value
@@ -5675,7 +5689,10 @@ const app = Vue.createApp({
                 return Math.floor(move_base_power * modifier_stab * modifier_effectiveness_1 * modifier_effectiveness_2 * modifier_ability * modifier_item * modifier_weather * modifier_burn)
             }
         },
-        typeEffectiveness(x) { //x = move1.value
+        typeEffectiveness(x, slot) { //x = move1.value
+            if (this.mapper.properties.meta.state.value == "From Battle") {
+                return this[`move_fix_power_${slot}`]
+            }
             const state = this.mapper.properties.meta.state.value
             const species = this.starter
             var enemy_party_position = this.mapper.properties.battle.opponent.party_position.value
@@ -5813,15 +5830,31 @@ const app = Vue.createApp({
 
             // console.log(x, power, stabModifier, attackingType, defendingType1, defendingType2, defendingType1Effectiveness, defendingType2Effectiveness, flare_boost, ability, itemBoost, enemy_item_modifier, weatherBoost, burnModifier, expert_belt_modifier, player_ability_modifier)
             if (this.typeCalcs == true && state == "Battle" && (this.single_battle == true || this.mapper.properties.battle.opponent.trainer.value == '--')) { //Handles type effectiveness calculations in battle
-                if (power == "—") { return "—" }
-                if (power == "-") { return "—" }
-                return Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier)
+                if (power == "—") { 
+                    this[`move_fix_power_${slot}`] = "—"
+                    return "—" 
+                }
+                if (power == "-") { 
+                    this[`move_fix_power_${slot}`] = "—"
+                    return "—" 
+                }
+                let effective_power = Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier)
+                this[`move_fix_power_${slot}`] = effective_power
+                return effective_power
             }
             else { //handles out of battle cases
-                if (power == "—") { return power }
-                if (power == "-") { return "—" }
+                if (power == "—") { 
+                    this[`move_fix_power_${slot}`] = power
+                    return power 
+                }
+                if (power == "-") { 
+                    this[`move_fix_power_${slot}`] = "—"
+                    return "—" 
+                }
                 else {
-                    return Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier)
+                    let effective_power = Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier)
+                    this[`move_fix_power_${slot}`] = effective_power
+                    return effective_power
                 }
             }
         },
