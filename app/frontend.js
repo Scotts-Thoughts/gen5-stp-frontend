@@ -607,6 +607,7 @@ const app = Vue.createApp({
             move_fix_power_2: 0,
             move_fix_power_3: 0,
             move_fix_power_4: 0,
+            fix_friendship: 0,
 
             set_starter_stats_object: {
                 ivs: {
@@ -2214,7 +2215,6 @@ const app = Vue.createApp({
         },
         update_buffer_moves() {
             this.held_item_fix = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.held_item.value
-            console.log(this.held_item_fix)
             this.fix_ability = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value
             this.move_fix_name_1 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move1`]?.move.value
             this.move_fix_name_2 = this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.moves[`move2`]?.move.value
@@ -3532,8 +3532,12 @@ const app = Vue.createApp({
             }
         },
         get_friendship() {
+            if (this.mapper.properties.meta.state.value == "From Battle") {
+                return this.fix_friendship + "/255"
+            }
             const pokemon_data = this.n_battle_data_fix_friendship
             var return_value = pokemon_data.friendship.value
+            this.fix_friendship = return_value
             return return_value + "/255"
         },
         statusConditionConverter(statusCondition) {
