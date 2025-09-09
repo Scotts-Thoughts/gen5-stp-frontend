@@ -69,7 +69,8 @@
                     <button class="buttonStyle" @click="newRun">New Run</button><br>
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
-                    <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br><input type="text" class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
+                    <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br>
+                    <input type="text" style="width: 280px; text-align: right;"class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
@@ -123,7 +124,7 @@
                         <option v-for="key in filtered_pokemon_list" :value="`${key}`">{{key}}</option>
                     </select>
                     <div>Search Pokemon:</div>
-                    <input type="text" v-model="search_term" placeholder="Search for a species">
+                    <input type="text" class="inputContainer" style="width: 280px;" v-model="search_term" placeholder="Search for a species">
                     <button class="buttonStyle comparison_button" @click="load_splits()">Load split file to compare splits</button><br>
                     <table>
                         <tr>
@@ -210,15 +211,35 @@
                         <tr><td>Route 2</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_2"/></td></tr>
                     </table>
                     <br>
-                    <div>Player Party Count: {{mapper.properties.player.team_count.value > 6 ? 0 : mapper.properties.player.team_count.value}}</div>
-                    <div>Overworld HP: {{mapper.properties.player.team[0].stats.hp.value}} / {{mapper.properties.player.team[0].stats.hp_max.value}}</div>
-                    <div>Status: {{mapper.properties.player.team[0].status_condition.value}}</div>
-                    <div v-show="mapper.properties.meta.state.value != 'Battle'">
+                    <table>
+                        <tr><td>Player Party Count:</td><td style="text-align: right;">{{mapper.properties.player.team_count.value > 6 ? 0 : mapper.properties.player.team_count.value}}</td></tr>
+                        <tr><td>Overworld HP:</td>      <td style="text-align: right;">{{mapper.properties.player.team[0].stats.hp.value}} / {{mapper.properties.player.team[0].stats.hp_max.value}}</td></tr>
+                        <tr><td>Status:</td>            <td style="text-align: right;">{{mapper.properties.player.team[0].status_condition.value == null ? 'None' : mapper.properties.player.team[0].status_condition.value}}</td></tr>
+                    </table>
+                    <div>
                         <div>EVs:</div>
                         <table>
-                            <tr><td>HP: </td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td></tr>
-                            <tr><td>Atk:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.attack}}</td> <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('attack')}})</td> <td>SpA:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_attack}}</td> <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_attack')}})</td></tr>
-                            <tr><td>Def:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.defense}}</td><td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('defense')}})</td><td>SpD:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_defense}}</td><td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_defense')}})</td></tr>
+                            <tr>
+                                <td>HP: </td>
+                                <td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     
+                                <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td>
+                            </tr>
+                            <tr>
+                                <td>Atk:</td>
+                                <td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.attack}}</td> 
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('attack')}})</td> 
+                                <td>SpA:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_attack}}</td> 
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_attack')}})</td>
+                            </tr>
+                            <tr>
+                                <td>Def:</td>
+                                <td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.defense}}</td>
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('defense')}})</td>
+                                <td>SpD:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_defense}}</td>
+                                <td v-show="mapper.properties.meta.state.value != 'Battle'" style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_defense')}})</td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -299,8 +320,8 @@
                     <div v-if="show_advanced_settings">
                         <div>Copy Texture Settings:</div>
                         <table>
-                            <tr><td>Copy from:</td><td><input type="text" v-model="copy_overlay_pokemon_from"/></td></tr>
-                            <tr><td>Copy to:</td>  <td><input type="text" v-model="copy_overlay_pokemon_to"/></td></tr>
+                            <tr><td>Copy from:</td><td><input type="text" class="inputContainer" style="width: 207px;" v-model="copy_overlay_pokemon_from"/></td></tr>
+                            <tr><td>Copy to:</td>  <td><input type="text" class="inputContainer" style="width: 207px;" v-model="copy_overlay_pokemon_to"/></td></tr>
                         </table>
                         <button @click="copy_overlay_properties()" class="buttonStyle">Copy Texture Settings</button><br>
                         <br>
@@ -497,7 +518,7 @@
             <transition name="fade1">
                 <!-- Enemy Team Display -->
                 <div v-if="enemy_graphic == true && battlePokemonCrop != false" style="position: absolute;" key="1">
-                    <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s team</div>
+                    <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s Team</div>
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
                     <div v-for="x in pkmnSlots" :style="fade_stats(x)">

@@ -195,6 +195,13 @@ body {
     width: 1920px;
     height: 1080px;
 }
+.inputContainer {
+    background-color: #d8ffc9;
+    height: 24px;
+    font-family: play;
+    padding-left: 4px;
+    padding-right: 4px;
+}
 .ui1 {
     font-size: 13px;
     position: fixed;
@@ -3093,8 +3100,8 @@ img, span, div {
     border-radius: 12px;
     padding-left: 4px;
     padding-right: 4px;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
 }
 .smallButtonStyle2 {
     pointer-events: auto; 
@@ -3105,8 +3112,8 @@ img, span, div {
     border-radius: 12px;
     padding-left: 4px;
     padding-right: 4px;
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
 }
 .increment {
     background: #29c702;

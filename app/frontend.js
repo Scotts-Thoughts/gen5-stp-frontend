@@ -1192,6 +1192,23 @@ const app = Vue.createApp({
             if (state == 'From Battle') {
                 return this.fix_ability
             }
+            else if (state == `Overworld` 
+                && this.mapper.properties.overworld.map_index == 391 
+                && (this.mapper.properties.player.team[0].level.value == 0 || this.mapper.properties.player.team[0].level.value == 5)
+                && this.mapper.properties.overworld.x == 360448 
+                && this.mapper.properties.overworld.y == 491520
+                && (
+                    this.mapper.properties.player.team[0].exp.value == 237 ||
+                    this.mapper.properties.player.team[0].exp.value == 100 ||
+                    this.mapper.properties.player.team[0].exp.value == 125 ||
+                    this.mapper.properties.player.team[0].exp.value == 135 ||
+                    this.mapper.properties.player.team[0].exp.value == 156 ||
+                    this.mapper.properties.player.team[0].exp.value == 65 ||
+                    this.mapper.properties.player.team[0].exp.value == 0
+                )
+            ) {
+                return this.pkmn_ability
+            }
             return pokemon_data.ability.value
         },
         n_battle_data_fix_friendship() {
@@ -1566,7 +1583,26 @@ const app = Vue.createApp({
                     case "Automatic":    {
                         switch (state) {
                             case "No Pokemon":  return `Base Stats`
-                            case "Overworld":   return `Level ${this.n_battle_data_fix.level.value}`
+                            case "Overworld":   {
+                                if (state == `Overworld` 
+                                    && this.mapper.properties.overworld.map_index == 391 
+                                    && (this.mapper.properties.player.team[0].level.value == 0 || this.mapper.properties.player.team[0].level.value == 5)
+                                    && this.mapper.properties.overworld.x == 360448 
+                                    && this.mapper.properties.overworld.y == 491520
+                                    && (
+                                        this.mapper.properties.player.team[0].exp.value == 237 ||
+                                        this.mapper.properties.player.team[0].exp.value == 100 ||
+                                        this.mapper.properties.player.team[0].exp.value == 125 ||
+                                        this.mapper.properties.player.team[0].exp.value == 135 ||
+                                        this.mapper.properties.player.team[0].exp.value == 156 ||
+                                        this.mapper.properties.player.team[0].exp.value == 65  ||
+                                        this.mapper.properties.player.team[0].exp.value == 0
+                                    )
+                                ) {
+                                    return `Base Stats`
+                                }
+                                return `Level ${this.n_battle_data_fix.level.value}`
+                            }
                             case "To Battle":   return `Level ${this.n_battle_data_fix.level.value}`
                             case "From Battle": return `Level ${this.stat_fix_lvl}`
                             case "Battle":      return `Level ${this.n_battle_data_fix.level.value}`
@@ -2909,6 +2945,28 @@ const app = Vue.createApp({
                 wrong_slot = true
             }
             if (state == `No Pokemon`) {
+                final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.starter].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.starter].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
+            }
+            else if (state == `Overworld` 
+                && this.mapper.properties.overworld.map_index == 391 
+                && (this.mapper.properties.player.team[0].level.value == 0 || this.mapper.properties.player.team[0].level.value == 5)
+                && this.mapper.properties.overworld.x == 360448 
+                && this.mapper.properties.overworld.y == 491520
+                && (
+                    this.mapper.properties.player.team[0].exp.value == 237 ||
+                    this.mapper.properties.player.team[0].exp.value == 100 ||
+                    this.mapper.properties.player.team[0].exp.value == 125 ||
+                    this.mapper.properties.player.team[0].exp.value == 135 ||
+                    this.mapper.properties.player.team[0].exp.value == 156 ||
+                    this.mapper.properties.player.team[0].exp.value == 65 ||
+                    this.mapper.properties.player.team[0].exp.value == 0
+                )
+            ) {
                 final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
                 final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
                 final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
