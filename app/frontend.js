@@ -1244,7 +1244,6 @@ const app = Vue.createApp({
             if ((state == 'Battle' || state == 'From Battle') 
                 && wrong_slot == true 
                 && (this.mapper.properties.battle.opponent.id.value == 587 || this.mapper.properties.battle.opponent.id.value == 232)) {
-                    console.log("N battle")
                     pokemon_data = this.mapper.properties.battle.player.pkmn_ram[`pokemon_${computed_slot}_ram`]
             }
             if ((state == 'To Battle' || state == 'Overworld') && wrong_slot == true && this.mapper.properties.overworld.map_index == 278) {
@@ -3057,7 +3056,7 @@ const app = Vue.createApp({
             if ((slot_1_species == 'Reshiram' && this.starter != 'Reshiram' || slot_1_species == 'Zekrom' && this.starter != 'Zekrom')) {
                 wrong_slot = true
             }
-            if (state == 'Battle' && wrong_slot == true && this.mapper.properties.battle.opponent.trainer.value == 'N' && this.mapper.properties.battle.opponent.id.value == 587) {
+            if (state == 'Battle' && wrong_slot == true && (this.mapper.properties.battle.opponent.id.value == 587 || this.mapper.properties.battle.opponent.id.value == 232)) {
                 pokemon_data = this.mapper.properties.battle.player.pkmn_ram[`pokemon_${computed_slot}_ram`]
             }
 
