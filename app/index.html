@@ -213,12 +213,14 @@
                     <div>Player Party Count: {{mapper.properties.player.team_count.value > 6 ? 0 : mapper.properties.player.team_count.value}}</div>
                     <div>Overworld HP: {{mapper.properties.player.team[0].stats.hp.value}} / {{mapper.properties.player.team[0].stats.hp_max.value}}</div>
                     <div>Status: {{mapper.properties.player.team[0].status_condition.value}}</div>
-                    <div>EVs:</div>
-                    <table>
-                        <tr><td>HP: </td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td></tr>
-                        <tr><td>Atk:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.attack}}</td> <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('attack')}})</td> <td>SpA:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_attack}}</td> <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_attack')}})</td></tr>
-                        <tr><td>Def:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.defense}}</td><td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('defense')}})</td><td>SpD:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_defense}}</td><td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_defense')}})</td></tr>
-                    </table>
+                    <div v-show="mapper.properties.meta.state.value != 'Battle'">
+                        <div>EVs:</div>
+                        <table>
+                            <tr><td>HP: </td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.hp}}</td>     <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('hp')}})</td>     <td>Spe:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.speed}}</td>          <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('speed')}})</td></tr>
+                            <tr><td>Atk:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.attack}}</td> <td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('attack')}})</td> <td>SpA:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_attack}}</td> <td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_attack')}})</td></tr>
+                            <tr><td>Def:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.defense}}</td><td style="text-align: right; padding-right: 20px; opacity: .7;">(+{{calculate_ev_benefit('defense')}})</td><td>SpD:</td><td style="padding-left: 5px;">{{mapper.properties.player.team[0].evs.special_defense}}</td><td style="text-align: right; opacity: .7;">(+{{calculate_ev_benefit('special_defense')}})</td></tr>
+                        </table>
+                    </div>
                 </div>
                 <div class="ui3">
                     <div>Stat Display:</div>
