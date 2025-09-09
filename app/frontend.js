@@ -3676,8 +3676,11 @@ const app = Vue.createApp({
             const state = this.mapper.properties.meta.state.value
             const pokemon_data = this.n_battle_data_fix
             let move = undefined
-            if (state == `Battle` || state == `From Battle`) {
+            if (state == `Battle`) {
                 move = pokemon_data.moves[`move${moveNumber}`]?.move.value
+            }
+            else if (state == `From Battle`) {
+                move = this[`move_fix_name_${moveNumber}`]
             }
             else {
                 move = pokemon_data.moves[`${moveNumber - 1}`]?.move.value
@@ -3730,7 +3733,7 @@ const app = Vue.createApp({
                     pp_value = pokemon_data.moves[`move${moveNumber}`]?.pp.value
                     break
                 case 'From Battle':
-                    pp_value = pokemon_data.moves[`move${moveNumber}`]?.pp.value
+                    pp_value = this[`move_fix_pp_${moveNumber}`]
                     break
                 case 'To Battle':
                     pp_value = pokemon_data.moves[moveNumber - 1]?.pp.value
