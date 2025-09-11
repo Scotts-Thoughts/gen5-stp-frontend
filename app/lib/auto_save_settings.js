@@ -76,4 +76,5 @@ const auto_save_settings = [
     "move3_replacement",
     "move4_replacement",
     "second_screen_toggle",
+    "run_complete",
 ]

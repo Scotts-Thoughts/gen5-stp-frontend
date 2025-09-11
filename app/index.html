@@ -39,6 +39,7 @@
             <div class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/game_area.svg)"></div>
             <div v-show="playerResets == 0 || blackout_counter == 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>
             <div v-show="playerResets > 0 && blackout_counter > 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer_2.svg)"></div>
+            <div v-show="run_complete" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/gametime.svg)"></div>
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/moveset.svg)"></div>
 
             <img v-show="selected_game == 'Black' || selected_game == 'White'" class="canvas" :src="`images/progress.png`" />
@@ -88,17 +89,17 @@
                     Pokemon Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
                     <div v-if="editor == true">
-                        <button v-if="debugging_mode == true" class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
-                        <button v-if="debugging_mode == true" class="buttonStyle" @click="set_options()">Set Options</button>
-                        <button v-if="debugging_mode == true" class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
+                        <button class="buttonStyle" @click="add_testing_items()">Add Testing Items</button>
+                        <button class="buttonStyle" @click="set_options()">Set Options</button>
+                        <button class="buttonStyle" @click="write_byte_data(set_starter_stats_object)">Recalculate Stats</button>
                         <div>Moveset Updating:</div>
-                        <input style="width: 140px;" type="text" v-model="move1_replacement" placeholder="Input move 1">
-                        <input style="width: 140px;" type="text" v-model="move2_replacement" placeholder="Input move 2">
-                        <input style="width: 140px;" type="text" v-model="move3_replacement" placeholder="Input move 3">
-                        <input style="width: 140px;" type="text" v-model="move4_replacement" placeholder="Input move 4">
+                        <input class="inputContainer" style="width: 140px;" type="text" v-model="move1_replacement" placeholder="Input move 1">
+                        <input class="inputContainer" style="width: 140px;" type="text" v-model="move2_replacement" placeholder="Input move 2">
+                        <input class="inputContainer" style="width: 140px;" type="text" v-model="move3_replacement" placeholder="Input move 3">
+                        <input class="inputContainer" style="width: 140px;" type="text" v-model="move4_replacement" placeholder="Input move 4">
                         <button class="buttonStyle buttonStyle_column3" @click="update_moveset">Update Moves</button>
                         <div>Held Item:</div>
-                        <input style="width: 280px;" type="text" v-model="held_item_replacement" placeholder="Input move 1">
+                        <input class="inputContainer" style="width: 280px;" type="text" v-model="held_item_replacement" placeholder="Input move 1">
                         <button class="buttonStyle buttonStyle_column3" @click="update_held_item">Update Item</button>
                     </div>
                     <br>
@@ -114,6 +115,7 @@
                             <tr><td>Run Complete:</td><td>{{run_complete}}</td></tr>
                             <tr><td>Single Battle:</td><td>{{single_battle}}</td></tr>
                             <tr><td>Second Screen:</td><td>{{second_screen_check}}</td></tr>
+                            <tr v-if="run_complete"><td>Final Gametime:</td><td>{{simple_data[7]}}</td></tr>
                         </table>
                     </div>
                 </div>
@@ -742,6 +744,15 @@
                     </div>
                 </div>
             </div>
+            <!-- Gametime -->
+            <transition name="fade1">
+                <div v-show="run_complete">
+                    <div class="genericLabels gametimeLabel">gametime</div>
+                    <div id="gametime_display" style="top: 639px; font-size: 38px;" class="resets">
+                        <div>{{simple_data[7]}}</div>
+                    </div>
+                </div>
+            </transition>
         </div>
     </div>
 

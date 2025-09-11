@@ -2070,6 +2070,13 @@ img, span, div {
     top: 24px;
     left: 32px;
 }
+.gametimeLabel {
+    top: 633px;
+    left: 149px;
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ff000000;
+}
 .resetsLabel {
     top: 219px;
     left: 149px;
@@ -3181,6 +3188,12 @@ img, span, div {
 }
 .eFaintTransition {
     transition: opacity 500ms ease-in-out 50ms, filter 500ms ease-in-out 50ms;
+}
+.eFaintTransition_delayed {
+    transition: opacity 500ms ease-in-out 1000ms, filter 500ms ease-in-out 1000ms;
+}
+.eFaintTransition2 {
+    transition: opacity 500ms ease-in-out 1000ms,
 }
 .movepoolDemo {
     display: block;

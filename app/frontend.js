@@ -755,7 +755,7 @@ const app = Vue.createApp({
             trainerBattles: 0,
             wildEncounters: 0,
             blackout: false,
-            run_complete: false,
+            run_complete: MyStorage['run_complete'] ?? false,
 
             //STATE MANAGEMENT ---------------------------------------------------------------------------------//
             gameStarted:  true, //tracks if the player has a save game or not
