@@ -3509,7 +3509,7 @@ const app = Vue.createApp({
                 let graphic = `images/trainers/Cress.png`
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let bytes = this.mapper.properties.battle.opponent.trainer.bytes
-                let id_value = bytes
+                let id_value = this.mapper.properties.battle.opponent.id.value
                 let displayGraphicState = true
                 if (this.selected_game == `Black` || this.selected_game == `White`) {
                     switch (trainer) {
@@ -3523,10 +3523,30 @@ const app = Vue.createApp({
                         case "Skyla":    graphic = `images/trainers/Skyla.png`;    break;
                         case "Drayden":  graphic = `images/trainers/Drayden.png`;  break;
                         case "Iris":     graphic = `images/trainers/Iris.png`;     break;
-                        case "Shauntal": graphic = `images/trainers/Shauntal.png`; break;
-                        case "Caitlin":  graphic = `images/trainers/Caitlin.png`;  break;
-                        case "Grimsley": graphic = `images/trainers/Grimsley.png`; break;
-                        case "Marshal":  graphic = `images/trainers/Marshal.png`;  break;
+                        case "Shauntal": { 
+                            if (id_value == 563) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Shauntal.png`; break;
+                        }
+                        case "Marshal":  { 
+                            if (id_value == 564) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Marshal.png`;  break;
+                        }
+                        case "Grimsley": { 
+                            if (id_value ==  565) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Grimsley.png`; break;
+                        }
+                        case "Caitlin":  { 
+                            if (id_value == 566) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Caitlin.png`;  break;
+                        }
                         case "Cheren": {
                             switch (this.mapper.properties.battle.opponent.team_count.value) {
                                 case 1: graphic = `images/trainers/Cheren_12.png`; break;
@@ -6438,7 +6458,7 @@ const app = Vue.createApp({
                 }
 
                 //stop timer
-                if (this.game.finalBattle.includes(trainer)) {
+                if (this.game.finalBattle.includes(trainer) || trainer == 'Alder') {
                     // this.stopTime()
                     this.timer.stopTime();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
