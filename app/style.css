@@ -222,11 +222,11 @@ body {
     font-size: 13px;
     position: fixed;
     left: 772px;
-    top: 24px;
+    top: 30px;
     width: 320px;
     z-index: 5;
     height: 740px;
-    line-height: 14px;
+    line-height: 18px;
     text-transform: capitalize;
     text-align: left;
     font-family: play;
