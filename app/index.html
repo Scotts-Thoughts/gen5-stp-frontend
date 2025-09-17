@@ -48,8 +48,7 @@
             <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/stats.svg)"></div>
             <img class="canvas colored-image ds " :src="`images/ui/exp_bar.svg`" />
             <img class="canvas colored-image ds " :src="`images/ui/nature_friendship.svg`" />
-            <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/ability.svg)"></div>
-            <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/held_item.svg)"></div>
+            <div class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/ability_helditem.svg)"></div>
             <img class="canvas colored-image ds" :src="`images/ui/stats_values.svg`" />
             <div v-if="show_nature_changes == true && (stats_setting == 'Automatic' || stats_setting == 'Base Stats')">
                 <img class="canvas colored-image ds " :src="`images/ui/nature arrows//raises/${natures[pkmnNature].raises}.svg`" />
@@ -709,7 +708,7 @@
             </div>
 
             <!-- Misc -->
-            <div class="posAbs labelAbility" style="font-family: play; top: 815px; left: 507px;">
+            <div class="posAbs labelAbility" style="font-family: play; top: 817px; left: 507px;">
                 <div class="posAbs ">Ability:</div>
                 <div class="posAbs" style="left: 487px; width: 200px;">Held Item:</div>
             </div>

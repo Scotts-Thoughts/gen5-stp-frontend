@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Export_Layer" data-name="Export Layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="linear-gradient" x1="968.41" y1="833" x2="1460.59" y2="833" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset=".04" stop-color="#a0a0a0"/>
+      <stop offset=".21" stop-color="#b8b8b8"/>
+      <stop offset=".37" stop-color="#c6c6c6"/>
+      <stop offset=".5" stop-color="#ccc"/>
+      <stop offset=".63" stop-color="#c6c6c6"/>
+      <stop offset=".79" stop-color="#b7b7b7"/>
+      <stop offset=".97" stop-color="#9d9d9d"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="969.83" x2="1150.17" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="460.41" x2="952.59" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-4" x1="461.83" x2="642.17" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Held_Item" data-name="Held Item">
+    <g>
+      <polygon points="993.41 858 968.41 833 993.41 808 1435.59 808 1460.59 833 1435.59 858 993.41 858" style="fill: url(#linear-gradient); stroke-width: 0px;"/>
+      <path d="m1435.17,809l24,24-24,24h-441.34l-24-24,24-24h441.34m.83-2h-443l-26,26,26,26h443c10.15-10.15,15.85-15.85,26-26-10.15-10.15-15.85-15.85-26-26h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m1436,807c10.15,10.15,15.85,15.85,26,26-10.15,10.15-15.85,15.85-26,26h-443l-26-26,26-26h443m.41-1h-443.83l-.29.29-26,26-.71.71.71.71,26,26,.29.29h443.83l.29-.29,26-26,.71-.71-.71-.71-26-26-.29-.29h0Z" style="stroke-width: 0px;"/>
+    </g>
+    <g>
+      <polygon points="993.83 857 969.83 833 993.83 809 1126.17 809 1150.17 833 1126.17 857 993.83 857" style="fill: url(#linear-gradient-2); stroke-width: 0px;"/>
+      <path d="m1125.34,811l22,22-22,22h-130.69l-22-22,22-22h130.69m1.66-4h-134l-26,26,26,26h134c10.15-10.15,15.85-15.85,26-26-10.15-10.15-15.85-15.85-26-26h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m1126.17,809l24,24-24,24h-132.34l-24-24,24-24h132.34m.83-2h-134l-26,26,26,26h134c10.15-10.15,15.85-15.85,26-26-10.15-10.15-15.85-15.85-26-26h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+      <path d="m1127,807c10.15,10.15,15.85,15.85,26,26-10.15,10.15-15.85,15.85-26,26h-134l-26-26,26-26h134m.41-1h-134.83l-.29.29-26,26-.71.71.71.71,26,26,.29.29h134.83l.29-.29,26-26,.71-.71-.71-.71-26-26-.29-.29h0Z" style="stroke-width: 0px;"/>
+    </g>
+  </g>
+  <g id="Ability">
+    <g>
+      <polygon points="485.41 858 460.41 833 485.41 808 927.59 808 952.59 833 927.59 858 485.41 858" style="fill: url(#linear-gradient-3); stroke-width: 0px;"/>
+      <path d="m927.17,809l24,24-24,24h-441.34l-15.98-15.98-8.02-8.02,8.02-8.02,15.98-15.98h441.34m.83-2h-443c-10.15,10.15-15.85,15.85-26,26,10.15,10.15,15.85,15.85,26,26h443l26-26-26-26h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m928,807l26,26-26,26h-443l-26-26,26-26h443m.41-1h-443.83l-.29.29-26,26-.71.71.71.71,26,26,.29.29h443.83l.29-.29,26-26,.71-.71-.71-.71-26-26-.29-.29h0Z" style="stroke-width: 0px;"/>
+    </g>
+    <g>
+      <polygon points="485.83 857 461.83 833 485.83 809 618.17 809 642.17 833 618.17 857 485.83 857" style="fill: url(#linear-gradient-4); stroke-width: 0px;"/>
+      <path d="m617.34,811l22,22-22,22h-130.69l-11.83-11.83-10.17-10.17,10.17-10.17,11.83-11.83h130.69m1.66-4h-134c-10.15,10.15-15.85,15.85-26,26,10.15,10.15,15.85,15.85,26,26h134l26-26-26-26h0Z" style="fill: gray; stroke-width: 0px;"/>
+      <path d="m618.17,809l24,24-24,24h-132.34l-12.41-12.41-11.59-11.59,11.59-11.59,12.41-12.41h132.34m.83-2h-134c-10.15,10.15-15.85,15.85-26,26,10.15,10.15,15.85,15.85,26,26h134l26-26-26-26h0Z" style="fill: #4d4d4d; stroke-width: 0px;"/>
+      <path d="m619,807l26,26-26,26h-134c-10.15-10.15-15.85-15.85-26-26,10.15-10.15,15.85-15.85,26-26h134m.41-1h-134.83l-.29.29-13,13-13,13-.71.71.71.71,13,13,13,13,.29.29h134.83l.29-.29,26-26,.71-.71-.71-.71-26-26-.29-.29h0Z" style="stroke-width: 0px;"/>
+    </g>
+  </g>
+</svg>
