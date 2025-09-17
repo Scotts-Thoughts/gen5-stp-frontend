@@ -77,4 +77,5 @@ const auto_save_settings = [
     "move4_replacement",
     "second_screen_toggle",
     "run_complete",
+    "debugging_mode",
 ]

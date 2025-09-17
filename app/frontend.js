@@ -3335,6 +3335,7 @@ const app = Vue.createApp({
             this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
             this.encounters_route_2 =         MyStorage['encounters_route_2']         ?? false
             this.editor =                     MyStorage['editor']                     ?? false
+            this.debugging_mode =             MyStorage['debugging_mode']             ?? true
             this.held_item_replacement =      MyStorage['held_item_replacement']      ?? ""
             this.move1_replacement =          MyStorage['move1_replacement']          ?? ""
             this.move2_replacement =          MyStorage['move2_replacement']          ?? ""
