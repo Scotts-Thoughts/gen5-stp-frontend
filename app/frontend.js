@@ -4647,9 +4647,16 @@ const app = Vue.createApp({
                     if (power > 200) { power = 200 } // Ensure power does not exceed 200
                     return power
                 }
-                if (y == "Fling") {
+                else if (y == "Fling") {
                     fling_power = this.get_fling_power()
                     return fling_power
+                }
+
+                let held_item_2 = this.mapper.properties.player.team[0].held_item.value
+                if (held_item_2 == 'Wise Glasses' && move.category == 'Special') {
+                    if (move.power != "—" && move.power != 0 && move.power != 1) {
+                        return Math.floor(move.power * 1.1)
+                    }
                 }
 
                 if (move.power == "—") { return "—"}
