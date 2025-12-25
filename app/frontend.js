@@ -318,7 +318,7 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
         var dirPath  = refilming_mode == true ? `./splits/${gameName}/refilmed/${split_file_prefix}/` : `./splits/${gameName}/${split_file_prefix}/`;
         var filePath = path.join(dirPath, `${split_file_prefix}-${file_name}-simple.csv`);
         // Header
-        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "failures," + "level," + "game_time," + "move1," + "move2," + "move3," + "move4,\n"
+        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "level," + "game_time," + "battle_duration," + "move1," + "move2," + "move3," + "move4,\n"
         if (testStatus == true) { 
             dirPath = `./splits/${gameName}/${split_file_prefix}/test_runs`; 
             switch (log_type) {
@@ -1411,12 +1411,19 @@ const app = Vue.createApp({
                     { trainer: "Ghetsis",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
                 ]
                 let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
+                const isUsingDefaultSplits = this.previous_splits.length == 0
                 
-                // Check if any of the individual Chili/Cilan/Cress trainers are in current splits
+                // Check if any of the individual Chili/Cilan/Cress trainers are in current splits OR previous splits
+                // Note: Don't check previous_splits_data for trio trainers if we're using default_splits,
+                // because default_splits always contains all three individual trainers
                 const chiliInCurrent = this.current_splits.find(y => y.trainer === "Chili")
                 const cilanInCurrent = this.current_splits.find(y => y.trainer === "Cilan")
                 const cressInCurrent = this.current_splits.find(y => y.trainer === "Cress")
+                const chiliInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Chili")
+                const cilanInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Cilan")
+                const cressInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Cress")
                 const anyChiliGroupInCurrent = chiliInCurrent || cilanInCurrent || cressInCurrent
+                const anyChiliGroupInPrevious = chiliInPrevious || cilanInPrevious || cressInPrevious
                 
                 for (const x of previous_splits_data) {
                     // Final N battle is ID 587
@@ -1425,11 +1432,11 @@ const app = Vue.createApp({
                     
                     // Handle Chili/Cilan/Cress combined split
                     if (trainer === "Trio") {
-                        if (anyChiliGroupInCurrent) {
-                            // Skip the combined split if any individual trainer is in current splits
+                        if (anyChiliGroupInCurrent || anyChiliGroupInPrevious) {
+                            // Skip the combined split if any individual trainer is in current or previous splits
                             continue
                         } else {
-                            // Show combined split if no individual trainers are in current splits
+                            // Show combined split if no individual trainers are in current or previous splits
                             const default_string = "-"
                             const prev = this.convertDurationToSeconds(x.time)
                             if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
@@ -1440,17 +1447,37 @@ const app = Vue.createApp({
                         }
                     }
                     
-                    // Skip individual Chili/Cilan/Cress if the combined split should be shown
-                    if ((trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") && !anyChiliGroupInCurrent) {
-                        continue
-                    }
-                    
-                    // Skip individual Chili/Cilan/Cress if they're not in current splits (when combined split is shown)
-                    if ((trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") && anyChiliGroupInCurrent) {
-                        // Only process if this specific trainer is in current splits
-                        const specificTrainerInCurrent = this.current_splits.find(y => y.trainer === trainer)
-                        if (!specificTrainerInCurrent) {
+                    // Handle individual Chili/Cilan/Cress trainers
+                    // Rule: Only ever show ONE trio trainer at a time - either "Trio" or one specific trainer
+                    if (trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") {
+                        // If using default_splits, skip all individual trio trainers (only show "Trio")
+                        if (isUsingDefaultSplits) {
                             continue
+                        }
+                        
+                        // If no trio trainers in current or previous splits, skip (show "Trio" instead)
+                        if (!anyChiliGroupInCurrent && !anyChiliGroupInPrevious) {
+                            continue
+                        }
+                        
+                        // Determine which specific trio trainer name should be shown
+                        // Priority: current splits > previous splits
+                        let trainerNameToShow = null
+                        if (anyChiliGroupInCurrent) {
+                            // If there's a trio trainer in current splits, use that one
+                            if (chiliInCurrent) trainerNameToShow = "Chili"
+                            else if (cilanInCurrent) trainerNameToShow = "Cilan"
+                            else if (cressInCurrent) trainerNameToShow = "Cress"
+                        } else if (anyChiliGroupInPrevious) {
+                            // Otherwise, use the one from previous splits
+                            if (chiliInPrevious) trainerNameToShow = "Chili"
+                            else if (cilanInPrevious) trainerNameToShow = "Cilan"
+                            else if (cressInPrevious) trainerNameToShow = "Cress"
+                        }
+                        
+                        // Only process this trainer if it's the one that should be shown
+                        if (trainerNameToShow && trainerNameToShow !== trainer) {
+                            continue // Skip if this is not the trainer we want to show
                         }
                     }
                     
@@ -2181,11 +2208,57 @@ const app = Vue.createApp({
             const text = await loadCsvFile();
             const rows = text.split("\n").slice(1).filter(x => x !== '');
             const results = []
+            const nBattles = []
+            const trainerMap = new Map() // Map to store trainer data by name
+            
             for (const row of rows) {
                 const columns = row.split(",");
-                results.push({trainer: columns[2], time: columns[3]})
+                const trainer = columns[2];
+                const time = columns[3];
+                
+                // Collect all N battles separately - we'll only keep the last one
+                if (trainer === "N") {
+                    nBattles.push({trainer: trainer, time: time});
+                } else {
+                    // Store in map (will overwrite if duplicate, keeping last occurrence)
+                    trainerMap.set(trainer, {trainer: trainer, time: time});
+                }
             }
+            
+            // Only add the last N battle (final N battle)
+            if (nBattles.length > 0) {
+                trainerMap.set("N", nBattles[nBattles.length - 1]);
+            }
+            
+            // Define the expected order based on default_splits (must match the order in compare_splits exactly)
+            // This ensures N comes before Ghetsis - order matches default_splits array
+            const expectedOrder = [
+                "Trio", "Chili", "Cilan", "Cress",
+                "Lenora", "Burgh", "Elesa", "Clay", "Skyla", "Brycen", "Drayden",
+                "Shauntal", "Grimsley", "Caitlin", "Marshal",
+                "N",        // N must come before Ghetsis
+                "Ghetsis"
+            ];
+            
+            // Sort results according to expected order
+            // Only include trainers that exist in the loaded data
+            for (const trainerName of expectedOrder) {
+                if (trainerMap.has(trainerName)) {
+                    results.push(trainerMap.get(trainerName));
+                }
+            }
+            
+            // Also add any trainers not in expectedOrder (shouldn't happen, but just in case)
+            for (const [trainerName, trainerData] of trainerMap.entries()) {
+                if (!expectedOrder.includes(trainerName)) {
+                    results.push(trainerData);
+                }
+            }
+            
             this.previous_splits = results;
+        },
+        clear_splits() {
+            this.previous_splits = [];
         },
         split_diff_color(difference_string) {
             if (difference_string === "-")          { return "color: black" }

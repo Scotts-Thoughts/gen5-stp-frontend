@@ -1,3 +1,31 @@
-player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,failures,level,game_time,battle_duration,move1,move2,move3,move4,
-A,Genesect,Bianca,1:00,0,0,5,0:02,1755983418.814,Quick Attack,Magnet Rise,Metal Claw,Screech
-A,Genesect,Cheren,1:20,0,0,5,0:03,1755983438.817,Quick Attack,Magnet Rise,Metal Claw,Screech
+player_name,pokemon,trainer_name,real_time_hmmss,resets,blackouts,level,game_time,battle_duration,move1,move2,move3,move4,
+HILDA,Genesect,Bianca,48,0,0,5,0:01,1760107384.386,Quick Attack,Magnet Rise,Metal Claw,Screech
+HILDA,Genesect,Cheren,1:08,0,0,5,0:02,1760107404.464,Quick Attack,Magnet Rise,Metal Claw,Screech
+HILDA,Genesect,N,3:29,0,0,5,0:10,1760107545.393,Quick Attack,Magnet Rise,Metal Claw,Screech
+HILDA,Genesect,Bianca,4:24,0,0,7,0:13,1760107600.026,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,Cheren,6:31,1,0,10,0:19,1760107727.304,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,Chili,7:49,1,0,11,0:24,1760107804.964,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,Cheren,12:41,3,0,14,0:38,1760108107.891,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,N,16:13,3,0,14,0:50,1760108319.153,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,Lenora,18:24,3,0,17,0:57,1760108450.558,Quick Attack,Fury Cutter,Metal Claw,Screech
+HILDA,Genesect,Burgh,26:16,3,0,21,1:22,1760108923.087,Quick Attack,Fury Cutter,Metal Claw,Flame Charge
+HILDA,Genesect,Bianca,27:33,3,0,22,1:26,1760108999.61,Quick Attack,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,Cheren,39:16,8,1,29,1:57,1760109702.235,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,N,47:29,9,4,32,2:20,1760110195.294,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,Elesa,50:23,9,4,33,2:29,1760110369.821,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,Cheren,52:16,9,4,33,2:35,1760110482.146,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,Clay,57:08,9,4,35,2:50,1760110774.208,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,Bianca,58:09,9,4,36,2:54,1760110835.443,Slash,Fury Cutter,Magnet Bomb,Flame Charge
+HILDA,Genesect,N,1:02:56,9,4,40,3:09,1760111122.501,Slash,Signal Beam,Magnet Bomb,Flame Charge
+HILDA,Genesect,Skyla,1:08:25,9,4,42,3:26,1760118265.308,Techno Blast,Signal Beam,Charge Beam,Flame Charge
+HILDA,Genesect,Cheren,1:10:07,9,4,43,3:32,1760118367.121,Techno Blast,Signal Beam,Charge Beam,Flame Charge
+HILDA,Genesect,Brycen,1:13:52,9,4,46,3:44,1760118592.417,Tri Attack,Signal Beam,Charge Beam,Flame Charge
+HILDA,Genesect,Bianca,1:23:26,9,4,51,4:16,1760119166.195,Tri Attack,Signal Beam,Charge Beam,Flash Cannon
+HILDA,Genesect,Drayden,1:28:11,9,4,54,4:32,1760119451.466,Tri Attack,Signal Beam,Charge Beam,Flash Cannon
+HILDA,Genesect,Cheren,1:30:03,10,4,54,4:36,1760119563.288,Tri Attack,Signal Beam,Charge Beam,Flash Cannon
+HILDA,Genesect,Caitlin,1:33:20,10,4,56,4:47,1760119760.626,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
+HILDA,Genesect,Grimsley,1:34:21,10,4,57,4:50,1760119821.383,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
+HILDA,Genesect,Shauntal,1:35:42,10,4,58,4:54,1760119902.473,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
+HILDA,Genesect,Marshal,1:36:38,10,4,59,4:57,1760119958.804,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
+HILDA,Genesect,N,1:41:47,11,4,65,5:10,1760120267.01,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
+HILDA,Genesect,Ghetsis,1:42:47,11,4,65,5:13,1760120326.857,Tri Attack,Bug Buzz,Charge Beam,Flash Cannon
