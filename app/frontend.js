@@ -1387,6 +1387,7 @@ const app = Vue.createApp({
                 const result = []
 
                 let lastPushedTrainer = null; // Keep track of the last pushed trainer
+                let trioTrainerProcessed = false; // Track if we've already processed a trio trainer
                 if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) } 
 
                 const trainersToSkip = ["Bianca", "Cheren"]; // Trainers to skip
@@ -1413,71 +1414,51 @@ const app = Vue.createApp({
                 let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
                 const isUsingDefaultSplits = this.previous_splits.length == 0
                 
-                // Check if any of the individual Chili/Cilan/Cress trainers are in current splits OR previous splits
-                // Note: Don't check previous_splits_data for trio trainers if we're using default_splits,
-                // because default_splits always contains all three individual trainers
+                // Check if any trio trainer (Chili/Cilan/Cress) exists in current or previous splits
+                // Treat all three as equivalent - they're the same gym leader slot
                 const chiliInCurrent = this.current_splits.find(y => y.trainer === "Chili")
                 const cilanInCurrent = this.current_splits.find(y => y.trainer === "Cilan")
                 const cressInCurrent = this.current_splits.find(y => y.trainer === "Cress")
                 const chiliInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Chili")
                 const cilanInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Cilan")
                 const cressInPrevious = isUsingDefaultSplits ? null : previous_splits_data.find(y => y.trainer === "Cress")
-                const anyChiliGroupInCurrent = chiliInCurrent || cilanInCurrent || cressInCurrent
-                const anyChiliGroupInPrevious = chiliInPrevious || cilanInPrevious || cressInPrevious
+                
+                // Check if ANY trio trainer exists (they're all equivalent)
+                const anyTrioInCurrent = chiliInCurrent || cilanInCurrent || cressInCurrent
+                const anyTrioInPrevious = chiliInPrevious || cilanInPrevious || cressInPrevious
+                
+                // Determine which specific trainer (for display purposes)
+                let currentTrioTrainer = null
+                if (chiliInCurrent) currentTrioTrainer = "Chili"
+                else if (cilanInCurrent) currentTrioTrainer = "Cilan"
+                else if (cressInCurrent) currentTrioTrainer = "Cress"
+                
+                let previousTrioTrainer = null
+                if (!isUsingDefaultSplits) {
+                    if (chiliInPrevious) previousTrioTrainer = "Chili"
+                    else if (cilanInPrevious) previousTrioTrainer = "Cilan"
+                    else if (cressInPrevious) previousTrioTrainer = "Cress"
+                }
                 
                 for (const x of previous_splits_data) {
                     // Final N battle is ID 587
                     let trainer = x.trainer
                     const final_n_battle_id = 587
                     
-                    // Handle Chili/Cilan/Cress combined split
+                    // Handle "Trio" combined split
                     if (trainer === "Trio") {
-                        if (anyChiliGroupInCurrent || anyChiliGroupInPrevious) {
-                            // Skip the combined split if any individual trainer is in current or previous splits
-                            continue
+                        // Only show "Trio" if no specific trio trainer exists in current or previous splits
+                        if (anyTrioInCurrent || anyTrioInPrevious) {
+                            continue // Skip "Trio" if we have a specific trainer
                         } else {
-                            // Show combined split if no individual trainers are in current or previous splits
+                            // Show "Trio" when no specific trainer exists
                             const default_string = "-"
-                            const prev = this.convertDurationToSeconds(x.time)
+                            const prev = x.time ? this.convertDurationToSeconds(x.time) : 0
                             if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
-                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                result.push({trainer: trainer, imageTrainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
                                 lastPushedTrainer = trainer;
                             }
                             continue
-                        }
-                    }
-                    
-                    // Handle individual Chili/Cilan/Cress trainers
-                    // Rule: Only ever show ONE trio trainer at a time - either "Trio" or one specific trainer
-                    if (trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") {
-                        // If using default_splits, skip all individual trio trainers (only show "Trio")
-                        if (isUsingDefaultSplits) {
-                            continue
-                        }
-                        
-                        // If no trio trainers in current or previous splits, skip (show "Trio" instead)
-                        if (!anyChiliGroupInCurrent && !anyChiliGroupInPrevious) {
-                            continue
-                        }
-                        
-                        // Determine which specific trio trainer name should be shown
-                        // Priority: current splits > previous splits
-                        let trainerNameToShow = null
-                        if (anyChiliGroupInCurrent) {
-                            // If there's a trio trainer in current splits, use that one
-                            if (chiliInCurrent) trainerNameToShow = "Chili"
-                            else if (cilanInCurrent) trainerNameToShow = "Cilan"
-                            else if (cressInCurrent) trainerNameToShow = "Cress"
-                        } else if (anyChiliGroupInPrevious) {
-                            // Otherwise, use the one from previous splits
-                            if (chiliInPrevious) trainerNameToShow = "Chili"
-                            else if (cilanInPrevious) trainerNameToShow = "Cilan"
-                            else if (cressInPrevious) trainerNameToShow = "Cress"
-                        }
-                        
-                        // Only process this trainer if it's the one that should be shown
-                        if (trainerNameToShow && trainerNameToShow !== trainer) {
-                            continue // Skip if this is not the trainer we want to show
                         }
                     }
                     
@@ -1485,17 +1466,68 @@ const app = Vue.createApp({
                     if (this.game.splits.includes(trainer)) {
                         const default_string = "-"
                         let cur_split = this.current_splits.find(y => y.trainer === trainer)
+                        let displayTrainerName = trainer // Default to the trainer name
+                        let imageTrainerName = trainer // For image lookup - use base trainer name
+                        
+                        // Special handling for trio trainers - treat all three as equivalent
+                        // When we encounter ANY trio trainer in previous_splits_data, process it as the "first gym" slot
+                        if (trainer === "Chili" || trainer === "Cilan" || trainer === "Cress") {
+                            // If we've already processed a trio trainer, skip all others
+                            if (trioTrainerProcessed) {
+                                continue
+                            }
+                            
+                            // Determine what to show and use
+                            if (currentTrioTrainer) {
+                                // Player has defeated a trio trainer - always show that one
+                                cur_split = this.current_splits.find(y => y.trainer === currentTrioTrainer)
+                                imageTrainerName = currentTrioTrainer
+                                
+                                if (previousTrioTrainer && previousTrioTrainer !== currentTrioTrainer) {
+                                    // Different trainers: show "Current (Previous)"
+                                    displayTrainerName = `${currentTrioTrainer} (${previousTrioTrainer})`
+                                    // Use previous trainer's time for comparison (from the split we're currently processing)
+                                    // x already contains the previous trainer's data since we're iterating through previous_splits_data
+                                } else {
+                                    // Same trainer or no previous: show just the name
+                                    displayTrainerName = currentTrioTrainer
+                                }
+                                trioTrainerProcessed = true
+                            } else if (previousTrioTrainer) {
+                                // No current battle, but split file loaded - show previous trainer
+                                // We're processing ANY trio trainer entry from previous_splits_data
+                                // Since all three are equivalent, we process whichever one we encounter
+                                displayTrainerName = previousTrioTrainer
+                                imageTrainerName = previousTrioTrainer
+                                // cur_split remains undefined - will show default values
+                                trioTrainerProcessed = true
+                                // Continue to process this entry below
+                            } else {
+                                // No current and no previous - should show "Trio" instead
+                                continue
+                            }
+                            
+                            // Process this entry (we've set up cur_split, displayTrainerName, etc. above)
+                            // Continue to the processing logic below
+                        }
                         
                         // Debug logging for N
                         if (trainer === "N") {
                             cur_split = this.current_splits.find(y => y.trainer === trainer && y.id === final_n_battle_id)
                         }
 
-                        const prev = this.convertDurationToSeconds(x.time)
+                        // Ensure x.time is valid before converting
+                        const prev = x.time ? this.convertDurationToSeconds(x.time) : 0
+                        
+                        // Check if this is a trio trainer
+                        const isTrioTrainer = trainer === "Chili" || trainer === "Cilan" || trainer === "Cress"
+                        
                         if (cur_split == undefined) { 
-                            if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped
-                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
-                                lastPushedTrainer = trainer; // Update the last pushed trainer
+                            // For trio trainers, use a consistent identifier for lastPushedTrainer
+                            const trainerKey = isTrioTrainer ? "Trio" : trainer
+                            if (trainerKey !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
+                                result.push({trainer: displayTrainerName, imageTrainer: imageTrainerName, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                lastPushedTrainer = trainerKey; // Update the last pushed trainer
                             }
                             continue
                         }
@@ -1503,11 +1535,20 @@ const app = Vue.createApp({
                         // For N, only process if current split ID is 587, otherwise show default values
                         if (trainer === "N" && cur_split.id !== final_n_battle_id) {
                             if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
-                                result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                result.push({trainer: displayTrainerName, imageTrainer: imageTrainerName, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
                                 lastPushedTrainer = trainer;
                             }
                             continue
                         }
+                        // Ensure cur_split.time is valid before converting
+                        if (!cur_split.time || typeof cur_split.time !== 'string') {
+                            if (trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) {
+                                result.push({trainer: displayTrainerName, imageTrainer: imageTrainerName, previous_time: this.convertSecondsToDuration(prev), current_time: default_string, difference: default_string}) 
+                                lastPushedTrainer = trainer;
+                            }
+                            continue
+                        }
+                        
                         const cur = this.convertDurationToSeconds(cur_split.time)
                         const diff = cur - prev;
                         const diff_abs = Math.abs(diff);
@@ -1516,9 +1557,27 @@ const app = Vue.createApp({
                         const diff_s = diff_abs % 60;
                         var diff_str = `${diff_sign === -1 ? "-" : "+"}${diff_m}:${diff_s.toString().padStart(2, "0")}`;
                         if (diff_str == "+0:00") { diff_str = "0:00" }
-                        if ((trainer !== lastPushedTrainer && !trainersToSkip.includes(trainer)) || (trainer === "N" && cur_split.id === final_n_battle_id)) { // Check if the current trainer is the same as the last pushed one and if it should be skipped, or if it's N with ID 587
-                            result.push({trainer: trainer, previous_time: this.convertSecondsToDuration(prev), current_time: this.convertSecondsToDuration(cur), difference: diff_str})
-                            lastPushedTrainer = trainer; // Update the last pushed trainer
+                        
+                        // For trio trainers, check if we've already processed one (to avoid duplicates)
+                        const isTrioTrainerCheck = trainer === "Chili" || trainer === "Cilan" || trainer === "Cress"
+                        const trainerKey = isTrioTrainerCheck ? "Trio" : trainer
+                        const shouldPush = (trainerKey !== lastPushedTrainer && !trainersToSkip.includes(trainer)) || (trainer === "N" && cur_split.id === final_n_battle_id)
+                        
+                        // For trio trainers: only push if this is the one we determined should be shown
+                        // (trioTrainerProcessed is set to true when we determine which trio trainer to show)
+                        // For non-trio trainers, always allow pushing
+                        let canPushTrio = true
+                        if (isTrioTrainerCheck) {
+                            // Only push if we've determined this is the trio trainer to show
+                            // trioTrainerProcessed will be true if we're processing the correct trio trainer
+                            canPushTrio = trioTrainerProcessed
+                        }
+                        
+                        if (shouldPush && canPushTrio) {
+                            // Format previous time - if prev is 0 and no split file, show "-"
+                            const prevTimeDisplay = (prev === 0 && isUsingDefaultSplits) ? "-" : this.convertSecondsToDuration(prev)
+                            result.push({trainer: displayTrainerName, imageTrainer: imageTrainerName, previous_time: prevTimeDisplay, current_time: this.convertSecondsToDuration(cur), difference: diff_str})
+                            lastPushedTrainer = trainerKey; // Update the last pushed trainer
                         }
                     }
                 }
@@ -2180,6 +2239,10 @@ const app = Vue.createApp({
             return return_value
         },
         convertDurationToSeconds(duration) {
+            // Handle null, undefined, or non-string values
+            if (!duration || typeof duration !== 'string') {
+                return 0;
+            }
             const parts = duration.split(':').map(part => parseInt(part, 10));
             if (parts.length === 1) {
                 return parts[0];
@@ -2188,6 +2251,7 @@ const app = Vue.createApp({
             } else if (parts.length === 3) {
                 return parts[0] * 3600 + parts[1] * 60 + parts[2];
             }
+            return 0;
         },
         convertSecondsToDuration(seconds) {
             const hours = Math.floor(seconds / 3600);
@@ -6466,8 +6530,21 @@ const app = Vue.createApp({
                 this.simple_data = simple_data
                 this.deprecated_data_str = deprecated_data_str
                 if (this.collect_split_data == true && this.mapper.properties.meta.state.value == "From Battle" && this.mapper.properties.battle.opponent.trainer.value != '--') {
+                    // Normalize trainer name: convert "Leader Cress" to "Cress" using autosplitter mapping
+                    let normalizedTrainerName = trainer_name
+                    if (this.game && this.game.gameName && autosplitter[this.game.gameName]) {
+                        // Find the simple split name that maps to this trainer name
+                        const simpleSplits = autosplitter["Simple Splits"]
+                        for (const simpleName of simpleSplits) {
+                            if (autosplitter[this.game.gameName][simpleName] === trainer_name) {
+                                normalizedTrainerName = simpleName
+                                break
+                            }
+                        }
+                    }
+                    
                     this.current_splits.push({
-                        trainer: trainer_name, 
+                        trainer: normalizedTrainerName, 
                         time:    real_time_hmmss,
                         id:      trainer_id,
                     })
