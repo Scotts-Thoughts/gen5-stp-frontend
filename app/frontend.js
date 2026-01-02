@@ -2170,37 +2170,37 @@ const app = Vue.createApp({
             switch (stat_name) {
                 case 'hp': {
                     let current_stat = this.get_stat().Hp
-                    let no_ev_stat   = calculate_hp(iv_hp, 0, level, this.g5PokemonData[species].base_stats.hp)
+                    let no_ev_stat   = calculate_hp(iv_hp, 0, level, this.g5PokemonData[species].base_stats?.hp ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
                 case 'attack': {
                     let current_stat = this.get_stat().Atk
-                    let no_ev_stat   = calculate_other_stat(iv_atk, 0, level, this.g5PokemonData[species].base_stats.attack, nature_modifiers.nature_attack)
+                    let no_ev_stat   = calculate_other_stat(iv_atk, 0, level, this.g5PokemonData[species].base_stats.attack, nature_modifiers?.nature_attack ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
                 case 'defense': {
                     let current_stat = this.get_stat().Def
-                    let no_ev_stat   = calculate_other_stat(iv_def, 0, level, this.g5PokemonData[species].base_stats.defense, nature_modifiers.nature_defense)
+                    let no_ev_stat   = calculate_other_stat(iv_def, 0, level, this.g5PokemonData[species].base_stats.defense, nature_modifiers?.nature_defense ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
                 case 'special_attack': {
                     let current_stat = this.get_stat().SpA
-                    let no_ev_stat   = calculate_other_stat(iv_spa, 0, level, this.g5PokemonData[species].base_stats.special_attack, nature_modifiers.nature_specialAttack)
+                    let no_ev_stat   = calculate_other_stat(iv_spa, 0, level, this.g5PokemonData[species].base_stats.special_attack, nature_modifiers?.nature_specialAttack ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
                 case 'special_defense': {
                     let current_stat = this.get_stat().SpD
-                    let no_ev_stat   = calculate_other_stat(iv_spd, 0, level, this.g5PokemonData[species].base_stats.special_defense, nature_modifiers.nature_specialDefense)
+                    let no_ev_stat   = calculate_other_stat(iv_spd, 0, level, this.g5PokemonData[species].base_stats.special_defense, nature_modifiers?.nature_specialDefense ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
                 case 'speed': {
                     let current_stat = this.get_stat().Spe
-                    let no_ev_stat   = calculate_other_stat(iv_spe, 0, level, this.g5PokemonData[species].base_stats.speed, nature_modifiers.nature_speed)
+                    let no_ev_stat   = calculate_other_stat(iv_spe, 0, level, this.g5PokemonData[species].base_stats.speed, nature_modifiers?.nature_speed ?? 1)
                     let difference   = current_stat - no_ev_stat
                     return difference
                 }
@@ -2208,7 +2208,6 @@ const app = Vue.createApp({
                     return
                 }
             }
-
         },
         print_texture_settings() {
             const string = `
@@ -2470,6 +2469,7 @@ const app = Vue.createApp({
             this.held_item_fix = this.held_item_replacement
         },
         write_byte_data(data_object) {
+            console.log("Writing byte data... for ", this.starter)
             const starter = this.starter
             const pokedex = this.pokedex_black[starter]
 
@@ -2554,6 +2554,8 @@ const app = Vue.createApp({
 
             // Write the reencrypted data to the decrypted_mon_0 property
             this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
+            console.log("Finished writing byte data... for ", this.starter)
+
         },
         encrypt_byte_data(array) {
             const decryptedData = new Uint8Array(array);
