@@ -3321,7 +3321,7 @@ const app = Vue.createApp({
         getUnobtainableMoveStyle(move_object, type_of_move) {
             const unobtainable_moves_toggle = this.unobtainable_moves_toggle
             const state = this.mapper.properties.meta.state.value
-            const move_name = move_object.move
+            const move_name = this.move_name(move_object.move)
             const unobtainable_moves = this.unobtainable_moves_object[type_of_move]
             const opacity = 0.4
             const animation_duration = 1.5 // seconds
@@ -5774,7 +5774,14 @@ const app = Vue.createApp({
             return modifier
         },
         abilityModifier(ability, attackingType, controller) {
-            var healthPercentage = this.mapper.properties.battle[controller].active_pokemon.stats.hp / this.mapper.properties.battle[controller].active_pokemon.stats.hp_max
+            const state = this.mapper.properties.meta.state.value
+            var healthPercentage = 0
+            if (controller == 'player' && (state != 'Battle' || state != 'From Battle')) { 
+                healthPercentage = this.mapper.properties.player.team[0].stats.hp / this.mapper.properties.player.team[0].stats.hp_max
+            }
+            else {
+                healthPercentage = this.mapper.properties.battle[controller].active_pokemon.stats.hp / this.mapper.properties.battle[controller].active_pokemon.stats.hp_max
+            }
             if (healthPercentage <= .3) {
                 if (ability == `Torrent` && attackingType == `Water`) {
                     return 1.5
