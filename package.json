@@ -1,6 +1,6 @@
 {
   "name": "gen5-overlay-app",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A minimal Electron application",
   "main": "./main.js",
   "build": {
@@ -9,7 +9,8 @@
     "win": {
       "executableName": "gen5-overlay-app",
       "target": "zip",
-      "icon": "./icon.png"
+      "icon": "./icon.png",
+      "sign": null
     },
     "npmRebuild": false
   },
