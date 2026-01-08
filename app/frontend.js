@@ -6089,7 +6089,6 @@ const app = Vue.createApp({
             }
             
             var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
-            console.log("Ability: " + player_ability)
 
             if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
                 ability = 0 

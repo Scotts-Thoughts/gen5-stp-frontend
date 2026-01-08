@@ -7,7 +7,8 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app-container">
+        <div id="app">
         <div v-if="ready == false">
             <select v-model="selected_game" class="dropdownMenu">
                 <option disabled value="">Select a species</option>
@@ -754,6 +755,7 @@
                 </div>
             </transition>
         </div>
+        </div>
     </div>
 
 <!--------------------------------------- JAVASCRIPT ------------------------------------------------->
@@ -791,4 +793,34 @@
     <script src="lib/moves/unobtainable_moves.js"></script>
     <!-- VUE APP -->
     <script type="text/javascript" src="frontend.js"></script>
+    
+    <!-- Scaling script to maintain 16:9 aspect ratio -->
+    <script>
+        (function() {
+            const DESIGN_WIDTH = 1920;
+            const DESIGN_HEIGHT = 1080;
+            const appContainer = document.getElementById('app-container');
+            
+            function updateScale() {
+                if (!appContainer) return;
+                
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate scale based on both dimensions, use the smaller one to maintain aspect ratio
+                const scaleX = viewportWidth / DESIGN_WIDTH;
+                const scaleY = viewportHeight / DESIGN_HEIGHT;
+                const scale = Math.min(scaleX, scaleY);
+                
+                appContainer.style.transform = `scale(${scale})`;
+            }
+            
+            // Update scale on load and resize
+            window.addEventListener('load', updateScale);
+            window.addEventListener('resize', updateScale);
+            
+            // Initial scale
+            updateScale();
+        })();
+    </script>
 </body>

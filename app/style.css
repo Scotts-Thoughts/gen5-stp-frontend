@@ -5,6 +5,11 @@
 }
 
 :root {
+    /* Base design size - 16:9 aspect ratio */
+    --design-width: 1920px;
+    --design-height: 1080px;
+    --aspect-ratio: calc(16 / 9);
+    
     height: 1920px; /* Fixed canvas size */
     width: 1080px;
 
@@ -182,7 +187,29 @@ body {
     height: 100%;
     width: 100%;
     overflow: hidden; /* Hide scrollbars */
-    background-color: #ffffff;
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+/* Scaling container that maintains 16:9 aspect ratio */
+#app-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--design-width);
+    height: var(--design-height);
+    transform-origin: top left;
+    /* Scale will be applied via JavaScript for dynamic resizing */
+    /* Fallback scale for initial render */
+    transform: scale(1);
+}
+
+#app {
+    position: relative;
+    width: var(--design-width);
+    height: var(--design-height);
+    overflow: hidden;
 }
 /* .grey-svg {   filter: drop-shadow(0px 0px 1px #000000) invert(29%) sepia(96%)  saturate(0%)   hue-rotate(180deg) brightness(95%)  contrast(101%); }
 .blue-svg {   filter: drop-shadow(0px 0px 1px #000000) invert(29%) sepia(96%)  saturate(300%) hue-rotate(180deg) brightness(95%)  contrast(101%); }
