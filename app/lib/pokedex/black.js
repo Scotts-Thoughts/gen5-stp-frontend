@@ -64874,7 +64874,11 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {"species": "Pidove", "method": null, "parameter": null},
+            {"species": "Tranquil", "method": "level", "parameter": 18},
+            {"species": "Unfezant", "method": null, "parameter": null}
+        ]
     },
     "Tranquil": {
         "rom_id": 520,
@@ -65004,7 +65008,11 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {"species": "Pidove", "method": null, "parameter": null},
+            {"species": "Tranquil", "method": "level", "parameter": 18},
+            {"species": "Unfezant", "method": null, "parameter": null}
+        ]
     },
     "Unfezant": {
         "rom_id": 521,
@@ -65137,7 +65145,11 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {"species": "Pidove", "method": null, "parameter": null},
+            {"species": "Tranquil", "method": "level", "parameter": 18},
+            {"species": "Unfezant", "method": null, "parameter": null}
+        ]
     },
     "Blitzle": {
         "rom_id": 522,
