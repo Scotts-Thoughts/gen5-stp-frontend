@@ -3513,8 +3513,14 @@ const app = Vue.createApp({
             this.copy_overlay_pokemon_from = MyStorage['copy_overlay_pokemon_from'] ?? ""
             this.copy_overlay_pokemon_to   = MyStorage['copy_overlay_pokemon_to']   ?? ""
 
-            if (this.pokedex_black[this.starter].abilities.indexOf(this.pkmn_ability) == -1) {
+            //main pokemon settings
+            this.pkmnNature   = MyStorage[`${game_name}_${this.starter}`]?.pkmnNature            ?? "Hardy"
+
+            if (this.pokedex_black[this.starter].abilities.indexOf(this.pkmn_ability) == -1 && !MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability) {
                 this.pkmn_ability = this.pokedex_black[this.starter].abilities[0]
+            }
+            else {
+                this.pkmn_ability = MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability          ?? this.pokedex_black[this.starter]?.abilities[0] ?? null
             }
         },
         reset() {
@@ -6083,6 +6089,7 @@ const app = Vue.createApp({
             }
             
             var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
+            console.log("Ability: " + player_ability)
 
             if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
                 ability = 0 
@@ -6159,7 +6166,7 @@ const app = Vue.createApp({
             var weatherBoost = 1
 
             var burnModifier = this.burnModifier(x)
-            if (ability == "Tinted Lens") {
+            if (player_ability == "Tinted Lens") {
                 var type_multiple = defendingType1Effectiveness * defendingType2Effectiveness
                 if (type_multiple == 0) {}
                 else if (type_multiple < 1) {
@@ -6167,7 +6174,7 @@ const app = Vue.createApp({
                     defendingType2Effectiveness = type_multiple * 2
                 }
             }
-            if (power <= 60 && ability == "Technician") {
+            if (power <= 60 && player_ability == "Technician") {
                 power = power * 1.5
             }
 
