@@ -7270,7 +7270,7 @@ const app = Vue.createApp({
             
             // If we're showing evolved base stats and state changes to Battle (not from Battle),
             // hide the evolved base stats display
-            if (this.show_evolved_base_stats && newProp.value == "To Battle" && newProp.value == "Battle" && oldProp.value != "From Battle") {
+            if (this.show_evolved_base_stats && (newProp.value == "To Battle" || newProp.value == "Battle") && oldProp.value != "From Battle") {
                 this.show_evolved_base_stats = false;
                 this.stats_setting = "Automatic";
                 this.evolved_species_for_stats = null;
