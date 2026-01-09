@@ -200,12 +200,13 @@
                     </table>
                     <div v-if="evolution == true && evolution_family_list.length > 0">
                         <div>Evolution Family Style:</div>
-                        <select v-model="selected_evolution_species" class="dropdownMenu">
+                        <select v-model="selected_evolution_species" class="dropdownMenu" style="width: 180px;">
                             <option disabled value="">Select a species in the evolution family</option>
                             <option v-for="species in evolution_family_list" :value="`${species}`">{{species}}</option>
                         </select>
-                        <br>
-                        <button @click="copyCurrentStylesToAllFamilyMembers()" class="buttonStyle">Copy Current Styles to All Family Members</button>
+                        <!-- <br> -->
+                        <!-- <br> -->
+                        <button @click="copyCurrentStylesToAllFamilyMembers()" class="buttonStyle" style="font-size: 13px; width: 100px; height: 23px; top: -2px;">Unify Styles</button>
                         <br>
                     </div>
                     <br>
