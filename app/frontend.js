@@ -3295,8 +3295,11 @@ const app = Vue.createApp({
             const power_items = ['Power Belt', 'Power Anklet', 'Power Band', 'Power Lens', 'Power Bracer', 'Power Anklet', 'Power Belt', 'Macho Brace']
             const pokemon_data = this.n_battle_data_fix
 
-            let not_fully_evolved = true //! Add a toggle for this that dynamically changes with the species
-            let species = this.starter
+            // Use actual current species when available (especially important when evolution is enabled)
+            const slot_1_species = this.mapper.properties.player.team[0].species.value
+            let species = (state != 'No Pokemon' && slot_1_species) ? slot_1_species : this.starter
+            const evolution_family = this.g5PokemonData[species]?.evolution_family ?? []
+            const not_fully_evolved = evolution_family.length > 0 && evolution_family[evolution_family.length - 1].species !== species
             
             var status_condition = this.mapper.properties.player.team[0].status_condition.value
             
@@ -3314,7 +3317,6 @@ const app = Vue.createApp({
             let final_stat_spe = 0
 
             // Fix for Reshiram or Zekrom being added to the player's team
-            const slot_1_species = this.mapper.properties.player.team[0].species.value
             const player_team_count = this.mapper.properties.player.team_count.value
             const computed_slot = player_team_count - 1
             let wrong_slot = false
