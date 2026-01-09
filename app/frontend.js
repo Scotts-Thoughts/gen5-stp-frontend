@@ -541,6 +541,7 @@ const app = Vue.createApp({
             show_evolved_base_stats      : false, // Flag to show base stats of evolved species until next battle
             evolved_species_for_stats    : null,  // Species to show base stats for
             is_loading_evolution_style   : false, // Flag to prevent watchers from saving during style loading
+            evolved_base_stats           : false, // Flag to show base stats of evolved species until next battle
             selected_game                : MyStorage['selected_game'] ?? "Black",
             available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
@@ -6788,6 +6789,8 @@ const app = Vue.createApp({
                         // Store old species for transition
                         const oldSpecies = this.starter;
                         const newSpecies = newProp.value;
+
+                        this.stats_setting = "Base Stats";
                         
                         // Update starter
                         this.starter = newSpecies;
@@ -7267,8 +7270,9 @@ const app = Vue.createApp({
             
             // If we're showing evolved base stats and state changes to Battle (not from Battle),
             // hide the evolved base stats display
-            if (this.show_evolved_base_stats && newProp.value == "Battle" && oldProp.value != "From Battle") {
+            if (this.show_evolved_base_stats && newProp.value == "To Battle" && newProp.value == "Battle" && oldProp.value != "From Battle") {
                 this.show_evolved_base_stats = false;
+                this.stats_setting = "Automatic";
                 this.evolved_species_for_stats = null;
             }
             
