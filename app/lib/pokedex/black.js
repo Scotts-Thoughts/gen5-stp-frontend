@@ -115,7 +115,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bulbasaur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ivysaur",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Venusaur",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ivysaur": {
         "rom_id": 2,
@@ -241,7 +257,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bulbasaur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ivysaur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Venusaur",
+                "method": "level",
+                "parameter": 32
+            }
+        ]
     },
     "Venusaur": {
         "rom_id": 3,
@@ -380,7 +412,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bulbasaur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ivysaur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Venusaur",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Charmander": {
         "rom_id": 4,
@@ -497,7 +545,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Charmander",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Charmeleon",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Charizard",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Charmeleon": {
         "rom_id": 5,
@@ -618,7 +682,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Charmander",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Charmeleon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Charizard",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Charizard": {
         "rom_id": 6,
@@ -777,7 +857,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Charmander",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Charmeleon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Charizard",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Squirtle": {
         "rom_id": 7,
@@ -896,7 +992,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Squirtle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wartortle",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Blastoise",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wartortle": {
         "rom_id": 8,
@@ -1023,7 +1135,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Squirtle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wartortle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blastoise",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Blastoise": {
         "rom_id": 9,
@@ -1168,7 +1296,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Squirtle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wartortle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blastoise",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Caterpie": {
         "rom_id": 10,
@@ -1215,7 +1359,23 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Caterpie",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metapod",
+                "method": "level",
+                "parameter": 7
+            },
+            {
+                "species": "Butterfree",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Metapod": {
         "rom_id": 11,
@@ -1258,7 +1418,23 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Caterpie",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metapod",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Butterfree",
+                "method": "level",
+                "parameter": 10
+            }
+        ]
     },
     "Butterfree": {
         "rom_id": 12,
@@ -1388,7 +1564,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Caterpie",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metapod",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Butterfree",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Weedle": {
         "rom_id": 13,
@@ -1435,7 +1627,23 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Weedle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kakuna",
+                "method": "level",
+                "parameter": 7
+            },
+            {
+                "species": "Beedrill",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kakuna": {
         "rom_id": 14,
@@ -1478,7 +1686,23 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Weedle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kakuna",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beedrill",
+                "method": "level",
+                "parameter": 10
+            }
+        ]
     },
     "Beedrill": {
         "rom_id": 15,
@@ -1594,7 +1818,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Weedle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kakuna",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beedrill",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pidgey": {
         "rom_id": 16,
@@ -1707,7 +1947,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pidgey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pidgeotto",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Pidgeot",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pidgeotto": {
         "rom_id": 17,
@@ -1828,7 +2084,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pidgey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pidgeotto",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pidgeot",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Pidgeot": {
         "rom_id": 18,
@@ -1955,7 +2227,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pidgey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pidgeotto",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pidgeot",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rattata": {
         "rom_id": 19,
@@ -2076,7 +2364,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rattata",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Raticate",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Raticate": {
         "rom_id": 20,
@@ -2218,7 +2517,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rattata",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Raticate",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spearow": {
         "rom_id": 21,
@@ -2320,7 +2630,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spearow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Fearow",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Fearow": {
         "rom_id": 22,
@@ -2440,7 +2761,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spearow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Fearow",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ekans": {
         "rom_id": 23,
@@ -2568,7 +2900,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ekans",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Arbok",
+                "method": "level",
+                "parameter": 22
+            }
+        ]
     },
     "Arbok": {
         "rom_id": 24,
@@ -2723,7 +3066,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ekans",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Arbok",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pikachu": {
         "rom_id": 25,
@@ -2843,7 +3197,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pikachu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Raichu",
+                "method": "item",
+                "parameter": "Thunder Stone"
+            },
+            {
+                "species": "Pichu",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Raichu": {
         "rom_id": 26,
@@ -2927,7 +3297,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pikachu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Raichu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pichu",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sandshrew": {
         "rom_id": 27,
@@ -3048,7 +3434,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sandshrew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sandslash",
+                "method": "level",
+                "parameter": 22
+            }
+        ]
     },
     "Sandslash": {
         "rom_id": 28,
@@ -3185,7 +3582,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sandshrew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sandslash",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Nidoran♀": {
         "rom_id": 29,
@@ -3422,7 +3830,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nidoran_F",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidorina",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidoqueen",
+                "method": "item",
+                "parameter": "Moon Stone"
+            }
+        ]
     },
     "Nidoqueen": {
         "rom_id": 31,
@@ -3544,7 +3968,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nidoran_F",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidorina",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidoqueen",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Nidoran♂": {
         "rom_id": 32,
@@ -3780,7 +4220,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nidoran_M",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidorino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidoking",
+                "method": "item",
+                "parameter": "Moon Stone"
+            }
+        ]
     },
     "Nidoking": {
         "rom_id": 34,
@@ -3901,7 +4357,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nidoran_M",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidorino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nidoking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Clefairy": {
         "rom_id": 35,
@@ -4062,7 +4534,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clefairy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Clefable",
+                "method": "item",
+                "parameter": "Moon Stone"
+            },
+            {
+                "species": "Cleffa",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Clefable": {
         "rom_id": 36,
@@ -4162,7 +4650,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clefairy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Clefable",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cleffa",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Vulpix": {
         "rom_id": 37,
@@ -4291,7 +4795,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Vulpix",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ninetales",
+                "method": "item",
+                "parameter": "Fire Stone"
+            }
+        ]
     },
     "Ninetales": {
         "rom_id": 38,
@@ -4378,7 +4893,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Vulpix",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ninetales",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Jigglypuff": {
         "rom_id": 39,
@@ -4512,7 +5038,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jigglypuff",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wigglytuff",
+                "method": "item",
+                "parameter": "Moon Stone"
+            },
+            {
+                "species": "Igglybuff",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wigglytuff": {
         "rom_id": 40,
@@ -4609,7 +5151,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jigglypuff",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wigglytuff",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Igglybuff",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Zubat": {
         "rom_id": 41,
@@ -4719,7 +5277,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zubat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golbat",
+                "method": "level",
+                "parameter": 22
+            },
+            {
+                "species": "Crobat",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Golbat": {
         "rom_id": 42,
@@ -4843,7 +5417,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zubat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golbat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crobat",
+                "method": "friendship",
+                "parameter": null
+            }
+        ]
     },
     "Oddish": {
         "rom_id": 43,
@@ -4948,7 +5538,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Oddish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gloom",
+                "method": "level",
+                "parameter": 21
+            },
+            {
+                "species": "Vileplume",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bellossom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gloom": {
         "rom_id": 44,
@@ -5062,7 +5673,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Oddish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gloom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vileplume",
+                "method": "item",
+                "parameter": "Leaf Stone"
+            },
+            {
+                "species": "Bellossom",
+                "method": "item",
+                "parameter": "Sun Stone"
+            }
+        ]
     },
     "Vileplume": {
         "rom_id": 45,
@@ -5146,7 +5778,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Oddish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gloom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vileplume",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bellossom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Paras": {
         "rom_id": 46,
@@ -5262,7 +5915,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Paras",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Parasect",
+                "method": "level",
+                "parameter": 24
+            }
+        ]
     },
     "Parasect": {
         "rom_id": 47,
@@ -5396,7 +6060,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Paras",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Parasect",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Venonat": {
         "rom_id": 48,
@@ -5509,7 +6184,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Venonat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Venomoth",
+                "method": "level",
+                "parameter": 31
+            }
+        ]
     },
     "Venomoth": {
         "rom_id": 49,
@@ -5648,7 +6334,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Venonat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Venomoth",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Diglett": {
         "rom_id": 50,
@@ -5768,7 +6465,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Diglett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dugtrio",
+                "method": "level",
+                "parameter": 26
+            }
+        ]
     },
     "Dugtrio": {
         "rom_id": 51,
@@ -5908,7 +6616,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Diglett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dugtrio",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Meowth": {
         "rom_id": 52,
@@ -6038,7 +6757,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Meowth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Persian",
+                "method": "level",
+                "parameter": 28
+            }
+        ]
     },
     "Persian": {
         "rom_id": 53,
@@ -6184,7 +6914,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Meowth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Persian",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Psyduck": {
         "rom_id": 54,
@@ -6316,7 +7057,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Psyduck",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golduck",
+                "method": "level",
+                "parameter": 33
+            }
+        ]
     },
     "Golduck": {
         "rom_id": 55,
@@ -6464,7 +7216,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Psyduck",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golduck",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mankey": {
         "rom_id": 56,
@@ -6605,7 +7368,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mankey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Primeape",
+                "method": "level",
+                "parameter": 28
+            }
+        ]
     },
     "Primeape": {
         "rom_id": 57,
@@ -6753,7 +7527,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mankey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Primeape",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Growlithe": {
         "rom_id": 58,
@@ -6887,7 +7672,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Growlithe",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Arcanine",
+                "method": "item",
+                "parameter": "Fire Stone"
+            }
+        ]
     },
     "Arcanine": {
         "rom_id": 59,
@@ -6981,7 +7777,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Growlithe",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Arcanine",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Poliwag": {
         "rom_id": 60,
@@ -7093,7 +7900,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poliwag",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwhirl",
+                "method": "level",
+                "parameter": 25
+            },
+            {
+                "species": "Poliwrath",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Politoed",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Poliwhirl": {
         "rom_id": 61,
@@ -7219,7 +8047,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poliwag",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwhirl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwrath",
+                "method": "item",
+                "parameter": "Water Stone"
+            },
+            {
+                "species": "Politoed",
+                "method": "trade_with_item",
+                "parameter": "King's Rock"
+            }
+        ]
     },
     "Poliwrath": {
         "rom_id": 62,
@@ -7323,7 +8172,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poliwag",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwhirl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwrath",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Politoed",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Abra": {
         "rom_id": 63,
@@ -7400,7 +8270,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Abra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kadabra",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Alakazam",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kadabra": {
         "rom_id": 64,
@@ -7537,7 +8423,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Abra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kadabra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Alakazam",
+                "method": "trade",
+                "parameter": null
+            }
+        ]
     },
     "Alakazam": {
         "rom_id": 65,
@@ -7677,7 +8579,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Abra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kadabra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Alakazam",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Machop": {
         "rom_id": 66,
@@ -7806,7 +8724,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Machop",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Machoke",
+                "method": "level",
+                "parameter": 28
+            },
+            {
+                "species": "Machamp",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Machoke": {
         "rom_id": 67,
@@ -7943,7 +8877,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Machop",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Machoke",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Machamp",
+                "method": "trade",
+                "parameter": null
+            }
+        ]
     },
     "Machamp": {
         "rom_id": 68,
@@ -8087,7 +9037,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Machop",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Machoke",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Machamp",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bellsprout": {
         "rom_id": 69,
@@ -8198,7 +9164,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bellsprout",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weepinbell",
+                "method": "level",
+                "parameter": 21
+            },
+            {
+                "species": "Victreebel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Weepinbell": {
         "rom_id": 70,
@@ -8317,7 +9299,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bellsprout",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weepinbell",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Victreebel",
+                "method": "item",
+                "parameter": "Leaf Stone"
+            }
+        ]
     },
     "Victreebel": {
         "rom_id": 71,
@@ -8418,7 +9416,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bellsprout",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weepinbell",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Victreebel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tentacool": {
         "rom_id": 72,
@@ -8548,7 +9562,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tentacool",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tentacruel",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Tentacruel": {
         "rom_id": 73,
@@ -8688,7 +9713,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tentacool",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tentacruel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Geodude": {
         "rom_id": 74,
@@ -8820,7 +9856,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Geodude",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Graveler",
+                "method": "level",
+                "parameter": 25
+            },
+            {
+                "species": "Golem",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Graveler": {
         "rom_id": 75,
@@ -8960,7 +10012,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Geodude",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Graveler",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golem",
+                "method": "trade",
+                "parameter": null
+            }
+        ]
     },
     "Golem": {
         "rom_id": 76,
@@ -9108,7 +10176,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Geodude",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Graveler",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golem",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ponyta": {
         "rom_id": 77,
@@ -9224,7 +10308,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ponyta",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rapidash",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Rapidash": {
         "rom_id": 78,
@@ -9363,7 +10458,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ponyta",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rapidash",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Slowpoke": {
         "rom_id": 79,
@@ -9505,7 +10611,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slowpoke",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slowbro",
+                "method": "level",
+                "parameter": 37
+            },
+            {
+                "species": "Slowking",
+                "method": "trade_with_item",
+                "parameter": "King's Rock"
+            }
+        ]
     },
     "Slowbro": {
         "rom_id": 80,
@@ -9662,7 +10784,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slowpoke",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slowbro",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slowking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magnemite": {
         "rom_id": 81,
@@ -9789,7 +10927,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magnemite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magneton",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Magnezone",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magneton": {
         "rom_id": 82,
@@ -9930,7 +11084,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magnemite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magneton",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magnezone",
+                "method": "location_mt_coronet",
+                "parameter": null
+            }
+        ]
     },
     "Farfetch'd": {
         "rom_id": 83,
@@ -10065,7 +11235,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Farfetch'd",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Doduo": {
         "rom_id": 84,
@@ -10173,7 +11349,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Doduo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dodrio",
+                "method": "level",
+                "parameter": 31
+            }
+        ]
     },
     "Dodrio": {
         "rom_id": 85,
@@ -10298,7 +11485,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Doduo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dodrio",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Seel": {
         "rom_id": 86,
@@ -10426,7 +11624,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dewgong",
+                "method": "level",
+                "parameter": 34
+            }
+        ]
     },
     "Dewgong": {
         "rom_id": 87,
@@ -10573,7 +11782,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dewgong",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Grimer": {
         "rom_id": 88,
@@ -10704,7 +11924,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Grimer",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Muk",
+                "method": "level",
+                "parameter": 38
+            }
+        ]
     },
     "Muk": {
         "rom_id": 89,
@@ -10848,7 +12079,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Grimer",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Muk",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shellder": {
         "rom_id": 90,
@@ -10969,7 +12211,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shellder",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cloyster",
+                "method": "item",
+                "parameter": "Water Stone"
+            }
+        ]
     },
     "Cloyster": {
         "rom_id": 91,
@@ -11063,7 +12316,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shellder",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cloyster",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gastly": {
         "rom_id": 92,
@@ -11189,7 +12453,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gastly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haunter",
+                "method": "level",
+                "parameter": 25
+            },
+            {
+                "species": "Gengar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Haunter": {
         "rom_id": 93,
@@ -11326,7 +12606,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gastly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haunter",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gengar",
+                "method": "trade",
+                "parameter": null
+            }
+        ]
     },
     "Gengar": {
         "rom_id": 94,
@@ -11470,7 +12766,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gastly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haunter",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gengar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Onix": {
         "rom_id": 95,
@@ -11616,7 +12928,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Onix",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Steelix",
+                "method": "trade_with_item",
+                "parameter": "Metal Coat"
+            }
+        ]
     },
     "Drowzee": {
         "rom_id": 96,
@@ -11755,7 +13078,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Drowzee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hypno",
+                "method": "level",
+                "parameter": 26
+            }
+        ]
     },
     "Hypno": {
         "rom_id": 97,
@@ -11913,7 +13247,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Drowzee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hypno",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Krabby": {
         "rom_id": 98,
@@ -12042,7 +13387,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Krabby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kingler",
+                "method": "level",
+                "parameter": 28
+            }
+        ]
     },
     "Kingler": {
         "rom_id": 99,
@@ -12186,7 +13542,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Krabby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kingler",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Voltorb": {
         "rom_id": 100,
@@ -12308,7 +13675,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Voltorb",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Electrode",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Electrode": {
         "rom_id": 101,
@@ -12444,7 +13822,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Voltorb",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Electrode",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Exeggcute": {
         "rom_id": 102,
@@ -12569,7 +13958,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Exeggcute",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Exeggutor",
+                "method": "item",
+                "parameter": "Leaf Stone"
+            }
+        ]
     },
     "Exeggutor": {
         "rom_id": 103,
@@ -12673,7 +14073,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Exeggcute",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Exeggutor",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cubone": {
         "rom_id": 104,
@@ -12805,7 +14216,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cubone",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Marowak",
+                "method": "level",
+                "parameter": 28
+            }
+        ]
     },
     "Marowak": {
         "rom_id": 105,
@@ -12953,7 +14375,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cubone",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Marowak",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Hitmonlee": {
         "rom_id": 106,
@@ -13088,7 +14521,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hitmonlee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmonchan",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tyrogue",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmontop",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Hitmonchan": {
         "rom_id": 107,
@@ -13226,7 +14680,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hitmonlee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmonchan",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tyrogue",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmontop",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lickitung": {
         "rom_id": 108,
@@ -13367,7 +14842,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lickitung",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lickilicky",
+                "method": "knows_move",
+                "parameter": "Rollout"
+            }
+        ]
     },
     "Koffing": {
         "rom_id": 109,
@@ -13488,7 +14974,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Koffing",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weezing",
+                "method": "level",
+                "parameter": 35
+            }
+        ]
     },
     "Weezing": {
         "rom_id": 110,
@@ -13619,7 +15116,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Koffing",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weezing",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rhyhorn": {
         "rom_id": 111,
@@ -13748,7 +15256,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rhyhorn",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rhydon",
+                "method": "level",
+                "parameter": 42
+            },
+            {
+                "species": "Rhyperior",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rhydon": {
         "rom_id": 112,
@@ -13899,7 +15423,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rhyhorn",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rhydon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rhyperior",
+                "method": "trade_with_item",
+                "parameter": "Protector"
+            }
+        ]
     },
     "Chansey": {
         "rom_id": 113,
@@ -14053,7 +15593,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chansey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blissey",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Happiny",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tangela": {
         "rom_id": 114,
@@ -14184,7 +15740,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tangela",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tangrowth",
+                "method": "knows_move",
+                "parameter": "AncientPower"
+            }
+        ]
     },
     "Kangaskhan": {
         "rom_id": 115,
@@ -14327,7 +15894,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kangaskhan",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Horsea": {
         "rom_id": 116,
@@ -14433,7 +16006,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Horsea",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seadra",
+                "method": "level",
+                "parameter": 32
+            },
+            {
+                "species": "Kingdra",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Seadra": {
         "rom_id": 117,
@@ -14553,7 +16142,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Horsea",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seadra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kingdra",
+                "method": "trade_with_item",
+                "parameter": "Dragon Scale"
+            }
+        ]
     },
     "Goldeen": {
         "rom_id": 118,
@@ -14667,7 +16272,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Goldeen",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seaking",
+                "method": "level",
+                "parameter": 33
+            }
+        ]
     },
     "Seaking": {
         "rom_id": 119,
@@ -14791,7 +16407,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Goldeen",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seaking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Staryu": {
         "rom_id": 120,
@@ -14917,7 +16544,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Staryu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Starmie",
+                "method": "item",
+                "parameter": "Water Stone"
+            }
+        ]
     },
     "Starmie": {
         "rom_id": 121,
@@ -15010,7 +16648,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Staryu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Starmie",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mr. Mime": {
         "rom_id": 122,
@@ -15178,7 +16827,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mr. Mime",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mime Jr.",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Scyther": {
         "rom_id": 123,
@@ -15315,7 +16975,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Scyther",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scizor",
+                "method": "trade_with_item",
+                "parameter": "Metal Coat"
+            }
+        ]
     },
     "Jynx": {
         "rom_id": 124,
@@ -15464,7 +17135,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jynx",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Smoochum",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Electabuzz": {
         "rom_id": 125,
@@ -15587,7 +17269,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Electabuzz",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Elekid",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Electivire",
+                "method": "trade_with_item",
+                "parameter": "Electirizer"
+            }
+        ]
     },
     "Magmar": {
         "rom_id": 126,
@@ -15708,7 +17406,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magmar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magmortar",
+                "method": "trade_with_item",
+                "parameter": "Magmarizer"
+            }
+        ]
     },
     "Pinsir": {
         "rom_id": 127,
@@ -15836,7 +17550,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pinsir",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tauros": {
         "rom_id": 128,
@@ -15966,7 +17686,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tauros",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magikarp": {
         "rom_id": 129,
@@ -16013,7 +17739,18 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magikarp",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gyarados",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Gyarados": {
         "rom_id": 130,
@@ -16132,7 +17869,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magikarp",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gyarados",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lapras": {
         "rom_id": 131,
@@ -16261,7 +18009,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lapras",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ditto": {
         "rom_id": 132,
@@ -16300,7 +18054,13 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ditto",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Eevee": {
         "rom_id": 133,
@@ -16400,7 +18160,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": "item",
+                "parameter": "Water Stone"
+            },
+            {
+                "species": "Jolteon",
+                "method": "item",
+                "parameter": "Thunder Stone"
+            },
+            {
+                "species": "Flareon",
+                "method": "item",
+                "parameter": "Fire Stone"
+            },
+            {
+                "species": "Espeon",
+                "method": "friendship_day",
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": "friendship_night",
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": "location_eterna_forest",
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": "location_route_217",
+                "parameter": null
+            }
+        ]
     },
     "Vaporeon": {
         "rom_id": 134,
@@ -16524,7 +18325,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Jolteon": {
         "rom_id": 135,
@@ -16649,7 +18491,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Flareon": {
         "rom_id": 136,
@@ -16772,7 +18655,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Porygon": {
         "rom_id": 137,
@@ -16900,7 +18824,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Porygon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Porygon2",
+                "method": "trade_with_item",
+                "parameter": "Up-Grade"
+            },
+            {
+                "species": "Porygon-Z",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Omanyte": {
         "rom_id": 138,
@@ -17021,7 +18961,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Omanyte",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Omastar",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Omastar": {
         "rom_id": 139,
@@ -17153,7 +19104,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Omanyte",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Omastar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kabuto": {
         "rom_id": 140,
@@ -17266,7 +19228,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kabuto",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kabutops",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Kabutops": {
         "rom_id": 141,
@@ -17408,7 +19381,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kabuto",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kabutops",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Aerodactyl": {
         "rom_id": 142,
@@ -17552,7 +19536,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aerodactyl",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Snorlax": {
         "rom_id": 143,
@@ -17694,7 +19684,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snorlax",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Munchlax",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Articuno": {
         "rom_id": 144,
@@ -17814,7 +19815,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Articuno",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Zapdos": {
         "rom_id": 145,
@@ -17937,7 +19944,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zapdos",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Moltres": {
         "rom_id": 146,
@@ -18060,7 +20073,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Moltres",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dratini": {
         "rom_id": 147,
@@ -18181,7 +20200,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Dratini",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dragonair",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Dragonite",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dragonair": {
         "rom_id": 148,
@@ -18310,7 +20345,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Dratini",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dragonair",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dragonite",
+                "method": "level",
+                "parameter": 55
+            }
+        ]
     },
     "Dragonite": {
         "rom_id": 149,
@@ -18479,7 +20530,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Dratini",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dragonair",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dragonite",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mewtwo": {
         "rom_id": 150,
@@ -18646,7 +20713,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mewtwo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mew": {
         "rom_id": 151,
@@ -18834,7 +20907,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mew",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chikorita": {
         "rom_id": 152,
@@ -18949,7 +21028,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chikorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bayleef",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Meganium",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bayleef": {
         "rom_id": 153,
@@ -19074,7 +21169,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chikorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bayleef",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Meganium",
+                "method": "level",
+                "parameter": 32
+            }
+        ]
     },
     "Meganium": {
         "rom_id": 154,
@@ -19208,7 +21319,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chikorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bayleef",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Meganium",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cyndaquil": {
         "rom_id": 155,
@@ -19327,7 +21454,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cyndaquil",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Quilava",
+                "method": "level",
+                "parameter": 14
+            },
+            {
+                "species": "Typhlosion",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Quilava": {
         "rom_id": 156,
@@ -19454,7 +21597,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cyndaquil",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Quilava",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Typhlosion",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Typhlosion": {
         "rom_id": 157,
@@ -19600,7 +21759,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cyndaquil",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Quilava",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Typhlosion",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Totodile": {
         "rom_id": 158,
@@ -19731,7 +21906,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Totodile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Croconaw",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Feraligatr",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Croconaw": {
         "rom_id": 159,
@@ -19869,7 +22060,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Totodile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Croconaw",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Feraligatr",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Feraligatr": {
         "rom_id": 160,
@@ -20021,7 +22228,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Totodile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Croconaw",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Feraligatr",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sentret": {
         "rom_id": 161,
@@ -20147,7 +22370,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sentret",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Furret",
+                "method": "level",
+                "parameter": 15
+            }
+        ]
     },
     "Furret": {
         "rom_id": 162,
@@ -20288,7 +22522,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sentret",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Furret",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Hoothoot": {
         "rom_id": 163,
@@ -20418,7 +22663,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hoothoot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Noctowl",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Noctowl": {
         "rom_id": 164,
@@ -20558,7 +22814,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hoothoot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Noctowl",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ledyba": {
         "rom_id": 165,
@@ -20674,7 +22941,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ledyba",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ledian",
+                "method": "level",
+                "parameter": 18
+            }
+        ]
     },
     "Ledian": {
         "rom_id": 166,
@@ -20803,7 +23081,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ledyba",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ledian",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spinarak": {
         "rom_id": 167,
@@ -20923,7 +23212,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spinarak",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ariados",
+                "method": "level",
+                "parameter": 22
+            }
+        ]
     },
     "Ariados": {
         "rom_id": 168,
@@ -21057,7 +23357,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spinarak",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ariados",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Crobat": {
         "rom_id": 169,
@@ -21186,7 +23497,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zubat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golbat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crobat",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chinchou": {
         "rom_id": 170,
@@ -21310,7 +23637,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chinchou",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lanturn",
+                "method": "level",
+                "parameter": 27
+            }
+        ]
     },
     "Lanturn": {
         "rom_id": 171,
@@ -21452,7 +23790,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chinchou",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lanturn",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pichu": {
         "rom_id": 172,
@@ -21536,7 +23885,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pikachu",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Raichu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pichu",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cleffa": {
         "rom_id": 173,
@@ -21635,7 +24000,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clefairy",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Clefable",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cleffa",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Igglybuff": {
         "rom_id": 174,
@@ -21728,7 +24109,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jigglypuff",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Wigglytuff",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Igglybuff",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Togepi": {
         "rom_id": 175,
@@ -21859,7 +24256,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Togepi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Togetic",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Togekiss",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Togetic": {
         "rom_id": 176,
@@ -22008,7 +24421,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Togepi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Togetic",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Togekiss",
+                "method": "item",
+                "parameter": "Shiny Stone"
+            }
+        ]
     },
     "Natu": {
         "rom_id": 177,
@@ -22142,7 +24571,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Natu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Xatu",
+                "method": "level",
+                "parameter": 25
+            }
+        ]
     },
     "Xatu": {
         "rom_id": 178,
@@ -22283,7 +24723,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Natu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Xatu",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mareep": {
         "rom_id": 179,
@@ -22393,7 +24844,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mareep",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flaaffy",
+                "method": "level",
+                "parameter": 15
+            },
+            {
+                "species": "Ampharos",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Flaaffy": {
         "rom_id": 180,
@@ -22516,7 +24983,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mareep",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flaaffy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ampharos",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Ampharos": {
         "rom_id": 181,
@@ -22655,7 +25138,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mareep",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flaaffy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ampharos",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bellossom": {
         "rom_id": 182,
@@ -22744,7 +25243,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Oddish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gloom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vileplume",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bellossom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Marill": {
         "rom_id": 183,
@@ -22853,7 +25373,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Marill",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Azumarill",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Azurill",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Azumarill": {
         "rom_id": 184,
@@ -22978,7 +25514,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Marill",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Azumarill",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Azurill",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sudowoodo": {
         "rom_id": 185,
@@ -23115,7 +25667,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sudowoodo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bonsly",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Politoed": {
         "rom_id": 186,
@@ -23214,7 +25777,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poliwag",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwhirl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Poliwrath",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Politoed",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Hoppip": {
         "rom_id": 187,
@@ -23346,7 +25930,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hoppip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Skiploom",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Jumpluff",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Skiploom": {
         "rom_id": 188,
@@ -23490,7 +26090,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hoppip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Skiploom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jumpluff",
+                "method": "level",
+                "parameter": 27
+            }
+        ]
     },
     "Jumpluff": {
         "rom_id": 189,
@@ -23636,7 +26252,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hoppip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Skiploom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jumpluff",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Aipom": {
         "rom_id": 190,
@@ -23767,7 +26399,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aipom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ambipom",
+                "method": "knows_move",
+                "parameter": "Double Hit"
+            }
+        ]
     },
     "Sunkern": {
         "rom_id": 191,
@@ -23878,7 +26521,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sunkern",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sunflora",
+                "method": "item",
+                "parameter": "Sun Stone"
+            }
+        ]
     },
     "Sunflora": {
         "rom_id": 192,
@@ -23995,7 +26649,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sunkern",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sunflora",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Yanma": {
         "rom_id": 193,
@@ -24117,7 +26782,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Yanma",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Yanmega",
+                "method": "knows_move",
+                "parameter": "AncientPower"
+            }
+        ]
     },
     "Wooper": {
         "rom_id": 194,
@@ -24235,7 +26911,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wooper",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Quagsire",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Quagsire": {
         "rom_id": 195,
@@ -24367,7 +27054,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wooper",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Quagsire",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Espeon": {
         "rom_id": 196,
@@ -24493,7 +27191,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Umbreon": {
         "rom_id": 197,
@@ -24616,7 +27355,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Murkrow": {
         "rom_id": 198,
@@ -24744,7 +27524,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Murkrow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Honchkrow",
+                "method": "item",
+                "parameter": "Dusk Stone"
+            }
+        ]
     },
     "Slowking": {
         "rom_id": 199,
@@ -24902,7 +27693,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slowpoke",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slowbro",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slowking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Misdreavus": {
         "rom_id": 200,
@@ -25027,7 +27834,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Misdreavus",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mismagius",
+                "method": "item",
+                "parameter": "Dusk Stone"
+            }
+        ]
     },
     "Unown": {
         "rom_id": 201,
@@ -25065,7 +27883,13 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Unown",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wobbuffet": {
         "rom_id": 202,
@@ -25116,7 +27940,18 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wobbuffet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wynaut",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Girafarig": {
         "rom_id": 203,
@@ -25256,7 +28091,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Girafarig",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pineco": {
         "rom_id": 204,
@@ -25377,7 +28218,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pineco",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Forretress",
+                "method": "level",
+                "parameter": 31
+            }
+        ]
     },
     "Forretress": {
         "rom_id": 205,
@@ -25535,7 +28387,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pineco",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Forretress",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dunsparce": {
         "rom_id": 206,
@@ -25672,7 +28535,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Dunsparce",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gligar": {
         "rom_id": 207,
@@ -25807,7 +28676,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gligar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gliscor",
+                "method": "held_item_night",
+                "parameter": "Razor Fang"
+            }
+        ]
     },
     "Steelix": {
         "rom_id": 208,
@@ -25968,7 +28848,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Onix",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Steelix",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Snubbull": {
         "rom_id": 209,
@@ -26107,7 +28998,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snubbull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Granbull",
+                "method": "level",
+                "parameter": 23
+            }
+        ]
     },
     "Granbull": {
         "rom_id": 210,
@@ -26256,7 +29158,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snubbull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Granbull",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Qwilfish": {
         "rom_id": 211,
@@ -26395,7 +29308,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Qwilfish",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Scizor": {
         "rom_id": 212,
@@ -26538,7 +29457,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Scyther",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scizor",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shuckle": {
         "rom_id": 213,
@@ -26662,7 +29592,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shuckle",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Heracross": {
         "rom_id": 214,
@@ -26793,7 +29729,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Heracross",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sneasel": {
         "rom_id": 215,
@@ -26930,7 +29872,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sneasel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weavile",
+                "method": "held_item_night",
+                "parameter": "Razor Claw"
+            }
+        ]
     },
     "Teddiursa": {
         "rom_id": 216,
@@ -27059,7 +30012,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Teddiursa",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ursaring",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Ursaring": {
         "rom_id": 217,
@@ -27193,7 +30157,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Teddiursa",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ursaring",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Slugma": {
         "rom_id": 218,
@@ -27310,7 +30285,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slugma",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magcargo",
+                "method": "level",
+                "parameter": 38
+            }
+        ]
     },
     "Magcargo": {
         "rom_id": 219,
@@ -27451,7 +30437,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slugma",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magcargo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Swinub": {
         "rom_id": 220,
@@ -27571,7 +30568,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Swinub",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Piloswine",
+                "method": "level",
+                "parameter": 33
+            },
+            {
+                "species": "Mamoswine",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Piloswine": {
         "rom_id": 221,
@@ -27710,7 +30723,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Swinub",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Piloswine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mamoswine",
+                "method": "knows_move",
+                "parameter": "AncientPower"
+            }
+        ]
     },
     "Corsola": {
         "rom_id": 222,
@@ -27839,7 +30868,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Corsola",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Remoraid": {
         "rom_id": 223,
@@ -27953,7 +30988,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Remoraid",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Octillery",
+                "method": "level",
+                "parameter": 25
+            }
+        ]
     },
     "Octillery": {
         "rom_id": 224,
@@ -28097,7 +31143,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Remoraid",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Octillery",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Delibird": {
         "rom_id": 225,
@@ -28161,7 +31218,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Delibird",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mantine": {
         "rom_id": 226,
@@ -28298,7 +31361,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mantine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mantyke",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Skarmory": {
         "rom_id": 227,
@@ -28426,7 +31500,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Skarmory",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Houndour": {
         "rom_id": 228,
@@ -28559,7 +31639,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Houndour",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Houndoom",
+                "method": "level",
+                "parameter": 24
+            }
+        ]
     },
     "Houndoom": {
         "rom_id": 229,
@@ -28707,7 +31798,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Houndour",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Houndoom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kingdra": {
         "rom_id": 230,
@@ -28832,7 +31934,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Horsea",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seadra",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kingdra",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Phanpy": {
         "rom_id": 231,
@@ -28942,7 +32060,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Phanpy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Donphan",
+                "method": "level",
+                "parameter": 25
+            }
+        ]
     },
     "Donphan": {
         "rom_id": 232,
@@ -29070,7 +32199,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Phanpy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Donphan",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Porygon2": {
         "rom_id": 233,
@@ -29202,7 +32342,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Porygon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Porygon2",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Porygon-Z",
+                "method": "trade_with_item",
+                "parameter": "Dubious Disc"
+            }
+        ]
     },
     "Stantler": {
         "rom_id": 234,
@@ -29337,7 +32493,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Stantler",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Smeargle": {
         "rom_id": 235,
@@ -29413,7 +32575,13 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Smeargle",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tyrogue": {
         "rom_id": 236,
@@ -29491,7 +32659,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hitmonlee",
+                "method": "attack_greater_than_defense_at_level",
+                "parameter": 20
+            },
+            {
+                "species": "Hitmonchan",
+                "method": "attack_less_than_defense_at_level",
+                "parameter": 20
+            },
+            {
+                "species": "Tyrogue",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmontop",
+                "method": "attack_equals_defense_at_level",
+                "parameter": 20
+            }
+        ]
     },
     "Hitmontop": {
         "rom_id": 237,
@@ -29622,7 +32811,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hitmonlee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmonchan",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tyrogue",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hitmontop",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Smoochum": {
         "rom_id": 238,
@@ -29751,7 +32961,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jynx",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Smoochum",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Elekid": {
         "rom_id": 239,
@@ -29865,7 +33086,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Electabuzz",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Elekid",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Electivire",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magby": {
         "rom_id": 240,
@@ -29977,7 +33214,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magmar",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Magby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magmortar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Miltank": {
         "rom_id": 241,
@@ -30105,7 +33358,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Miltank",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Blissey": {
         "rom_id": 242,
@@ -30260,7 +33519,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chansey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blissey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Happiny",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Raikou": {
         "rom_id": 243,
@@ -30388,7 +33663,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Raikou",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Entei": {
         "rom_id": 244,
@@ -30517,7 +33798,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Entei",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Suicune": {
         "rom_id": 245,
@@ -30643,7 +33930,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Suicune",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Larvitar": {
         "rom_id": 246,
@@ -30766,7 +34059,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Larvitar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pupitar",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Tyranitar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pupitar": {
         "rom_id": 247,
@@ -30897,7 +34206,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Larvitar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pupitar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tyranitar",
+                "method": "level",
+                "parameter": 55
+            }
+        ]
     },
     "Tyranitar": {
         "rom_id": 248,
@@ -31064,7 +34389,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Larvitar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pupitar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tyranitar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lugia": {
         "rom_id": 249,
@@ -31211,7 +34552,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lugia",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ho-Oh": {
         "rom_id": 250,
@@ -31357,7 +34704,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ho-Oh",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Celebi": {
         "rom_id": 251,
@@ -31485,7 +34838,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Celebi",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Treecko": {
         "rom_id": 252,
@@ -31598,7 +34957,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Treecko",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grovyle",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Sceptile",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Grovyle": {
         "rom_id": 253,
@@ -31726,7 +35101,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Treecko",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grovyle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sceptile",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Sceptile": {
         "rom_id": 254,
@@ -31866,7 +35257,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Treecko",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grovyle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sceptile",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Torchic": {
         "rom_id": 255,
@@ -31976,7 +35383,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Torchic",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Combusken",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Blaziken",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Combusken": {
         "rom_id": 256,
@@ -32109,7 +35532,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Torchic",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Combusken",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blaziken",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Blaziken": {
         "rom_id": 257,
@@ -32262,7 +35701,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Torchic",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Combusken",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Blaziken",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mudkip": {
         "rom_id": 258,
@@ -32373,7 +35828,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mudkip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Marshtomp",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Swampert",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Marshtomp": {
         "rom_id": 259,
@@ -32500,7 +35971,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mudkip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Marshtomp",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swampert",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Swampert": {
         "rom_id": 260,
@@ -32636,7 +36123,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mudkip",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Marshtomp",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swampert",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Poochyena": {
         "rom_id": 261,
@@ -32755,7 +36258,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poochyena",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mightyena",
+                "method": "level",
+                "parameter": 18
+            }
+        ]
     },
     "Mightyena": {
         "rom_id": 262,
@@ -32889,7 +36403,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Poochyena",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mightyena",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Zigzagoon": {
         "rom_id": 263,
@@ -33014,7 +36539,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zigzagoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Linoone",
+                "method": "level",
+                "parameter": 20
+            }
+        ]
     },
     "Linoone": {
         "rom_id": 264,
@@ -33156,7 +36692,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zigzagoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Linoone",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wurmple": {
         "rom_id": 265,
@@ -33207,7 +36754,33 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wurmple",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Silcoon",
+                "method": "silcoon_level",
+                "parameter": 7
+            },
+            {
+                "species": "Beautifly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cascoon",
+                "method": "cascoon_level",
+                "parameter": 7
+            },
+            {
+                "species": "Dustox",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Silcoon": {
         "rom_id": 266,
@@ -33250,7 +36823,33 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wurmple",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Silcoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beautifly",
+                "method": "level",
+                "parameter": 10
+            },
+            {
+                "species": "Cascoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dustox",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Beautifly": {
         "rom_id": 267,
@@ -33361,7 +36960,33 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wurmple",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Silcoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beautifly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cascoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dustox",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cascoon": {
         "rom_id": 268,
@@ -33404,7 +37029,33 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wurmple",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Silcoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beautifly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cascoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dustox",
+                "method": "level",
+                "parameter": 10
+            }
+        ]
     },
     "Dustox": {
         "rom_id": 269,
@@ -33516,7 +37167,33 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wurmple",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Silcoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beautifly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cascoon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dustox",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lotad": {
         "rom_id": 270,
@@ -33623,7 +37300,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lotad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lombre",
+                "method": "level",
+                "parameter": 14
+            },
+            {
+                "species": "Ludicolo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lombre": {
         "rom_id": 271,
@@ -33737,7 +37430,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lotad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lombre",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ludicolo",
+                "method": "item",
+                "parameter": "Water Stone"
+            }
+        ]
     },
     "Ludicolo": {
         "rom_id": 272,
@@ -33826,7 +37535,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lotad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lombre",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ludicolo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Seedot": {
         "rom_id": 273,
@@ -33915,7 +37640,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seedot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nuzleaf",
+                "method": "level",
+                "parameter": 14
+            },
+            {
+                "species": "Shiftry",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Nuzleaf": {
         "rom_id": 274,
@@ -34034,7 +37775,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seedot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nuzleaf",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shiftry",
+                "method": "item",
+                "parameter": "Leaf Stone"
+            }
+        ]
     },
     "Shiftry": {
         "rom_id": 275,
@@ -34137,7 +37894,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seedot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Nuzleaf",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shiftry",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Taillow": {
         "rom_id": 276,
@@ -34234,7 +38007,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Taillow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swellow",
+                "method": "level",
+                "parameter": 22
+            }
+        ]
     },
     "Swellow": {
         "rom_id": 277,
@@ -34345,7 +38129,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Taillow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swellow",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wingull": {
         "rom_id": 278,
@@ -34456,7 +38251,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wingull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pelipper",
+                "method": "level",
+                "parameter": 25
+            }
+        ]
     },
     "Pelipper": {
         "rom_id": 279,
@@ -34597,7 +38403,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wingull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pelipper",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ralts": {
         "rom_id": 280,
@@ -34731,7 +38548,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ralts",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kirlia",
+                "method": "level",
+                "parameter": 20
+            },
+            {
+                "species": "Gardevoir",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gallade",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kirlia": {
         "rom_id": 281,
@@ -34877,7 +38715,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ralts",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kirlia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gardevoir",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Gallade",
+                "method": "item_male",
+                "parameter": "Dawn Stone"
+            }
+        ]
     },
     "Gardevoir": {
         "rom_id": 282,
@@ -35031,7 +38890,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ralts",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kirlia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gardevoir",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gallade",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Surskit": {
         "rom_id": 283,
@@ -35126,7 +39006,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Surskit",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Masquerain",
+                "method": "level",
+                "parameter": 22
+            }
+        ]
     },
     "Masquerain": {
         "rom_id": 284,
@@ -35254,7 +39145,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Surskit",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Masquerain",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shroomish": {
         "rom_id": 285,
@@ -35361,7 +39263,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shroomish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Breloom",
+                "method": "level",
+                "parameter": 23
+            }
+        ]
     },
     "Breloom": {
         "rom_id": 286,
@@ -35499,7 +39412,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shroomish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Breloom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Slakoth": {
         "rom_id": 287,
@@ -35610,7 +39534,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slakoth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vigoroth",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Slaking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Vigoroth": {
         "rom_id": 288,
@@ -35739,7 +39679,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slakoth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vigoroth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slaking",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Slaking": {
         "rom_id": 289,
@@ -35884,7 +39840,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Slakoth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vigoroth",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Slaking",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Nincada": {
         "rom_id": 290,
@@ -35983,7 +39955,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nincada",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ninjask",
+                "method": "ninjask_level",
+                "parameter": 20
+            },
+            {
+                "species": "Shedinja",
+                "method": "shedinja_level",
+                "parameter": 20
+            }
+        ]
     },
     "Ninjask": {
         "rom_id": 291,
@@ -36116,7 +40104,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nincada",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ninjask",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shedinja",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shedinja": {
         "rom_id": 292,
@@ -36230,7 +40234,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nincada",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ninjask",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shedinja",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Whismur": {
         "rom_id": 293,
@@ -36340,7 +40360,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Whismur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Loudred",
+                "method": "level",
+                "parameter": 20
+            },
+            {
+                "species": "Exploud",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Loudred": {
         "rom_id": 294,
@@ -36477,7 +40513,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Whismur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Loudred",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Exploud",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Exploud": {
         "rom_id": 295,
@@ -36638,7 +40690,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Whismur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Loudred",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Exploud",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Makuhita": {
         "rom_id": 296,
@@ -36774,7 +40842,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Makuhita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hariyama",
+                "method": "level",
+                "parameter": 24
+            }
+        ]
     },
     "Hariyama": {
         "rom_id": 297,
@@ -36926,7 +41005,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Makuhita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hariyama",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Azurill": {
         "rom_id": 298,
@@ -37008,7 +41098,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Marill",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Azumarill",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Azurill",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Nosepass": {
         "rom_id": 299,
@@ -37131,7 +41237,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nosepass",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Probopass",
+                "method": "location_mt_coronet",
+                "parameter": null
+            }
+        ]
     },
     "Skitty": {
         "rom_id": 300,
@@ -37270,7 +41387,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Skitty",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Delcatty",
+                "method": "item",
+                "parameter": "Moon Stone"
+            }
+        ]
     },
     "Delcatty": {
         "rom_id": 301,
@@ -37361,7 +41489,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Skitty",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Delcatty",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sableye": {
         "rom_id": 302,
@@ -37515,7 +41654,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sableye",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mawile": {
         "rom_id": 303,
@@ -37650,7 +41795,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mawile",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Aron": {
         "rom_id": 304,
@@ -37779,7 +41930,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aron",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lairon",
+                "method": "level",
+                "parameter": 32
+            },
+            {
+                "species": "Aggron",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lairon": {
         "rom_id": 305,
@@ -37921,7 +42088,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aron",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lairon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Aggron",
+                "method": "level",
+                "parameter": 42
+            }
+        ]
     },
     "Aggron": {
         "rom_id": 306,
@@ -38084,7 +42267,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aron",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lairon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Aggron",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Meditite": {
         "rom_id": 307,
@@ -38217,7 +42416,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Meditite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Medicham",
+                "method": "level",
+                "parameter": 37
+            }
+        ]
     },
     "Medicham": {
         "rom_id": 308,
@@ -38377,7 +42587,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Meditite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Medicham",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Electrike": {
         "rom_id": 309,
@@ -38496,7 +42717,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Electrike",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Manectric",
+                "method": "level",
+                "parameter": 26
+            }
+        ]
     },
     "Manectric": {
         "rom_id": 310,
@@ -38634,7 +42866,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Electrike",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Manectric",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Plusle": {
         "rom_id": 311,
@@ -38765,7 +43008,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Plusle",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Minun": {
         "rom_id": 312,
@@ -38896,7 +43145,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Minun",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Volbeat": {
         "rom_id": 313,
@@ -39015,7 +43270,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Volbeat",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Illumise": {
         "rom_id": 314,
@@ -39130,7 +43391,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Illumise",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Roselia": {
         "rom_id": 315,
@@ -39256,7 +43523,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Roselia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Budew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Roserade",
+                "method": "item",
+                "parameter": "Shiny Stone"
+            }
+        ]
     },
     "Gulpin": {
         "rom_id": 316,
@@ -39377,7 +43660,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gulpin",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swalot",
+                "method": "level",
+                "parameter": 26
+            }
+        ]
     },
     "Swalot": {
         "rom_id": 317,
@@ -39518,7 +43812,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gulpin",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swalot",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Carvanha": {
         "rom_id": 318,
@@ -39632,7 +43937,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Carvanha",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sharpedo",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Sharpedo": {
         "rom_id": 319,
@@ -39779,7 +44095,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Carvanha",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sharpedo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wailmer": {
         "rom_id": 320,
@@ -39907,7 +44234,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wailmer",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wailord",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Wailord": {
         "rom_id": 321,
@@ -40049,7 +44387,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wailmer",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wailord",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Numel": {
         "rom_id": 322,
@@ -40166,7 +44515,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Numel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Camerupt",
+                "method": "level",
+                "parameter": 33
+            }
+        ]
     },
     "Camerupt": {
         "rom_id": 323,
@@ -40303,7 +44663,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Numel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Camerupt",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Torkoal": {
         "rom_id": 324,
@@ -40439,7 +44810,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Torkoal",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spoink": {
         "rom_id": 325,
@@ -40568,7 +44945,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spoink",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grumpig",
+                "method": "level",
+                "parameter": 32
+            }
+        ]
     },
     "Grumpig": {
         "rom_id": 326,
@@ -40716,7 +45104,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spoink",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grumpig",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spinda": {
         "rom_id": 327,
@@ -40838,7 +45237,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spinda",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Trapinch": {
         "rom_id": 328,
@@ -40947,7 +45352,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Trapinch",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vibrava",
+                "method": "level",
+                "parameter": 35
+            },
+            {
+                "species": "Flygon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Vibrava": {
         "rom_id": 329,
@@ -41058,7 +45479,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Trapinch",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vibrava",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flygon",
+                "method": "level",
+                "parameter": 45
+            }
+        ]
     },
     "Flygon": {
         "rom_id": 330,
@@ -41186,7 +45623,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Trapinch",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vibrava",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flygon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cacnea": {
         "rom_id": 331,
@@ -41311,7 +45764,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cacnea",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cacturne",
+                "method": "level",
+                "parameter": 32
+            }
+        ]
     },
     "Cacturne": {
         "rom_id": 332,
@@ -41454,7 +45918,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cacnea",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cacturne",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Swablu": {
         "rom_id": 333,
@@ -41570,7 +46045,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Swablu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Altaria",
+                "method": "level",
+                "parameter": 35
+            }
+        ]
     },
     "Altaria": {
         "rom_id": 334,
@@ -41717,7 +46203,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Swablu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Altaria",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Zangoose": {
         "rom_id": 335,
@@ -41854,7 +46351,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Zangoose",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Seviper": {
         "rom_id": 336,
@@ -41980,7 +46483,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Seviper",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lunatone": {
         "rom_id": 337,
@@ -42113,7 +46622,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lunatone",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Solrock": {
         "rom_id": 338,
@@ -42250,7 +46765,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Solrock",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Barboach": {
         "rom_id": 339,
@@ -42367,7 +46888,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Barboach",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whiscash",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Whiscash": {
         "rom_id": 340,
@@ -42506,7 +47038,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Barboach",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whiscash",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Corphish": {
         "rom_id": 341,
@@ -42630,7 +47173,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Corphish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crawdaunt",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Crawdaunt": {
         "rom_id": 342,
@@ -42776,7 +47330,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Corphish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crawdaunt",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Baltoy": {
         "rom_id": 343,
@@ -42919,7 +47484,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Baltoy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Claydol",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Claydol": {
         "rom_id": 344,
@@ -43083,7 +47659,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Baltoy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Claydol",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lileep": {
         "rom_id": 345,
@@ -43195,7 +47782,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lileep",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cradily",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Cradily": {
         "rom_id": 346,
@@ -43323,7 +47921,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lileep",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cradily",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Anorith": {
         "rom_id": 347,
@@ -43435,7 +48044,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Anorith",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Armaldo",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Armaldo": {
         "rom_id": 348,
@@ -43562,7 +48182,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Anorith",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Armaldo",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Feebas": {
         "rom_id": 349,
@@ -43631,7 +48262,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Feebas",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Milotic",
+                "method": "beauty",
+                "parameter": 170
+            }
+        ]
     },
     "Milotic": {
         "rom_id": 350,
@@ -43750,7 +48392,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Feebas",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Milotic",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Castform": {
         "rom_id": 351,
@@ -43866,7 +48519,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Castform",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kecleon": {
         "rom_id": 352,
@@ -44016,7 +48675,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kecleon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shuppet": {
         "rom_id": 353,
@@ -44145,7 +48810,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shuppet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Banette",
+                "method": "level",
+                "parameter": 37
+            }
+        ]
     },
     "Banette": {
         "rom_id": 354,
@@ -44290,7 +48966,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shuppet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Banette",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Duskull": {
         "rom_id": 355,
@@ -44413,7 +49100,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Duskull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dusclops",
+                "method": "level",
+                "parameter": 37
+            },
+            {
+                "species": "Dusknoir",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dusclops": {
         "rom_id": 356,
@@ -44573,7 +49276,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Duskull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dusclops",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dusknoir",
+                "method": "trade_with_item",
+                "parameter": "Reaper Cloth"
+            }
+        ]
     },
     "Tropius": {
         "rom_id": 357,
@@ -44703,7 +49422,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tropius",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chimecho": {
         "rom_id": 358,
@@ -44831,7 +49556,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chimecho",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Chingling",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Absol": {
         "rom_id": 359,
@@ -44992,7 +49728,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Absol",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wynaut": {
         "rom_id": 360,
@@ -45055,7 +49797,18 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Wobbuffet",
+                "method": "level",
+                "parameter": 15
+            },
+            {
+                "species": "Wynaut",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Snorunt": {
         "rom_id": 361,
@@ -45161,7 +49914,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snorunt",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glalie",
+                "method": "level",
+                "parameter": 42
+            },
+            {
+                "species": "Froslass",
+                "method": "item_female",
+                "parameter": "Dawn Stone"
+            }
+        ]
     },
     "Glalie": {
         "rom_id": 362,
@@ -45288,7 +50057,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snorunt",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glalie",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Froslass",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spheal": {
         "rom_id": 363,
@@ -45404,7 +50189,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spheal",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sealeo",
+                "method": "level",
+                "parameter": 32
+            },
+            {
+                "species": "Walrein",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Sealeo": {
         "rom_id": 364,
@@ -45525,7 +50326,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spheal",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sealeo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Walrein",
+                "method": "level",
+                "parameter": 44
+            }
+        ]
     },
     "Walrein": {
         "rom_id": 365,
@@ -45656,7 +50473,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spheal",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sealeo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Walrein",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Clamperl": {
         "rom_id": 366,
@@ -45732,7 +50565,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clamperl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Huntail",
+                "method": "trade_with_item",
+                "parameter": "Deep Sea Tooth"
+            },
+            {
+                "species": "Gorebyss",
+                "method": "trade_with_item",
+                "parameter": "Deep Sea Scale"
+            }
+        ]
     },
     "Huntail": {
         "rom_id": 367,
@@ -45839,7 +50688,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clamperl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Huntail",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gorebyss",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gorebyss": {
         "rom_id": 368,
@@ -45949,7 +50814,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Clamperl",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Huntail",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gorebyss",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Relicanth": {
         "rom_id": 369,
@@ -46072,7 +50953,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Relicanth",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Luvdisc": {
         "rom_id": 370,
@@ -46186,7 +51073,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Luvdisc",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bagon": {
         "rom_id": 371,
@@ -46298,7 +51191,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bagon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shelgon",
+                "method": "level",
+                "parameter": 30
+            },
+            {
+                "species": "Salamence",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shelgon": {
         "rom_id": 372,
@@ -46426,7 +51335,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bagon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shelgon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Salamence",
+                "method": "level",
+                "parameter": 50
+            }
+        ]
     },
     "Salamence": {
         "rom_id": 373,
@@ -46577,7 +51502,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bagon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shelgon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Salamence",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Beldum": {
         "rom_id": 374,
@@ -46616,7 +51557,23 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Beldum",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metang",
+                "method": "level",
+                "parameter": 20
+            },
+            {
+                "species": "Metagross",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Metang": {
         "rom_id": 375,
@@ -46751,7 +51708,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Beldum",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metang",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metagross",
+                "method": "level",
+                "parameter": 45
+            }
+        ]
     },
     "Metagross": {
         "rom_id": 376,
@@ -46891,7 +51864,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Beldum",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metang",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Metagross",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Regirock": {
         "rom_id": 377,
@@ -47014,7 +52003,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Regirock",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Regice": {
         "rom_id": 378,
@@ -47138,7 +52133,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Regice",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Registeel": {
         "rom_id": 379,
@@ -47271,7 +52272,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Registeel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Latias": {
         "rom_id": 380,
@@ -47427,7 +52434,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Latias",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Latios": {
         "rom_id": 381,
@@ -47583,7 +52596,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Latios",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kyogre": {
         "rom_id": 382,
@@ -47705,7 +52724,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kyogre",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Groudon": {
         "rom_id": 383,
@@ -47839,7 +52864,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Groudon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rayquaza": {
         "rom_id": 384,
@@ -47979,7 +53010,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rayquaza",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Jirachi": {
         "rom_id": 385,
@@ -48116,7 +53153,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Jirachi",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Deoxys": {
         "rom_id": 386,
@@ -48365,7 +53408,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Turtwig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grotle",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Torterra",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Grotle": {
         "rom_id": 388,
@@ -48477,7 +53536,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Turtwig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grotle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Torterra",
+                "method": "level",
+                "parameter": 32
+            }
+        ]
     },
     "Torterra": {
         "rom_id": 389,
@@ -48615,7 +53690,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Turtwig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Grotle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Torterra",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chimchar": {
         "rom_id": 390,
@@ -48739,7 +53830,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chimchar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Monferno",
+                "method": "level",
+                "parameter": 14
+            },
+            {
+                "species": "Infernape",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Monferno": {
         "rom_id": 391,
@@ -48877,7 +53984,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chimchar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Monferno",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Infernape",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Infernape": {
         "rom_id": 392,
@@ -49027,7 +54150,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chimchar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Monferno",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Infernape",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Piplup": {
         "rom_id": 393,
@@ -49145,7 +54284,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Piplup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Prinplup",
+                "method": "level",
+                "parameter": 16
+            },
+            {
+                "species": "Empoleon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Prinplup": {
         "rom_id": 394,
@@ -49275,7 +54430,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Piplup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Prinplup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Empoleon",
+                "method": "level",
+                "parameter": 36
+            }
+        ]
     },
     "Empoleon": {
         "rom_id": 395,
@@ -49421,7 +54592,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Piplup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Prinplup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Empoleon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Starly": {
         "rom_id": 396,
@@ -49526,7 +54713,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Starly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Staravia",
+                "method": "level",
+                "parameter": 14
+            },
+            {
+                "species": "Staraptor",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Staravia": {
         "rom_id": 397,
@@ -49636,7 +54839,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Starly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Staravia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Staraptor",
+                "method": "level",
+                "parameter": 34
+            }
+        ]
     },
     "Staraptor": {
         "rom_id": 398,
@@ -49756,7 +54975,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Starly",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Staravia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Staraptor",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bidoof": {
         "rom_id": 399,
@@ -49872,7 +55107,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bidoof",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bibarel",
+                "method": "level",
+                "parameter": 15
+            }
+        ]
     },
     "Bibarel": {
         "rom_id": 400,
@@ -50005,7 +55251,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bidoof",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bibarel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Kricketot": {
         "rom_id": 401,
@@ -50056,7 +55313,18 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kricketot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kricketune",
+                "method": "level",
+                "parameter": 10
+            }
+        ]
     },
     "Kricketune": {
         "rom_id": 402,
@@ -50173,7 +55441,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Kricketot",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kricketune",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shinx": {
         "rom_id": 403,
@@ -50283,7 +55562,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shinx",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Luxio",
+                "method": "level",
+                "parameter": 15
+            },
+            {
+                "species": "Luxray",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Luxio": {
         "rom_id": 404,
@@ -50397,7 +55692,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shinx",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Luxio",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Luxray",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Luxray": {
         "rom_id": 405,
@@ -50517,7 +55828,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shinx",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Luxio",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Luxray",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Budew": {
         "rom_id": 406,
@@ -50602,7 +55929,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Roselia",
+                "method": "friendship_day",
+                "parameter": null
+            },
+            {
+                "species": "Budew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Roserade",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Roserade": {
         "rom_id": 407,
@@ -50686,7 +56029,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Roselia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Budew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Roserade",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cranidos": {
         "rom_id": 408,
@@ -50807,7 +56166,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cranidos",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rampardos",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Rampardos": {
         "rom_id": 409,
@@ -50939,7 +56309,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cranidos",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rampardos",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shieldon": {
         "rom_id": 410,
@@ -51059,7 +56440,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shieldon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bastiodon",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Bastiodon": {
         "rom_id": 411,
@@ -51193,7 +56585,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shieldon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bastiodon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Burmy": {
         "rom_id": 412,
@@ -51244,7 +56647,33 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Burmy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Plant)",
+                "method": "level_female_plant_cloak",
+                "parameter": 20
+            },
+            {
+                "species": "Wormadam (Sandy)",
+                "method": "level_female_sandy_cloak",
+                "parameter": 20
+            },
+            {
+                "species": "Wormadam (Trash)",
+                "method": "level_female_trash_cloak",
+                "parameter": 20
+            },
+            {
+                "species": "Mothim",
+                "method": "level_male",
+                "parameter": 20
+            }
+        ]
     },
     "Wormadam": {
         "rom_id": 413,
@@ -51482,7 +56911,33 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Burmy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Plant)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Sandy)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Trash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mothim",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Combee": {
         "rom_id": 415,
@@ -51529,7 +56984,18 @@ const pokedex_black = {
         "tm_hm_learnset": [],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Combee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vespiquen",
+                "method": "level_female",
+                "parameter": 21
+            }
+        ]
     },
     "Vespiquen": {
         "rom_id": 416,
@@ -51658,7 +57124,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Combee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vespiquen",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Pachirisu": {
         "rom_id": 417,
@@ -51777,7 +57254,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Pachirisu",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Buizel": {
         "rom_id": 418,
@@ -51888,7 +57371,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Buizel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Floatzel",
+                "method": "level",
+                "parameter": 26
+            }
+        ]
     },
     "Floatzel": {
         "rom_id": 419,
@@ -52018,7 +57512,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Buizel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Floatzel",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Cherubi": {
         "rom_id": 420,
@@ -52116,7 +57621,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cherubi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cherrim",
+                "method": "level",
+                "parameter": 25
+            }
+        ]
     },
     "Cherrim": {
         "rom_id": 421,
@@ -52224,7 +57740,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cherubi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cherrim",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shellos": {
         "rom_id": 422,
@@ -52320,7 +57847,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shellos",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gastrodon",
+                "method": "level",
+                "parameter": 30
+            }
+        ]
     },
     "Gastrodon": {
         "rom_id": 423,
@@ -52443,7 +57981,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shellos",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gastrodon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Ambipom": {
         "rom_id": 424,
@@ -52584,7 +58133,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Aipom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ambipom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Drifloon": {
         "rom_id": 425,
@@ -52710,7 +58270,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Drifloon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Drifblim",
+                "method": "level",
+                "parameter": 28
+            }
+        ]
     },
     "Drifblim": {
         "rom_id": 426,
@@ -52847,7 +58418,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Drifloon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Drifblim",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Buneary": {
         "rom_id": 427,
@@ -52975,7 +58557,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Buneary",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lopunny",
+                "method": "friendship",
+                "parameter": null
+            }
+        ]
     },
     "Lopunny": {
         "rom_id": 428,
@@ -53118,7 +58711,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Buneary",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lopunny",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mismagius": {
         "rom_id": 429,
@@ -53214,7 +58818,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Misdreavus",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mismagius",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Honchkrow": {
         "rom_id": 430,
@@ -53325,7 +58940,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Murkrow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Honchkrow",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Glameow": {
         "rom_id": 431,
@@ -53447,7 +59073,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Glameow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Purugly",
+                "method": "level",
+                "parameter": 38
+            }
+        ]
     },
     "Purugly": {
         "rom_id": 432,
@@ -53585,7 +59222,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Glameow",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Purugly",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chingling": {
         "rom_id": 433,
@@ -53680,7 +59328,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chimecho",
+                "method": "friendship_night",
+                "parameter": null
+            },
+            {
+                "species": "Chingling",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Stunky": {
         "rom_id": 434,
@@ -53801,7 +59460,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Stunky",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Skuntank",
+                "method": "level",
+                "parameter": 34
+            }
+        ]
     },
     "Skuntank": {
         "rom_id": 435,
@@ -53934,7 +59604,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Stunky",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Skuntank",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bronzor": {
         "rom_id": 436,
@@ -54064,7 +59745,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bronzor",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bronzong",
+                "method": "level",
+                "parameter": 33
+            }
+        ]
     },
     "Bronzong": {
         "rom_id": 437,
@@ -54219,7 +59911,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Bronzor",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bronzong",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Bonsly": {
         "rom_id": 438,
@@ -54332,7 +60035,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sudowoodo",
+                "method": "knows_move",
+                "parameter": "Mimic"
+            },
+            {
+                "species": "Bonsly",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mime Jr.": {
         "rom_id": 439,
@@ -54478,7 +60192,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mr. Mime",
+                "method": "knows_move",
+                "parameter": "Mimic"
+            },
+            {
+                "species": "Mime Jr.",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Happiny": {
         "rom_id": 440,
@@ -54566,7 +60291,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chansey",
+                "method": "held_item_day",
+                "parameter": "Oval Stone"
+            },
+            {
+                "species": "Blissey",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Happiny",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Chatot": {
         "rom_id": 441,
@@ -54686,7 +60427,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Chatot",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Spiritomb": {
         "rom_id": 442,
@@ -54806,7 +60553,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Spiritomb",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gible": {
         "rom_id": 443,
@@ -54914,7 +60667,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gible",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gabite",
+                "method": "level",
+                "parameter": 24
+            },
+            {
+                "species": "Garchomp",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gabite": {
         "rom_id": 444,
@@ -55030,7 +60799,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gible",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gabite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Garchomp",
+                "method": "level",
+                "parameter": 48
+            }
+        ]
     },
     "Garchomp": {
         "rom_id": 445,
@@ -55171,7 +60956,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gible",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gabite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Garchomp",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Munchlax": {
         "rom_id": 446,
@@ -55312,7 +61113,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snorlax",
+                "method": "friendship",
+                "parameter": null
+            },
+            {
+                "species": "Munchlax",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Riolu": {
         "rom_id": 447,
@@ -55426,7 +61238,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Riolu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lucario",
+                "method": "friendship_day",
+                "parameter": null
+            }
+        ]
     },
     "Lucario": {
         "rom_id": 448,
@@ -55580,7 +61403,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Riolu",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lucario",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Hippopotas": {
         "rom_id": 449,
@@ -55682,7 +61516,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hippopotas",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hippowdon",
+                "method": "level",
+                "parameter": 34
+            }
+        ]
     },
     "Hippowdon": {
         "rom_id": 450,
@@ -55807,7 +61652,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Hippopotas",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hippowdon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Skorupi": {
         "rom_id": 451,
@@ -55936,7 +61792,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Skorupi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Drapion",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Drapion": {
         "rom_id": 452,
@@ -56089,7 +61956,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Skorupi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Drapion",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Croagunk": {
         "rom_id": 453,
@@ -56225,7 +62103,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Croagunk",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Toxicroak",
+                "method": "level",
+                "parameter": 37
+            }
+        ]
     },
     "Toxicroak": {
         "rom_id": 454,
@@ -56374,7 +62263,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Croagunk",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Toxicroak",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Carnivine": {
         "rom_id": 455,
@@ -56490,7 +62390,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Carnivine",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Finneon": {
         "rom_id": 456,
@@ -56608,7 +62514,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Finneon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lumineon",
+                "method": "level",
+                "parameter": 31
+            }
+        ]
     },
     "Lumineon": {
         "rom_id": 457,
@@ -56736,7 +62653,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Finneon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lumineon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mantyke": {
         "rom_id": 458,
@@ -56850,7 +62778,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mantine",
+                "method": "pokemon_in_party",
+                "parameter": "Remoraid"
+            },
+            {
+                "species": "Mantyke",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Snover": {
         "rom_id": 459,
@@ -56959,7 +62898,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snover",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Abomasnow",
+                "method": "level",
+                "parameter": 40
+            }
+        ]
     },
     "Abomasnow": {
         "rom_id": 460,
@@ -57091,7 +63041,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snover",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Abomasnow",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Weavile": {
         "rom_id": 461,
@@ -57247,7 +63208,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Sneasel",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Weavile",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magnezone": {
         "rom_id": 462,
@@ -57392,7 +63364,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magnemite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magneton",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magnezone",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Lickilicky": {
         "rom_id": 463,
@@ -57540,7 +63528,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Lickitung",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lickilicky",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rhyperior": {
         "rom_id": 464,
@@ -57696,7 +63695,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rhyhorn",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rhydon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rhyperior",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tangrowth": {
         "rom_id": 465,
@@ -57842,7 +63857,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Tangela",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tangrowth",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Electivire": {
         "rom_id": 466,
@@ -57985,7 +64011,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Electabuzz",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Elekid",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Electivire",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Magmortar": {
         "rom_id": 467,
@@ -58126,7 +64168,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Magmar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Magmortar",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Togekiss": {
         "rom_id": 468,
@@ -58220,7 +64278,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Togepi",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Togetic",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Togekiss",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Yanmega": {
         "rom_id": 469,
@@ -58362,7 +64436,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Yanma",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Yanmega",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Leafeon": {
         "rom_id": 470,
@@ -58486,7 +64571,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Glaceon": {
         "rom_id": 471,
@@ -58607,7 +64733,48 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Eevee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vaporeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jolteon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Flareon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Espeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Umbreon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leafeon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glaceon",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gliscor": {
         "rom_id": 472,
@@ -58768,7 +64935,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Gligar",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gliscor",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mamoswine": {
         "rom_id": 473,
@@ -58907,7 +65085,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Swinub",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Piloswine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mamoswine",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Porygon-Z": {
         "rom_id": 474,
@@ -59044,7 +65238,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Porygon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Porygon2",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Porygon-Z",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Gallade": {
         "rom_id": 475,
@@ -59219,7 +65429,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Ralts",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Kirlia",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gardevoir",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gallade",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Probopass": {
         "rom_id": 476,
@@ -59365,7 +65596,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Nosepass",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Probopass",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dusknoir": {
         "rom_id": 477,
@@ -59526,7 +65768,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Duskull",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dusclops",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dusknoir",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Froslass": {
         "rom_id": 478,
@@ -59658,7 +65916,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snorunt",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Glalie",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Froslass",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom": {
         "rom_id": 479,
@@ -59776,7 +66050,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Uxie": {
         "rom_id": 480,
@@ -59897,7 +66177,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Uxie",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Mesprit": {
         "rom_id": 481,
@@ -60019,7 +66305,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Mesprit",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Azelf": {
         "rom_id": 482,
@@ -60146,7 +66438,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Azelf",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Dialga": {
         "rom_id": 483,
@@ -60281,7 +66579,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Dialga",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Palkia": {
         "rom_id": 484,
@@ -60418,7 +66722,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Palkia",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Heatran": {
         "rom_id": 485,
@@ -60542,7 +66852,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Heatran",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Regigigas": {
         "rom_id": 486,
@@ -60666,7 +66982,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Regigigas",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Giratina": {
         "rom_id": 487,
@@ -60914,7 +67236,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Cresselia",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Phione": {
         "rom_id": 489,
@@ -61017,7 +67345,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Phione",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Manaphy": {
         "rom_id": 490,
@@ -61137,7 +67471,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Manaphy",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Darkrai": {
         "rom_id": 491,
@@ -61270,7 +67610,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Darkrai",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shaymin": {
         "rom_id": 492,
@@ -61538,7 +67884,13 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Arceus",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Victini": {
         "rom_id": 494,
@@ -62211,9 +68563,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tepig", "method": null, "parameter": null},
-            {"species": "Pignite", "method": null, "parameter": null},
-            {"species": "Emboar", "method": null, "parameter": null}
+            {
+                "species": "Tepig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pignite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Emboar",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Pignite": {
@@ -62366,9 +68730,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tepig", "method": null, "parameter": null},
-            {"species": "Pignite", "method": null, "parameter": null},
-            {"species": "Emboar", "method": null, "parameter": null}
+            {
+                "species": "Tepig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pignite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Emboar",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Emboar": {
@@ -62531,9 +68907,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tepig", "method": null, "parameter": null},
-            {"species": "Pignite", "method": null, "parameter": null},
-            {"species": "Emboar", "method": null, "parameter": null}
+            {
+                "species": "Tepig",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Pignite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Emboar",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Oshawott": {
@@ -62663,9 +69051,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Oshawott", "method": null, "parameter": null},
-            {"species": "Dewott", "method": null, "parameter": null},
-            {"species": "Samurott", "method": null, "parameter": null}
+            {
+                "species": "Oshawott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dewott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Samurott",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Dewott": {
@@ -62807,9 +69207,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Oshawott", "method": null, "parameter": null},
-            {"species": "Dewott", "method": null, "parameter": null},
-            {"species": "Samurott", "method": null, "parameter": null}
+            {
+                "species": "Oshawott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dewott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Samurott",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Samurott": {
@@ -62943,7 +69355,6 @@ const pokedex_black = {
             "Attract",
             "Round",
             "False Swipe",
-            
             "Fling",
             "Retaliate",
             "Giga Impact",
@@ -62963,9 +69374,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Oshawott", "method": null, "parameter": null},
-            {"species": "Dewott", "method": null, "parameter": null},
-            {"species": "Samurott", "method": null, "parameter": null}
+            {
+                "species": "Oshawott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Dewott",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Samurott",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Patrat": {
@@ -63087,8 +69510,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Patrat", "method": null, "parameter": null},
-            {"species": "Watchog", "method": null, "parameter": null}
+            {
+                "species": "Patrat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Watchog",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Watchog": {
@@ -63238,8 +69669,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Patrat", "method": null, "parameter": null},
-            {"species": "Watchog", "method": null, "parameter": null}
+            {
+                "species": "Patrat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Watchog",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Lillipup": {
@@ -63357,9 +69796,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Lillipup", "method": null, "parameter": null},
-            {"species": "Herdier", "method": null, "parameter": null},
-            {"species": "Stoutland", "method": null, "parameter": null}
+            {
+                "species": "Lillipup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Herdier",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Stoutland",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Herdier": {
@@ -63629,9 +70080,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Lillipup", "method": null, "parameter": null},
-            {"species": "Herdier", "method": null, "parameter": null},
-            {"species": "Stoutland", "method": null, "parameter": null}
+            {
+                "species": "Lillipup",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Herdier",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Stoutland",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Purrloin": {
@@ -63764,8 +70227,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Purrloin", "method": null, "parameter": null},
-            {"species": "Liepard", "method": null, "parameter": null}
+            {
+                "species": "Purrloin",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Liepard",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Liepard": {
@@ -63913,8 +70384,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Purrloin", "method": null, "parameter": null},
-            {"species": "Liepard", "method": null, "parameter": null}
+            {
+                "species": "Purrloin",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Liepard",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Pansage": {
@@ -64043,8 +70522,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pansage", "method": null, "parameter": null},
-            {"species": "Simisage", "method": null, "parameter": null}
+            {
+                "species": "Pansage",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simisage",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Simisage": {
@@ -64134,8 +70621,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pansage", "method": null, "parameter": null},
-            {"species": "Simisage", "method": null, "parameter": null}
+            {
+                "species": "Pansage",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simisage",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Pansear": {
@@ -64268,8 +70763,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pansear", "method": null, "parameter": null},
-            {"species": "Simisear", "method": null, "parameter": null}
+            {
+                "species": "Pansear",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simisear",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Simisear": {
@@ -64363,8 +70866,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pansear", "method": null, "parameter": null},
-            {"species": "Simisear", "method": null, "parameter": null}
+            {
+                "species": "Pansear",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simisear",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Panpour": {
@@ -64497,8 +71008,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Panpour", "method": null, "parameter": null},
-            {"species": "Simipour", "method": null, "parameter": null}
+            {
+                "species": "Panpour",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simipour",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Simipour": {
@@ -64592,8 +71111,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Panpour", "method": null, "parameter": null},
-            {"species": "Simipour", "method": null, "parameter": null}
+            {
+                "species": "Panpour",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Simipour",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Munna": {
@@ -64732,8 +71259,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Munna", "method": null, "parameter": null},
-            {"species": "Musharna", "method": null, "parameter": null}
+            {
+                "species": "Munna",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Musharna",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Musharna": {
@@ -64822,8 +71357,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Munna", "method": null, "parameter": null},
-            {"species": "Musharna", "method": null, "parameter": null}
+            {
+                "species": "Munna",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Musharna",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Pidove": {
@@ -64943,9 +71486,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pidove", "method": null, "parameter": null},
-            {"species": "Tranquil", "method": "level", "parameter": 18},
-            {"species": "Unfezant", "method": null, "parameter": null}
+            {
+                "species": "Pidove",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tranquil",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Unfezant",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Tranquil": {
@@ -65077,9 +71632,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pidove", "method": null, "parameter": null},
-            {"species": "Tranquil", "method": "level", "parameter": 18},
-            {"species": "Unfezant", "method": null, "parameter": null}
+            {
+                "species": "Pidove",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tranquil",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Unfezant",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Unfezant": {
@@ -65214,9 +71781,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pidove", "method": null, "parameter": null},
-            {"species": "Tranquil", "method": "level", "parameter": 18},
-            {"species": "Unfezant", "method": null, "parameter": null}
+            {
+                "species": "Pidove",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Tranquil",
+                "method": "level",
+                "parameter": 18
+            },
+            {
+                "species": "Unfezant",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Blitzle": {
@@ -65329,8 +71908,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Blitzle", "method": null, "parameter": null},
-            {"species": "Zebstrika", "method": null, "parameter": null}
+            {
+                "species": "Blitzle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zebstrika",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Zebstrika": {
@@ -65459,8 +72046,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Blitzle", "method": null, "parameter": null},
-            {"species": "Zebstrika", "method": null, "parameter": null}
+            {
+                "species": "Blitzle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zebstrika",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Roggenrola": {
@@ -65574,9 +72169,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Roggenrola", "method": null, "parameter": null},
-            {"species": "Boldore", "method": null, "parameter": null},
-            {"species": "Gigalith", "method": null, "parameter": null}
+            {
+                "species": "Roggenrola",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Boldore",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gigalith",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Boldore": {
@@ -65706,9 +72313,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Roggenrola", "method": null, "parameter": null},
-            {"species": "Boldore", "method": null, "parameter": null},
-            {"species": "Gigalith", "method": null, "parameter": null}
+            {
+                "species": "Roggenrola",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Boldore",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gigalith",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Gigalith": {
@@ -65841,9 +72460,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Roggenrola", "method": null, "parameter": null},
-            {"species": "Boldore", "method": null, "parameter": null},
-            {"species": "Gigalith", "method": null, "parameter": null}
+            {
+                "species": "Roggenrola",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Boldore",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gigalith",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Woobat": {
@@ -65976,8 +72607,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Woobat", "method": null, "parameter": null},
-            {"species": "Swoobat", "method": null, "parameter": null}
+            {
+                "species": "Woobat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swoobat",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Swoobat": {
@@ -66124,8 +72763,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Woobat", "method": null, "parameter": null},
-            {"species": "Swoobat", "method": null, "parameter": null}
+            {
+                "species": "Woobat",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swoobat",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Drilbur": {
@@ -66254,8 +72901,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Drilbur", "method": null, "parameter": null},
-            {"species": "Excadrill", "method": null, "parameter": null}
+            {
+                "species": "Drilbur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Excadrill",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Excadrill": {
@@ -66399,8 +73054,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Drilbur", "method": null, "parameter": null},
-            {"species": "Excadrill", "method": null, "parameter": null}
+            {
+                "species": "Drilbur",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Excadrill",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Audino": {
@@ -66673,9 +73336,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Timburr", "method": null, "parameter": null},
-            {"species": "Gurdurr", "method": null, "parameter": null},
-            {"species": "Conkeldurr", "method": null, "parameter": null}
+            {
+                "species": "Timburr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gurdurr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Conkeldurr",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Gurdurr": {
@@ -66818,9 +73493,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Timburr", "method": null, "parameter": null},
-            {"species": "Gurdurr", "method": null, "parameter": null},
-            {"species": "Conkeldurr", "method": null, "parameter": null}
+            {
+                "species": "Timburr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gurdurr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Conkeldurr",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Conkeldurr": {
@@ -66967,9 +73654,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Timburr", "method": null, "parameter": null},
-            {"species": "Gurdurr", "method": null, "parameter": null},
-            {"species": "Conkeldurr", "method": null, "parameter": null}
+            {
+                "species": "Timburr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gurdurr",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Conkeldurr",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Tympole": {
@@ -67083,9 +73782,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tympole", "method": null, "parameter": null},
-            {"species": "Palpitoad", "method": null, "parameter": null},
-            {"species": "Seismitoad", "method": null, "parameter": null}
+            {
+                "species": "Tympole",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Palpitoad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seismitoad",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Palpitoad": {
@@ -67209,9 +73920,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tympole", "method": null, "parameter": null},
-            {"species": "Palpitoad", "method": null, "parameter": null},
-            {"species": "Seismitoad", "method": null, "parameter": null}
+            {
+                "species": "Tympole",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Palpitoad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seismitoad",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Seismitoad": {
@@ -67357,9 +74080,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tympole", "method": null, "parameter": null},
-            {"species": "Palpitoad", "method": null, "parameter": null},
-            {"species": "Seismitoad", "method": null, "parameter": null}
+            {
+                "species": "Tympole",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Palpitoad",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Seismitoad",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Throh": {
@@ -67716,9 +74451,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sewaddle", "method": null, "parameter": null},
-            {"species": "Swadloon", "method": null, "parameter": null},
-            {"species": "Leavanny", "method": null, "parameter": null}
+            {
+                "species": "Sewaddle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swadloon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leavanny",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Swadloon": {
@@ -67805,9 +74552,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sewaddle", "method": null, "parameter": null},
-            {"species": "Swadloon", "method": null, "parameter": null},
-            {"species": "Leavanny", "method": null, "parameter": null}
+            {
+                "species": "Sewaddle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swadloon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leavanny",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Leavanny": {
@@ -67941,9 +74700,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sewaddle", "method": null, "parameter": null},
-            {"species": "Swadloon", "method": null, "parameter": null},
-            {"species": "Leavanny", "method": null, "parameter": null}
+            {
+                "species": "Sewaddle",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swadloon",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Leavanny",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Venipede": {
@@ -68059,9 +74830,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Venipede", "method": null, "parameter": null},
-            {"species": "Whirlipede", "method": null, "parameter": null},
-            {"species": "Scolipede", "method": null, "parameter": null}
+            {
+                "species": "Venipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whirlipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scolipede",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Whirlipede": {
@@ -68189,9 +74972,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Venipede", "method": null, "parameter": null},
-            {"species": "Whirlipede", "method": null, "parameter": null},
-            {"species": "Scolipede", "method": null, "parameter": null}
+            {
+                "species": "Venipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whirlipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scolipede",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Scolipede": {
@@ -68334,9 +75129,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Venipede", "method": null, "parameter": null},
-            {"species": "Whirlipede", "method": null, "parameter": null},
-            {"species": "Scolipede", "method": null, "parameter": null}
+            {
+                "species": "Venipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whirlipede",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scolipede",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cottonee": {
@@ -68459,8 +75266,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Cottonee", "method": null, "parameter": null},
-            {"species": "Whimsicott", "method": null, "parameter": null}
+            {
+                "species": "Cottonee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whimsicott",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Whimsicott": {
@@ -68556,8 +75371,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Cottonee", "method": null, "parameter": null},
-            {"species": "Whimsicott", "method": null, "parameter": null}
+            {
+                "species": "Cottonee",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Whimsicott",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Petilil": {
@@ -68680,8 +75503,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Petilil", "method": null, "parameter": null},
-            {"species": "Lilligant", "method": null, "parameter": null}
+            {
+                "species": "Petilil",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lilligant",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Lilligant": {
@@ -68772,8 +75603,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Petilil", "method": null, "parameter": null},
-            {"species": "Lilligant", "method": null, "parameter": null}
+            {
+                "species": "Petilil",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lilligant",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Basculin": {
@@ -69033,9 +75872,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sandile", "method": null, "parameter": null},
-            {"species": "Krokorok", "method": null, "parameter": null},
-            {"species": "Krookodile", "method": null, "parameter": null}
+            {
+                "species": "Sandile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krokorok",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krookodile",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Krokorok": {
@@ -69188,9 +76039,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sandile", "method": null, "parameter": null},
-            {"species": "Krokorok", "method": null, "parameter": null},
-            {"species": "Krookodile", "method": null, "parameter": null}
+            {
+                "species": "Sandile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krokorok",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krookodile",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Krookodile": {
@@ -69351,9 +76214,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Sandile", "method": null, "parameter": null},
-            {"species": "Krokorok", "method": null, "parameter": null},
-            {"species": "Krookodile", "method": null, "parameter": null}
+            {
+                "species": "Sandile",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krokorok",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Krookodile",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Darumaka": {
@@ -69489,8 +76364,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Darumaka", "method": null, "parameter": null},
-            {"species": "Darmanitan", "method": null, "parameter": null}
+            {
+                "species": "Darumaka",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Darmanitan",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Darmanitan": {
@@ -69653,8 +76536,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Darumaka", "method": null, "parameter": null},
-            {"species": "Darmanitan", "method": null, "parameter": null}
+            {
+                "species": "Darumaka",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Darmanitan",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Maractus": {
@@ -69913,8 +76804,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Dwebble", "method": null, "parameter": null},
-            {"species": "Crustle", "method": null, "parameter": null}
+            {
+                "species": "Dwebble",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crustle",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Crustle": {
@@ -70059,8 +76958,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Dwebble", "method": null, "parameter": null},
-            {"species": "Crustle", "method": null, "parameter": null}
+            {
+                "species": "Dwebble",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Crustle",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Scraggy": {
@@ -70202,8 +77109,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Scraggy", "method": null, "parameter": null},
-            {"species": "Scrafty", "method": null, "parameter": null}
+            {
+                "species": "Scraggy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scrafty",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Scrafty": {
@@ -70356,8 +77271,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Scraggy", "method": null, "parameter": null},
-            {"species": "Scrafty", "method": null, "parameter": null}
+            {
+                "species": "Scraggy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Scrafty",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Sigilyph": {
@@ -70623,8 +77546,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Yamask", "method": null, "parameter": null},
-            {"species": "Cofagrigus", "method": null, "parameter": null}
+            {
+                "species": "Yamask",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cofagrigus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cofagrigus": {
@@ -70763,8 +77694,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Yamask", "method": null, "parameter": null},
-            {"species": "Cofagrigus", "method": null, "parameter": null}
+            {
+                "species": "Yamask",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cofagrigus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Tirtouga": {
@@ -70905,8 +77844,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tirtouga", "method": null, "parameter": null},
-            {"species": "Carracosta", "method": null, "parameter": null}
+            {
+                "species": "Tirtouga",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Carracosta",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Carracosta": {
@@ -71054,8 +78001,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tirtouga", "method": null, "parameter": null},
-            {"species": "Carracosta", "method": null, "parameter": null}
+            {
+                "species": "Tirtouga",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Carracosta",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Archen": {
@@ -71197,8 +78152,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Archen", "method": null, "parameter": null},
-            {"species": "Archeops", "method": null, "parameter": null}
+            {
+                "species": "Archen",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Archeops",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Archeops": {
@@ -71349,8 +78312,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Archen", "method": null, "parameter": null},
-            {"species": "Archeops", "method": null, "parameter": null}
+            {
+                "species": "Archen",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Archeops",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Trubbish": {
@@ -71473,8 +78444,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Trubbish", "method": null, "parameter": null},
-            {"species": "Garbodor", "method": null, "parameter": null}
+            {
+                "species": "Trubbish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Garbodor",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Garbodor": {
@@ -71614,8 +78593,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Trubbish", "method": null, "parameter": null},
-            {"species": "Garbodor", "method": null, "parameter": null}
+            {
+                "species": "Trubbish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Garbodor",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Zorua": {
@@ -71750,8 +78737,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Zorua", "method": null, "parameter": null},
-            {"species": "Zoroark", "method": null, "parameter": null}
+            {
+                "species": "Zorua",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zoroark",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Zoroark": {
@@ -71909,8 +78904,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Zorua", "method": null, "parameter": null},
-            {"species": "Zoroark", "method": null, "parameter": null}
+            {
+                "species": "Zorua",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zoroark",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Minccino": {
@@ -72043,8 +79046,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Minccino", "method": null, "parameter": null},
-            {"species": "Cinccino", "method": null, "parameter": null}
+            {
+                "species": "Minccino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cinccino",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cinccino": {
@@ -72137,8 +79148,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Minccino", "method": null, "parameter": null},
-            {"species": "Cinccino", "method": null, "parameter": null}
+            {
+                "species": "Minccino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Cinccino",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Gothita": {
@@ -72278,9 +79297,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Gothita", "method": null, "parameter": null},
-            {"species": "Gothorita", "method": null, "parameter": null},
-            {"species": "Gothitelle", "method": null, "parameter": null}
+            {
+                "species": "Gothita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothitelle",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Gothorita": {
@@ -72432,9 +79463,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Gothita", "method": null, "parameter": null},
-            {"species": "Gothorita", "method": null, "parameter": null},
-            {"species": "Gothitelle", "method": null, "parameter": null}
+            {
+                "species": "Gothita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothitelle",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Gothitelle": {
@@ -72590,9 +79633,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Gothita", "method": null, "parameter": null},
-            {"species": "Gothorita", "method": null, "parameter": null},
-            {"species": "Gothitelle", "method": null, "parameter": null}
+            {
+                "species": "Gothita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothorita",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Gothitelle",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Solosis": {
@@ -72729,9 +79784,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Solosis", "method": null, "parameter": null},
-            {"species": "Duosion", "method": null, "parameter": null},
-            {"species": "Reuniclus", "method": null, "parameter": null}
+            {
+                "species": "Solosis",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Duosion",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Reuniclus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Duosion": {
@@ -72880,9 +79947,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Solosis", "method": null, "parameter": null},
-            {"species": "Duosion", "method": null, "parameter": null},
-            {"species": "Reuniclus", "method": null, "parameter": null}
+            {
+                "species": "Solosis",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Duosion",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Reuniclus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Reuniclus": {
@@ -73042,9 +80121,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Solosis", "method": null, "parameter": null},
-            {"species": "Duosion", "method": null, "parameter": null},
-            {"species": "Reuniclus", "method": null, "parameter": null}
+            {
+                "species": "Solosis",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Duosion",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Reuniclus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Ducklett": {
@@ -73164,8 +80255,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Ducklett", "method": null, "parameter": null},
-            {"species": "Swanna", "method": null, "parameter": null}
+            {
+                "species": "Ducklett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swanna",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Swanna": {
@@ -73299,8 +80398,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Ducklett", "method": null, "parameter": null},
-            {"species": "Swanna", "method": null, "parameter": null}
+            {
+                "species": "Ducklett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Swanna",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Vanillite": {
@@ -73419,9 +80526,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Vanillite", "method": null, "parameter": null},
-            {"species": "Vanillish", "method": null, "parameter": null},
-            {"species": "Vanilluxe", "method": null, "parameter": null}
+            {
+                "species": "Vanillite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanillish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanilluxe",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Vanillish": {
@@ -73552,9 +80671,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Vanillite", "method": null, "parameter": null},
-            {"species": "Vanillish", "method": null, "parameter": null},
-            {"species": "Vanilluxe", "method": null, "parameter": null}
+            {
+                "species": "Vanillite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanillish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanilluxe",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Vanilluxe": {
@@ -73691,9 +80822,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Vanillite", "method": null, "parameter": null},
-            {"species": "Vanillish", "method": null, "parameter": null},
-            {"species": "Vanilluxe", "method": null, "parameter": null}
+            {
+                "species": "Vanillite",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanillish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Vanilluxe",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Deerling": {
@@ -73818,8 +80961,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Deerling", "method": null, "parameter": null},
-            {"species": "Sawsbuck", "method": null, "parameter": null}
+            {
+                "species": "Deerling",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sawsbuck",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Sawsbuck": {
@@ -73965,8 +81116,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Deerling", "method": null, "parameter": null},
-            {"species": "Sawsbuck", "method": null, "parameter": null}
+            {
+                "species": "Deerling",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Sawsbuck",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Emolga": {
@@ -74209,8 +81368,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Karrablast", "method": null, "parameter": null},
-            {"species": "Escavalier", "method": null, "parameter": null}
+            {
+                "species": "Karrablast",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Escavalier",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Escavalier": {
@@ -74346,8 +81513,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Karrablast", "method": null, "parameter": null},
-            {"species": "Escavalier", "method": null, "parameter": null}
+            {
+                "species": "Karrablast",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Escavalier",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Foongus": {
@@ -74466,8 +81641,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Foongus", "method": null, "parameter": null},
-            {"species": "Amoonguss", "method": null, "parameter": null}
+            {
+                "species": "Foongus",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Amoonguss",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Amoonguss": {
@@ -74600,8 +81783,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Foongus", "method": null, "parameter": null},
-            {"species": "Amoonguss", "method": null, "parameter": null}
+            {
+                "species": "Foongus",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Amoonguss",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Frillish": {
@@ -74728,8 +81919,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Frillish", "method": null, "parameter": null},
-            {"species": "Jellicent", "method": null, "parameter": null}
+            {
+                "species": "Frillish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jellicent",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Jellicent": {
@@ -74866,8 +82065,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Frillish", "method": null, "parameter": null},
-            {"species": "Jellicent", "method": null, "parameter": null}
+            {
+                "species": "Frillish",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Jellicent",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Alomomola": {
@@ -75127,8 +82334,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Joltik", "method": null, "parameter": null},
-            {"species": "Galvantula", "method": null, "parameter": null}
+            {
+                "species": "Joltik",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Galvantula",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Galvantula": {
@@ -75264,8 +82479,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Joltik", "method": null, "parameter": null},
-            {"species": "Galvantula", "method": null, "parameter": null}
+            {
+                "species": "Joltik",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Galvantula",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Ferroseed": {
@@ -75387,8 +82610,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Ferroseed", "method": null, "parameter": null},
-            {"species": "Ferrothorn", "method": null, "parameter": null}
+            {
+                "species": "Ferroseed",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ferrothorn",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Ferrothorn": {
@@ -75537,8 +82768,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Ferroseed", "method": null, "parameter": null},
-            {"species": "Ferrothorn", "method": null, "parameter": null}
+            {
+                "species": "Ferroseed",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Ferrothorn",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Klink": {
@@ -75657,9 +82896,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Klink", "method": null, "parameter": null},
-            {"species": "Klang", "method": null, "parameter": null},
-            {"species": "Klinklang", "method": null, "parameter": null}
+            {
+                "species": "Klink",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klang",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klinklang",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Klang": {
@@ -75790,9 +83041,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Klink", "method": null, "parameter": null},
-            {"species": "Klang", "method": null, "parameter": null},
-            {"species": "Klinklang", "method": null, "parameter": null}
+            {
+                "species": "Klink",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klang",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klinklang",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Klinklang": {
@@ -75926,9 +83189,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Klink", "method": null, "parameter": null},
-            {"species": "Klang", "method": null, "parameter": null},
-            {"species": "Klinklang", "method": null, "parameter": null}
+            {
+                "species": "Klink",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klang",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Klinklang",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Tynamo": {
@@ -75980,9 +83255,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tynamo", "method": null, "parameter": null},
-            {"species": "Eelektrik", "method": null, "parameter": null},
-            {"species": "Eelektross", "method": null, "parameter": null}
+            {
+                "species": "Tynamo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektrik",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektross",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Eelektrik": {
@@ -76103,9 +83390,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tynamo", "method": null, "parameter": null},
-            {"species": "Eelektrik", "method": null, "parameter": null},
-            {"species": "Eelektross", "method": null, "parameter": null}
+            {
+                "species": "Tynamo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektrik",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektross",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Eelektross": {
@@ -76200,9 +83499,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Tynamo", "method": null, "parameter": null},
-            {"species": "Eelektrik", "method": null, "parameter": null},
-            {"species": "Eelektross", "method": null, "parameter": null}
+            {
+                "species": "Tynamo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektrik",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Eelektross",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Elgyem": {
@@ -76348,8 +83659,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Elgyem", "method": null, "parameter": null},
-            {"species": "Beheeyem", "method": null, "parameter": null}
+            {
+                "species": "Elgyem",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beheeyem",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Beheeyem": {
@@ -76509,8 +83828,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Elgyem", "method": null, "parameter": null},
-            {"species": "Beheeyem", "method": null, "parameter": null}
+            {
+                "species": "Elgyem",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beheeyem",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Litwick": {
@@ -76651,9 +83978,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Litwick", "method": null, "parameter": null},
-            {"species": "Lampent", "method": null, "parameter": null},
-            {"species": "Chandelure", "method": null, "parameter": null}
+            {
+                "species": "Litwick",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lampent",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Chandelure",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Lampent": {
@@ -76802,9 +84141,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Litwick", "method": null, "parameter": null},
-            {"species": "Lampent", "method": null, "parameter": null},
-            {"species": "Chandelure", "method": null, "parameter": null}
+            {
+                "species": "Litwick",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lampent",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Chandelure",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Chandelure": {
@@ -76895,9 +84246,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Litwick", "method": null, "parameter": null},
-            {"species": "Lampent", "method": null, "parameter": null},
-            {"species": "Chandelure", "method": null, "parameter": null}
+            {
+                "species": "Litwick",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Lampent",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Chandelure",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Axew": {
@@ -77032,9 +84395,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Axew", "method": null, "parameter": null},
-            {"species": "Fraxure", "method": null, "parameter": null},
-            {"species": "Haxorus", "method": null, "parameter": null}
+            {
+                "species": "Axew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Fraxure",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haxorus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Fraxure": {
@@ -77183,9 +84558,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Axew", "method": null, "parameter": null},
-            {"species": "Fraxure", "method": null, "parameter": null},
-            {"species": "Haxorus", "method": null, "parameter": null}
+            {
+                "species": "Axew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Fraxure",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haxorus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Haxorus": {
@@ -77342,9 +84729,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Axew", "method": null, "parameter": null},
-            {"species": "Fraxure", "method": null, "parameter": null},
-            {"species": "Haxorus", "method": null, "parameter": null}
+            {
+                "species": "Axew",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Fraxure",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Haxorus",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cubchoo": {
@@ -77471,8 +84870,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Cubchoo", "method": null, "parameter": null},
-            {"species": "Beartic", "method": null, "parameter": null}
+            {
+                "species": "Cubchoo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beartic",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Beartic": {
@@ -77631,8 +85038,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Cubchoo", "method": null, "parameter": null},
-            {"species": "Beartic", "method": null, "parameter": null}
+            {
+                "species": "Cubchoo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Beartic",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cryogonal": {
@@ -77880,8 +85295,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Shelmet", "method": null, "parameter": null},
-            {"species": "Accelgor", "method": null, "parameter": null}
+            {
+                "species": "Shelmet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Accelgor",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Accelgor": {
@@ -78014,8 +85437,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Shelmet", "method": null, "parameter": null},
-            {"species": "Accelgor", "method": null, "parameter": null}
+            {
+                "species": "Shelmet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Accelgor",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Stunfisk": {
@@ -78282,8 +85713,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Mienfoo", "method": null, "parameter": null},
-            {"species": "Mienshao", "method": null, "parameter": null}
+            {
+                "species": "Mienfoo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mienshao",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Mienshao": {
@@ -78438,8 +85877,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Mienfoo", "method": null, "parameter": null},
-            {"species": "Mienshao", "method": null, "parameter": null}
+            {
+                "species": "Mienfoo",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mienshao",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Druddigon": {
@@ -78715,8 +86162,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Golett", "method": null, "parameter": null},
-            {"species": "Golurk", "method": null, "parameter": null}
+            {
+                "species": "Golett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golurk",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Golurk": {
@@ -78863,8 +86318,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Golett", "method": null, "parameter": null},
-            {"species": "Golurk", "method": null, "parameter": null}
+            {
+                "species": "Golett",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Golurk",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Pawniard": {
@@ -79005,8 +86468,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pawniard", "method": null, "parameter": null},
-            {"species": "Bisharp", "method": null, "parameter": null}
+            {
+                "species": "Pawniard",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bisharp",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Bisharp": {
@@ -79292,8 +86763,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Pawniard", "method": null, "parameter": null},
-            {"species": "Bisharp", "method": null, "parameter": null}
+            {
+                "species": "Pawniard",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Bisharp",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Rufflet": {
@@ -79425,8 +86904,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Rufflet", "method": null, "parameter": null},
-            {"species": "Braviary", "method": null, "parameter": null}
+            {
+                "species": "Rufflet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Braviary",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Braviary": {
@@ -79572,8 +87059,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Rufflet", "method": null, "parameter": null},
-            {"species": "Braviary", "method": null, "parameter": null}
+            {
+                "species": "Rufflet",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Braviary",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Vullaby": {
@@ -79707,8 +87202,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Vullaby", "method": null, "parameter": null},
-            {"species": "Mandibuzz", "method": null, "parameter": null}
+            {
+                "species": "Vullaby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mandibuzz",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Mandibuzz": {
@@ -79856,8 +87359,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Vullaby", "method": null, "parameter": null},
-            {"species": "Mandibuzz", "method": null, "parameter": null}
+            {
+                "species": "Vullaby",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mandibuzz",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Heatmor": {
@@ -80243,9 +87754,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Deino", "method": null, "parameter": null},
-            {"species": "Zweilous", "method": null, "parameter": null},
-            {"species": "Hydreigon", "method": null, "parameter": null}
+            {
+                "species": "Deino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zweilous",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hydreigon",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Zweilous": {
@@ -80379,9 +87902,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Deino", "method": null, "parameter": null},
-            {"species": "Zweilous", "method": null, "parameter": null},
-            {"species": "Hydreigon", "method": null, "parameter": null}
+            {
+                "species": "Deino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zweilous",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hydreigon",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Hydreigon": {
@@ -80534,9 +88069,21 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Deino", "method": null, "parameter": null},
-            {"species": "Zweilous", "method": null, "parameter": null},
-            {"species": "Hydreigon", "method": null, "parameter": null}
+            {
+                "species": "Deino",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Zweilous",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Hydreigon",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Larvesta": {
@@ -80649,8 +88196,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Larvesta", "method": null, "parameter": null},
-            {"species": "Volcarona", "method": null, "parameter": null}
+            {
+                "species": "Larvesta",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Volcarona",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Volcarona": {
@@ -80780,8 +88335,16 @@ const pokedex_black = {
         "tutor_learnset": [],
         "egg_moves": [],
         "evolution_family": [
-            {"species": "Larvesta", "method": null, "parameter": null},
-            {"species": "Volcarona", "method": null, "parameter": null}
+            {
+                "species": "Larvesta",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Volcarona",
+                "method": null,
+                "parameter": null
+            }
         ]
     },
     "Cobalion": {
@@ -82718,7 +90281,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Deoxys (Normal)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Attack)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Defense)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Speed)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Deoxys (Defense)": {
         "rom_id": 653,
@@ -82836,7 +90420,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Deoxys (Normal)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Attack)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Defense)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Speed)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Deoxys (Speed)": {
         "rom_id": 654,
@@ -82951,7 +90556,28 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Deoxys (Normal)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Attack)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Defense)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Deoxys (Speed)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wormadam (Sandy)": {
         "rom_id": 655,
@@ -83056,7 +90682,33 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Burmy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Plant)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Sandy)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Trash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mothim",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Wormadam (Trash)": {
         "rom_id": 656,
@@ -83187,7 +90839,33 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Burmy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Plant)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Sandy)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Wormadam (Trash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Mothim",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Shaymin (Sky)": {
         "rom_id": 657,
@@ -83305,7 +90983,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Shaymin (Land)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Shaymin (Sky)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Giratina (Origin)": {
         "rom_id": 658,
@@ -83423,7 +91112,18 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Giratina (Altered)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Giratina (Origin)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom (Heat)": {
         "rom_id": 659,
@@ -83541,7 +91241,38 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Heat)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Wash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Frost)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Fan)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Mow)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom (Wash)": {
         "rom_id": 660,
@@ -83659,7 +91390,38 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Heat)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Wash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Frost)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Fan)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Mow)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom (Frost)": {
         "rom_id": 661,
@@ -83777,7 +91539,38 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Heat)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Wash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Frost)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Fan)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Mow)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom (Fan)": {
         "rom_id": 662,
@@ -83893,7 +91686,38 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Heat)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Wash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Frost)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Fan)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Mow)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Rotom (Mow)": {
         "rom_id": 663,
@@ -84009,7 +91833,38 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Rotom",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Heat)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Wash)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Frost)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Fan)",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Rotom (Mow)",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Castform (Sunny)": {
         "rom_id": 664,
