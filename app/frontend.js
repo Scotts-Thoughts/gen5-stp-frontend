@@ -2246,17 +2246,25 @@ const app = Vue.createApp({
             return '';
         },
         movepoolOpacity() {
-            // Return opacity for movepool during evolution transition
+            // Return opacity for movepool during evolution transition only
+            // Battle transitions are handled by Vue's transition component
             if (this.evolution_transitioning) {
                 return 1 - this.evolution_transition_progress;
             }
+            
+            // For non-evolution transitions, don't set opacity (let Vue transition handle it)
+            // Return 1 so it's visible when rendered, Vue transition will handle fade in/out
             return 1;
         },
         movepoolTransition() {
             // Return transition style for movepool
+            // During evolution transitions, use longer transition
             if (this.evolution_transitioning) {
                 return 'opacity 1s ease-in-out';
             }
+            
+            // For battle state changes, return empty string to use default in template
+            // The template will fall back to 'opacity 0.5s ease-in-out' if this is empty
             return '';
         },
         statsDisplaySpecies() {

@@ -644,7 +644,7 @@
                     </div>
                 </div>
                 <!-- Movepool -->
-                <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="`filter: drop-shadow(0px 1px 1px); opacity: ${movepoolOpacity}; transition: ${movepoolTransition}`">
+                <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="evolution_transitioning ? `filter: drop-shadow(0px 1px 1px); opacity: ${movepoolOpacity}; transition: ${movepoolTransition};` : `filter: drop-shadow(0px 1px 1px);`">
                     <table class="movepoolDemo" cellspacing="0" :style="movepoolResize()">
                         <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '2px solid #000'}">
                             <th class="movepool_header movepool_way">Way</th>
