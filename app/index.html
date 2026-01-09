@@ -34,9 +34,11 @@
                 drop-shadow(0 0 0.4px #000)
                 drop-shadow(0 0 0.4px #000)
                 drop-shadow(${imageFlip ? '-3px' : '3px'} 3px 3px #000)
-                `
+                `,
+                'opacity': pokemonArtOpacity,
+                'transition': pokemonArtTransition
             }" 
-            :src="`images/pokemon/${starter}.png`" />
+            :src="`images/pokemon/${displayedPokemonSpecies}.png`" />
             <div class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/game_area.svg)"></div>
             <div v-show="playerResets == 0 || blackout_counter == 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>
             <div v-show="playerResets > 0 && blackout_counter > 0" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer_2.svg)"></div>
@@ -195,13 +197,15 @@
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
                     </table>
-                    <div v-if="evolution == true">
-                        <!-- <div>Forms:</div>
-                        <div v-for="evolution in g5PokemonData[starter].evolution_family">
-                            <div>- {{evolution.species}}</div>
-                        </div>
-                        <br> -->
-                        Splits Label: <input type="text" v-model="evolution_splits_label"/><br>
+                    <div v-if="evolution == true && evolution_family_list.length > 0">
+                        <div>Evolution Family Style:</div>
+                        <select v-model="selected_evolution_species" class="dropdownMenu">
+                            <option disabled value="">Select a species in the evolution family</option>
+                            <option v-for="species in evolution_family_list" :value="`${species}`">{{species}}</option>
+                        </select>
+                        <br>
+                        <button @click="copyCurrentStylesToAllFamilyMembers()" class="buttonStyle">Copy Current Styles to All Family Members</button>
+                        <br>
                     </div>
                     <br>
                     <div>Hidden Power:</div>
@@ -402,7 +406,7 @@
                                 <div :class="`playerMods hp_spd_${stat.mod_abrv}Mod`" style="font-family: play;">{{ stage_modifiers(n_battle_data_fix.modifiers[stat.path].value) }}</div>
                             </div>
                             <div :style="{ opacity: statLabelOpacity()[stat.name]}" :class="`stat_label_style stat_row_${stat[`stat_row`]} stat_column_${stat.label_column}`">{{stat.label}}</div>
-                            <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[starter]?.base_stats[stat.path]}}</div>
+                            <div v-if="stats_setting == 'Base Stats'"          :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column}`">{{g5PokemonData[statsDisplaySpecies]?.base_stats[stat.path]}}</div>
                             <div v-if="stats_setting == 'IVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} dv`">{{get_iv(`${stat.name}`)}}/31</div>
                             <div v-if="stats_setting == 'EVs'"                 :id="stat.abrv" :class="`stat_value_style stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} evs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
                             <div v-if="stats_setting == 'Detailed EVs'"        :id="stat.abrv" :class="`stat_value_style detailed_ev_stat_row_${stat[`stat_row`]} stat_column_${stat.value_column} devs`">{{mapper.properties.player.team[0].evs[stat.path].value}}/255</div>
@@ -640,7 +644,7 @@
                     </div>
                 </div>
                 <!-- Movepool -->
-                <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="`filter: drop-shadow(0px 1px 1px)`">
+                <div v-else-if="right_ui == 'Movepool' || right_ui == 'Automatic'" key="6" :style="`filter: drop-shadow(0px 1px 1px); opacity: ${movepoolOpacity}; transition: ${movepoolTransition}`">
                     <table class="movepoolDemo" cellspacing="0" :style="movepoolResize()">
                         <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '2px solid #000'}">
                             <th class="movepool_header movepool_way">Way</th>
@@ -651,7 +655,7 @@
                             <th class="movepool_header movepool_tableC">Acc.</th>
                             <th class="movepool_header movepool_tableC">PP</th>
                         </tr>
-                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
+                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, displayedPokemonSpecies).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
                             <td class="movepool_way">{{x.Level}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
@@ -660,7 +664,7 @@
                             <td class="movepool_tableC">{{x.accuracy}}%</td>
                             <td class="movepool_tableC">{{x.pp}}</td>
                         </tr>
-                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, starter).tmhm" :style="getUnobtainableMoveStyle(x, selected_game)">
+                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, displayedPokemonSpecies).tmhm" :style="getUnobtainableMoveStyle(x, selected_game)">
                             <td v-if="x.Move == 'Whirlpool'" class="movepool_way">HM05</td>
                             <td v-else class="movepool_way">{{x.tmhm}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>

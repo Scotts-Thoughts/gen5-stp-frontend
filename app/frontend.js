@@ -311,7 +311,9 @@ for (let folder of ['splits', 'splits/Platinum', 'splits/HGSS']) {
 function logData(gameName, str, file_name, split_file_prefix, log_type, testStatus, toggle, evolution, evolution_label, refilming_mode) {
     return new Promise((resolve, reject) => {
         const testStatusText = 'testrun_';
-        if (evolution == true) {
+        // When evolution is enabled, use the evolution_label which should be in "FullyEvolved-line" format
+        // Otherwise, use split_file_prefix which is the species name
+        if (evolution == true && evolution_label) {
             split_file_prefix = evolution_label;
         }
         // File paths
@@ -471,27 +473,28 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
     );
 }
 
-function logCopy(gameName, file_name, starterName, finished_run_count, evolution, evolution_label) {
-    var dirPathAttempts = evolution == true ? `./splits/${gameName}/${evolution_label}` : `./splits/${gameName}/${starterName}`;
-    var dirPathFinishes = evolution == true ? `./splits/${gameName}/${evolution_label}/finishes` : `./splits/${gameName}/${starterName}/finishes`;
+function logCopy(gameName, file_name, splitFileName, finished_run_count, evolution, evolution_label) {
+    // Use splitFileName for directory paths and file names
+    var dirPathAttempts = `./splits/${gameName}/${splitFileName}`;
+    var dirPathFinishes = `./splits/${gameName}/${splitFileName}/finishes`;
     fs.mkdir(dirPathFinishes, { recursive: true }, (err) => {
         fs.copyFile(
-            path.join(dirPathAttempts, `${starterName}-${file_name}-simple.csv`), 
-            path.join(dirPathFinishes, `${starterName}-${finished_run_count}-simple.csv`), (err) => {
+            path.join(dirPathAttempts, `${splitFileName}-${file_name}-simple.csv`), 
+            path.join(dirPathFinishes, `${splitFileName}-${finished_run_count}-simple.csv`), (err) => {
             if (err) {
                 console.error(err);
             }
         });
         fs.copyFile(
-            path.join(dirPathAttempts, `${starterName}-${file_name}-full.csv`), 
-            path.join(dirPathFinishes, `${starterName}-${finished_run_count}-full.csv`), (err) => {
+            path.join(dirPathAttempts, `${splitFileName}-${file_name}-full.csv`), 
+            path.join(dirPathFinishes, `${splitFileName}-${finished_run_count}-full.csv`), (err) => {
             if (err) {
                 console.error(err);
             }
         });
         fs.copyFile(
-            path.join(dirPathAttempts, `${starterName}-${file_name}-deprecated.csv`), 
-            path.join(dirPathFinishes, `${starterName}-${finished_run_count}-deprecated.csv`), (err) => {
+            path.join(dirPathAttempts, `${splitFileName}-${file_name}-deprecated.csv`), 
+            path.join(dirPathFinishes, `${splitFileName}-${finished_run_count}-deprecated.csv`), (err) => {
             if (err) {
                 console.error(err);
             }
@@ -527,6 +530,17 @@ const app = Vue.createApp({
             autosplitter_toggle          : true,
             evolution                    : MyStorage["evolution"] ?? false,
             evolution_splits_label       : MyStorage["evolution_splits_label"] ?? "",
+            selected_evolution_species   : null,  // Currently selected species in evolution family for styling
+            evolution_family_list        : [],    // List of species in the current evolution family
+            last_known_species           : null,  // Track last known species for evolution detection
+            last_known_personality_value : null,  // Track last known personality value for evolution detection
+            evolution_transitioning      : false, // Flag to track if evolution transition is in progress
+            evolution_old_species        : null,  // Species before evolution (for transition)
+            evolution_new_species        : null,  // Species after evolution (for transition)
+            evolution_transition_progress: 0,     // Progress of evolution transition (0-1)
+            show_evolved_base_stats      : false, // Flag to show base stats of evolved species until next battle
+            evolved_species_for_stats    : null,  // Species to show base stats for
+            is_loading_evolution_style   : false, // Flag to prevent watchers from saving during style loading
             selected_game                : MyStorage['selected_game'] ?? "Black",
             available_games              : ["Black", "White", "Black 2", "White 2"], // ["Black", "White", "Black 2", "White 2"],
             starter_choice               : "Tepig",
@@ -925,14 +939,37 @@ const app = Vue.createApp({
             this.$watch(
                 () => this[propName],
                 (newValue) => {
-                    // Ensure that MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] is an object
-                    if (!MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]) {
-                        MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`] = {};
+                    // Skip saving if we're currently loading evolution styles to prevent overwriting
+                    if (this.is_loading_evolution_style) {
+                        return;
+                    }
+                    
+                    // Shared evolution family properties (ability, nature, gender, hidden power) 
+                    // should be saved to the evolution family storage key when evolution is enabled
+                    // These settings apply to all members of the evolution family
+                    const sharedEvolutionFamilyProperties = ['pkmnNature', 'pkmn_ability', 'pkmn_gender', 'hidden_power_type', 'hidden_power_index'];
+                    const isSharedFamilyProperty = sharedEvolutionFamilyProperties.includes(propName);
+                    
+                    let storageKey;
+                    if (this.evolution && isSharedFamilyProperty) {
+                        // Use evolution family storage key for shared properties (e.g., "Black_Unfezant-line")
+                        storageKey = this.getEvolutionFamilyStorageKey(this.starter);
+                    } else {
+                        // Use the appropriate storage key based on evolution mode for other properties
+                        // If evolution is enabled and selected_evolution_species is set, use evolution line storage
+                        // Otherwise, use individual species storage
+                        // This ensures styles are saved to the correct location (e.g., "Black_Unfezant-line-Pidove" vs "Black_Pidove")
+                        storageKey = this.getCurrentStorageKey();
+                    }
+                    
+                    // Ensure that MyStorage[storageKey] is an object
+                    if (!MyStorage[storageKey]) {
+                        MyStorage[storageKey] = {};
                     }
 
                     // Set the new value
-                    MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`] = {
-                            ...MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`],
+                    MyStorage[storageKey] = {
+                            ...MyStorage[storageKey],
                             [propName]: newValue
                     };
                 }
@@ -1039,49 +1076,131 @@ const app = Vue.createApp({
             }
             this.set_starter_stats_object.ability = 0;
         },
+        evolution(newValue) {
+            // When evolution checkbox is toggled, update evolution family list
+            if (newValue) {
+                this.updateEvolutionFamilyList();
+                // Set default selected evolution species to the starter
+                if (!this.selected_evolution_species && this.evolution_family_list.length > 0) {
+                    this.selected_evolution_species = this.starter;
+                    this.loadEvolutionStyle(this.selected_evolution_species, true);
+                    
+                    // Save selected evolution species to storage
+                    const game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+                    if (!MyStorage[`${game_name}_${this.starter}`]) {
+                        MyStorage[`${game_name}_${this.starter}`] = {};
+                    }
+                    MyStorage[`${game_name}_${this.starter}`] = {
+                        ...MyStorage[`${game_name}_${this.starter}`],
+                        selected_evolution_species: this.starter
+                    };
+                } else if (this.selected_evolution_species) {
+                    // Load styles for the already selected species
+                    this.loadEvolutionStyle(this.selected_evolution_species, true);
+                }
+            } else {
+                // When disabled, load individual species styles
+                this.loadEvolutionStyle(this.starter, false);
+            }
+        },
+        selected_evolution_species(newValue, oldValue) {
+            // When a different evolution family species is selected in the dropdown:
+            // 1. The Pokemon art will automatically update via displayedPokemonSpecies computed property
+            // 2. Load its styles from evolution line storage (e.g., "Unfezant-line-Pidove")
+            // 3. If there's a transition (oldValue exists), perform a fade transition
+            // 4. Save the selection to storage
+            if (newValue && this.evolution) {
+                // Load evolution line styles first (before transition) to ensure styles are loaded
+                // The flag in loadEvolutionStyle will prevent watchers from overwriting
+                this.loadEvolutionStyle(newValue, true);
+                
+                // Recalculate movepool size for the new species
+                this.$nextTick(() => {
+                    this.movepoolResize();
+                });
+                
+                // If we're changing from one species to another (not initial load), perform transition
+                if (oldValue && oldValue !== newValue) {
+                    this.performEvolutionTransition(oldValue, newValue);
+                }
+                
+                // Save selected evolution species to storage
+                const game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+                if (!MyStorage[`${game_name}_${this.starter}`]) {
+                    MyStorage[`${game_name}_${this.starter}`] = {};
+                }
+                MyStorage[`${game_name}_${this.starter}`] = {
+                    ...MyStorage[`${game_name}_${this.starter}`],
+                    selected_evolution_species: newValue
+                };
+            }
+        },
         starter(newValue, oldValue) {
             const starter = newValue
             const game = this.mapper?.properties.meta.game_name.value
             const state = this.mapper?.properties.meta.state.value
             MyStorage['starter'] = newValue
-            if (!MyStorage[`${game}_${starter}`]) {
-                MyStorage[`${game}_${starter}`] = {};
+            
+            // Update evolution family list when starter changes
+            this.updateEvolutionFamilyList();
+            
+            // If evolution is enabled, load selected_evolution_species from storage or default to starter
+            if (this.evolution && this.evolution_family_list.length > 0) {
+                // Load selected evolution species from storage
+                const stored_evolution_species = MyStorage[`${game}_${starter}`]?.selected_evolution_species;
+                if (stored_evolution_species && this.evolution_family_list.includes(stored_evolution_species)) {
+                    this.selected_evolution_species = stored_evolution_species;
+                } else {
+                    // Default to starter if not set or invalid
+                    this.selected_evolution_species = starter;
+                    // Save it
+                    if (!MyStorage[`${game}_${starter}`]) {
+                        MyStorage[`${game}_${starter}`] = {};
+                    }
+                    MyStorage[`${game}_${starter}`] = {
+                        ...MyStorage[`${game}_${starter}`],
+                        selected_evolution_species: starter
+                    };
+                }
+                
+                // Load evolution line styles for the selected species
+                this.loadEvolutionStyle(this.selected_evolution_species, true);
+            } else {
+                // Load individual species styles
+                if (!MyStorage[`${game}_${starter}`]) {
+                    MyStorage[`${game}_${starter}`] = {};
+                }
+                this.loadEvolutionStyle(starter, false);
             }
-            //background texture settings
-            this.overlay_color          = MyStorage[`${game}_${starter}`]?.overlay_color    ?? this.default_colors[this.g5PokemonData[starter].type_1];
-            this.ui_saturation          = MyStorage[`${game}_${starter}`]?.ui_saturation    ?? 0.6;
             
-            this.frame                  = MyStorage[`${game}_${starter}`]?.frame ?? false
-            this.imageXOffset           = MyStorage[`${game}_${starter}`]?.imageXOffset     ?? 0;
-            this.imageYOffset           = MyStorage[`${game}_${starter}`]?.imageYOffset     ?? 0;
-            this.imageScale             = MyStorage[`${game}_${starter}`]?.imageScale       ?? 1;
-            this.imageFlip              = MyStorage[`${game}_${starter}`]?.imageFlip        ?? false;
-            this.imageSat               = MyStorage[`${game}_${starter}`]?.imageSat         ?? 100
-            this.imageRotation          = MyStorage[`${game}_${starter}`]?.imageRotation    ?? 0
-
-            this.backgroundTexture      = MyStorage[`${game}_${starter}`]?.backgroundTexture     ?? `${this.pokedex_black[starter].type_1}`
-            this.backgroundBlur         = MyStorage[`${game}_${starter}`]?.backgroundBlur        ?? this.default_texture_settings('backgroundBlur', 0)
-            this.backgroundHue          = MyStorage[`${game}_${starter}`]?.backgroundHue         ?? this.default_texture_settings('backgroundHue', 0)
-            this.backgroundScale        = MyStorage[`${game}_${starter}`]?.backgroundScale       ?? this.default_texture_settings('backgroundScale', 100)
-            this.backgroundUrl          = MyStorage[`${game}_${starter}`]?.backgroundUrl         ?? this.default_texture_settings('backgroundUrl', "")
-            this.backgroundFlip         = MyStorage[`${game}_${starter}`]?.backgroundFlip        ?? this.default_texture_settings('backgroundFlip', false)
-            this.use_custom_background  = MyStorage[`${game}_${starter}`]?.use_custom_background ?? this.default_texture_settings('use_custom_background', false)
-            this.backgroundXOffset      = MyStorage[`${game}_${starter}`]?.backgroundXOffset     ?? this.default_texture_settings('backgroundXOffset', 0)
-            this.backgroundYOffset      = MyStorage[`${game}_${starter}`]?.backgroundYOffset     ?? this.default_texture_settings('backgroundYOffset', 0)
-            this.backgroundBrightness   = MyStorage[`${game}_${starter}`]?.backgroundBrightness  ?? this.default_texture_settings('backgroundBrightness', 100)
-            this.backgroundContrast     = MyStorage[`${game}_${starter}`]?.backgroundContrast    ?? this.default_texture_settings('backgroundContrast', 100)
-            this.backgroundSaturation   = MyStorage[`${game}_${starter}`]?.backgroundSaturation  ?? this.default_texture_settings('backgroundSaturation', 100)
+            // Keep frame setting from individual storage for now
+            this.frame = MyStorage[`${game}_${starter}`]?.frame ?? false
             
-            //main pokemon settings
-            this.pkmnNature   = MyStorage[`${game}_${starter}`]?.pkmnNature            ?? "Hardy",
-            this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability           ?? null,
+            // Load shared evolution family settings (ability, nature, gender, hidden power) if evolution is enabled
+            // Otherwise, load from individual species storage
+            if (this.evolution) {
+                const evolutionFamilyStorageKey = this.getEvolutionFamilyStorageKey(starter);
+                const familyStored = MyStorage[evolutionFamilyStorageKey] || {};
+                
+                // Load from evolution family storage, fallback to individual storage, then defaults
+                this.pkmnNature = familyStored.pkmnNature ?? MyStorage[`${game}_${starter}`]?.pkmnNature ?? "Hardy";
+                this.pkmn_ability = familyStored.pkmn_ability ?? MyStorage[`${game}_${starter}`]?.pkmn_ability ?? this.g5PokemonData[starter]?.abilities?.[0] ?? null;
+                this.pkmn_gender = familyStored.pkmn_gender ?? MyStorage[`${game}_${starter}`]?.pkmn_gender ?? "Female";
+                this.hidden_power_type = familyStored.hidden_power_type ?? MyStorage[`${game}_${starter}`]?.hidden_power_type ?? "Dark";
+                this.hidden_power_index = familyStored.hidden_power_index ?? MyStorage[`${game}_${starter}`]?.hidden_power_index ?? 0;
+            } else {
+                // Evolution is disabled, load from individual species storage
+                this.pkmnNature = MyStorage[`${game}_${starter}`]?.pkmnNature ?? "Hardy";
+                this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability ?? null;
+                this.pkmn_gender = MyStorage[`${game}_${starter}`]?.pkmn_gender ?? "Female";
+                this.hidden_power_type = MyStorage[`${game}_${starter}`]?.hidden_power_type ?? "Dark";
+                this.hidden_power_index = MyStorage[`${game}_${starter}`]?.hidden_power_index ?? 0;
+            }
+            
             //! FIX_LATER Fix this implementation later
             // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
-            this.hidden_power_type      = MyStorage[`${game}_${starter}`]?.hidden_power_type     ?? "Dark",
-            this.hidden_power_index     = MyStorage[`${game}_${starter}`]?.hidden_power_index    ?? 0,
-            this.pkmn_gender            = MyStorage[`${game}_${starter}`]?.pkmn_gender           ?? "Female"
-            this.encounters_route_1     = MyStorage[`${game}_${starter}`]?.encounters_route_1     ?? false
-            this.encounters_route_2     = MyStorage[`${game}_${starter}`]?.encounters_route_2     ?? false
+            this.encounters_route_1 = MyStorage[`${game}_${starter}`]?.encounters_route_1 ?? false
+            this.encounters_route_2 = MyStorage[`${game}_${starter}`]?.encounters_route_2 ?? false
             
             // Evolution management
             if (this.evolution != true) {
@@ -2111,9 +2230,119 @@ const app = Vue.createApp({
             }
             return this.textures[this.backgroundTexture].path;
         },
+        pokemonArtOpacity() {
+            // Return opacity for Pokemon art during evolution transition
+            if (this.evolution_transitioning) {
+                // Fade out old, fade in new
+                return 1 - this.evolution_transition_progress;
+            }
+            return 1;
+        },
+        pokemonArtTransition() {
+            // Return transition style for Pokemon art
+            if (this.evolution_transitioning) {
+                return 'opacity 1s ease-in-out';
+            }
+            return '';
+        },
+        movepoolOpacity() {
+            // Return opacity for movepool during evolution transition
+            if (this.evolution_transitioning) {
+                return 1 - this.evolution_transition_progress;
+            }
+            return 1;
+        },
+        movepoolTransition() {
+            // Return transition style for movepool
+            if (this.evolution_transitioning) {
+                return 'opacity 1s ease-in-out';
+            }
+            return '';
+        },
+        statsDisplaySpecies() {
+            // Return the species to display stats for
+            // If showing evolved base stats, use the evolved species
+            if (this.show_evolved_base_stats && this.evolved_species_for_stats) {
+                return this.evolved_species_for_stats;
+            }
+            return this.starter;
+        },
+        displayedPokemonSpecies() {
+            // Return the Pokemon species to display in the art
+            // When evolution is enabled, use selected_evolution_species from dropdown
+            // Otherwise, use starter
+            if (this.evolution && this.selected_evolution_species) {
+                return this.selected_evolution_species;
+            }
+            return this.starter;
+        },
     },
 
     methods: {
+        // Evolution family helper functions
+        getFullyEvolvedSpecies(species) {
+            // Get the fully evolved species from the evolution family
+            // This is the species with method == null and parameter == null (or the last one)
+            const evolution_family = this.g5PokemonData[species]?.evolution_family;
+            if (!evolution_family || evolution_family.length === 0) {
+                return species; // If no evolution family, return the species itself
+            }
+            
+            // Find the fully evolved species (the one with no method/parameter, or the last one)
+            let fullyEvolved = species;
+            for (const member of evolution_family) {
+                if (member.method == null && member.parameter == null) {
+                    fullyEvolved = member.species;
+                }
+            }
+            // If we didn't find one with null method, get the last one
+            if (fullyEvolved === species && evolution_family.length > 0) {
+                fullyEvolved = evolution_family[evolution_family.length - 1].species;
+            }
+            return fullyEvolved;
+        },
+        getEvolutionFamily(species) {
+            // Get the list of species in the evolution family
+            const evolution_family = this.g5PokemonData[species]?.evolution_family;
+            if (!evolution_family || evolution_family.length === 0) {
+                return [species]; // If no evolution family, return just the species
+            }
+            return evolution_family.map(member => member.species).filter(s => s != null);
+        },
+        getStorageKey(species, useEvolutionLine = false) {
+            // Get the storage key for a species
+            // If useEvolutionLine is true, use "FullyEvolved-line-Species" format
+            // Otherwise, use just the species name
+            if (!useEvolutionLine) {
+                return `${this.mapper?.properties?.meta?.game_name?.value || this.selected_game}_${species}`;
+            }
+            
+            const fullyEvolved = this.getFullyEvolvedSpecies(species);
+            return `${this.mapper?.properties?.meta?.game_name?.value || this.selected_game}_${fullyEvolved}-line-${species}`;
+        },
+        getEvolutionFamilyStorageKey(species) {
+            // Get the storage key for the entire evolution family (shared settings like ability, nature, gender)
+            // Format: "Game_FullyEvolved-line" (e.g., "Black_Unfezant-line")
+            const fullyEvolved = this.getFullyEvolvedSpecies(species);
+            return `${this.mapper?.properties?.meta?.game_name?.value || this.selected_game}_${fullyEvolved}-line`;
+        },
+        getSplitFileName() {
+            // Get the filename for split files
+            // If evolution is enabled, use "FullyEvolved-line" format
+            // Otherwise, use the species name
+            if (!this.evolution) {
+                return this.starter;
+            }
+            const fullyEvolved = this.getFullyEvolvedSpecies(this.starter);
+            return `${fullyEvolved}-line`;
+        },
+        getCurrentStorageKey() {
+            // Get the current storage key based on whether evolution is enabled and which species is selected
+            if (this.evolution && this.selected_evolution_species) {
+                return this.getStorageKey(this.selected_evolution_species, true);
+            }
+            return this.getStorageKey(this.starter, false);
+        },
         calculate_zoroark(pokemon_ram_data) {
             const starting_enemy_ram_address = 0x226A220 + (0x560 * 2)
             const illusion_indirect_enemy_mon_address_start = pokemon_ram_data.illusion_pointer.value
@@ -3422,6 +3651,104 @@ const app = Vue.createApp({
             
             console.log(`Successfully copied overlay settings from "${copy_from}" to "${copy_to}".`)
         },
+        copyCurrentStylesToAllFamilyMembers() {
+            // Copy all style settings from the currently selected evolution family member
+            // to all other members of the evolution family
+            if (!this.evolution || !this.selected_evolution_species || this.evolution_family_list.length <= 1) {
+                console.log("Evolution mode must be enabled and you must have multiple species in the evolution family.")
+                return
+            }
+            
+            const game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+            const sourceSpecies = this.selected_evolution_species;
+            const sourceStorageKey = this.getStorageKey(sourceSpecies, true); // Evolution line storage
+            
+            // Initialize source storage if it doesn't exist
+            if (!MyStorage[sourceStorageKey]) {
+                MyStorage[sourceStorageKey] = {};
+            }
+            
+            // List of all styling properties to copy
+            // This includes all properties from pokemon_settings that affect visual styling
+            const stylingProperties = [
+                // Overlay color and UI settings
+                'overlay_color',
+                'ui_saturation',
+                
+                // Pokemon image settings
+                'imageXOffset',
+                'imageYOffset',
+                'imageScale',
+                'imageFlip',
+                'imageSat',
+                'imageRotation',
+                
+                // Background texture settings
+                'backgroundTexture',
+                'backgroundBlur',
+                'backgroundHue',
+                'backgroundScale',
+                'backgroundUrl',
+                'backgroundFlip',
+                'use_custom_background',
+                'backgroundXOffset',
+                'backgroundYOffset',
+                'backgroundBrightness',
+                'backgroundContrast',
+                'backgroundSaturation'
+            ]
+            
+            // Build the source data object with all current values
+            const sourceData = {};
+            stylingProperties.forEach(prop => {
+                if (this[prop] !== undefined) {
+                    sourceData[prop] = this[prop];
+                }
+            });
+            
+            // First, save current values to source storage key to ensure consistency
+            // Get existing data (handles null case when key doesn't exist)
+            const sourceExistingData = MyStorage[sourceStorageKey];
+            MyStorage[sourceStorageKey] = {
+                ...(sourceExistingData || {}),
+                ...sourceData
+            };
+            
+            // Copy to all other members of the evolution family
+            let copiedCount = 0;
+            const copiedValues = {}; // Store what we're copying for debugging
+            this.evolution_family_list.forEach(targetSpecies => {
+                if (targetSpecies !== sourceSpecies) {
+                    const targetStorageKey = this.getStorageKey(targetSpecies, true); // Evolution line storage
+                    
+                    // Get existing data (might be null if key doesn't exist)
+                    const existingData = MyStorage[targetStorageKey] || {};
+                    
+                    // Copy all properties at once - merge existing with new source data
+                    const mergedData = {
+                        ...existingData,
+                        ...sourceData
+                    };
+                    
+                    // Save to storage - this will trigger the Proxy's set trap
+                    MyStorage[targetStorageKey] = mergedData;
+                    
+                    // Store for debugging
+                    copiedValues[targetSpecies] = { ...sourceData };
+                    
+                    // Verify what was actually saved (re-read from storage to confirm)
+                    const verifiedData = MyStorage[targetStorageKey];
+                    
+                    copiedCount++;
+                    // Debug: Log what was copied for this species
+                    console.log(`Copied to ${targetSpecies} (key: ${targetStorageKey}):`, copiedValues[targetSpecies]);
+                    // Verify what was actually saved
+                    console.log(`Verified storage for ${targetSpecies}:`, verifiedData);
+                }
+            });
+            
+            console.log(`Successfully copied style settings from "${sourceSpecies}" (key: ${sourceStorageKey}) to ${copiedCount} other family member(s).`);
+        },
         load_all_settings() {
             const game_name                    = this.mapper.properties.meta.game_name.value
             this.starter                       = MyStorage["starter"]                ?? "Heatran"
@@ -3481,37 +3808,76 @@ const app = Vue.createApp({
             this.move3_replacement =          MyStorage['move3_replacement']          ?? ""
             this.move4_replacement =          MyStorage['move4_replacement']          ?? ""
 
-            //Pokemon settings for local storage
-            this.overlay_color = MyStorage[`${game_name}_${this.starter}`]?.overlay_color ?? this.default_colors[`${this.g5PokemonData[this.starter].type_1}`]
-            this.imageXOffset =  MyStorage[`${game_name}_${this.starter}`]?.imageXOffset ?? 0
-            this.imageYOffset =  MyStorage[`${game_name}_${this.starter}`]?.imageYOffset ?? 0
-            this.imageScale =    MyStorage[`${game_name}_${this.starter}`]?.imageScale ?? 1
-            this.imageFlip =     MyStorage[`${game_name}_${this.starter}`]?.imageFlip ?? false
-            this.imageSat =      MyStorage[`${game_name}_${this.starter}`]?.imageSat ?? 100
-            this.imageRotation = MyStorage[`${game_name}_${this.starter}`]?.imageRotation ?? 0
-
-            //background texture settings
-            this.backgroundBlur =        MyStorage[`${game_name}_${this.starter}`]?.backgroundBlur ?? 0
-            this.backgroundHue =         MyStorage[`${game_name}_${this.starter}`]?.backgroundHue ?? 0
-            this.backgroundScale =       MyStorage[`${game_name}_${this.starter}`]?.backgroundScale ?? 100
-            this.backgroundUrl =         MyStorage[`${game_name}_${this.starter}`]?.backgroundUrl ?? ""
-            this.backgroundFlip =        MyStorage[`${game_name}_${this.starter}`]?.backgroundFlip ?? false
-            this.use_custom_background = MyStorage[`${game_name}_${this.starter}`]?.use_custom_background ?? false
-            this.backgroundXOffset =     MyStorage[`${game_name}_${this.starter}`]?.backgroundXOffset ?? 0
-            this.backgroundYOffset =     MyStorage[`${game_name}_${this.starter}`]?.backgroundYOffset ?? 0
-            this.backgroundTexture =     MyStorage[`${game_name}_${this.starter}`]?.backgroundTexture ?? `${this.g5PokemonData[this.starter].type_1}`
-            this.backgroundBrightness =  MyStorage[`${game_name}_${this.starter}`]?.backgroundBrightness ?? 100
-            this.backgroundContrast =    MyStorage[`${game_name}_${this.starter}`]?.backgroundContrast ?? 100
-            this.backgroundSaturation =  MyStorage[`${game_name}_${this.starter}`]?.backgroundSaturation ?? 100
-            
-            //UI styling
-            this.ui_saturation =  MyStorage[`${game_name}_${this.starter}`]?.ui_saturation ?? .6
-
             const evolution_family = this.g5PokemonData[this.starter]?.evolution_family ?? [ {species: null, method: null,}, {species: null, method: null,}, {species: null, method: null,}, ]
             this.evolution =               MyStorage[`${game_name}_${this.starter}`]?.evolution              ?? false
             this.evolution_splits_label =  MyStorage[`${game_name}_${this.starter}`]?.evolution_splits_label ?? ""
             this.copy_overlay_pokemon_from = MyStorage['copy_overlay_pokemon_from'] ?? ""
             this.copy_overlay_pokemon_to   = MyStorage['copy_overlay_pokemon_to']   ?? ""
+
+            // Update evolution family list
+            this.updateEvolutionFamilyList();
+            
+            // Load styles based on whether evolution is enabled
+            if (this.evolution && this.evolution_family_list.length > 0) {
+                // Load shared evolution family settings (ability, nature, gender, hidden power)
+                // These are stored in the evolution family storage key (e.g., "Black_Unfezant-line")
+                const evolutionFamilyStorageKey = this.getEvolutionFamilyStorageKey(this.starter);
+                const familyStored = MyStorage[evolutionFamilyStorageKey] || {};
+                
+                // Load shared family settings
+                this.pkmnNature = familyStored.pkmnNature ?? MyStorage[`${game_name}_${this.starter}`]?.pkmnNature ?? "Hardy";
+                this.pkmn_ability = familyStored.pkmn_ability ?? MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability ?? this.g5PokemonData[this.starter]?.abilities?.[0] ?? null;
+                this.pkmn_gender = familyStored.pkmn_gender ?? MyStorage[`${game_name}_${this.starter}`]?.pkmn_gender ?? "Female";
+                this.hidden_power_type = familyStored.hidden_power_type ?? MyStorage[`${game_name}_${this.starter}`]?.hidden_power_type ?? "Dark";
+                this.hidden_power_index = familyStored.hidden_power_index ?? MyStorage[`${game_name}_${this.starter}`]?.hidden_power_index ?? 0;
+                
+                // Load selected evolution species from storage
+                const stored_evolution_species = MyStorage[`${game_name}_${this.starter}`]?.selected_evolution_species;
+                if (stored_evolution_species && this.evolution_family_list.includes(stored_evolution_species)) {
+                    this.selected_evolution_species = stored_evolution_species;
+                } else {
+                    // Default to starter if not set or invalid
+                    this.selected_evolution_species = this.starter;
+                    // Save it
+                    if (!MyStorage[`${game_name}_${this.starter}`]) {
+                        MyStorage[`${game_name}_${this.starter}`] = {};
+                    }
+                    MyStorage[`${game_name}_${this.starter}`] = {
+                        ...MyStorage[`${game_name}_${this.starter}`],
+                        selected_evolution_species: this.starter
+                    };
+                }
+                
+                // Load evolution line styles for the selected species (this will also load the shared settings if they're in the individual storage)
+                this.loadEvolutionStyle(this.selected_evolution_species, true);
+            } else {
+                // Evolution is disabled, load individual species styles
+                //Pokemon settings for local storage
+                this.overlay_color = MyStorage[`${game_name}_${this.starter}`]?.overlay_color ?? this.default_colors[`${this.g5PokemonData[this.starter].type_1}`]
+                this.imageXOffset =  MyStorage[`${game_name}_${this.starter}`]?.imageXOffset ?? 0
+                this.imageYOffset =  MyStorage[`${game_name}_${this.starter}`]?.imageYOffset ?? 0
+                this.imageScale =    MyStorage[`${game_name}_${this.starter}`]?.imageScale ?? 1
+                this.imageFlip =     MyStorage[`${game_name}_${this.starter}`]?.imageFlip ?? false
+                this.imageSat =      MyStorage[`${game_name}_${this.starter}`]?.imageSat ?? 100
+                this.imageRotation = MyStorage[`${game_name}_${this.starter}`]?.imageRotation ?? 0
+
+                //background texture settings
+                this.backgroundBlur =        MyStorage[`${game_name}_${this.starter}`]?.backgroundBlur ?? 0
+                this.backgroundHue =         MyStorage[`${game_name}_${this.starter}`]?.backgroundHue ?? 0
+                this.backgroundScale =       MyStorage[`${game_name}_${this.starter}`]?.backgroundScale ?? 100
+                this.backgroundUrl =         MyStorage[`${game_name}_${this.starter}`]?.backgroundUrl ?? ""
+                this.backgroundFlip =        MyStorage[`${game_name}_${this.starter}`]?.backgroundFlip ?? false
+                this.use_custom_background = MyStorage[`${game_name}_${this.starter}`]?.use_custom_background ?? false
+                this.backgroundXOffset =     MyStorage[`${game_name}_${this.starter}`]?.backgroundXOffset ?? 0
+                this.backgroundYOffset =     MyStorage[`${game_name}_${this.starter}`]?.backgroundYOffset ?? 0
+                this.backgroundTexture =     MyStorage[`${game_name}_${this.starter}`]?.backgroundTexture ?? `${this.g5PokemonData[this.starter].type_1}`
+                this.backgroundBrightness =  MyStorage[`${game_name}_${this.starter}`]?.backgroundBrightness ?? 100
+                this.backgroundContrast =    MyStorage[`${game_name}_${this.starter}`]?.backgroundContrast ?? 100
+                this.backgroundSaturation =  MyStorage[`${game_name}_${this.starter}`]?.backgroundSaturation ?? 100
+                
+                //UI styling
+                this.ui_saturation =  MyStorage[`${game_name}_${this.starter}`]?.ui_saturation ?? .6
+            }
 
             //main pokemon settings
             this.pkmnNature   = MyStorage[`${game_name}_${this.starter}`]?.pkmnNature            ?? "Hardy"
@@ -3568,10 +3934,163 @@ const app = Vue.createApp({
             this.overlay_color = newColor;
         },
         set_pokemon_prop(property_name, value) {
-            MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] = {
-                ...MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`],
+            // Use the appropriate storage key based on evolution mode
+            const storageKey = this.getCurrentStorageKey();
+            MyStorage[storageKey] = {
+                ...MyStorage[storageKey],
                 [property_name]: value,
             }
+        },
+        updateEvolutionFamilyList() {
+            // Update the evolution family list when starter changes
+            this.evolution_family_list = this.getEvolutionFamily(this.starter);
+            // Set default selected evolution species to the starter if not set
+            if (this.evolution && this.evolution_family_list.length > 0) {
+                if (!this.selected_evolution_species || !this.evolution_family_list.includes(this.selected_evolution_species)) {
+                    this.selected_evolution_species = this.starter;
+                }
+            }
+        },
+        loadEvolutionStyle(species, useEvolutionLine = false) {
+            // Set flag to prevent watchers from saving during loading
+            this.is_loading_evolution_style = true;
+            
+            // Load styles for a species, either from evolution line storage or individual storage
+            const game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+            const storageKey = useEvolutionLine ? this.getStorageKey(species, true) : this.getStorageKey(species, false);
+            
+            // Debug: Log what we're trying to load
+            console.log(`Loading styles for ${species} (useEvolutionLine: ${useEvolutionLine}, key: ${storageKey})`);
+            console.log(`Storage data for ${species}:`, MyStorage[storageKey]);
+            
+            // Load overlay and image settings
+            this.overlay_color = MyStorage[storageKey]?.overlay_color ?? this.default_colors[this.g5PokemonData[species]?.type_1] ?? this.default_colors.Normal;
+            this.ui_saturation = MyStorage[storageKey]?.ui_saturation ?? 0.6;
+            this.imageXOffset = MyStorage[storageKey]?.imageXOffset ?? 0;
+            this.imageYOffset = MyStorage[storageKey]?.imageYOffset ?? 0;
+            this.imageScale = MyStorage[storageKey]?.imageScale ?? 1;
+            this.imageFlip = MyStorage[storageKey]?.imageFlip ?? false;
+            this.imageSat = MyStorage[storageKey]?.imageSat ?? 100;
+            this.imageRotation = MyStorage[storageKey]?.imageRotation ?? 0;
+            
+            // Load background texture settings
+            // Use 'in' operator to check if property exists in storage, to handle 0 and false values correctly
+            const stored = MyStorage[storageKey] || {};
+            
+            this.backgroundTexture = 'backgroundTexture' in stored ? stored.backgroundTexture : `${this.g5PokemonData[species]?.type_1}`;
+            this.backgroundBlur = 'backgroundBlur' in stored ? stored.backgroundBlur : 0;
+            this.backgroundHue = 'backgroundHue' in stored ? stored.backgroundHue : 0;
+            this.backgroundScale = 'backgroundScale' in stored ? stored.backgroundScale : 100;
+            this.backgroundUrl = 'backgroundUrl' in stored ? stored.backgroundUrl : "";
+            this.backgroundFlip = 'backgroundFlip' in stored ? stored.backgroundFlip : false;
+            this.use_custom_background = 'use_custom_background' in stored ? stored.use_custom_background : false;
+            this.backgroundXOffset = 'backgroundXOffset' in stored ? stored.backgroundXOffset : 0;
+            this.backgroundYOffset = 'backgroundYOffset' in stored ? stored.backgroundYOffset : 0;
+            this.backgroundBrightness = 'backgroundBrightness' in stored ? stored.backgroundBrightness : 100;
+            this.backgroundContrast = 'backgroundContrast' in stored ? stored.backgroundContrast : 100;
+            this.backgroundSaturation = 'backgroundSaturation' in stored ? stored.backgroundSaturation : 100;
+            
+            // Load shared evolution family settings (ability, nature, gender, hidden power) if using evolution line
+            if (useEvolutionLine) {
+                const familyStorageKey = this.getEvolutionFamilyStorageKey(species);
+                const familyStored = MyStorage[familyStorageKey] || {};
+                
+                // Load ability, nature, gender, and hidden power from family storage
+                // Use 'in' operator to check if property exists, handling null/undefined correctly
+                if ('pkmnNature' in familyStored) {
+                    this.pkmnNature = familyStored.pkmnNature;
+                }
+                if ('pkmn_ability' in familyStored) {
+                    this.pkmn_ability = familyStored.pkmn_ability;
+                } else if (this.pkmn_ability === null || this.pkmn_ability === undefined) {
+                    // Only default to first ability if not set at all
+                    this.pkmn_ability = this.g5PokemonData[species]?.abilities?.[0] ?? null;
+                }
+                if ('pkmn_gender' in familyStored) {
+                    this.pkmn_gender = familyStored.pkmn_gender;
+                }
+                if ('hidden_power_type' in familyStored) {
+                    this.hidden_power_type = familyStored.hidden_power_type;
+                }
+                if ('hidden_power_index' in familyStored) {
+                    this.hidden_power_index = familyStored.hidden_power_index;
+                }
+            }
+            
+            // Debug: Log what was actually loaded
+            console.log(`Loaded background settings for ${species}:`, {
+                backgroundTexture: this.backgroundTexture,
+                backgroundXOffset: this.backgroundXOffset,
+                backgroundYOffset: this.backgroundYOffset,
+                backgroundScale: this.backgroundScale,
+                backgroundBrightness: this.backgroundBrightness,
+                backgroundContrast: this.backgroundContrast,
+                backgroundSaturation: this.backgroundSaturation,
+                backgroundBlur: this.backgroundBlur,
+                backgroundHue: this.backgroundHue,
+                backgroundFlip: this.backgroundFlip
+            });
+            
+            // Clear flag after loading is complete, use $nextTick to ensure all watchers have fired
+            this.$nextTick(() => {
+                this.is_loading_evolution_style = false;
+            });
+        },
+        async performEvolutionTransition(oldSpecies, newSpecies) {
+            // Perform smooth fade transition between old and new overlays
+            this.evolution_transitioning = true;
+            this.evolution_old_species = oldSpecies;
+            this.evolution_new_species = newSpecies;
+            
+            // Get old and new styles
+            const oldStorageKey = this.getStorageKey(oldSpecies, true);
+            const newStorageKey = this.getStorageKey(newSpecies, true);
+            const game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+            
+            const oldOverlayColor = MyStorage[oldStorageKey]?.overlay_color ?? this.default_colors[this.g5PokemonData[oldSpecies]?.type_1] ?? this.default_colors.Normal;
+            const newOverlayColor = MyStorage[newStorageKey]?.overlay_color ?? this.default_colors[this.g5PokemonData[newSpecies]?.type_1] ?? this.default_colors.Normal;
+            
+            // Transition duration in milliseconds
+            const duration = 1000; // 1 second
+            const startTime = Date.now();
+            
+            // If overlay colors are the same, skip color transition
+            const colorsMatch = oldOverlayColor === newOverlayColor;
+            
+            // Perform fade transition
+            return new Promise((resolve) => {
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    this.evolution_transition_progress = progress;
+                    
+                    // Fade Pokemon art (handled via opacity in template)
+                    // Fade movepool (handled via opacity in template)
+                    // Overlay color transition is handled by CSS transition on the .colored-image::after element
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        // Transition complete
+                        this.evolution_transitioning = false;
+                        this.evolution_transition_progress = 0;
+                        this.evolution_old_species = null;
+                        this.evolution_new_species = null;
+                        
+                        // Update Pokemon art source after transition
+                        this.$nextTick(() => {
+                            // Art source will update automatically via :src binding
+                            resolve();
+                        });
+                    }
+                };
+                
+                // Styles should already be loaded by the watcher before this is called
+                // If colors match, still do a quick transition for Pokemon art
+                // If colors don't match, CSS transitions will handle the color fade
+                
+                animate();
+            });
         },
         keys_function(object) {
             return Object.keys(object)
@@ -4165,7 +4684,9 @@ const app = Vue.createApp({
             let maxSize = this.movepoolDefaultContainerHeight / this.movepoolDefaultLineHeight;
         
             //calculate new sizes
-            let currentStarter = this.starter;
+            // Use displayedPokemonSpecies to get the correct species for movepool sizing
+            // This ensures the movepool size is based on the selected evolution family member
+            let currentStarter = this.displayedPokemonSpecies;
             if(currentStarter == undefined || currentStarter == null) {
                 if(this.mapper?.properties?.player?.team?.[0]?.species?.value) {
                     currentStarter = this.mapper.properties.player.team[0].species.value;
@@ -6226,14 +6747,71 @@ const app = Vue.createApp({
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
         this.timer.update();
+        
+        // Initialize evolution family list
+        this.updateEvolutionFamilyList();
 
+        // Initial tracking of personality value and species
+        this.last_known_personality_value = this.mapper.properties.player.team[0].internals.personality_value.value;
+        this.last_known_species = this.mapper.properties.player.team[0].species.value;
+        
+        // Track personality value changes
+        this.mapper.properties.player.team[0].internals.personality_value.change(async (newProp, oldProp) => {
+            // Update tracked personality value
+            this.last_known_personality_value = newProp.value;
+        });
+
+        // Species change handler - handles both normal species changes and evolution
         this.mapper.properties.player.team[0].species.change(async (newProp, oldProp) => {
+            const currentPersonalityValue = this.mapper.properties.player.team[0].internals.personality_value.value;
             const state = this.mapper.properties.meta.state.value
+            
+            // Check if this is an evolution (same personality value, different species, evolution enabled)
+            if (this.evolution == true && newProp.value != oldProp.value && 
+                currentPersonalityValue === this.last_known_personality_value &&
+                this.last_known_personality_value != null) {
+                
+                const evolution_family_raw = this.g5PokemonData[this.starter]?.evolution_family;
+                if (evolution_family_raw && evolution_family_raw.length > 0) {
+                    const evolution_family = evolution_family_raw.map(obj => obj.species).filter(s => s != null);
+                    const evolved = evolution_family.includes(newProp.value);
+                    
+                    if (evolved == true) {
+                        // Store old species for transition
+                        const oldSpecies = this.starter;
+                        const newSpecies = newProp.value;
+                        
+                        // Update starter
+                        this.starter = newSpecies;
+                        this.last_known_species = newSpecies;
+                        
+                        // Update the dropdown to the new evolved species
+                        // This will trigger the watcher to load the new species' styles
+                        this.selected_evolution_species = newSpecies;
+                        
+                        // Show base stats of new evolved species until next battle
+                        this.show_evolved_base_stats = true;
+                        this.evolved_species_for_stats = newSpecies;
+                        
+                        // Perform fade transition
+                        await this.performEvolutionTransition(oldSpecies, newSpecies);
+                        
+                        // Update personality value tracking
+                        this.last_known_personality_value = currentPersonalityValue;
+                        return; // Don't process as normal species change
+                    }
+                }
+            }
+            
+            // Normal species change handling (not an evolution)
+            this.last_known_species = newProp.value;
+            this.last_known_personality_value = currentPersonalityValue;
+            
             if ((state == "Battle" || state == "From Battle") && this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value != 0) {
                 this.starter = newProp.value
             }
             else if (state == "Overworld" && this.mapper.properties.overworld.map_index.value == 278 && newProp.value == 'Reshiram') {
-
+                // Special handling for Reshiram
             }
             else if (state == "Overworld") {
                 this.starter = newProp.value
@@ -6269,21 +6847,6 @@ const app = Vue.createApp({
             this.expBarState.expPoints = expPoints;
         }
 
-        this.mapper.properties.player.team[0].species.change(async (newProp, oldProp) => {
-            if (this.evolution == true) {
-                const evolution_family_raw = this.g5PokemonData[this.starter].evolution_family
-                if (!evolution_family_raw) { return }
-                const evolution_family = evolution_family_raw.map(obj => obj.species)
-                const length = evolution_family.length
-                const evolved = evolution_family.includes(newProp.value)
-                const buffer_evolution_splits_label = this.evolution_splits_label
-                this.buffer_battle_exp = this.mapper.properties.player.team[0].exp.value
-                if (evolved == true) {
-                    this.starter = newProp.value
-                    this.evolution_splits_label = buffer_evolution_splits_label
-                }
-            }
-        })
 
         // Resets
         if (this.selected_game == "Black") {
@@ -6693,6 +7256,14 @@ const app = Vue.createApp({
             if (newProp.value == "From Battle" && oldProp.value == "Battle") {
                 this.update_buffer_moves()
             }
+            
+            // If we're showing evolved base stats and state changes to Battle (not from Battle),
+            // hide the evolved base stats display
+            if (this.show_evolved_base_stats && newProp.value == "Battle" && oldProp.value != "From Battle") {
+                this.show_evolved_base_stats = false;
+                this.evolved_species_for_stats = null;
+            }
+            
             autosplitter_process()
             if (newProp.value == 'From Battle') {
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
@@ -6700,18 +7271,21 @@ const app = Vue.createApp({
                 let gameName = 'Black'
                 let game_name = 'Black'
                 if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined || trainer == '--') { return }
+                // Get the split file name (either "FullyEvolved-line" or "Species")
+                const splitFileName = this.getSplitFileName();
+                
                 //write full split data
-                logData(gameName, this.full_data_str, this.attempt_number, this.starter, "Full", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
+                logData(gameName, this.full_data_str, this.attempt_number, splitFileName, "Full", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                 
                 //write deprecated split data
                 if (this.autosplitter[this.game.gameName][trainer]) {
-                    logData(gameName, this.deprecated_data_str, this.attempt_number, this.starter, "Deprecated", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
+                    logData(gameName, this.deprecated_data_str, this.attempt_number, splitFileName, "Deprecated", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                 }
                 
                 //write simple split data
                 const simpleSplit = () => {
                     log_split()
-                    logData(gameName, this.simple_data_str, this.attempt_number, this.starter, "Simple", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
+                    logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                     this.split_data.push(this.simple_data)
                     MyStorage["split_data"] = this.split_data
                     MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] = {
@@ -6751,9 +7325,10 @@ const app = Vue.createApp({
                     log_split();
                     
                     //use then so that logCopy doesn't touch any files until logData finishes
-                    logData(gameName, this.simple_data_str, this.attempt_number, this.starter, "Simple", this.testRun, this.scott_mode, this.evolution, this.evolution_splits_label, this.refilming_mode)
+                    const splitFileName = this.getSplitFileName();
+                    logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                     .then(() => {
-                            logCopy(gameName, this.attempt_number, this.starter, this.finished_run_count, this.evolution, this.evolution_splits_label);
+                            logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
                         })
                         .catch(error => {
                             console.error("Error:", error);
