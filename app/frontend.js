@@ -559,6 +559,7 @@ const app = Vue.createApp({
             automatic_post_battle_splits : MyStorage['automatic_post_battle_splits'] ?? true,
             unobtainable_moves_toggle    : MyStorage['unobtainable_moves_toggle']    ?? "Always Cross Out",
             second_screen_toggle         : MyStorage['second_screen_toggle']         ?? false,
+            banned_hidden_power          : MyStorage['banned_hidden_power']          ?? true,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -2270,9 +2271,13 @@ const app = Vue.createApp({
         },
         statsDisplaySpecies() {
             // Return the species to display stats for
-            // If showing evolved base stats, use the evolved species
+            // If showing evolved base stats (temporary after evolution), use the evolved species
             if (this.show_evolved_base_stats && this.evolved_species_for_stats) {
                 return this.evolved_species_for_stats;
+            }
+            // When evolution is enabled, use the selected evolution family species for base stats
+            if (this.evolution && this.selected_evolution_species) {
+                return this.selected_evolution_species;
             }
             return this.starter;
         },
@@ -3567,17 +3572,18 @@ const app = Vue.createApp({
             const unobtainable_moves = this.unobtainable_moves_object[type_of_move]
             const opacity = 0.4
             const animation_duration = 1.5 // seconds
+            let unobtainable_moves_first_run = (this.attempt_number > 1 || this.banned_hidden_power == false) ? [] : this.unobtainable_moves_object['First Playthrough']
 
             if (unobtainable_moves_toggle == "Never Cross Out") {
                 return `transition: opacity ${animation_duration}s;`
             }
-            else if (state != "No Pokemon" && unobtainable_moves_toggle == "Cross Out When Starter is Obtained" && unobtainable_moves.includes(move_name)) {
+            else if (state != "No Pokemon" && unobtainable_moves_toggle == "Cross Out When Starter is Obtained" && (unobtainable_moves.includes(move_name) || unobtainable_moves_first_run.includes(move_name))) {
                 return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
             }
-            else if (this.mapper.properties.player.badges[0].value == true && unobtainable_moves_toggle == "Cross Out After First Badge" && unobtainable_moves.includes(move_name)) {
+            else if (this.mapper.properties.player.badges[0].value == true && unobtainable_moves_toggle == "Cross Out After First Badge" && (unobtainable_moves.includes(move_name) || unobtainable_moves_first_run.includes(move_name))) {
                 return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
             }
-            else if (unobtainable_moves_toggle == "Always Cross Out" && unobtainable_moves.includes(move_name)) {
+            else if (unobtainable_moves_toggle == "Always Cross Out" && (unobtainable_moves.includes(move_name) || unobtainable_moves_first_run.includes(move_name))) {
                 return `transition: opacity ${animation_duration}s; opacity: ${opacity}; text-decoration: line-through;`
             }
             else {
