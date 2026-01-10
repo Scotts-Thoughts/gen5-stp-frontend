@@ -3328,7 +3328,15 @@ const app = Vue.createApp({
             if ((slot_1_species == 'Reshiram' && this.starter != 'Reshiram' || slot_1_species == 'Zekrom' && this.starter != 'Zekrom')) {
                 wrong_slot = true
             }
-            if (state == `No Pokemon`) {
+            if (state == `No Pokemon` && this.evolution) {
+                final_stat_hp  = this.g5PokemonData[this.selected_evolution_species].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.selected_evolution_species].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.selected_evolution_species].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.selected_evolution_species].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.selected_evolution_species].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.selected_evolution_species].base_stats.speed
+            }
+            else if (state == `No Pokemon` && !this.evolution) {
                 final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
                 final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
                 final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
