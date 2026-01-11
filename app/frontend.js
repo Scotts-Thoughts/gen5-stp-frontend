@@ -3371,7 +3371,17 @@ const app = Vue.createApp({
                 Def = pokemon_data.stats.defense.value
                 SpA = pokemon_data.stats.special_attack.value
                 SpD = pokemon_data.stats.special_defense.value
-                SpE = status_condition == 'Paralyzed' ? Math.floor(pokemon_data.stats.speed.value / 4) : pokemon_data.stats.speed.value
+                
+                if (status_condition && ability == 'Quick Feet') {
+                    SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
+                }
+                else if (status_condition == 'Paralyzed' && ability != 'Quick Feet') {
+                    SpE = Math.floor(pokemon_data.stats.speed.value / 4)
+                }
+                else {
+                    SpE = pokemon_data.stats.speed.value
+                }
+
                 if (this.stat_fix_toggle_2 > 0) {
                     this.stat_fix_toggle_2 -= 1
                     final_stat_hp  = this.stat_fix_hp
@@ -6308,6 +6318,9 @@ const app = Vue.createApp({
         }, 
         determineItemBoost(x, pkmn_object) { //x - move1.value
             if (pkmn_object.species.value == null) { return }
+            if (pkmn_object.ability.value == 'Klutz') {
+                return 1
+            }
             var heldItemValue = pkmn_object.held_item?.value
             var itemType = this.typeBoostingItems[heldItemValue]
             var move_category = this.moveCategory(x)
@@ -6511,6 +6524,9 @@ const app = Vue.createApp({
 
             var player_ability_modifier = 1
             var player_ability = state == 'Battle' ? this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value : this.mapper.properties.player.team[0].ability.value
+            if (player_ability == 'Normalize') {
+                attackingType = 'Normal'
+            }
             var sheer_force_moves = [
                 "Air Slash",
                 "Ancient Power",
@@ -6634,8 +6650,23 @@ const app = Vue.createApp({
                 if (defendingType2 && attackingType && (defendingType1 != defendingType2)) {
                     defendingType2Effectiveness = this.typeData.find(x => x.moveType == attackingType)[defendingType2]
                 }
+                if (enemy_pokemon_data?.ability.value == 'Filter' && defendingType1Effectiveness == 2) {
+                    defendingType1Effectiveness = 1.5 
+                }
+                if (enemy_pokemon_data?.ability.value == 'Filter' && defendingType2Effectiveness == 2) {
+                    defendingType2Effectiveness = 1.5 
+                }
             }
             
+            if (pkmn_ability == 'Scrappy' && (attackingType == 'Fighting' || attackingType == 'Normal')) {
+                if (defendingType1 == 'Ghost') {
+                    defendingType1Effectiveness = 1
+                }
+                if (defendingType2 == 'Ghost') {
+                    defendingType2Effectiveness = 1
+                }
+            }
+
             var ability = this.abilityModifier(this.mapper.properties.player.team[0].ability.value, attackingType, 'player')
 
             if (enemy_pokemon_data?.ability.value == 'Levitate' && attackingType == 'Ground') {
@@ -6647,11 +6678,39 @@ const app = Vue.createApp({
             if (enemy_pokemon_data?.ability.value == 'Storm Drain' && attackingType == 'Water') {
                 ability = 0 
             }
+            if (enemy_pokemon_data?.ability.value == 'Dry Skin' && attackingType == 'Water') {
+                ability = 0 
+            }
             if (enemy_pokemon_data?.ability.value == 'Lightningrod' && attackingType == 'Electric') {
                 ability = 0 
             }
             if (enemy_pokemon_data?.ability.value == 'Flash Fire' && attackingType == 'Fire') {
                 ability = 0 
+            }
+            if (enemy_pokemon_data?.ability.value == 'Heatproof' && attackingType == 'Fire') {
+                ability = 0.5 
+            }
+            if (enemy_pokemon_data?.ability.value == 'Motor Drive' && attackingType == 'Electric') {
+                ability = 0
+            }
+            var recklessMoves = [
+                "Axe Kick",
+                "Brave Bird",
+                "Double-Edge",
+                "Double Edge",
+                "Flare Blitz",
+                "Head Charge",
+                "Head Smash",
+                "High Jump Kick",
+                "Jump Kick",
+                "Submission",
+                "Supercell Slam",
+                "Take Down",
+                "Wave Crash",
+                "Wild Charge",
+            ]
+            if (enemy_pokemon_data?.ability.value == 'Reckless' && recklessMoves.includes(x)) {
+                ability = 1.2
             }
 
             var player_item = ""
@@ -6703,6 +6762,10 @@ const app = Vue.createApp({
             }
 
             var stabModifier = this.determineSTAB(x)
+            if (player_ability == "Adaptability") {
+                stabModifier = 2
+            }
+
             var expert_belt_check = player_item.held_item.value
             var expert_belt_modifier = 1
             if (defendingType1Effectiveness * defendingType2Effectiveness > 1 && expert_belt_check == 'Expert Belt') {
