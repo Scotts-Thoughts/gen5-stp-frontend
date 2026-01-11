@@ -635,7 +635,7 @@ const app = Vue.createApp({
                     spd: 31,
                 },
                 gender: 10,
-                nature: 0,
+                nature: 'Hardy',
                 ability: 0,
             },
 
@@ -2798,7 +2798,6 @@ const app = Vue.createApp({
             // Write the reencrypted data to the decrypted_mon_0 property
             this.mapper.properties.player.decrypted_mon_0.setBytes(byteArrayReencrypted, false)
             console.log("Finished writing byte data... for ", this.starter)
-
         },
         encrypt_byte_data(array) {
             const decryptedData = new Uint8Array(array);
@@ -3913,6 +3912,9 @@ const app = Vue.createApp({
             else {
                 this.pkmn_ability = MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability          ?? this.pokedex_black[this.starter]?.abilities[0] ?? null
             }
+            this.set_starter_stats_object.gender = this.pkmn_gender;
+            this.set_starter_stats_object.nature = this.pkmnNature;
+            this.set_starter_stats_object.ability = this.pkmn_ability;
         },
         reset() {
             this.backgroundBlur =        0,
@@ -5998,7 +6000,7 @@ const app = Vue.createApp({
         moveCategoryIcon(move) { //move = move.value
             if (move) {
                 var move = this.black_moves[move]
-                if (move) return `images/damageCategory/${move.category.toLowerCase()}.png`
+                if (move) return `images/damageCategory/${move.category}.png`
             }
             return ""
         },
@@ -6846,7 +6848,7 @@ const app = Vue.createApp({
         })
         this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {
             const map = this.mapper.properties.overworld.map_index.value
-            if (newProp.value == 5 && oldProp.value == 0 && map == 391) {
+            if (newProp.value == 5 && map == 391) {
                 this.write_byte_data(this.set_starter_stats_object)
             }
         })
