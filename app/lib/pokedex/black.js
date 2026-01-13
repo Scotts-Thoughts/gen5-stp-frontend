@@ -3595,9 +3595,9 @@ const pokedex_black = {
             }
         ]
     },
-    "Nidoran♀": {
+    "Nidoran_F": {
         "rom_id": 29,
-        "species": "Nidoran♀",
+        "species": "Nidoran_F",
         "type_1": "Poison",
         "type_2": "Poison",
         "base_stats": {
@@ -3986,9 +3986,9 @@ const pokedex_black = {
             }
         ]
     },
-    "Nidoran♂": {
+    "Nidoran_M": {
         "rom_id": 32,
-        "species": "Nidoran♂",
+        "species": "Nidoran_M",
         "type_1": "Poison",
         "type_2": "Poison",
         "base_stats": {
