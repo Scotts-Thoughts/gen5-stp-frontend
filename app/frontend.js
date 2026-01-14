@@ -6658,7 +6658,7 @@ const app = Vue.createApp({
                 }
             }
             
-            if (pkmn_ability == 'Scrappy' && (attackingType == 'Fighting' || attackingType == 'Normal')) {
+            if (player_ability == 'Scrappy' && (attackingType == 'Fighting' || attackingType == 'Normal')) {
                 if (defendingType1 == 'Ghost') {
                     defendingType1Effectiveness = 1
                 }
