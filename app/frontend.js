@@ -3324,6 +3324,8 @@ const app = Vue.createApp({
             const player_team_count = this.mapper.properties.player.team_count.value
             const computed_slot = player_team_count - 1
             let wrong_slot = false
+            let player_ability = state == 'Battle' ? this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value : this.mapper.properties.player.team[0].ability.value
+
             if ((slot_1_species == 'Reshiram' && this.starter != 'Reshiram' || slot_1_species == 'Zekrom' && this.starter != 'Zekrom')) {
                 wrong_slot = true
             }
@@ -3372,10 +3374,10 @@ const app = Vue.createApp({
                 SpA = pokemon_data.stats.special_attack.value
                 SpD = pokemon_data.stats.special_defense.value
                 
-                if (status_condition && ability == 'Quick Feet') {
+                if (status_condition && player_ability == 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
                 }
-                else if (status_condition == 'Paralyzed' && ability != 'Quick Feet') {
+                else if (status_condition == 'Paralyzed' && player_ability != 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value / 4)
                 }
                 else {
