@@ -78,5 +78,6 @@ const auto_save_settings = [
     "second_screen_toggle",
     "run_complete",
     "debugging_mode",
-    "banned_hidden_power"
+    "banned_hidden_power",
+    "shuckie_timer",
 ]

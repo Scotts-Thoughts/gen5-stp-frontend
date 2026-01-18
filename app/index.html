@@ -58,7 +58,14 @@
                 <img class="canvas colored-image ds " :src="`images/ui/nature arrows//lowers/${natures[pkmnNature].lowers}.svg`" />
             </div>
             <img class="canvas" :src="`images/ui/move_backgrounds.png`" />
-            <Timer></Timer>
+            <!-- <shuckie-timer :emulatorStats="emulatorStats"></shuckie-timer> -->
+            <div v-if="shuckie_timer == true">
+                <div class="gametimeClock">{{formatMilliseconds(emulatorStats?.time_current)}}</div>
+                <div class="gametimeFrames">.{{getCentiseconds(emulatorStats?.time_current)}}</div>
+            </div>
+            <div v-else>
+                <Timer></Timer>
+            </div>
 
             <div>
                 <div class="ui1">
@@ -72,10 +79,13 @@
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
                     <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br>
+                    <button class="buttonStyle set_button_style" @click="this.sendEmulatorStart()">Start Time</button><br>
+                    <button class="buttonStyle set_button_style" @click="this.sendEmulatorEnd()">End Time</button><br>
                     <input type="text" style="width: 280px; text-align: right;"class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Shuckie Timer</td><td><input class="checkBoxStyle" type="checkbox" v-model="shuckie_timer"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>HP Banned for 1st run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="banned_hidden_power"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Debugging-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="debugging_mode"/></td></tr>
@@ -118,6 +128,7 @@
                             <tr><td>Single Battle:</td><td>{{single_battle}}</td></tr>
                             <tr><td>Second Screen:</td><td>{{second_screen_check}}</td></tr>
                             <tr><td>Show Evolved Base Stats:</td><td>{{show_evolved_base_stats}}</td></tr>
+                            <tr><td>Emulator Object:</td><td>{{ emulatorStats?.time_current ?? 'N/A' }}</td></tr>
                             <tr v-if="run_complete"><td>Final Gametime:</td><td>{{simple_data[7]}}</td></tr>
                         </table>
                     </div>
