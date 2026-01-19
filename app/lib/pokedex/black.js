@@ -25,6 +25,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Overgrow",
+            "Overgrow",
             "Chlorophyll"
         ],
         "level_up_learnset": [
@@ -158,6 +159,7 @@ const pokedex_black = {
         "weight": 13,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Chlorophyll"
         ],
@@ -300,6 +302,7 @@ const pokedex_black = {
         "weight": 100,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Chlorophyll"
         ],
@@ -456,6 +459,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Blaze",
+            "Blaze",
             "Solar Power"
         ],
         "level_up_learnset": [
@@ -588,6 +592,7 @@ const pokedex_black = {
         "weight": 19,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Solar Power"
         ],
@@ -725,6 +730,7 @@ const pokedex_black = {
         "weight": 90.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Solar Power"
         ],
@@ -901,6 +907,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Torrent",
+            "Torrent",
             "Rain Dish"
         ],
         "level_up_learnset": [
@@ -1035,6 +1042,7 @@ const pokedex_black = {
         "weight": 22.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Rain Dish"
         ],
@@ -1178,6 +1186,7 @@ const pokedex_black = {
         "weight": 85.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Rain Dish"
         ],
@@ -1340,6 +1349,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Shield Dust",
+            "Shield Dust",
             "Run Away"
         ],
         "level_up_learnset": [
@@ -1403,6 +1413,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Shed Skin",
+            "Shed Skin",
             "Shed Skin"
         ],
         "level_up_learnset": [
@@ -1461,6 +1472,7 @@ const pokedex_black = {
         "weight": 32,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Compound Eyes",
             "Compound Eyes",
             "Tinted Lens"
         ],
@@ -1608,6 +1620,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Shield Dust",
+            "Shield Dust",
             "Run Away"
         ],
         "level_up_learnset": [
@@ -1671,6 +1684,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Shed Skin",
+            "Shed Skin",
             "Shed Skin"
         ],
         "level_up_learnset": [
@@ -1729,6 +1743,7 @@ const pokedex_black = {
         "weight": 29.5,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Swarm",
             "Swarm",
             "Sniper"
         ],
@@ -20941,6 +20956,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Overgrow",
+            "Overgrow",
             "Leaf Guard"
         ],
         "level_up_learnset": [
@@ -21071,6 +21087,7 @@ const pokedex_black = {
         "weight": 15.8,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Leaf Guard"
         ],
@@ -21212,6 +21229,7 @@ const pokedex_black = {
         "weight": 100.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Leaf Guard"
         ],
@@ -21363,6 +21381,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Blaze",
+            "Blaze",
             "Flash Fire"
         ],
         "level_up_learnset": [
@@ -21497,6 +21516,7 @@ const pokedex_black = {
         "weight": 19,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Flash Fire"
         ],
@@ -21640,6 +21660,7 @@ const pokedex_black = {
         "weight": 79.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Flash Fire"
         ],
@@ -21803,6 +21824,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Torrent",
+            "Torrent",
             "Sheer Force"
         ],
         "level_up_learnset": [
@@ -21949,6 +21971,7 @@ const pokedex_black = {
         "weight": 25,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Sheer Force"
         ],
@@ -22103,6 +22126,7 @@ const pokedex_black = {
         "weight": 88.8,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Sheer Force"
         ],
@@ -34872,6 +34896,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Overgrow",
+            "Overgrow",
             "Unburden"
         ],
         "level_up_learnset": [
@@ -35000,6 +35025,7 @@ const pokedex_black = {
         "weight": 21.6,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Unburden"
         ],
@@ -35144,6 +35170,7 @@ const pokedex_black = {
         "weight": 52.2,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Unburden"
         ],
@@ -35301,6 +35328,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Blaze",
+            "Blaze",
             "Speed Boost"
         ],
         "level_up_learnset": [
@@ -35426,6 +35454,7 @@ const pokedex_black = {
         "weight": 19.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Speed Boost"
         ],
@@ -35575,6 +35604,7 @@ const pokedex_black = {
         "weight": 52,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Speed Boost"
         ],
@@ -35745,6 +35775,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Torrent",
+            "Torrent",
             "Damp"
         ],
         "level_up_learnset": [
@@ -35871,6 +35902,7 @@ const pokedex_black = {
         "weight": 28,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Damp"
         ],
@@ -36014,6 +36046,7 @@ const pokedex_black = {
         "weight": 81.9,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Damp"
         ],
@@ -53328,6 +53361,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Overgrow",
+            "Overgrow",
             "Shell Armor"
         ],
         "level_up_learnset": [
@@ -53451,6 +53485,7 @@ const pokedex_black = {
         "weight": 97,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Shell Armor"
         ],
@@ -53579,6 +53614,7 @@ const pokedex_black = {
         "weight": 310,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Overgrow",
             "Overgrow",
             "Shell Armor"
         ],
@@ -53734,6 +53770,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Blaze",
+            "Blaze",
             "Iron Fist"
         ],
         "level_up_learnset": [
@@ -53873,6 +53910,7 @@ const pokedex_black = {
         "weight": 22,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Iron Fist"
         ],
@@ -54027,6 +54065,7 @@ const pokedex_black = {
         "weight": 55,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Blaze",
             "Blaze",
             "Iron Fist"
         ],
@@ -54194,6 +54233,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Torrent",
+            "Torrent",
             "Defiant"
         ],
         "level_up_learnset": [
@@ -54327,6 +54367,7 @@ const pokedex_black = {
         "weight": 23,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Defiant"
         ],
@@ -54473,6 +54514,7 @@ const pokedex_black = {
         "weight": 84.5,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Torrent",
             "Torrent",
             "Defiant"
         ],
@@ -67016,6 +67058,7 @@ const pokedex_black = {
         "growth_rate": "Slow",
         "abilities": [
             "Pressure",
+            "Pressure",
             "Telepathy"
         ],
         "level_up_learnset": [
@@ -70422,6 +70465,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Gluttony",
+            "Gluttony",
             "Overgrow"
         ],
         "level_up_learnset": [
@@ -70560,6 +70604,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Gluttony",
+            "Gluttony",
             "Overgrow"
         ],
         "level_up_learnset": [
@@ -70658,6 +70703,7 @@ const pokedex_black = {
         "weight": 11,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Gluttony",
             "Gluttony",
             "Blaze"
         ],
@@ -70801,6 +70847,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Gluttony",
+            "Gluttony",
             "Blaze"
         ],
         "level_up_learnset": [
@@ -70903,6 +70950,7 @@ const pokedex_black = {
         "weight": 13.5,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Gluttony",
             "Gluttony",
             "Torrent"
         ],
@@ -71045,6 +71093,7 @@ const pokedex_black = {
         "weight": 29,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Gluttony",
             "Gluttony",
             "Torrent"
         ],
@@ -72084,6 +72133,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Sturdy",
+            "Sturdy",
             "Sand Force"
         ],
         "level_up_learnset": [
@@ -72211,6 +72261,7 @@ const pokedex_black = {
         "weight": 102,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Sturdy",
             "Sturdy",
             "Sand Force"
         ],
@@ -72355,6 +72406,7 @@ const pokedex_black = {
         "weight": 260,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Sturdy",
             "Sturdy",
             "Sand Force"
         ],
@@ -76257,6 +76309,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Hustle",
+            "Hustle",
             "Inner Focus"
         ],
         "level_up_learnset": [
@@ -76401,6 +76454,7 @@ const pokedex_black = {
         "weight": 92.9,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Sheer Force",
             "Sheer Force",
             "Zen Mode"
         ],
@@ -79186,6 +79240,7 @@ const pokedex_black = {
         "growth_rate": "Medium Slow",
         "abilities": [
             "Frisk",
+            "Frisk",
             "Shadow Tag"
         ],
         "level_up_learnset": [
@@ -79339,6 +79394,7 @@ const pokedex_black = {
         "weight": 18,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Frisk",
             "Frisk",
             "Shadow Tag"
         ],
@@ -79505,6 +79561,7 @@ const pokedex_black = {
         "weight": 44,
         "growth_rate": "Medium Slow",
         "abilities": [
+            "Frisk",
             "Frisk",
             "Shadow Tag"
         ],
@@ -80436,6 +80493,7 @@ const pokedex_black = {
         "growth_rate": "Slow",
         "abilities": [
             "Ice Body",
+            "Ice Body",
             "Weak Armor"
         ],
         "level_up_learnset": [
@@ -80568,6 +80626,7 @@ const pokedex_black = {
         "weight": 41,
         "growth_rate": "Slow",
         "abilities": [
+            "Ice Body",
             "Ice Body",
             "Weak Armor"
         ],
@@ -80713,6 +80772,7 @@ const pokedex_black = {
         "weight": 57.5,
         "growth_rate": "Slow",
         "abilities": [
+            "Ice Body",
             "Ice Body",
             "Weak Armor"
         ],
@@ -81154,6 +81214,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Static",
+            "Static",
             "Motor Drive"
         ],
         "level_up_learnset": [
@@ -81551,6 +81612,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Effect Spore",
+            "Effect Spore",
             "Regenerator"
         ],
         "level_up_learnset": [
@@ -81678,6 +81740,7 @@ const pokedex_black = {
         "weight": 10.5,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Effect Spore",
             "Effect Spore",
             "Regenerator"
         ],
@@ -84772,6 +84835,7 @@ const pokedex_black = {
         "growth_rate": "Medium Fast",
         "abilities": [
             "Snow Cloak",
+            "Snow Cloak",
             "Rattled"
         ],
         "level_up_learnset": [
@@ -84907,6 +84971,7 @@ const pokedex_black = {
         "weight": 260,
         "growth_rate": "Medium Fast",
         "abilities": [
+            "Snow Cloak",
             "Snow Cloak",
             "Swift Swim"
         ],
@@ -88112,6 +88177,7 @@ const pokedex_black = {
         "growth_rate": "Slow",
         "abilities": [
             "Flame Body",
+            "Flame Body",
             "Swarm"
         ],
         "level_up_learnset": [
@@ -88233,6 +88299,7 @@ const pokedex_black = {
         "weight": 46,
         "growth_rate": "Slow",
         "abilities": [
+            "Flame Body",
             "Flame Body",
             "Swarm"
         ],
@@ -88757,6 +88824,7 @@ const pokedex_black = {
         "growth_rate": "Slow",
         "abilities": [
             "Prankster",
+            "Prankster",
             "Defiant"
         ],
         "level_up_learnset": [
@@ -88897,6 +88965,7 @@ const pokedex_black = {
         "weight": 61,
         "growth_rate": "Slow",
         "abilities": [
+            "Prankster",
             "Prankster",
             "Defiant"
         ],
@@ -89324,6 +89393,7 @@ const pokedex_black = {
         "weight": 68,
         "growth_rate": "Slow",
         "abilities": [
+            "Sand Force",
             "Sand Force",
             "Sheer Force"
         ],
@@ -90329,8 +90399,7 @@ const pokedex_black = {
         "weight": 6.5,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Anticipation",
-            "Overcoat"
+            "Pressure"
         ],
         "level_up_learnset": [
             [
@@ -90468,8 +90537,7 @@ const pokedex_black = {
         "weight": 6.5,
         "growth_rate": "Medium Fast",
         "abilities": [
-            "Anticipation",
-            "Overcoat"
+            "Pressure"
         ],
         "level_up_learnset": [
             [
@@ -90604,7 +90672,9 @@ const pokedex_black = {
         "weight": 5.2,
         "growth_rate": "Medium Slow",
         "abilities": [
-            "Serene Grace"
+            "Anticipation",
+            "Anticipation",
+            "Overcoat"
         ],
         "level_up_learnset": [
             [
@@ -90735,7 +90805,6 @@ const pokedex_black = {
         "weight": 650,
         "growth_rate": "Slow",
         "abilities": [
-            "Levitate",
             "Levitate"
         ],
         "level_up_learnset": [
@@ -92129,8 +92198,7 @@ const pokedex_black = {
         "weight": 92.9,
         "growth_rate": "Medium Slow",
         "abilities": [
-            "Sheer Force",
-            "Zen Mode"
+            "Sheer Force"
         ],
         "level_up_learnset": [
             [
