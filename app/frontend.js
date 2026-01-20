@@ -7053,13 +7053,20 @@ const app = Vue.createApp({
                 // console.log(newProp)
                 // console.log(this.timer.formatted_time[0])
                 // This should resolve the issue in Cynthia's chamber where the timer would restart when resetting against her
-                if (newProp.value == true && parseInt(this.timer.formatted_time[0]) == 0) {
-                    // this.startTime()
-                    this.timer.startTime(this.timer_startTimeOffset);
-                    if (this.shuckie_timer == true) { this.sendEmulatorStart(); }
-                    console.log("Setting options...")
-                    this.set_options()
-                    this.attempt_number++
+                if (this.shuckie_timer == true) {
+                    if (this.emulatorStats.time_current == null) {
+                        console.log("Sending emulator start")
+                        this.sendEmulatorStart();
+                    }
+                }
+                else {
+                    if (newProp.value == true && parseInt(this.timer.formatted_time[0]) == 0) {
+                        // this.startTime()
+                        this.timer.startTime(this.timer_startTimeOffset);
+                        console.log("Setting options...")
+                        this.set_options()
+                        this.attempt_number++
+                    }
                 }
             })
         }
