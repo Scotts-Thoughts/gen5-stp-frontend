@@ -320,7 +320,7 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
         var dirPath  = refilming_mode == true ? `./splits/${gameName}/refilmed/${split_file_prefix}/` : `./splits/${gameName}/${split_file_prefix}/`;
         var filePath = path.join(dirPath, `${split_file_prefix}-${file_name}-simple.csv`);
         // Header
-        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "level," + "game_time," + "battle_duration," + "move1," + "move2," + "move3," + "move4," + "shuckie_time_hhmmss," + "shuckie_time_cs, shuckie_rt, \n"
+        var header = "player_name," + "pokemon," + "trainer_name," + "real_time_hmmss," + "resets," + "blackouts," + "level," + "game_time," + "battle_duration," + "move1," + "move2," + "move3," + "move4,\n"
         if (testStatus == true) { 
             dirPath = `./splits/${gameName}/${split_file_prefix}/test_runs`; 
             switch (log_type) {
@@ -2297,7 +2297,6 @@ const app = Vue.createApp({
     },
 
     methods: {
-        
         // Add this method to your Vue app methods section (around line 4182)
         async fetchEmulatorStats() {
             try {
@@ -7057,7 +7056,7 @@ const app = Vue.createApp({
                 if (newProp.value == true && parseInt(this.timer.formatted_time[0]) == 0) {
                     // this.startTime()
                     this.timer.startTime(this.timer_startTimeOffset);
-                    this.sendEmulatorStart();
+                    if (this.shuckie_timer == true) { this.sendEmulatorStart(); }
                     console.log("Setting options...")
                     this.set_options()
                     this.attempt_number++
@@ -7325,10 +7324,9 @@ const app = Vue.createApp({
 
                 //definitions for what split data is logged to file
                 let simple_data = [
-                    player_name, pokemon, trainer_name, real_time_total, 
+                    player_name, pokemon, trainer_name, shuckie_rt, 
                     resets, blackouts, level, game_time, battle_duration, 
-                    move1, move2, move3, move4, 
-                    shuckie_time_hhmmss, shuckie_time_cs, shuckie_rt
+                    move1, move2, move3, move4
                 ]
                 let full_data = simple_data
                 if (this.scott_mode == true) {
@@ -7522,7 +7520,7 @@ const app = Vue.createApp({
                 if (this.game.finalBattle.includes(trainer) || trainer == 'Alder') {
                     // this.stopTime()
                     this.timer.stopTime();
-                    this.sendEmulatorEnd();
+                    if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
                         this.right_ui = "Splits"
                     }
