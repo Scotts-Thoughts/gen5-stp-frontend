@@ -79,8 +79,8 @@
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
                     <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br>
-                    <button class="buttonStyle set_button_style" @click="this.sendEmulatorStart()">Start Time</button><br>
-                    <button class="buttonStyle set_button_style" @click="this.sendEmulatorEnd()">End Time</button><br>
+                    <!-- <button class="buttonStyle set_button_style" @click="this.sendEmulatorStart()">Start Time</button><br> -->
+                    <!-- <button class="buttonStyle set_button_style" @click="this.sendEmulatorEnd()">End Time</button><br> -->
                     <input type="text" style="width: 280px; text-align: right;"class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>

@@ -7057,6 +7057,9 @@ const app = Vue.createApp({
                     if (this.emulatorStats.time_current == null) {
                         console.log("Sending emulator start")
                         this.sendEmulatorStart();
+                        console.log("Setting options...")
+                        this.set_options()
+                        this.attempt_number++
                     }
                 }
                 else {
