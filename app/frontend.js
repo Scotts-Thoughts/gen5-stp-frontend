@@ -1461,16 +1461,60 @@ const app = Vue.createApp({
             if (battle_type == 'Wild') {
                 return false
             }
-            switch (state) {
-                case "Battle":
-                    return true
-                case "To Battle":
-                    if (this.mapper.properties.overworld.map_index.value == 317) {
-                        return false
+
+            let trainer = this.mapper?.properties.battle.opponent.trainer?.value ?? "none"
+            let id = this.mapper?.properties.battle.opponent.id.value
+            
+            let show = false
+            let delay = false
+            switch (trainer) {
+                // case "School Kid Christine": delay = true; break; // test case
+                case "Cress":    delay = true; break;
+                case "Chili":    delay = true; break;
+                case "Cilan":    delay = true; break;
+                case "Lenora":   delay = true; break;
+                case "Burgh":    delay = true; break;
+                case "Elesa":    delay = true; break;
+                case "Clay":     delay = true; break;
+                case "Skyla":    delay = true; break;
+                case "Brycen":   delay = true; break;
+                case "Drayden":  delay = true; break;
+                case "Shauntal": delay = true; break;
+                case "Marshall": delay = true; break;
+                case "Grimsley": delay = true; break;
+                case "Caitlin":  delay = true; break;
+                case "Ghetsis":  delay = true; break;
+                case "N": {
+                    if (id == 587) {
+                        delay = true; break;
                     }
-                    return true
-                default:
+                    else {
+                        break;
+                    }
+                }
+                default: delay = false; break;
+            }
+            if (this.mapper.properties.battle.opponent.trainer.value != null) {
+                show = true
+            }
+
+            // console.log(show, delay, trainer, this.mapper.properties.battle.opponent.trainer.value, this.mapper.properties.meta.state.value)
+            if (state == `Battle`) {
+                return true
+            }
+            else if (state == `To Battle`) {
+                if (this.mapper.properties.overworld.map_index.value == 317) {
                     return false
+                }
+                else {
+                    return true
+                }
+            }
+            else if (delay == true && state == `From Battle`) {
+                return true
+            }
+            else {
+                return false
             }
         },
         second_screen_check() {
@@ -4280,7 +4324,7 @@ const app = Vue.createApp({
             }
         },
         getTrainerGraphic() {
-            if (this.mapper.properties.meta.state == `Battle` || this.mapper.properties.meta.state == `To Battle`) {
+            if (this.enemy_graphic == true) {
                 let graphic = `images/trainers/Cress.png`
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let bytes = this.mapper.properties.battle.opponent.trainer.bytes
