@@ -416,7 +416,7 @@
                     <!--  New Stats -->
                     <div style="z-index: 100000;">
                         <div v-for="stat in stat_object">
-                            <div v-if="stat.name != 'Hp' && mapper.properties.meta.state.value == 'Battle'">
+                            <div v-if="stat.name != 'Hp' && mapper.properties.meta.state.value == 'Battle' && !not_valid_battle_state">
                                 <div :class="`playerMods hp_spd_${stat.mod_abrv}Mod`" style="font-family: play;">{{ stage_modifiers(n_battle_data_fix.modifiers[stat.path].value) }}</div>
                             </div>
                             <div :style="{ opacity: statLabelOpacity()[stat.name]}" :class="`stat_label_style stat_row_${stat[`stat_row`]} stat_column_${stat.label_column}`">{{stat.label}}</div>
@@ -704,7 +704,7 @@
             </transition>
 
             <!--------- BATTLE POP UPS -------------------------------------------------------------------------------------------------------------------->
-            <div style="position: absolute;">
+            <div v-if="!not_valid_battle_state" style="position: absolute;">
                 <transition name="fade1">
                     <div v-show="get_acc_eva_mod('accuracy') != 0 && mapper.properties.meta.state == `Battle`">
                         <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/accuracy.svg)"></div>

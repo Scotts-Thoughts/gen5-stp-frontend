@@ -1318,6 +1318,21 @@ const app = Vue.createApp({
         },
     },
     computed: {
+        not_valid_battle_state() {
+            const mod1 = this.mapper.properties.battle.player.active_pokemon.modifiers.attack.value
+            const mod2 = this.mapper.properties.battle.player.active_pokemon.modifiers.defense.value
+            const mod3 = this.mapper.properties.battle.player.active_pokemon.modifiers.special_attack.value
+            const mod4 = this.mapper.properties.battle.player.active_pokemon.modifiers.special_defense.value
+            const mod5 = this.mapper.properties.battle.player.active_pokemon.modifiers.speed.value
+            const mod6 = this.mapper.properties.battle.player.active_pokemon.modifiers.accuracy.value
+            const mod7 = this.mapper.properties.battle.player.active_pokemon.modifiers.evasion.value
+            if (mod1 == "-6" && mod2 == "-6" && mod3 == "-6" && mod4 == "-6" && mod5 == "-6" && mod6 == "-6" && mod7 == "-6") {
+                return true
+            }
+            else {
+                return false
+            }
+        },
         pokemon_dynamic_ability() {
             const state = this.mapper.properties.meta.state.value
             let pokemon_data = this.n_battle_data_fix
@@ -1804,6 +1819,10 @@ const app = Vue.createApp({
             const stat_type = this.stats_setting
             const year      = this.ui_stats_styling_modifier
             const state     = this.mapper.properties.meta.state.value
+            const level     = this.mapper.properties.player.team[0].level.value
+            if (level > 100) {
+                return 'Base Stats'
+            }
             if (stat_type == 'Base Stats Average') {
                 return 'Gen5 Base Stat Averages'
             }
@@ -1843,6 +1862,9 @@ const app = Vue.createApp({
                         return `${total}/510 (${this.decimalToPercentage(total/510)}%)`
                     }
                     case "Automatic":    {
+                        if (this.not_valid_battle_state && state == "Battle") {
+                            return `Base Stats`
+                        }
                         switch (state) {
                             case "No Pokemon":  return `Base Stats`
                             case "Overworld":   {
@@ -3420,9 +3442,10 @@ const app = Vue.createApp({
             }
         },
         get_stat() {
-            const state       = this.mapper.properties.meta.state.value
-            const held_item   = this.mapper.properties.player.team[0].held_item.value
-            const power_items = ['Power Belt', 'Power Anklet', 'Power Band', 'Power Lens', 'Power Bracer', 'Power Anklet', 'Power Belt', 'Macho Brace']
+            const logging      = false
+            const state        = this.mapper.properties.meta.state.value
+            const held_item    = this.mapper.properties.player.team[0].held_item.value
+            const power_items  = ['Power Belt', 'Power Anklet', 'Power Band', 'Power Lens', 'Power Bracer', 'Power Anklet', 'Power Belt', 'Macho Brace']
             const pokemon_data = this.n_battle_data_fix
 
             // Use actual current species when available (especially important when evolution is enabled)
@@ -3618,6 +3641,23 @@ const app = Vue.createApp({
                     final_stat_spd = Math.floor(final_stat_spd * 1.5)
                 }
             }
+
+            if (final_stat_hp > 9999 || final_stat_atk > 9999 || final_stat_def > 9999 || final_stat_spa > 9999 || final_stat_spd > 9999 || final_stat_spe > 9999) {
+                final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.starter].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.starter].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
+            }
+            if (final_stat_hp == 0 || final_stat_atk == 0 || final_stat_def == 0 || final_stat_spa == 0 || final_stat_spd == 0 || final_stat_spe == 0) {
+                final_stat_hp  = this.g5PokemonData[this.starter].base_stats.hp
+                final_stat_atk = this.g5PokemonData[this.starter].base_stats.attack
+                final_stat_def = this.g5PokemonData[this.starter].base_stats.defense
+                final_stat_spa = this.g5PokemonData[this.starter].base_stats.special_attack
+                final_stat_spd = this.g5PokemonData[this.starter].base_stats.special_defense
+                final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
+            }
             // Return the calculated stats
             return {
                 "Hp" : final_stat_hp,
@@ -3663,11 +3703,11 @@ const app = Vue.createApp({
 
             let default_opacity = .63
             let faded_opacity = .1
-            let mod_atk = pokemon_data.modifiers.attack.value != '0'          && state == 'Battle' ? faded_opacity : default_opacity
-            let mod_def = pokemon_data.modifiers.defense.value != '0'         && state == 'Battle' ? faded_opacity : default_opacity
-            let mod_spa = pokemon_data.modifiers.special_attack.value != '0'  && state == 'Battle' ? faded_opacity : default_opacity
-            let mod_spd = pokemon_data.modifiers.special_defense.value != '0' && state == 'Battle' ? faded_opacity : default_opacity
-            let mod_spe = pokemon_data.modifiers.speed.value != '0'           && state == 'Battle' ? faded_opacity : default_opacity
+            let mod_atk = pokemon_data.modifiers.attack.value != '0'          && state == 'Battle' && !this.not_valid_battle_state ? faded_opacity : default_opacity
+            let mod_def = pokemon_data.modifiers.defense.value != '0'         && state == 'Battle' && !this.not_valid_battle_state ? faded_opacity : default_opacity
+            let mod_spa = pokemon_data.modifiers.special_attack.value != '0'  && state == 'Battle' && !this.not_valid_battle_state ? faded_opacity : default_opacity
+            let mod_spd = pokemon_data.modifiers.special_defense.value != '0' && state == 'Battle' && !this.not_valid_battle_state ? faded_opacity : default_opacity
+            let mod_spe = pokemon_data.modifiers.speed.value != '0'           && state == 'Battle' && !this.not_valid_battle_state ? faded_opacity : default_opacity
             let object = {
                 "HP":              default_opacity,
                 "Attack":          mod_atk,
@@ -7032,26 +7072,76 @@ const app = Vue.createApp({
                         const oldSpecies = this.starter;
                         const newSpecies = newProp.value;
 
-                        this.stats_setting = "Base Stats";
+                        // Only proceed if both oldProp and newSpecies are valid
+                        // Check that oldProp has a valid species (not 0x00 0x00 bytes)
+                        let oldPropValid = false;
+                        if (oldProp && oldProp.value != null && oldProp.value !== undefined) {
+                            // Check if bytes is valid (not 0x00 0x00)
+                            if (oldProp.bytes != null) {
+                                if (Array.isArray(oldProp.bytes)) {
+                                    // Array format: [0x00, 0x00] is invalid
+                                    oldPropValid = !(oldProp.bytes.length === 2 && oldProp.bytes[0] === 0x00 && oldProp.bytes[1] === 0x00);
+                                } else {
+                                    // Number format: 0x00 or 0x0000 is invalid
+                                    oldPropValid = oldProp.bytes !== 0x00 && oldProp.bytes !== 0;
+                                }
+                            } else {
+                                // If bytes is null/undefined but value exists, consider it valid
+                                oldPropValid = true;
+                            }
+                        }
                         
-                        // Update starter
-                        this.starter = newSpecies;
-                        this.last_known_species = newSpecies;
-                        
-                        // Update the dropdown to the new evolved species
-                        // This will trigger the watcher to load the new species' styles
-                        this.selected_evolution_species = newSpecies;
-                        
-                        // Show base stats of new evolved species until next battle
-                        this.show_evolved_base_stats = true;
-                        this.evolved_species_for_stats = newSpecies;
-                        
-                        // Perform fade transition
-                        await this.performEvolutionTransition(oldSpecies, newSpecies);
-                        
-                        // Update personality value tracking
-                        this.last_known_personality_value = currentPersonalityValue;
-                        return; // Don't process as normal species change
+                        // Only proceed if newSpecies is valid and within the evolution family
+                        if (oldPropValid && newSpecies && newSpecies !== undefined && newSpecies !== null && newSpecies != oldSpecies &&
+                            evolution_family && evolution_family.includes(newSpecies)) {
+                            console.log("Evolving to:", newSpecies)
+                            console.log("Showing base stats.")
+                            this.stats_setting = "Base Stats";
+                            
+                            // Preserve attempt_number, finished_run_count, resets, and blackouts when evolving
+                            const preservedAttemptNumber = this.attempt_number;
+                            const preservedFinishedRunCount = this.finished_run_count;
+                            const preservedResets = this.playerResets;
+                            const preservedBlackouts = this.blackout_counter;
+                            
+                            // Update starter
+                            this.starter = newSpecies;
+                            this.last_known_species = newSpecies;
+                            
+                            // Restore preserved values after starter update (before watcher loads from storage)
+                            this.attempt_number = preservedAttemptNumber;
+                            this.finished_run_count = preservedFinishedRunCount;
+                            this.playerResets = preservedResets;
+                            this.blackout_counter = preservedBlackouts;
+                            
+                            // Save preserved values to storage for the new species
+                            const game = this.mapper?.properties.meta.game_name.value;
+                            if (!MyStorage[`${game}_${newSpecies}`]) {
+                                MyStorage[`${game}_${newSpecies}`] = {};
+                            }
+                            MyStorage[`${game}_${newSpecies}`] = {
+                                ...MyStorage[`${game}_${newSpecies}`],
+                                attempt_number: preservedAttemptNumber,
+                                finished_run_count: preservedFinishedRunCount,
+                                playerResets: preservedResets,
+                                blackout_counter: preservedBlackouts
+                            };
+                            
+                            // Update the dropdown to the new evolved species
+                            // This will trigger the watcher to load the new species' styles
+                            this.selected_evolution_species = newSpecies;
+                            
+                            // Show base stats of new evolved species until next battle
+                            this.show_evolved_base_stats = true;
+                            this.evolved_species_for_stats = newSpecies;
+                            
+                            // Perform fade transition
+                            await this.performEvolutionTransition(oldSpecies, newSpecies);
+                            
+                            // Update personality value tracking
+                            this.last_known_personality_value = currentPersonalityValue;
+                            return; // Don't process as normal species change
+                        }
                     }
                 }
             }
