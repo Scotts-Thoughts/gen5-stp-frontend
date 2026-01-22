@@ -564,6 +564,7 @@ const app = Vue.createApp({
             emulatorStatsInterval        : null,
             emulatorStats                : null,
             shuckie_timer                : MyStorage['shuckie_timer']                ?? false,
+            prepare_for_splits           : false,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -992,6 +993,12 @@ const app = Vue.createApp({
         }
     },
     watch: {
+        enemy_graphic(newValue) {
+            if (newValue == false && this.prepare_for_splits == true) {
+                this.prepare_for_splits = false
+                this.right_ui = "Splits"
+            }
+        },
         // backgroundTexture(newValue) {
         //     const game = this.selected_game
         //     const starter = this.starter
@@ -1944,6 +1951,10 @@ const app = Vue.createApp({
         },
         single_battle() {
             // Double battles and multi-battles
+            if (!this.mapper || !this.mapper.properties || !this.mapper.properties.battle || 
+                !this.mapper.properties.battle.other || !this.mapper.properties.battle.opponent) {
+                return false
+            }
             let battle_header = this.mapper.properties.battle.other.battle_header.value
             if (battle_header == 0) { 
                 return false 
@@ -7557,11 +7568,13 @@ const app = Vue.createApp({
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
                         if (trainer == "N") {
                             if (id == 587) {
-                                this.right_ui = "Splits"
+                                this.prepare_for_splits = true
+                                // this.right_ui = "Splits"
                             }
                         }
                         else {
-                            this.right_ui = "Splits"
+                            this.prepare_for_splits = true
+                            // this.right_ui = "Splits"
                         }
                     }
                 }
@@ -7576,7 +7589,8 @@ const app = Vue.createApp({
                     this.timer.stopTime();
                     if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
-                        this.right_ui = "Splits"
+                        this.prepare_for_splits = true
+                        // this.right_ui = "Splits"
                     }
                     this.run_complete = true
                     if (this.testRun == false) {
