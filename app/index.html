@@ -40,7 +40,7 @@
             }" 
             :src="`images/pokemon/${displayedPokemonSpecies}.png`" />
             <div class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/game_area.svg)"></div>
-            <div v-if="shuckie_timer == true">
+            <div v-if="shuckie_counters == true">
                 <div v-if="shuckie_faults_check == true" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>
                 <div v-else class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer_2.svg)"></div>
             </div>
