@@ -80,4 +80,5 @@ const auto_save_settings = [
     "debugging_mode",
     "banned_hidden_power",
     "shuckie_timer",
+    "shuckie_counters",
 ]

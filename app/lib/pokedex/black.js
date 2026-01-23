@@ -68335,7 +68335,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snivy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Servine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Serperior",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Servine": {
         "rom_id": 496,
@@ -68470,7 +68486,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snivy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Servine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Serperior",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Serperior": {
         "rom_id": 497,
@@ -68610,7 +68642,23 @@ const pokedex_black = {
         ],
         "tutor_learnset": [],
         "egg_moves": [],
-        "evolution_family": []
+        "evolution_family": [
+            {
+                "species": "Snivy",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Servine",
+                "method": null,
+                "parameter": null
+            },
+            {
+                "species": "Serperior",
+                "method": null,
+                "parameter": null
+            }
+        ]
     },
     "Tepig": {
         "rom_id": 498,

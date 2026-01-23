@@ -561,10 +561,13 @@ const app = Vue.createApp({
             unobtainable_moves_toggle    : MyStorage['unobtainable_moves_toggle']    ?? "Always Cross Out",
             second_screen_toggle         : MyStorage['second_screen_toggle']         ?? false,
             banned_hidden_power          : MyStorage['banned_hidden_power']          ?? true,
+            prepare_for_splits           : false,
+
             emulatorStatsInterval        : null,
             emulatorStats                : null,
+            
             shuckie_timer                : MyStorage['shuckie_timer']                ?? false,
-            prepare_for_splits           : false,
+            shuckie_counters             : MyStorage['shuckie_counters']             ?? false,
 
             // Fix for Resets and Blackouts incrementing twice instead of just once
             disallow_faults: false,
@@ -1318,6 +1321,28 @@ const app = Vue.createApp({
         },
     },
     computed: {
+        shuckie_faults_check() {
+            shuckie_resets    = this.emulatorStats?.counters?.playerResets
+            shuckie_blackouts = this.emulatorStats?.counters?.blackout_counter
+            if (shuckie_resets == undefined && shuckie_blackouts == undefined) {
+                return true
+            }
+            else if (shuckie_resets == 0 && shuckie_blackouts == 0) {
+                return true
+            }
+            else if (shuckie_resets == undefined && shuckie_blackouts == 0) {
+                return true
+            }
+            else if (shuckie_resets == 0 && shuckie_blackouts == undefined) {
+                return true
+            }
+            else if (shuckie_resets > 0 || shuckie_blackouts > 0) {
+                return false
+            }
+            else {
+                return false
+            }
+        },
         not_valid_battle_state() {
             const mod1 = this.mapper.properties.battle.player.active_pokemon.modifiers.attack.value
             const mod2 = this.mapper.properties.battle.player.active_pokemon.modifiers.defense.value
@@ -2438,6 +2463,36 @@ const app = Vue.createApp({
                 return true;
             } catch (error) {
                 console.error('Error sending end command:', error);
+                return false;
+            }
+        },
+        async incrementEmulatorCounter(counter_name) {
+            try {
+                const response = await fetch(`http://127.0.0.1:30158/increment-counter?name=${counter_name}`, {
+                    method: 'POST'
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                console.log('Emulator start command sent successfully');
+                return true;
+            } catch (error) {
+                console.error('Error sending start command:', error);
+                return false;
+            }
+        },
+        async incrementEmulatorCounterByAmount(counter_name, amount) {
+            try {
+                const response = await fetch(`http://127.0.0.1:30158/increment-counter?name=${counter_name}&by=${amount}`, {
+                    method: 'POST'
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                console.log('Emulator start command sent successfully');
+                return true;
+            } catch (error) {
+                console.error('Error sending start command:', error);
                 return false;
             }
         },
@@ -4117,12 +4172,22 @@ const app = Vue.createApp({
         },
         increment(property) {
             this[property]++;
+            if (this.shuckie_counters == true) { 
+                this.incrementEmulatorCounter(property) 
+            }
         },
         decrement(property) {
             if (this[property] == 0) {
                 return 0
             }
             this[property]--;
+
+            if (this.shuckie_counters == true) { 
+                if (this.emulatorStats?.counters?.[property] == undefined || this.emulatorStats?.counters?.[property] <= 0) {
+                    return
+                }
+                this.incrementEmulatorCounterByAmount(property, -1) 
+            }
         },
         async colorPick() {
             return new EyeDropper().open().then(res => res.sRGBHex)
@@ -7221,10 +7286,15 @@ const app = Vue.createApp({
         this.mapper.properties.player.name.change(async (newProp, oldProp) => {
             // console.log(newProp)
             // console.log(oldProp)
-            if (parseInt(this.timer.formatted_time[0]) > 0 && newProp.value == "" && oldProp.value != "") {
+            const overlay_timer = parseInt(this.timer.formatted_time[0])
+            const shuckie_timer = this.emulatorStats?.time_current
+            const timer_check = this.shuckie_timer ? shuckie_timer : overlay_timer
+
+            if (timer_check > 0 && newProp.value == "" && oldProp.value != "") {
                 this.blackout = false;
                 if (this.disallow_faults == false && this.run_complete == false) { 
                     this.playerResets++ 
+                    if (this.shuckie_counters) { this.incrementEmulatorCounter("playerResets") }
                 }
                 this.disallow_faults_function()
             }
@@ -7587,11 +7657,20 @@ const app = Vue.createApp({
                         }
                     }
                     
-                    this.current_splits.push({
-                        trainer: normalizedTrainerName, 
-                        time:    real_time_hmmss,
-                        id:      trainer_id,
-                    })
+                    if (this.shuckie_timer) { 
+                        this.current_splits.push({
+                            trainer: normalizedTrainerName, 
+                            time:    shuckie_rt,
+                            id:      trainer_id,
+                        })
+                    }
+                    else {
+                        this.current_splits.push({
+                            trainer: normalizedTrainerName, 
+                            time:    real_time_hmmss,
+                            id:      trainer_id,
+                        })
+                    }
                 }
             }
         }
@@ -7603,6 +7682,7 @@ const app = Vue.createApp({
                     if (newProp.value == -1893922566 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
+                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
                         }
                         this.disallow_faults_function()
                     }
