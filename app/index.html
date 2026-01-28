@@ -106,6 +106,27 @@
                     <br>
                     <button class="buttonStyle" @click="togglePopup">Keyboard Shortcuts</button>
                     <br><br>
+                    
+                    <!-- Style Settings Management -->
+                    <div v-if="show_advanced_settings && debugging_mode == true" style="margin-bottom: 10px; padding: 8px; border: 1px solid #444; border-radius: 4px;">
+                        <div style="margin-bottom: 5px; font-weight: bold;">Style Settings</div>
+                        <div v-if="isInDevMode" style="color: #4CAF50; font-size: 11px; margin-bottom: 5px;">
+                            Development Mode - Changes save to defaults
+                        </div>
+                        <div v-else style="color: #888; font-size: 11px; margin-bottom: 5px;">
+                            📦 Production Mode - Changes save locally
+                        </div>
+                        <button v-if="isInDevMode" class="buttonStyle" @click="exportStyleSettingsAsDefaults()" style="font-size: 11px;">
+                            Export All Settings as Defaults
+                        </button>
+                        <button class="buttonStyle" @click="resetCurrentPokemonToDefaults()" style="font-size: 11px;">
+                            Reset Current Pokémon to Defaults
+                        </button>
+                        <button class="buttonStyle" @click="resetAllStyleSettingsToDefaults()" style="font-size: 11px; color: #f44;">
+                            Reset ALL to Defaults
+                        </button>
+                    </div>
+                    
                     Pokemon Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
                     <br>
                     <div v-if="editor == true">
@@ -213,12 +234,12 @@
                         </tr>
                     </table>
                     <br>
-                    <table>
+                    <table v-if="hasMultipleEvolutionStages">
                         <!-- <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr> -->
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
                     </table>
-                    <div v-if="evolution == true && evolution_family_list.length > 0">
+                    <div v-if="evolution == true && evolution_family_list.length > 1">
                         <div>Evolution Family Style:</div>
                         <select v-model="selected_evolution_species" class="dropdownMenu" style="width: 180px;">
                             <option disabled value="">Select a species in the evolution family</option>
