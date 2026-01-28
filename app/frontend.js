@@ -4851,7 +4851,7 @@ const app = Vue.createApp({
                 if (move_string.toLowerCase() == "smokescreen")  { return "SmokeScreen" }
                 if (move_string.toLowerCase() == "sonicboom")    { return "SonicBoom" }
                 if (move_string.toLowerCase() == "will-o-wisp")  { return "Will-O-Wisp" }
-                if (move_string.toLowerCase() == "u-turn")       { return "U-Turn" }
+                if (move_string.toLowerCase() == "u-turn")       { return "U-turn" }
                 else { return move_string }
             }
             else { return move_string }
@@ -7019,7 +7019,7 @@ const app = Vue.createApp({
             }
 
             var stabModifier = this.determineSTAB(x)
-            if (player_ability == "Adaptability") {
+            if (player_ability == "Adaptability" && stabModifier == 1.5) {
                 stabModifier = 2
             }
 
