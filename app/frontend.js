@@ -3728,6 +3728,9 @@ const app = Vue.createApp({
                 else if (status_condition == 'Paralyzed' && player_ability != 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value / 4)
                 }
+                else if (player_ability == 'Hustle') {
+                    Atk = Math.floor(Atk * 1.5)
+                }
                 else {
                     SpE = pokemon_data.stats.speed.value
                 }
@@ -3763,6 +3766,15 @@ const app = Vue.createApp({
                 SpA = pokemon_data.stats.special_attack.value
                 SpD = pokemon_data.stats.special_defense.value
                 SpE = status_condition == 'Paralyzed' ? Math.floor(pokemon_data.stats.speed.value / 4) : pokemon_data.stats.speed.value
+                if (status_condition && player_ability == 'Quick Feet') {
+                    SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
+                }
+                else if (status_condition == 'Paralyzed' && player_ability != 'Quick Feet') {
+                    SpE = Math.floor(pokemon_data.stats.speed.value / 4)
+                }
+                else if (player_ability == 'Hustle') {
+                    Atk = Math.floor(Atk * 1.5)
+                }
                 let battle_hp  = HP
                 let battle_atk = Math.floor(Atk * this.stageModifiersData.stats[mod_atk])
                 let battle_def = Math.floor(Def * this.stageModifiersData.stats[mod_def])
