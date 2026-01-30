@@ -5205,34 +5205,41 @@ const app = Vue.createApp({
             const state     = this.mapper.properties.meta.state.value
             const pokemon_data = this.n_battle_data_fix
             const held_item = this.mapper.properties.player.team[0].held_item.value
+            const move_category = this.black_moves[move]?.category
+            var ability = this.mapper.properties.player?.team[0]?.ability?.value
             if (accuracy == `-`) {
                 return `—`
             }
             if (accuracy == `—`) {
                 return `—`
             }
-            if (this.mapper.properties.player?.team[0]?.ability?.value == 'No Guard') {
+            if (ability == 'No Guard') {
                 return `—`
             }
-            if (this.mapper.properties.player?.team[0]?.ability?.value == 'Compound Eyes') {
+            if (ability == 'Compound Eyes') {
                 accuracy = accuracy * 1.3
             }
+
             // if (weather == 'Hail' && move == 'Blizzard' && state == 'Battle') {
             //     return `—`
             // }
             let calculated_accuracy
             if (state == `Overworld` || state == `To Battle`) {
                 let item_modifier = 1
+                let ability_modifier = 1
                 switch (held_item) {
                     case "Wide Lens": item_modifier = 4505/4096; break;
                     case "Zoom Lens": item_modifier = 4915/4096; break;
                     default: item_modifier = 1; break;
                 }
-                if (item_modifier == 1) {
+                if (move_category == "Physical" && ability == "Hustle") {
+                    ability_modifier = 3277/4096
+                }
+                if (item_modifier == 1 && ability_modifier == 1) {
                     calculated_accuracy = accuracy 
                 }
                 else {
-                    calculated_accuracy = Math.floor(accuracy * item_modifier) <= 100 ? Math.floor(accuracy * item_modifier) : 100
+                    calculated_accuracy = Math.floor(accuracy * item_modifier * ability_modifier) <= 100 ? Math.floor(accuracy * item_modifier * ability_modifier) : 100
                 }
                 if (calculated_accuracy >= 100) { 
                     calculated_accuracy = 100 
@@ -5240,6 +5247,8 @@ const app = Vue.createApp({
                 return calculated_accuracy
             }
             if (state == `Battle`) {
+                ability = this.mapper.properties.battle.player.active_pokemon.ability.value
+                let ability_modifier = 1
                 let playerStage = pokemon_data.modifiers.accuracy?.value?.toString()
                 let oppAStage = this.mapper.properties.battle.opponent.active_pokemon.modifiers.evasion?.value?.toString()
                 let accuracyModifier = this.stageModifiersData["accuracy"][playerStage]
@@ -5257,7 +5266,10 @@ const app = Vue.createApp({
                     }
                     default: item_modifier = 1; break;
                 }
-                let calculated_accuracy = Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier) <= 100 ? Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier) : 100
+                if (move_category == "Physical" && ability == "Hustle") {
+                    ability_modifier = 3277/4096
+                }
+                let calculated_accuracy = Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) <= 100 ? Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) : 100
                 if (calculated_accuracy == "err") {
                     console.log(
                         accuracy,

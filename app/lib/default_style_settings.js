@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-01-29T04:12:17.798Z
+ * Last updated: 2026-01-30T22:49:21.787Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -65028,9 +65028,11 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundBlur": "4",
         "backgroundScale": "122",
         "backgroundYOffset": "81",
-        "backgroundContrast": "119",
+        "backgroundContrast": "110",
         "pkmn_ability": "Hustle",
-        "pkmnNature": "Hardy"
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Ground",
+        "backgroundBrightness": "19"
     },
     "Black_Roggenrola": {
         "overlay_color": "#4c4f6e",
