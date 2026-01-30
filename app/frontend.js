@@ -3722,14 +3722,15 @@ const app = Vue.createApp({
                 SpA = pokemon_data.stats.special_attack.value
                 SpD = pokemon_data.stats.special_defense.value
                 
+                if (player_ability == 'Hustle') {
+                    Atk = Math.floor(Atk * 1.5)
+                }
+
                 if (status_condition && player_ability == 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
                 }
                 else if (status_condition == 'Paralyzed' && player_ability != 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value / 4)
-                }
-                else if (player_ability == 'Hustle') {
-                    Atk = Math.floor(Atk * 1.5)
                 }
                 else {
                     SpE = pokemon_data.stats.speed.value
