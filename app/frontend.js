@@ -866,6 +866,12 @@ const app = Vue.createApp({
             encounters_route_1: MyStorage["encounters_route_1"] ?? false,
             encounters_route_2: MyStorage["encounters_route_2"] ?? false,
 
+            encounters_woobat     : MyStorage["encounters_woobat"]     ?? false,
+            encounters_roggenrola : MyStorage["encounters_roggenrola"] ?? false,
+            encounters_pidove     : MyStorage["encounters_pidove"]     ?? true,
+            encounters_tympole    : MyStorage["encounters_tympole"]    ?? false,
+            encounters_timburr    : MyStorage["encounters_timburr"]    ?? false,
+
             //Pokemon settings for local storage
             overlay_color: MyStorage["overlay_color"] ?? "#000000",
             imageXOffset : MyStorage["imageXOffset"]  ?? 0,
@@ -928,6 +934,11 @@ const app = Vue.createApp({
                 "frame",
                 "encounters_route_1",
                 "encounters_route_2",
+                "encounters_woobat",
+                "encounters_roggenrola",
+                "encounters_pidove",
+                "encounters_tympole",
+                "encounters_timburr",
             ],
             timer_startTimeOffset: MyStorage["timer_startTimeOffset"] ?? "00:00:00.00",
             time_split_start:      MyStorage['time_split_start']      ?? "00:00:00:00",
@@ -1015,6 +1026,11 @@ const app = Vue.createApp({
             this.frame                  = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.frame                  ?? 0
             this.encounters_route_1     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_1     ?? false
             this.encounters_route_2     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_2     ?? false
+            this.encounters_woobat      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_woobat      ?? false
+            this.encounters_roggenrola  = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_roggenrola  ?? false
+            this.encounters_pidove      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_pidove      ?? true
+            this.encounters_tympole     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_tympole     ?? false
+            this.encounters_timburr     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_timburr     ?? false
         }
         for (let i = 0; i < this.pokemon_settings.length; i++) {
             let propName = this.pokemon_settings[i];
@@ -1112,6 +1128,76 @@ const app = Vue.createApp({
         encounters_route_2(newValue) {
             if (this.mapper.properties.overworld.map_index.value == 319) {
                 this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
+        encounters_woobat(newValue) {
+            const variable = this.mapper.properties.patch.encounter_woobat.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_woobat.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_woobat.set(0, false)
+                    break;
+            }
+        },
+        encounters_roggenrola(newValue) {
+            const variable = this.mapper.properties.patch.encounter_roggenrola.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_roggenrola.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_roggenrola.set(0, false)
+                    break;
+            }
+        },
+        encounters_tympole(newValue) {
+            const variable = this.mapper.properties.patch.encounter_tympole.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_tympole.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_tympole.set(0, false)
+                    break;
+            }
+        },
+        encounters_timburr(newValue) {
+            const variable = this.mapper.properties.patch.encounter_timburr.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_timburr.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_timburr.set(0, false)
+                    break;
+            }
+        },
+        encounters_pidove(newValue) {
+            const variable = this.mapper.properties.patch.encounter_pidove.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_pidove.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_pidove.set(0, false)
+                    break;
             }
         },
         hidden_power_type(newValue) {
@@ -2489,6 +2575,27 @@ const app = Vue.createApp({
     },
 
     methods: {
+        async update_rom_starter_and_intro_mon() {
+            let starter = this.starter
+            this.mapper.properties.patch.stpStarterSpecies.set(starter, true)
+        },
+        set_hm_encounters() {
+            if (this.encounters_woobat) {
+                this.mapper.properties.patch.encounter_woobat.set(1, false)
+            }
+            if (this.encounters_roggenrola) {
+                this.mapper.properties.patch.encounter_roggenrola.set(1, false)
+            }
+            if (this.encounters_pidove) {
+                this.mapper.properties.patch.encounter_pidove.set(1, false)
+            }
+            if (this.encounters_tympole) {
+                this.mapper.properties.patch.encounter_tympole.set(1, false)
+            }
+            if (this.encounters_timburr) {
+                this.mapper.properties.patch.encounter_timburr.set(1, false)
+            }
+        },
         // ============ Style Settings Management Methods ============
         /**
          * Export current localStorage settings to the defaults file (dev mode only)
@@ -3429,18 +3536,18 @@ const app = Vue.createApp({
                 default: return ""
             }
         },
-        async update_rom_starter_and_intro_mon() {
-            let starter = this.starter
-            let game = this.selected_game
-            if (game == "Platinum") {
-                await Promise.all([
-                    this.mapper.properties.patch.stpStarterSpecies.set(starter, false), 
-                ])
-            }
-            if (game == "HeartGold and SoulSilver") {
-                //! NOT IMPLEMENTED YET WITHIN THE PATCH
-            }
-        },
+        // async update_rom_starter_and_intro_mon() {
+        //     let starter = this.starter
+        //     let game = this.selected_game
+        //     if (game == "Platinum") {
+        //         await Promise.all([
+        //             this.mapper.properties.patch.stpStarterSpecies.set(starter, false), 
+        //         ])
+        //     }
+        //     if (game == "HeartGold and SoulSilver") {
+        //         //! NOT IMPLEMENTED YET WITHIN THE PATCH
+        //     }
+        // },
         async update_items() {
             var item1 = this.item1_replacement
             var item2 = this.item2_replacement
@@ -4214,6 +4321,11 @@ const app = Vue.createApp({
             this.battle_start =               MyStorage['battle_start']               ?? 0
             this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
             this.encounters_route_2 =         MyStorage['encounters_route_2']         ?? false
+            this.encounters_woobat =          MyStorage['encounters_woobat']          ?? false
+            this.encounters_roggenrola =      MyStorage['encounters_roggenrola']      ?? false
+            this.encounters_pidove =          MyStorage['encounters_pidove']          ?? true
+            this.encounters_tympole =         MyStorage['encounters_tympole']         ?? false
+            this.encounters_timburr =         MyStorage['encounters_timburr']         ?? false
             this.editor =                     MyStorage['editor']                     ?? false
             this.debugging_mode =             MyStorage['debugging_mode']             ?? true
             this.held_item_replacement =      MyStorage['held_item_replacement']      ?? ""
@@ -7408,6 +7520,7 @@ const app = Vue.createApp({
             const map = this.mapper.properties.overworld.map_index.value
             if (newProp.value == 5 && map == 391) {
                 this.write_byte_data(this.set_starter_stats_object)
+                this.set_hm_encounters()
             }
         })
 
