@@ -258,7 +258,7 @@ body {
     width: 320px;
     z-index: 5;
     height: 740px;
-    line-height: 18px;
+    line-height: 14px;
     text-transform: capitalize;
     text-align: left;
     font-family: play;
@@ -300,7 +300,7 @@ body {
     pointer-events: auto; 
     position: relative; 
     width: 280px; 
-    height: 26px; 
+    height: 22px; 
     font-size: 16px; 
     background: #72fd4f; 
     font-family: Play;

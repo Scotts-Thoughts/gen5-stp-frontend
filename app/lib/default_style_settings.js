@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-01-31T20:25:39.258Z
+ * Last updated: 2026-01-31T21:47:05.153Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -16548,7 +16548,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundYOffset": 0,
         "backgroundBrightness": 100,
         "backgroundContrast": 100,
-        "backgroundSaturation": 100
+        "backgroundSaturation": 100,
+        "evolution": true
     },
     "Black_Oshawott": {
         "overlay_color": "#8ecdcc",
@@ -100598,7 +100599,9 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundContrast": 166,
         "backgroundSaturation": 92,
         "pkmnNature": "Hardy",
-        "pkmn_ability": "Cute Charm"
+        "pkmn_ability": "Cute Charm",
+        "evolution": false,
+        "selected_evolution_species": "Cinccino"
     },
     "Black_Genesect": {
         "overlay_color": "#724e7a",
