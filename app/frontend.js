@@ -3210,6 +3210,11 @@ const app = Vue.createApp({
             byteArrayDecrypted[0x3A] = (iv_raw >> 16) & 0xFF; // set byte 3
             byteArrayDecrypted[0x3B] = (iv_raw >> 24) & 0xFF; // set byte 4
 
+            // Fateful encounter flag
+            if (starter == "Deoxys" || starter == "Mew" || starter == "Meloetta") {
+                byteArrayDecrypted[0x40] = byteArrayDecrypted[0x40] | 0x01
+            }
+
             // Nature
             const nature_data = this.natures[data_object.nature]
             const nature_index = nature_data.modulo_value
