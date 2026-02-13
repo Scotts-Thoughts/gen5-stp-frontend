@@ -4698,6 +4698,9 @@ const app = Vue.createApp({
             this.compared_splits = []
             this.current_splits  = []
 
+            this.expBarState.species = this.starter;
+            this.expBarState.expPoints = 0;
+
             this.starter_received = false,
 
             this.timer.setTimer(this.timer_startTimeOffset)
@@ -5791,7 +5794,8 @@ const app = Vue.createApp({
             const index = expTable[growthRate].findIndex(x => x > exp);
             const currLvlExp = expTable[growthRate][index - 1];
             const nextLvlExp = expTable[growthRate][index];
-            const percentage = (exp - currLvlExp) / (nextLvlExp - currLvlExp) == NaN ? 0 : (exp - currLvlExp) / (nextLvlExp - currLvlExp)
+            const rawPercentage = (exp - currLvlExp) / (nextLvlExp - currLvlExp);
+            const percentage = isNaN(rawPercentage) ? 0 : rawPercentage;
             return {
                 level: index,
                 percent: percentage,
