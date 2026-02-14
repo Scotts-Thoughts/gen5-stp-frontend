@@ -2687,18 +2687,37 @@ const app = Vue.createApp({
         },
         // Add these methods to your Vue app methods section
         async sendEmulatorStart() {
-            try {
-                const response = await fetch('http://127.0.0.1:30158/mark-start', {
-                    method: 'POST'
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+            if (this.timer_startTimeOffset != "00:00:00.00") {
+                // convert the timer_startTimeOffset to milliseconds
+                const offset = this.timer_startTimeOffset.split(":").map(x => parseInt(x)).reduce((acc, curr) => acc * 60 + curr, 0) * 1000;
+                try {
+                    const response = await fetch(`http://127.0.0.1:30158/mark-start?offset=${offset}`, {
+                        method: 'POST'
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    console.log('Emulator start command sent successfully');
+                    return true;
+                } catch (error) {
+                    console.error('Error sending start command:', error);
+                    return false;
                 }
-                console.log('Emulator start command sent successfully');
-                return true;
-            } catch (error) {
-                console.error('Error sending start command:', error);
-                return false;
+            }
+            else {
+                try {
+                    const response = await fetch('http://127.0.0.1:30158/mark-start', {
+                        method: 'POST'
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    console.log('Emulator start command sent successfully');
+                    return true;
+                } catch (error) {
+                    console.error('Error sending start command:', error);
+                    return false;
+                }
             }
         },
 
@@ -8225,6 +8244,107 @@ const app = Vue.createApp({
         keyhook.registerShortCut('F24', async () => { // Pause
             // this.pauseUnpauseTime()
             this.timer.pauseUnpauseTime();
+        });
+
+        // ── External Control Server ──
+        // Allows the Recording Queuer (or other tools) to control this overlay remotely.
+        const http = require('http');
+        const url = require('url');
+        const controlServer = http.createServer((req, res) => {
+            const parsedUrl = url.parse(req.url, true);
+            const pathname = parsedUrl.pathname;
+            const query = parsedUrl.query;
+            
+            res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Access-Control-Allow-Origin', '*');
+
+            try {
+                if (pathname === '/set-starter') {
+                    // Set the Solo Pokemon dropdown
+                    // Usage: /set-starter?species=Druddigon
+                    if (query.species) {
+                        this.starter = query.species;
+                        res.end(JSON.stringify({ ok: true, starter: this.starter }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing species parameter' }));
+                    }
+                }
+                else if (pathname === '/set-evolution') {
+                    // Enable/disable evolution mode and set the evolution style family
+                    // Usage: /set-evolution?enabled=true&species=Druddigon
+                    const enabled = query.enabled === 'true';
+                    this.evolution = enabled;
+                    if (enabled && query.species) {
+                        this.selected_evolution_species = query.species;
+                    }
+                    res.end(JSON.stringify({ ok: true, evolution: this.evolution, selected_evolution_species: this.selected_evolution_species }));
+                }
+                else if (pathname === '/refresh') {
+                    // Reload overlay settings for the current starter
+                    // Usage: /refresh
+                    this.load_all_settings();
+                    res.end(JSON.stringify({ ok: true }));
+                }
+                else if (pathname === '/new-run') {
+                    // Trigger a new run (same as pressing the New Run button)
+                    // Usage: /new-run
+                    this.newRun();
+                    res.end(JSON.stringify({ ok: true }));
+                }
+                else if (pathname === '/set-right-panel') {
+                    // Set the right panel display
+                    // Usage: /set-right-panel?panel=Battle Graphic
+                    if (query.panel) {
+                        this.right_ui = query.panel;
+                        res.end(JSON.stringify({ ok: true, right_ui: this.right_ui }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing panel parameter' }));
+                    }
+                }
+                else if (pathname === '/reload') {
+                    // Trigger a full page reload (like Ctrl+Shift+R)
+                    // Usage: /reload
+                    res.end(JSON.stringify({ ok: true, message: 'Reloading overlay...' }));
+                    setTimeout(() => {
+                        location.reload(true);
+                    }, 200);
+                }
+                else if (pathname === '/status') {
+                    // Get current overlay state
+                    // Usage: /status
+                    res.end(JSON.stringify({
+                        ok: true,
+                        ready: this.ready,
+                        starter: this.starter,
+                        evolution: this.evolution,
+                        evolution_splits_label: this.evolution_splits_label,
+                        selected_evolution_species: this.selected_evolution_species,
+                        gameName: this.mapper?.properties.meta.game_name.value,
+                        right_ui: this.right_ui,
+                    }));
+                }
+                else {
+                    res.statusCode = 404;
+                    res.end(JSON.stringify({ ok: false, error: 'Unknown endpoint' }));
+                }
+            } catch (err) {
+                res.statusCode = 500;
+                res.end(JSON.stringify({ ok: false, error: err.message }));
+            }
+        });
+        controlServer.listen(30159, '127.0.0.1', () => {
+            console.log('Overlay control server listening on http://127.0.0.1:30159');
+        });
+
+        // Cleanup on page reload/unload to prevent emulator crashes
+        window.addEventListener('beforeunload', async () => {
+            controlServer.close();
+            // Cleanup GameHookMapperClient SignalR connection
+            if (this.mapper) {
+                await this.mapper.disconnect();
+            }
         });
     },
 }).mount('#app')

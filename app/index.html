@@ -85,7 +85,8 @@
                     <button class="buttonStyle" @click="newRun">New Run</button><br>
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
-                    <button class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br>
+                    <button v-if="this.shuckie_timer == false" class="buttonStyle set_button_style" @click="this.timer.setTimer(this.timer_startTimeOffset)">Set Timer</button><br>
+                    <button v-else class="buttonStyle set_button_style" @click="this.sendEmulatorStart()">Set Timer</button><br>
                     <!-- <button class="buttonStyle set_button_style" @click="this.sendEmulatorStart()">Start Time</button><br> -->
                     <!-- <button class="buttonStyle set_button_style" @click="this.sendEmulatorEnd()">End Time</button><br> -->
                     <input type="text" style="width: 280px; text-align: right;"class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
@@ -241,7 +242,7 @@
                         <!-- <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
                     </table>
                     <div v-if="evolution == true && evolution_family_list.length > 1">
-                        <div>Evolution Family Style:</div>
+                        <!-- <div>Evolution Family Style:</div> -->
                         <select v-model="selected_evolution_species" class="dropdownMenu" style="width: 180px;">
                             <option disabled value="">Select a species in the evolution family</option>
                             <option v-for="species in evolution_family_list" :value="`${species}`">{{species}}</option>
