@@ -2169,7 +2169,12 @@ const app = Vue.createApp({
             if (state == 'From Battle') {
                 return this.held_item_fix
             }
-            const pokemon_data = this.n_battle_data_fix_friendship
+            var pokemon_data = this.n_battle_data_fix_friendship
+
+            // Berry Fix
+            if (state == 'Battle') {
+                return this.mapper.properties.battle.player.active_pokemon.held_item.value
+            }
             return pokemon_data.held_item.value
         },
         single_battle() {

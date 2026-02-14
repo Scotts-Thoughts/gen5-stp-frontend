@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-02-14T04:33:27.793Z
+ * Last updated: 2026-02-14T18:57:31.547Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
