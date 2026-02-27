@@ -2580,6 +2580,59 @@ const app = Vue.createApp({
     },
 
     methods: {
+                /**
+         * Send an OBS WebSocket 5 "CreateRecordChapter" request (Add Chapter Marker).
+         * Connects to ws://localhost:4455 (or MyStorage.obs_websocket_url), identifies,
+         * sends the chapter name, then closes. Fails silently if OBS is not running.
+         * Optional: set MyStorage.obs_websocket_password if OBS has authentication enabled.
+         * @param {string} chapterName - Name for the chapter marker (e.g. "Overworld", "Battle")
+         */
+        sendObsChapterMarker(chapterName) {
+            const url = (typeof MyStorage !== 'undefined' && MyStorage.obs_websocket_url) ? MyStorage.obs_websocket_url : 'ws://localhost:4455';
+            const password = (typeof MyStorage !== 'undefined' && MyStorage.obs_websocket_password) ? MyStorage.obs_websocket_password : null;
+            const requestId = 'chapter-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9);
+            let ws;
+            try {
+                ws = new WebSocket(url);
+            } catch (e) {
+                return;
+            }
+            ws.onerror = () => { try { ws.close(); } catch (_) {} };
+            ws.onclose = () => {};
+            ws.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    const op = msg.op;
+                    const d = msg.d || {};
+                    if (op === 0) {
+                        // Hello - send Identify (with optional auth)
+                        let identifyPayload = { rpcVersion: 1 };
+                        const auth = d.authentication;
+                        if (auth && auth.challenge && auth.salt && password) {
+                            try {
+                                const crypto = require('crypto');
+                                const secret = crypto.createHash('sha256').update(password + auth.salt, 'utf8').digest('base64');
+                                identifyPayload.authentication = crypto.createHash('sha256').update(secret + auth.challenge, 'utf8').digest('base64');
+                            } catch (_) {}
+                        }
+                        ws.send(JSON.stringify({ op: 1, d: identifyPayload }));
+                    } else if (op === 2) {
+                        // Identified - send CreateRecordChapter
+                        ws.send(JSON.stringify({
+                            op: 6,
+                            d: {
+                                requestId: requestId,
+                                requestType: 'CreateRecordChapter',
+                                requestData: { chapterName: String(chapterName) }
+                            }
+                        }));
+                    } else if (op === 7 && d.requestId === requestId) {
+                        try { ws.close(); } catch (_) {}
+                    }
+                } catch (_) {}
+            };
+            ws.onopen = () => {};
+        },
         async update_rom_starter_and_intro_mon() {
             let starter = this.starter
             this.mapper.properties.patch.stpStarterSpecies.set(starter, true)
@@ -7619,6 +7672,7 @@ const app = Vue.createApp({
                 this.blackout = false;
                 if (this.disallow_faults == false && this.run_complete == false) { 
                     this.playerResets++ 
+                    this.sendObsChapterMarker("RESET")
                     if (this.shuckie_counters) { this.incrementEmulatorCounter("playerResets") }
                 }
                 this.disallow_faults_function()
@@ -8007,6 +8061,7 @@ const app = Vue.createApp({
                     if (newProp.value == -1893922566 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
+                            this.sendObsChapterMarker("BLACKOUT")
                             if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
                         }
                         this.disallow_faults_function()
@@ -8015,8 +8070,33 @@ const app = Vue.createApp({
             }
         })
 
+        
         //write to file at the end of a key battle
+        this.mapper.properties.battle.opponent.trainer.change(async (newProp, oldProp) => {
+            const state = this.mapper.properties.meta.state.value
+            if (oldProp.value == "--" && newProp.value != "--" && state == "To Battle") {
+                const trainer = newProp.value
+                const state = "IN"
+                const stateName = state + " - " + trainer
+                this.sendObsChapterMarker(stateName)
+            }
+        })
+
         this.mapper.properties.meta.state.change(async (newProp, oldProp) => {
+            // Editing Markers
+            // if (newProp.value == "To Battle") {
+            //     const trainer = this.mapper.properties.battle.opponent.trainer.value
+            //     const state = "IN"
+            //     const stateName = state + " - " + trainer
+            //     this.sendObsChapterMarker(stateName)
+            // }
+            if (newProp.value == "Overworld" && oldProp.value == "From Battle") {
+                const trainer = this.mapper.properties.battle.opponent.trainer.value
+                const state = "OUT"
+                const stateName = state
+                this.sendObsChapterMarker(stateName)
+            }
+
             if (newProp.value == "From Battle" && oldProp.value == "Battle") {
                 this.update_buffer_moves()
             }
