@@ -1557,6 +1557,9 @@ const app = Vue.createApp({
             ) {
                 return this.pkmn_ability
             }
+            else if (state == 'Battle') {
+                return this.mapper.properties.battle.player.active_pokemon.ability_temp.value
+            }
             return pokemon_data.ability.value
         },
         n_battle_data_fix_friendship() {
@@ -3832,7 +3835,7 @@ const app = Vue.createApp({
         get_stat() {
             const logging      = false
             const state        = this.mapper.properties.meta.state.value
-            const held_item    = this.mapper.properties.player.team[0].held_item.value
+            const held_item    = state == 'Battle' ? this.mapper.properties.battle.player.active_pokemon.held_item.value : this.mapper.properties.player.team[0].held_item.value
             const power_items  = ['Power Belt', 'Power Anklet', 'Power Band', 'Power Lens', 'Power Bracer', 'Power Anklet', 'Power Belt', 'Macho Brace']
             const pokemon_data = this.n_battle_data_fix
 
@@ -3844,6 +3847,10 @@ const app = Vue.createApp({
             
             var status_condition = this.mapper.properties.player.team[0].status_condition.value
             
+            function choice_specs(stat) {
+                return Math.floor(stat * 1.5)
+            }
+
             let HP  = 0
             let Atk = 0
             let Def = 0
@@ -3861,7 +3868,7 @@ const app = Vue.createApp({
             const player_team_count = this.mapper.properties.player.team_count.value
             const computed_slot = player_team_count - 1
             let wrong_slot = false
-            let player_ability = state == 'Battle' ? this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value : this.mapper.properties.player.team[0].ability.value
+            let player_ability = state == 'Battle' ? this.mapper.properties.battle.player.active_pokemon.ability_temp.value : this.mapper.properties.player.team[0].ability.value
 
             if ((slot_1_species == 'Reshiram' && this.starter != 'Reshiram' || slot_1_species == 'Zekrom' && this.starter != 'Zekrom')) {
                 wrong_slot = true
@@ -3906,15 +3913,16 @@ const app = Vue.createApp({
             }
             else if (state == `Overworld` || state == `To Battle`) {
                 HP =  pokemon_data.stats.hp_max.value
-                Atk = pokemon_data.stats.attack.value
-                Def = pokemon_data.stats.defense.value
-                SpA = pokemon_data.stats.special_attack.value
-                SpD = pokemon_data.stats.special_defense.value
-                
                 if (player_ability == 'Hustle') {
                     Atk = Math.floor(Atk * 1.5)
                 }
-
+                else {
+                    Atk = pokemon_data.stats.attack.value
+                }
+                Def = pokemon_data.stats.defense.value
+                SpA = held_item == 'Choice Specs' ? choice_specs(pokemon_data.stats.special_attack.value) : pokemon_data.stats.special_attack.value
+                SpD = pokemon_data.stats.special_defense.value
+                
                 if (status_condition && player_ability == 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
                 }
@@ -3924,6 +3932,11 @@ const app = Vue.createApp({
                 else {
                     SpE = pokemon_data.stats.speed.value
                 }
+
+                // if (ability == 'Slow Start' && turn_count < 5) { // We need the turn counter to be mapped for this ability to be implemented
+                //     Atk = Math.floor(Atk * 0.5)
+                //     SpE = Math.floor(SpE * 0.5)
+                // }
 
                 if (this.stat_fix_toggle_2 > 0) {
                     this.stat_fix_toggle_2 -= 1
@@ -3945,6 +3958,8 @@ const app = Vue.createApp({
             }
             else if (state == `Battle`) {
                 this.stat_fix_toggle = true
+                const weather = this.mapper.properties.battle.field.weather.value
+                // const weather_count = this.mapper.properties.battle.field.weather_count.value
                 const mod_atk = pokemon_data?.modifiers.attack.value ?? 0
                 const mod_def = pokemon_data?.modifiers.defense.value ?? 0
                 const mod_spa = pokemon_data?.modifiers.special_attack.value ?? 0
@@ -3953,9 +3968,15 @@ const app = Vue.createApp({
                 HP  = pokemon_data.stats.hp_max.value
                 Atk = pokemon_data.stats.attack.value
                 Def = pokemon_data.stats.defense.value
-                SpA = pokemon_data.stats.special_attack.value
+                SpA = held_item == 'Choice Specs' ? choice_specs(pokemon_data.stats.special_attack.value) : pokemon_data.stats.special_attack.value
                 SpD = pokemon_data.stats.special_defense.value
                 SpE = status_condition == 'Paralyzed' ? Math.floor(pokemon_data.stats.speed.value / 4) : pokemon_data.stats.speed.value
+
+                // if (ability == 'Slow Start' && turn_count < 5) { // We need the turn counter to be mapped for this ability to be implemented
+                //     Atk = Math.floor(Atk * 0.5)
+                //     SpE = Math.floor(SpE * 0.5)
+                // }
+                
                 if (status_condition && player_ability == 'Quick Feet') {
                     SpE = Math.floor(pokemon_data.stats.speed.value * 1.5)
                 }
@@ -3971,6 +3992,22 @@ const app = Vue.createApp({
                 let battle_spa = Math.floor(SpA * this.stageModifiersData.stats[mod_spa])
                 let battle_spd = Math.floor(SpD * this.stageModifiersData.stats[mod_spd])
                 let battle_spe = Math.floor(SpE * this.stageModifiersData.stats[mod_spe])
+                if (weather == "Rain" && player_ability == "Swift Swim") {
+                    battle_spe = Math.floor(battle_spe * 2)
+                }
+                if (weather == "Sun" && player_ability == "Chlorophyll") {
+                    battle_spe = Math.floor(battle_spe * 2)
+                }
+                if (weather == "Sandstorm" && player_ability == "Sand Rush") {
+                    battle_spe = Math.floor(battle_spe * 2)
+                }
+                if (weather == "Sandstorm") {
+                    const type_1 = this.mapper.properties.battle.player.active_pokemon.type_1.value
+                    const type_2 = this.mapper.properties.battle.player.active_pokemon.type_2.value
+                    if (type_1 == "Rock" || type_2 == "Rock") {
+                        battle_spd = Math.floor(battle_spd * 1.5)
+                    }
+                }
                 this.stat_fix_lvl = pokemon_data.level.value
                 this.stat_fix_hp  = HP
                 this.stat_fix_atk = Atk
@@ -6716,7 +6753,7 @@ const app = Vue.createApp({
             }
             return specialMovePower
         },
-        weatherModifier(weather, move, moveType) {
+        weatherModifier(weather, move, moveType, player_ability) {
             if (weather == "Sun" && moveType == "Water") {
                 return .5
             }
@@ -6733,6 +6770,12 @@ const app = Vue.createApp({
                 return .5
             }
             else if (weather == "Sandstorm") {
+                return 1
+            }
+            else if (weather == "Sandstorm" && player_ability == "Sand Force") {
+                if (moveType == "Rock" || moveType == "Ground" || moveType == "Steel") {
+                    return 1.3
+                }
                 return 1
             }
             else {
@@ -7157,7 +7200,7 @@ const app = Vue.createApp({
             var defendingType2Effectiveness = 1
 
             var player_ability_modifier = 1
-            var player_ability = state == 'Battle' ? this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.ability.value : this.mapper.properties.player.team[0].ability.value
+            var player_ability = state == 'Battle' ? this.mapper.properties.battle.player.active_pokemon.ability_temp.value : this.mapper.properties.player.team[0].ability.value
             if (player_ability == 'Normalize') {
                 attackingType = 'Normal'
             }
@@ -7406,7 +7449,7 @@ const app = Vue.createApp({
                 expert_belt_modifier = 1.2
             }
 
-            // var weatherBoost = this.weatherModifier(this.mapper.properties.battle.field.weather.value, x, this.moveType(x))
+            var weatherBoost = this.weatherModifier(this.mapper.properties.battle.field.weather.value, x, this.moveType(x), player_ability)
             var weatherBoost = 1
 
             var burnModifier = this.burnModifier(x)

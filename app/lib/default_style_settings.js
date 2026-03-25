@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-02-27T20:08:16.725Z
+ * Last updated: 2026-03-25T13:01:39.293Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -25456,7 +25456,9 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundContrast": 110,
         "backgroundSaturation": 0,
         "pkmnNature": "Hardy",
-        "pkmn_ability": "Sturdy"
+        "pkmn_ability": "Sturdy",
+        "selected_evolution_species": "Gigalith",
+        "evolution": true
     },
     "Black_Serperior-line-Serperior": {
         "overlay_color": "#008d50",
@@ -92490,7 +92492,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundContrast": "182",
         "backgroundSaturation": 113,
         "pkmnNature": "Hardy",
-        "pkmn_ability": "Rough Skin"
+        "pkmn_ability": "Rough Skin",
+        "attempt_number": 5
     },
     "Black_Dewott": {
         "overlay_color": "#8ecdcc",
@@ -126328,7 +126331,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundYOffset": 0,
         "backgroundBrightness": 100,
         "backgroundContrast": "103",
-        "backgroundSaturation": 100
+        "backgroundSaturation": 100,
+        "attempt_number": 2
     },
     "Black_Cofagrigus-line-Cofagrigus": {
         "overlay_color": "#f2d18e",
