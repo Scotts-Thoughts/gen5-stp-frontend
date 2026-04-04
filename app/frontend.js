@@ -1778,6 +1778,9 @@ const app = Vue.createApp({
             if (debugging_mode == true) { console.log("compare_splits starting...") } 
             if (debugging_mode == true) { console.log("...") } 
             if (this.collect_split_data == true) {
+                if (!this.game?.splits) {
+                    return []
+                }
                 if (debugging_mode == true) { console.log("collect_split_data == true") } 
                 const result = []
 
@@ -4922,6 +4925,56 @@ const app = Vue.createApp({
                         default: displayGraphicState = false; break;
                     } 
                 }
+                else if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
+                    switch (trainer) {
+                        case "Cheren":   graphic = `images/trainers/bw2/Cheren_12.png`; break;
+                        case "Roxie":    graphic = `images/trainers/bw2/Roxie.png`;     break;
+                        case "Burgh":    graphic = `images/trainers/Burgh.png`;         break;
+                        case "Elesa":    graphic = `images/trainers/bw2/Elesa.png`;     break;
+                        case "Clay":     graphic = `images/trainers/Clay.png`;          break;
+                        case "Skyla":    graphic = `images/trainers/Skyla.png`;         break;
+                        case "Drayden":  graphic = `images/trainers/Drayden.png`;       break;
+                        case "Marlon":   graphic = `images/trainers/bw2/Marlon3.png`;   break;
+                        // case "Iris":     graphic = `images/trainers/bw2/Iris.png`;   break;
+                        case "Shauntal": { 
+                            if (id_value == 38 || id_value == 143) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Shauntal.png`; break;
+                        }
+                        case "Marshal":  { 
+                            if (id_value == 39 || id_value == 144) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Marshal.png`;  break;
+                        }
+                        case "Grimsley": { 
+                            if (id_value == 40 || id_value == 145) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Grimsley.png`; break;
+                        }
+                        case "Caitlin":  { 
+                            if (id_value == 41 || id_value == 146) {
+                                displayGraphicState = false; break;
+                            }
+                            graphic = `images/trainers/Caitlin.png`;  break;
+                        }
+                        case "Rival": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/bw2/Hugh_12.png`; break;
+                                case 2: graphic = `images/trainers/bw2/Hugh_12.png`; break;
+                                case 3: graphic = `images/trainers/bw2/Hugh_3.png`; break;
+                                case 4: graphic = `images/trainers/bw2/Hugh_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/bw2/Hugh_12.png`; break;
+                            }
+                            break;
+                        }   
+                        default: displayGraphicState = false; break;
+                    } 
+                }
                 return {
                     state: displayGraphicState,
                     graphic: graphic,
@@ -7335,6 +7388,33 @@ const app = Vue.createApp({
                 }
             }
             
+            var multi_hit_modifier = 1;
+            const double_hit_moves = [
+                "Bonemerang",
+                "Double Hit",
+                "Double Iron Bash",
+                "Double Kick",
+                "Dragon Darts",
+                "Dual Chop",
+                "Dual Wingbeat",
+                "Gear Grind",
+                "Tachyon Cutter",
+                "Triple Dive",
+                "Twin Beam",
+                "Twineedle",
+            ];
+            const triple_hit_moves = [
+                "Surging Strikes",
+                "Triple Dive",
+                "Water Shuriken",
+            ];
+            if (double_hit_moves.includes(x)) {
+                multi_hit_modifier = 2;
+            }
+            if (triple_hit_moves.includes(x)) {
+                multi_hit_modifier = 3;
+            }
+
             if (player_ability == 'Scrappy' && (attackingType == 'Fighting' || attackingType == 'Normal')) {
                 if (defendingType1 == 'Ghost') {
                     defendingType1Effectiveness = 1
@@ -7475,7 +7555,7 @@ const app = Vue.createApp({
                     this[`move_fix_power_${slot}`] = "—"
                     return "—" 
                 }
-                let effective_power = Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier)
+                let effective_power = Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier * multi_hit_modifier)
                 this[`move_fix_power_${slot}`] = effective_power
                 return effective_power
             }
@@ -7489,7 +7569,7 @@ const app = Vue.createApp({
                     return "—" 
                 }
                 else {
-                    let effective_power = Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier)
+                    let effective_power = Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier * multi_hit_modifier)
                     this[`move_fix_power_${slot}`] = effective_power
                     return effective_power
                 }
@@ -8166,7 +8246,7 @@ const app = Vue.createApp({
                 logData(gameName, this.full_data_str, this.attempt_number, splitFileName, "Full", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                 
                 //write deprecated split data
-                if (this.autosplitter[this.game.gameName][trainer]) {
+                if (this.game && this.autosplitter[this.game.gameName]?.[trainer]) {
                     logData(gameName, this.deprecated_data_str, this.attempt_number, splitFileName, "Deprecated", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                 }
                 
@@ -8181,7 +8261,7 @@ const app = Vue.createApp({
                         split_data: this.split_data
                     }
                 }
-                if (this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
+                if (this.game && this.game.splits.includes(trainer) && !this.game.finalBattle.includes(trainer)) {
                     simpleSplit();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
                         if (trainer == "N") {
@@ -8197,16 +8277,16 @@ const app = Vue.createApp({
                     }
                 }
         
-                if (this.game.champion.includes(trainer)) {
+                if (this.game && this.game.champion.includes(trainer)) {
                     this.hallOfFameReset = true;
                 }
 
                 //stop timer
-                if (this.game.finalBattle.includes(trainer) || trainer == 'Alder') {
+                if (this.game && (this.game.finalBattle.includes(trainer) || trainer == 'Alder')) {
                     // this.stopTime()
                     this.timer.stopTime();
                     if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
-                    if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
+                    if (this.automatic_post_battle_splits == true && this.game?.post_battle_splits?.includes(trainer)) {
                         this.prepare_for_splits = true
                         // this.right_ui = "Splits"
                     }
@@ -8431,6 +8511,47 @@ const app = Vue.createApp({
                         res.end(JSON.stringify({ ok: false, error: 'Missing panel parameter' }));
                     }
                 }
+                else if (pathname === '/set-hidden-power') {
+                    // Set the Hidden Power type
+                    // Usage: /set-hidden-power?type=Ice
+                    if (query.type) {
+                        this.hidden_power_type = query.type;
+                        res.end(JSON.stringify({ ok: true, hidden_power_type: this.hidden_power_type }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing type parameter' }));
+                    }
+                }
+                else if (pathname === '/set-splits') {
+                    // Set the splits display mode
+                    // Usage: /set-splits?mode=First  or  /set-splits?mode=Followup
+                    if (query.mode) {
+                        this.toggle_compare_splits = query.mode;
+                        res.end(JSON.stringify({ ok: true, splits: this.toggle_compare_splits }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing mode parameter' }));
+                    }
+                }
+                else if (pathname === '/load-split-file') {
+                    // Load a split comparison CSV file from disk
+                    // Usage: /load-split-file?file=C%3A%5Cpath%5Cto%5Csplits.csv
+                    if (query.file) {
+                        const fs = require('fs');
+                        const csvText = fs.readFileSync(query.file, 'utf-8');
+                        const rows = csvText.split("\n").slice(1).filter(x => x !== '');
+                        const results = [];
+                        for (const row of rows) {
+                            const columns = row.split(",");
+                            results.push({ trainer: columns[2], time: columns[3] });
+                        }
+                        this.previous_splits = results;
+                        res.end(JSON.stringify({ ok: true, splits_loaded: results.length }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing file parameter' }));
+                    }
+                }
                 else if (pathname === '/reload') {
                     // Trigger a full page reload (like Ctrl+Shift+R)
                     // Usage: /reload
@@ -8451,6 +8572,8 @@ const app = Vue.createApp({
                         selected_evolution_species: this.selected_evolution_species,
                         gameName: this.mapper?.properties.meta.game_name.value,
                         right_ui: this.right_ui,
+                        hidden_power_type: this.hidden_power_type,
+                        splits: this.toggle_compare_splits,
                     }));
                 }
                 else {

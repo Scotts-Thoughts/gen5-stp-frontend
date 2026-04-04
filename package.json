@@ -1,6 +1,6 @@
 {
   "name": "gen5-overlay-app",
-  "version": "1.6.0",
+  "version": "1.9.0",
   "description": "A minimal Electron application",
   "main": "./main.js",
   "build": {
