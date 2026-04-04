@@ -7727,9 +7727,13 @@ const app = Vue.createApp({
         })
         this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {
             const map = this.mapper.properties.overworld.map_index.value
-            if (newProp.value == 5 && map == 391) {
+            if ((this.selected_game == "Black" || this.selected_game == "White") && newProp.value == 5 && map == 391) {
                 this.write_byte_data(this.set_starter_stats_object)
                 this.set_hm_encounters()
+            }
+            else if ((this.selected_game == "Black 2" || this.selected_game == "White 2") && newProp.value == 5 && map == 117) {
+                this.write_byte_data(this.set_starter_stats_object)
+                // this.set_hm_encounters() // !TODO: Needs to be implemented for BW2
             }
         })
 
