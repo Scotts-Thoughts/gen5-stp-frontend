@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-04-04T04:48:50.327Z
+ * Last updated: 2026-04-04T14:14:57.383Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -1089583,7 +1089583,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundFlip": true,
         "backgroundBlur": "3",
         "ui_saturation": "1.6"
-    }
+    },
+    "White 2_Jirachi": {}
 };
 
 // Export for use in the application
