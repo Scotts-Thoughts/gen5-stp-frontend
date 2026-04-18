@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-04-04T14:14:57.383Z
+ * Last updated: 2026-04-18T17:28:11.629Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -485297,7 +485297,7 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundSaturation": 92,
         "pkmnNature": "Hardy",
         "pkmn_ability": "Cute Charm",
-        "evolution": false,
+        "evolution": true,
         "selected_evolution_species": "Cinccino",
         "attempt_number": 0,
         "finished_run_count": 0,
@@ -1089584,7 +1089584,13 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundBlur": "3",
         "ui_saturation": "1.6"
     },
-    "White 2_Jirachi": {}
+    "White 2_Jirachi": {},
+    "Black_Jirachi": {
+        "pkmn_ability": "Serene Grace",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Steel",
+        "overlay_color": "#b8b8d0"
+    }
 };
 
 // Export for use in the application

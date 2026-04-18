@@ -834,12 +834,12 @@ const app = Vue.createApp({
                 "24": "Quirky",
             },
             stat_object:     [
-                {abrv: "Hp",  name: "Hp",              name_stat_exp: "Hp",      label: "HP",   path: "hp",              mod_path: "Hp",             mod_abrv: "hp",  base_stat_path: "base_hp",      object_identifier: "hp",      dv: "dvHp",      hp_spe_label_row: 1, hp_spd_label_row: 1, label_column: 1, stat_row: 1, value_column: 2,}, 
-                {abrv: "Atk", name: "Attack",          name_stat_exp: "Attack",  label: "Atk.", path: "attack",          mod_path: "Attack",         mod_abrv: "atk", base_stat_path: "base_atk",     object_identifier: "atk",     dv: "dvAttack",  hp_spe_label_row: 2, hp_spd_label_row: 2, label_column: 1, stat_row: 2, value_column: 2,}, 
-                {abrv: "Def", name: "Defense",         name_stat_exp: "Defense", label: "Def.", path: "defense",         mod_path: "Defense",        mod_abrv: "def", base_stat_path: "base_def",     object_identifier: "def",     dv: "dvDefense", hp_spe_label_row: 3, hp_spd_label_row: 3, label_column: 1, stat_row: 3, value_column: 2,}, 
-                {abrv: "SpA", name: "Special Attack",  name_stat_exp: "Special", label: "SpA.", path: "special_attack",  mod_path: "SpecialAttack",  mod_abrv: "spA", base_stat_path: "base_spc_atk", object_identifier: "spc_atk", dv: "dvSpecial", hp_spe_label_row: 1, hp_spd_label_row: 2, label_column: 3, stat_row: 2, value_column: 4,}, 
-                {abrv: "SpD", name: "Special Defense", name_stat_exp: "Special", label: "SpD.", path: "special_defense", mod_path: "SpecialDefense", mod_abrv: "spD", base_stat_path: "base_spc_def", object_identifier: "spc_def", dv: "dvSpecial", hp_spe_label_row: 2, hp_spd_label_row: 3, label_column: 3, stat_row: 3, value_column: 4,}, 
-                {abrv: "Spe", name: "Speed",           name_stat_exp: "Speed",   label: "Spe.", path: "speed",           mod_path: "Speed",          mod_abrv: "spe", base_stat_path: "base_spd",     object_identifier: "spd",     dv: "dvSpeed",   hp_spe_label_row: 3, hp_spd_label_row: 1, label_column: 3, stat_row: 1, value_column: 4,}, 
+                {abrv: "Hp",  name: "Hp",              name_stat_exp: "Hp",      label: "HP",   vitamin: "HP Up",   path: "hp",              mod_path: "Hp",             mod_abrv: "hp",  base_stat_path: "base_hp",      object_identifier: "hp",      dv: "dvHp",      hp_spe_label_row: 1, hp_spd_label_row: 1, label_column: 1, stat_row: 1, value_column: 2,}, 
+                {abrv: "Atk", name: "Attack",          name_stat_exp: "Attack",  label: "Atk.", vitamin: "Protein", path: "attack",          mod_path: "Attack",         mod_abrv: "atk", base_stat_path: "base_atk",     object_identifier: "atk",     dv: "dvAttack",  hp_spe_label_row: 2, hp_spd_label_row: 2, label_column: 1, stat_row: 2, value_column: 2,}, 
+                {abrv: "Def", name: "Defense",         name_stat_exp: "Defense", label: "Def.", vitamin: "Iron",    path: "defense",         mod_path: "Defense",        mod_abrv: "def", base_stat_path: "base_def",     object_identifier: "def",     dv: "dvDefense", hp_spe_label_row: 3, hp_spd_label_row: 3, label_column: 1, stat_row: 3, value_column: 2,}, 
+                {abrv: "SpA", name: "Special Attack",  name_stat_exp: "Special", label: "SpA.", vitamin: "Calcium", path: "special_attack",  mod_path: "SpecialAttack",  mod_abrv: "spA", base_stat_path: "base_spc_atk", object_identifier: "spc_atk", dv: "dvSpecial", hp_spe_label_row: 1, hp_spd_label_row: 2, label_column: 3, stat_row: 2, value_column: 4,}, 
+                {abrv: "SpD", name: "Special Defense", name_stat_exp: "Special", label: "SpD.", vitamin: "Calcium", path: "special_defense", mod_path: "SpecialDefense", mod_abrv: "spD", base_stat_path: "base_spc_def", object_identifier: "spc_def", dv: "dvSpecial", hp_spe_label_row: 2, hp_spd_label_row: 3, label_column: 3, stat_row: 3, value_column: 4,}, 
+                {abrv: "Spe", name: "Speed",           name_stat_exp: "Speed",   label: "Spe.", vitamin: "Carbos",  path: "speed",           mod_path: "Speed",          mod_abrv: "spe", base_stat_path: "base_spd",     object_identifier: "spd",     dv: "dvSpeed",   hp_spe_label_row: 3, hp_spd_label_row: 1, label_column: 3, stat_row: 1, value_column: 4,}, 
             ],
 
             //VARIABLES THAT TRACK IN GAME PROGRESS ------------------------------------------------------------//
@@ -1776,20 +1776,61 @@ const app = Vue.createApp({
         },
         compare_splits() {
             debugging_mode = false
-            if (debugging_mode == true) { console.log("compare_splits starting...") } 
-            if (debugging_mode == true) { console.log("...") } 
+            if (debugging_mode == true) { console.log("compare_splits starting...") }
+            if (debugging_mode == true) { console.log("...") }
             if (this.collect_split_data == true) {
                 if (!this.game?.splits) {
                     return []
                 }
-                if (debugging_mode == true) { console.log("collect_split_data == true") } 
+
+                const trainersToSkip = ["Bianca", "Cheren"];
+                const trioTrainers = ["Chili", "Cilan", "Cress"];
+                const final_n_battle_id = 587;
+
+                // First mode: use default order, no CSV needed
+                if (this.toggle_compare_splits === 'First') {
+                    const result = []
+                    const completedTrainers = new Set()
+                    let trioHandled = false
+
+                    // Add completed splits first, in the order they were completed
+                    for (const cur_split of this.current_splits) {
+                        if (!this.game.splits.includes(cur_split.trainer)) continue
+                        if (trainersToSkip.includes(cur_split.trainer)) continue
+                        if (completedTrainers.has(cur_split.trainer)) continue
+                        if (cur_split.trainer === "N" && cur_split.id !== final_n_battle_id) continue
+
+                        if (trioTrainers.includes(cur_split.trainer)) {
+                            if (trioHandled) continue
+                            trioHandled = true
+                        }
+
+                        result.push({trainer: cur_split.trainer, imageTrainer: cur_split.trainer, current_time: cur_split.time})
+                        completedTrainers.add(cur_split.trainer)
+                    }
+
+                    // Add remaining uncompleted splits in default order
+                    for (const trainer of this.game.splits) {
+                        if (trainersToSkip.includes(trainer)) continue
+                        if (completedTrainers.has(trainer)) continue
+
+                        if (trioTrainers.includes(trainer)) {
+                            if (trioHandled) continue
+                            trioHandled = true
+                        }
+
+                        result.push({trainer: trainer, imageTrainer: trainer, current_time: "-"})
+                    }
+                    return result
+                }
+
+                // Followup mode: compare against loaded CSV splits
+                if (debugging_mode == true) { console.log("collect_split_data == true") }
                 const result = []
 
                 let lastPushedTrainer = null; // Keep track of the last pushed trainer
                 let trioTrainerProcessed = false; // Track if we've already processed a trio trainer
-                if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) } 
-
-                const trainersToSkip = ["Bianca", "Cheren"]; // Trainers to skip
+                if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) }
 
                 let default_splits = [
                     { trainer: "Trio",     id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
@@ -2059,6 +2100,7 @@ const app = Vue.createApp({
                     case "IVs":          return `IVs`
                     case "Hidden Power": return `Hidden Power ${this.hpType}`
                     case "EVs":          return `EVs`
+                    case "Vitamins":     return `Vitamins`
                     case "Detailed EVs": {
                         let ev_hp  = this.mapper.properties.player.team[0].evs.hp.value
                         let ev_atk = this.mapper.properties.player.team[0].evs.attack.value
@@ -2587,6 +2629,16 @@ const app = Vue.createApp({
     },
 
     methods: {
+        vitamins_remaining(evs, label) { //statExp = mapper.properties.player.team[0].statExpAttack.value
+            vitaminsUsed = (evs / 10)
+            usableVitamins = Math.ceil(10 - vitaminsUsed)
+            if (usableVitamins < 0) {
+                return 0
+            }
+            else {
+                return usableVitamins
+            }
+        },
                 /**
          * Send an OBS WebSocket 5 "CreateRecordChapter" request (Add Chapter Marker).
          * Connects to ws://localhost:4455 (or MyStorage.obs_websocket_url), identifies,
@@ -7586,7 +7638,21 @@ const app = Vue.createApp({
     mounted: async function () {
         const that = this
         this.mapper = new GameHookMapperClient()
-        this.mapper.onMapperLoaded = (x) => this.ready = true
+        this.mapper.onMapperLoaded = (x) => {
+            this.ready = true
+            this.$nextTick(() => {
+                if (this.$refs.expBar) {
+                    const species = this.mapper.properties.player.team[0].species.value ?? this.starter;
+                    const expPoints = (this.mapper.properties.meta.state.value == 'Battle' ? this.mapper.properties.battle.player.active_pokemon.exp.value :
+                        this.mapper.properties.player.team[0].exp.value) ?? 0;
+                    const growthRate = this.g5PokemonData[species]?.growth_rate ?? "Error Growth Rate";
+                    const expStats = this.calcExpStats(growthRate, expPoints);
+                    this.$refs.expBar.style.width = (expStats.percent * 100) + "%";
+                    this.expBarState.species = species;
+                    this.expBarState.expPoints = expPoints;
+                }
+            })
+        }
         this.mapper.onMapperUnloaded = (x) => this.ready = false
 
         this.mapper._debouceTimeout = 15
@@ -7821,6 +7887,13 @@ const app = Vue.createApp({
             }
             if (newProp.value == 319 && this.encounters_route_2 == false) {
                 this.mapper.properties.overworld.encounters_enabled.set(false, false)
+            }
+
+            if (newProp.value == 350 || newProp.value == 351) {
+                this.stats_setting = "Vitamins";
+            }
+            else {
+                this.stats_setting = "Automatic";
             }
         })
 
