@@ -25,7 +25,6 @@ const game_variables =
             "Skyla",
             "Brycen",
             "Drayden",
-            "Iris",
             "Shauntal",
             "Grimsley",
             "Caitlin",
@@ -87,7 +86,7 @@ const game_variables =
         "trainerList" : "trainers_black",
         "opponentImageMap" : {},
         "splits" : [
-            "Chili", "Cilan", "Cress", "Lenora", "Burgh", "Elesa", "Clay", "Skyla", "Brycen", "Drayden", "Iris",
+            "Chili", "Cilan", "Cress", "Lenora", "Burgh", "Elesa", "Clay", "Skyla", "Brycen", "Iris",
             "Shauntal", "Marshal", "Grimsley", "Caitlin", "Ghetsis", "Alder", "N", "Cheren", "Bianca",
         ],
         "post_battle_splits" : [
@@ -130,7 +129,7 @@ const game_variables =
             "Shauntal", "Grimsley", "Caitlin", "Marshal", "N", "Ghetsis",
         ],
         "champion" : ["Alder"],
-        "finalBattle" : ["Ghetsis"],
+        "finalBattle" : ["Iris"],
         "encountersMap" : {},
         "starterLocation" : ["ROUTE 101"],
         "callback1" : {
@@ -165,7 +164,7 @@ const game_variables =
             "Shauntal", "Grimsley", "Caitlin", "Marshal", "N", "Ghetsis",
         ],
         "champion" : ["Alder"],
-        "finalBattle" : ["Ghetsis"],
+        "finalBattle" : ["Iris"],
         "encountersMap" : {},
         "starterLocation" : ["ROUTE 101"],
         "callback1" : {

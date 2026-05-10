@@ -1783,7 +1783,7 @@ const app = Vue.createApp({
                     return []
                 }
 
-                const trainersToSkip = ["Bianca", "Cheren"];
+                const trainersToSkip = ["Bianca", "Cheren", "Alder"];
                 const trioTrainers = ["Chili", "Cilan", "Cress"];
                 const final_n_battle_id = 587;
 
@@ -1805,7 +1805,7 @@ const app = Vue.createApp({
                             trioHandled = true
                         }
 
-                        result.push({trainer: cur_split.trainer, imageTrainer: cur_split.trainer, current_time: cur_split.time})
+                        result.push({trainer: cur_split.trainer, imageTrainer: cur_split.trainer, current_time: this.convertSecondsToDuration(this.convertDurationToSeconds(cur_split.time))})
                         completedTrainers.add(cur_split.trainer)
                     }
 
