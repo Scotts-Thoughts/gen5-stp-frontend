@@ -867,11 +867,18 @@ const app = Vue.createApp({
             encounters_route_1: MyStorage["encounters_route_1"] ?? false,
             encounters_route_2: MyStorage["encounters_route_2"] ?? false,
 
+            encounters_route_19: MyStorage["encounters_route_19"] ?? false,
+            encounters_route_20: MyStorage["encounters_route_20"] ?? false,
+            encounters_flocessy_ranch: MyStorage["encounters_flocessy_ranch"] ?? false,
+
             encounters_woobat     : MyStorage["encounters_woobat"]     ?? false,
             encounters_roggenrola : MyStorage["encounters_roggenrola"] ?? false,
             encounters_pidove     : MyStorage["encounters_pidove"]     ?? true,
             encounters_tympole    : MyStorage["encounters_tympole"]    ?? false,
             encounters_timburr    : MyStorage["encounters_timburr"]    ?? false,
+
+            encounters_psyduck   : MyStorage["encounters_psyduck"]   ?? false,
+            encounters_pidove    : MyStorage["encounters_pidove"]    ?? true,
 
             //Pokemon settings for local storage
             overlay_color: MyStorage["overlay_color"] ?? "#000000",
@@ -940,6 +947,12 @@ const app = Vue.createApp({
                 "encounters_pidove",
                 "encounters_tympole",
                 "encounters_timburr",
+                "encounters_route_19",
+                "encounters_route_20",
+                "encounters_flocessy_ranch",
+                "encounters_psyduck",
+                "encounters_pidove",
+
             ],
             timer_startTimeOffset: MyStorage["timer_startTimeOffset"] ?? "00:00:00.00",
             time_split_start:      MyStorage['time_split_start']      ?? "00:00:00:00",
@@ -1032,6 +1045,11 @@ const app = Vue.createApp({
             this.encounters_pidove      = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_pidove      ?? true
             this.encounters_tympole     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_tympole     ?? false
             this.encounters_timburr     = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_timburr     ?? false
+            this.encounters_route_19       = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_19    ?? false
+            this.encounters_route_20       = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_route_20    ?? false
+            this.encounters_flocessy_ranch = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_flocessy_ranch ?? false
+            this.encounters_psyduck        = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_psyduck    ?? false
+            this.encounters_pidove         = MyStorage[`${this.mapper?.properties.meta.game_name.value}_${this.starter}`]?.encounters_pidove     ?? true
         }
         for (let i = 0; i < this.pokemon_settings.length; i++) {
             let propName = this.pokemon_settings[i];
@@ -1131,6 +1149,49 @@ const app = Vue.createApp({
                 this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
             }
         },
+        encounters_route_19(newValue) {
+            if (this.mapper.properties.overworld.map_index.value == 320) {
+                this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
+        encounters_route_20(newValue) {
+            if (this.mapper.properties.overworld.map_index.value == 321) {
+                this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
+        encounters_flocessy_ranch(newValue) {
+            if (this.mapper.properties.overworld.map_index.value == 322) {
+                this.mapper.properties.overworld.encounters_enabled.set(newValue, false)
+            }
+        },
+        // encounters_psyduck(newValue) {
+        //     const variable = this.mapper.properties.patch.encounter_psyduck.value
+        //     if (variable == 2) {
+        //         return;
+        //     }
+        //     switch (newValue) {
+        //         case true:
+        //             this.mapper.properties.patch.encounter_psyduck.set(1, false)
+        //             break;
+        //         case false:
+        //             this.mapper.properties.patch.encounter_psyduck.set(0, false)
+        //             break;
+        //     }
+        // },
+        // encounters_pidove(newValue) {
+        //     const variable = this.mapper.properties.patch.encounter_pidove.value
+        //     if (variable == 2) {
+        //         return;
+        //     }
+        //     switch (newValue) {
+        //         case true:
+        //             this.mapper.properties.patch.encounter_pidove.set(1, false)
+        //             break;
+        //         case false:
+        //             this.mapper.properties.patch.encounter_pidove.set(0, false)
+        //             break;
+        //     }
+        // },
         encounters_woobat(newValue) {
             const variable = this.mapper.properties.patch.encounter_woobat.value
             if (variable == 2) {
@@ -1384,6 +1445,9 @@ const app = Vue.createApp({
             // this.ability           = MyStorage[`${game}_${starter}`]?.ability          ?? this.g5PokemonData[starter].abilities[0],
             this.encounters_route_1 = MyStorage[`${game}_${starter}`]?.encounters_route_1 ?? false
             this.encounters_route_2 = MyStorage[`${game}_${starter}`]?.encounters_route_2 ?? false
+            this.encounters_route_19 = MyStorage[`${game}_${starter}`]?.encounters_route_19 ?? false
+            this.encounters_route_20 = MyStorage[`${game}_${starter}`]?.encounters_route_20 ?? false
+            this.encounters_flocessy_ranch = MyStorage[`${game}_${starter}`]?.encounters_flocessy_ranch ?? false
             
             // Evolution management
             if (this.evolution != true) {
@@ -1704,8 +1768,12 @@ const app = Vue.createApp({
                 case "Elesa":    delay = true; break;
                 case "Clay":     delay = true; break;
                 case "Skyla":    delay = true; break;
+                case "Cheren":   delay = true; break;
+                case "Roxie":    delay = true; break;
                 case "Brycen":   delay = true; break;
                 case "Drayden":  delay = true; break;
+                case "Marlon":   delay = true; break;
+                case "Iris":     delay = true; break;
                 case "Shauntal": delay = true; break;
                 case "Marshall": delay = true; break;
                 case "Grimsley": delay = true; break;
@@ -1783,7 +1851,9 @@ const app = Vue.createApp({
                     return []
                 }
 
-                const trainersToSkip = ["Bianca", "Cheren", "Alder"];
+                const trainersToSkip = (this.selected_game === "Black 2" || this.selected_game === "White 2")
+                    ? ["Bianca", "Alder"]
+                    : ["Bianca", "Cheren", "Alder"];
                 const trioTrainers = ["Chili", "Cilan", "Cress"];
                 const final_n_battle_id = 587;
 
@@ -2969,11 +3039,23 @@ const app = Vue.createApp({
         toggle_encounters() {
             this.encounters_route_1 = !this.encounters_route_1
             this.encounters_route_2 = !this.encounters_route_2
+            this.encounters_route_19 = !this.encounters_route_19
+            this.encounters_route_20 = !this.encounters_route_20
+            this.encounters_flocessy_ranch = !this.encounters_flocessy_ranch
             if (this.mapper.properties.overworld.map_index.value == 317) {
                 this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_1, false)
             }
             if (this.mapper.properties.overworld.map_index.value == 319) {
                 this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_2, false)
+            }
+            if (this.mapper.properties.overworld.map_index.value == 124) {
+                this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_19, false)
+            }
+            if (this.mapper.properties.overworld.map_index.value == 125) {
+                this.mapper.properties.overworld.encounters_enabled.set(this.encounters_route_20, false)
+            }
+            if (this.mapper.properties.overworld.map_index.value == 130) {
+                this.mapper.properties.overworld.encounters_enabled.set(this.encounters_flocessy_ranch, false)
             }
         },
         decimalToPercentage(decimal) {
@@ -3165,6 +3247,55 @@ const app = Vue.createApp({
             if (difference_string === "+0:00")      { return "color: black" }
             if (difference_string.charAt(0) == "+") { return "color: red" }
             if (difference_string.charAt(0) == "-") { return "color: green" }
+        },
+        enemy_held_item(x) {
+            const team   = this.mapper?.properties?.battle?.opponent?.team
+            const active = this.mapper?.properties?.battle?.opponent?.active_pokemon
+            const activePid = active?.internals?.personality_value?.value
+            const slotPid   = team?.[x]?.internals?.personality_value?.value
+            const slotSpecies   = team?.[x]?.species?.value
+            const activeSpecies = active?.species?.value
+            const pidMatch     = activePid != null && activePid === slotPid
+            const speciesMatch = activeSpecies != null && activeSpecies === slotSpecies
+            if (pidMatch || speciesMatch) {
+                const tempItem = active?.held_item_temp?.value ?? active?.held_item?.value
+                if (tempItem != null) { return tempItem }
+            }
+            return team?.[x]?.held_item?.value
+        },
+        held_item_icon(itemName) {
+            if (!itemName || itemName === "None") { return null }
+            const normalize = (s) => s.toLowerCase().replace(/['']/g, "").replace(/\s+/g, "-")
+            const legacyMap = {
+                "NeverMeltIce":  "hold-item_never-melt-ice",
+                "BlackGlasses":  "hold-item_black-glasses",
+                "SilverPowder":  "hold-item_silver-powder",
+                "TwistedSpoon":  "hold-item_twisted-spoon",
+                "Never-Melt Ice":"hold-item_never-melt-ice",
+                "Polkadot Bow":  "hold-item_silk-scarf",
+                "Pink Bow":      "hold-item_silk-scarf",
+            }
+            if (legacyMap[itemName]) {
+                return `images/inventory_sprites/${legacyMap[itemName]}.png`
+            }
+            const suffixes = [
+                { end: " Berry",   prefix: "berry" },
+                { end: " Plate",   prefix: "plate" },
+                { end: " Gem",     prefix: "gem" },
+                { end: " Mail",    prefix: "mail" },
+                { end: " Ball",    prefix: "ball" },
+                { end: " Incense", prefix: "incense" },
+                { end: " Flute",   prefix: "flute" },
+                { end: " Shard",   prefix: "shard" },
+                { end: " Fossil",  prefix: "fossil" },
+            ]
+            for (const { end, prefix } of suffixes) {
+                if (itemName.endsWith(end)) {
+                    const base = normalize(itemName.slice(0, -end.length))
+                    return `images/inventory_sprites/${prefix}_${base}.png`
+                }
+            }
+            return `images/inventory_sprites/hold-item_${normalize(itemName)}.png`
         },
         enemy_form(x, species) {
             const pokemon_data = this.mapper.properties.battle.opponent.team[x]
@@ -4899,6 +5030,11 @@ const app = Vue.createApp({
                 case "Ho Oh":      return "Ho-oh"
                 default:           return species
             }
+        },
+        getSplitImageName(trainer) {
+            if (!trainer) return ""
+            const mapped = this.game?.opponentImageMap?.[trainer] ?? trainer
+            return mapped.toLowerCase()
         },
         getTrainerGraphic() {
             if (this.enemy_graphic == true) {
@@ -7669,7 +7805,7 @@ const app = Vue.createApp({
             if (this.ready) { // Only poll when mapper is ready
                 await this.fetchEmulatorStats();
             }
-        }, 10); // 100ms = 10 times per second (adjust as needed)
+        }, 100); // 100ms = 10 times per second (adjust as needed)
 
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
@@ -7833,7 +7969,7 @@ const app = Vue.createApp({
 
 
         // Resets
-        if (this.selected_game == "Black") {
+        if (this.selected_game == "Black" || this.selected_game == "White" || this.selected_game == "Black 2" || this.selected_game == "White 2") {
             this.mapper.properties?.flags?.new_game.change(async (newProp, oldProp) => {
                 // console.log("New Game Flag Changed")
                 // console.log(newProp)
@@ -7877,24 +8013,61 @@ const app = Vue.createApp({
             }
         })
 
+        // Fix for Black2 and White2 resetting the encounter rate when you pass through the Flocessy Ranch Gate
+        this.mapper.properties.overworld.encounters_enabled.change(async (newProp, oldProp) => {
+            if (this.selected_game == "Black 2" || this.selected_game == "White 2") {
+                // console.log(newProp.value)
+                if (newProp.value == true && this.encounters_route_19 == false && this.mapper.properties.overworld.map_index.value == 124) {
+                    this.mapper.properties.overworld.encounters_enabled.set(false, false)
+                }
+                if (newProp.value == true && this.encounters_route_20 == false && this.mapper.properties.overworld.map_index.value == 125) {
+                    this.mapper.properties.overworld.encounters_enabled.set(false, false)
+                }
+                if (newProp.value == true && this.encounters_flocessy_ranch == false && this.mapper.properties.overworld.map_index.value == 130) {
+                    this.mapper.properties.overworld.encounters_enabled.set(false, false)
+                }
+            }
+        })
         // Options
         this.mapper.properties.overworld.map_index.change(async (newProp, oldProp) => {
+            // console.log(newProp.value)
+            // console.log(oldProp.value)
+            // Black and White
             if (newProp.value == 391 && oldProp.value == 0) {
                 this.set_options()
             }
+            // Black2 and White2
+            if (newProp.value == 51 && oldProp.value == 0) {
+                this.set_options()
+            }
+
+            // Black and White
             if (newProp.value == 317 && this.encounters_route_1 == false) {
                 this.mapper.properties.overworld.encounters_enabled.set(false, false)
             }
             if (newProp.value == 319 && this.encounters_route_2 == false) {
                 this.mapper.properties.overworld.encounters_enabled.set(false, false)
             }
+            // Black2 and White2
+            if (newProp.value == 124 && this.encounters_route_19 == false) {
+                this.mapper.properties.overworld.encounters_enabled.set(false, false)
+            }
+            if (newProp.value == 125 && this.encounters_route_20 == false) {
+                this.mapper.properties.overworld.encounters_enabled.set(false, false)
+            }
+            if (newProp.value == 130 && this.encounters_flocessy_ranch == false) {
+                this.mapper.properties.overworld.encounters_enabled.set(false, false)
+            }
 
+            // Black and White
             if (newProp.value == 350 || newProp.value == 351) {
                 this.stats_setting = "Vitamins";
             }
             else {
                 this.stats_setting = "Automatic";
             }
+            // Black2 and White2
+            // not implemented yet
         })
 
         //Blackouts
@@ -8264,6 +8437,38 @@ const app = Vue.createApp({
             if (this.blackout == true) {
                 if (game == 'Black') {
                     if (newProp.value == -1893922566 && oldProp.value == 21828) {
+                        if (this.disallow_faults == false && this.run_complete == false) { 
+                            this.blackout_counter++ 
+                            this.sendObsChapterMarker("BLACKOUT")
+                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
+                        }
+                        this.disallow_faults_function()
+                    }
+                }
+                // !TODO: needs to be implemented for White
+                else if (game == 'White') {
+                    if (newProp.value == -1893922566 && oldProp.value == 21828) {
+                        if (this.disallow_faults == false && this.run_complete == false) { 
+                            this.blackout_counter++ 
+                            this.sendObsChapterMarker("BLACKOUT")
+                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
+                        }
+                        this.disallow_faults_function()
+                    }
+                }
+                // !TODO: needs to be implemented for B2
+                else if (game == "Black 2") {
+                    if (newProp.value == -1892153091 && oldProp.value == 21828) {
+                        if (this.disallow_faults == false && this.run_complete == false) { 
+                            this.blackout_counter++ 
+                            this.sendObsChapterMarker("BLACKOUT")
+                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
+                        }
+                        this.disallow_faults_function()
+                    }
+                }
+                else if (game == "White 2") {
+                    if (newProp.value == -1892153091 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
                             this.sendObsChapterMarker("BLACKOUT")

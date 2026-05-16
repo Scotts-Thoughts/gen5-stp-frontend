@@ -27,7 +27,11 @@ class StyleSettingsManager {
         // Cache for user settings (loaded from localStorage)
         this.userSettingsCache = {};
         
-        // List of style property keys that should use the layered system
+        // List of style property keys that should use the layered system.
+        // ONLY these properties are persisted to the defaults file in dev mode —
+        // anything else passed in (e.g. split_data, attempt_number, playerResets,
+        // finished_run_count, blackout_counter) is treated as user/run state and
+        // stored in localStorage only. This keeps default_style_settings.js small.
         this.stylePropertyKeys = [
             'overlay_color',
             'ui_saturation',
@@ -54,8 +58,14 @@ class StyleSettingsManager {
             'pkmn_gender',
             'hidden_power_type',
             'hidden_power_index',
-            'frame'
+            'frame',
+            'evolution',
+            'selected_evolution_species',
+            'evolution_splits_label'
         ];
+
+        // Debounce handle for async defaults-file writes
+        this._writeDefaultsTimer = null;
         
         console.log(`[StyleSettingsManager] Initialized in ${this.isDev ? 'DEVELOPMENT' : 'PRODUCTION'} mode`);
     }
@@ -215,25 +225,48 @@ class StyleSettingsManager {
     }
     
     /**
-     * Save to default settings file (dev mode)
+     * Save to default settings file (dev mode).
+     *
+     * Only fields in stylePropertyKeys are persisted to the defaults file —
+     * other fields (split_data, attempt_number, run counters, etc.) stay in
+     * localStorage so the defaults file does not grow unbounded.
      */
     _saveToDefaults(key, value) {
-        // Update in-memory defaults
         if (value === undefined || value === null) {
             delete this.defaultSettings[key];
-        } else {
-            // Merge with existing default to preserve other properties
-            this.defaultSettings[key] = {
-                ...(this.defaultSettings[key] || {}),
-                ...value
-            };
+            localStorage.removeItem(key);
+            this._scheduleWriteDefaultsFile();
+            return;
         }
-        
-        // Write to file
-        this._writeDefaultsFile();
-        
-        // Also update localStorage for immediate use (but as defaults, not user overrides)
-        localStorage.setItem(key, JSON.stringify(this.defaultSettings[key]));
+
+        // Filter incoming value to only style-related fields for the defaults file.
+        const styleOnly = {};
+        for (const prop of this.stylePropertyKeys) {
+            if (prop in value) styleOnly[prop] = value[prop];
+        }
+
+        this.defaultSettings[key] = {
+            ...(this.defaultSettings[key] || {}),
+            ...styleOnly
+        };
+
+        // Persist the FULL value to localStorage so non-style fields (split_data,
+        // counters, etc.) remain available at runtime.
+        localStorage.setItem(key, JSON.stringify(value));
+
+        this._scheduleWriteDefaultsFile();
+    }
+
+    /**
+     * Debounced async write of the defaults file. A burst of style changes only
+     * triggers one disk write ~1s after the last change.
+     */
+    _scheduleWriteDefaultsFile() {
+        if (this._writeDefaultsTimer) clearTimeout(this._writeDefaultsTimer);
+        this._writeDefaultsTimer = setTimeout(() => {
+            this._writeDefaultsTimer = null;
+            this._writeDefaultsFile();
+        }, 1000);
     }
     
     /**
@@ -298,12 +331,11 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 `;
         
-        try {
-            fs.writeFileSync(this.defaultSettingsPath, content, 'utf8');
-            console.log('[StyleSettingsManager] Saved default settings to file');
-        } catch (e) {
-            console.error('[StyleSettingsManager] Failed to write default settings file:', e.message);
-        }
+        fs.writeFile(this.defaultSettingsPath, content, 'utf8', (err) => {
+            if (err) {
+                console.error('[StyleSettingsManager] Failed to write default settings file:', err.message);
+            }
+        });
     }
     
     /**

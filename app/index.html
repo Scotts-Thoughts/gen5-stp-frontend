@@ -10,10 +10,14 @@
     <div id="app-container">
         <div id="app">
         <div v-if="ready == false">
-            <select v-model="selected_game" class="dropdownMenu">
-                <option disabled value="">Select a species</option>
-                <option v-for="game in available_games" :value="`${game}`">{{game}}</option>
-            </select>
+            <div class="gameToggle">
+                <img v-for="game in available_games"
+                     :key="game"
+                     :src="`images/box_art/5-${game.replace(' ', '')}.png`"
+                     :title="game"
+                     :class="['gameToggleImg', { selected: selected_game == game }]"
+                     @click="selected_game = game"/>
+            </div>
             Not receiving data...
         </div>
         <div v-else-if="mapper && mapper.properties">
@@ -77,11 +81,14 @@
             <div>
                 <div class="ui1">
                     <div>Game:</div>
-                    <select v-model="selected_game" class="dropdownMenu">
-                        <option disabled value="">Select a species</option>
-                        <option v-for="game in available_games" :value="`${game}`">{{game}}</option>
-                    </select><br>
-                    <br>
+                    <div class="gameToggle">
+                        <img v-for="game in available_games"
+                             :key="game"
+                             :src="`images/box_art/5-${game.replace(' ', '')}.png`"
+                             :title="game"
+                             :class="['gameToggleImg', { selected: selected_game == game }]"
+                             @click="selected_game = game"/>
+                    </div><br>
                     <button class="buttonStyle" @click="newRun">New Run</button><br>
                     <br>
                     <button class="buttonStyle buttonStyle_column3" @click="this.timer.pauseUnpauseTime()">Play/Pause</button>
@@ -288,19 +295,34 @@
                     </select>
                     <br><br>
                     <div>Encounters:</div>
-                    <table style="font-size: 11px; line-height: 14px;">
-                        <tr><td>Route 1</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_1"/></td></tr>
-                        <tr><td>Route 2</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_2"/></td></tr>
-                    </table>
-                    <div>HM Users:</div>
-                    <table style="font-size: 11px; line-height: 14px;">
-                        <tr><td>Woobat</td>    <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_woobat"/></td></tr>
-                        <tr><td>Roggenrola</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_roggenrola"/></td></tr>
-                        <tr><td>Pidove</td>    <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_pidove"/></td></tr>
-                        <tr><td>Tympole</td>   <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_tympole"/></td></tr>
-                        <tr><td>Timburr</td>   <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_timburr"/></td></tr>
-                    </table>
-                    <br>
+                    <div v-if="selected_game == 'Black' || selected_game == 'White'">
+                        <table style="font-size: 11px; line-height: 14px;">
+                            <tr><td>Route 1</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_1"/></td></tr>
+                            <tr><td>Route 2</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_2"/></td></tr>
+                        </table>
+                        <div>HM Users:</div>
+                        <table style="font-size: 11px; line-height: 14px;">
+                            <tr><td>Woobat</td>    <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_woobat"/></td></tr>
+                            <tr><td>Roggenrola</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_roggenrola"/></td></tr>
+                            <tr><td>Pidove</td>    <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_pidove"/></td></tr>
+                            <tr><td>Tympole</td>   <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_tympole"/></td></tr>
+                            <tr><td>Timburr</td>   <td><input class="checkBoxStyle" type="checkbox" v-model="encounters_timburr"/></td></tr>
+                        </table>
+                        <br>
+                    </div>
+                    <div v-else-if="selected_game == 'Black 2' || selected_game == 'White 2'">
+                        <table style="font-size: 11px; line-height: 14px;">
+                            <tr><td>Route 19</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_19"/></td></tr>
+                            <tr><td>Route 20</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_route_20"/></td></tr>
+                            <tr><td>Flocessy Ranch</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_flocessy_ranch"/></td></tr>
+                        </table>
+                        <div>HM Users:</div>
+                        <table style="font-size: 11px; line-height: 14px;">
+                            <tr><td>Psyduck</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_psyduck"/></td></tr>
+                            <tr><td>Pidove</td><td><input class="checkBoxStyle" type="checkbox" v-model="encounters_pidove"/></td></tr>
+                        </table>
+                        <br>
+                    </div>
                 </div>
                 <div class="ui3">
                     <div>Stat Display:</div>
@@ -599,8 +621,12 @@
                                         <img class="ePkmnSprite" :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
                                         <!-- <img class="canvas" :src="`images/ui/speed_comp/${x}.svg`" /> -->
                                         <div class="border ePkmnTyping">
+                                            <img v-if="held_item_icon(enemy_held_item(x))"
+                                                class="icons moveIcon ePkmnHeldItem"
+                                                :src="held_item_icon(enemy_held_item(x))"
+                                                @error="$event.target.style.visibility='hidden'" />
                                             <img class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_1?.toLowerCase()}.png`" />
-                                            <img v-show="g5PokemonData[enemy_mon_static[x]?.species]?.type_1 != g5PokemonData[enemy_mon_static[x]?.species]?.type_2" 
+                                            <img v-show="g5PokemonData[enemy_mon_static[x]?.species]?.type_1 != g5PokemonData[enemy_mon_static[x]?.species]?.type_2"
                                                 class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_2?.toLowerCase()}.png`" />
                                         </div>
 
@@ -670,7 +696,7 @@
                                 <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
                             </tr>
                             <tr v-for="split in compare_splits">
-                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${(split.imageTrainer || split.trainer)?.toLowerCase()}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${getSplitImageName(split.imageTrainer || split.trainer)}.png`" /></td>
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
                                 <td style="font-size: 16px; text-align: right;">{{split.previous_time == "0:00" ? "-" : split.previous_time}}</td>
                                 <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
@@ -689,7 +715,7 @@
                                 <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Time</td>
                             </tr>
                             <tr v-for="split in compare_splits">
-                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${(split.imageTrainer || split.trainer)?.toLowerCase()}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon" :src="`images/split_images/${getSplitImageName(split.imageTrainer || split.trainer)}.png`" /></td>
                                 <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
                                 <td style="font-size: 16px; text-align: right;"></td>
                                 <td style="font-size: 16px; text-align: right;"></td>

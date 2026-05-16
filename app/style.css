@@ -294,7 +294,39 @@ body {
     filter: drop-shadow(0px 0px 2px #000000c5);
 }
 .dropdownMenu:hover {
-    background: #11ce18; 
+    background: #11ce18;
+}
+.gameToggle {
+    pointer-events: auto;
+    position: relative;
+    width: 280px;
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    filter: drop-shadow(0px 0px 2px #000000c5);
+}
+.gameToggleImg {
+    width: 66px;
+    height: auto;
+    cursor: pointer;
+    border-radius: 6px;
+    opacity: 0.45;
+    filter: grayscale(70%);
+    transition: opacity 0.15s, filter 0.15s, transform 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+}
+.gameToggleImg:hover {
+    opacity: 0.85;
+    filter: grayscale(20%);
+    transform: scale(1.05);
+}
+.gameToggleImg.selected {
+    opacity: 1;
+    filter: none;
+    border-color: #11ce18;
+    box-shadow: 0 0 6px #11ce18;
+    transform: scale(1.05);
 }
 .buttonStyle {
     pointer-events: auto; 
@@ -1210,6 +1242,12 @@ img, span, div {
     width: 24px;
     height: 24px;
     margin-bottom: 2px;
+}
+.ePkmnHeldItem {
+    width: 32px;
+    height: 32px;
+    margin-right: -8px;
+    /* object-fit: contain; */
 }
 .splitIcon {
     width: 43.8px;
