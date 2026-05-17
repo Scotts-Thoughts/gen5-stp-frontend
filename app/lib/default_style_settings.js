@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-16T18:08:22.425Z
+ * Last updated: 2026-05-17T16:28:57.557Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4181,6 +4181,19 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "backgroundTexture": "Normal",
         "overlay_color": "#a8a878"
+    },
+    "White 2_Camerupt": {},
+    "White 2_Charizard": {
+        "pkmn_ability": "Blaze",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Fire",
+        "overlay_color": "#f08030"
+    },
+    "White 2_Numel": {
+        "pkmn_ability": "Oblivious",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Fire",
+        "overlay_color": "#f08030"
     }
 };
 

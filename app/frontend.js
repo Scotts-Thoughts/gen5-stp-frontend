@@ -617,6 +617,40 @@ const app = Vue.createApp({
             refilming_mode               : false,
             show_advanced_settings       : MyStorage['show_advanced_settings'] ?? false,
             showPopup                    : false,
+
+            // RNG modal lookup tables (item name -> patch value)
+            stpRoute5BerryGirl: {
+                "Random Berry": 0,
+                "Pomeg Berry": 1,
+                "Kelpsey Berry": 2,
+                "Qualot Berry": 3,
+                "Hondew Berry": 4,
+                "Grepa Berry": 5,
+                // "Tamato Berry": 6, // unobtainable in regular gameplay, use PokeAByte to obtain it
+            },
+            stpPWTShards: {
+                "Random Shard": 0,
+                "Red Shard": 1,
+                "Blue Shard": 2,
+                "Yellow Shard": 3,
+                "Green Shard": 4,
+            },
+
+            // RNG modal state
+            showRNGModal: false,
+            rng_npcs: [
+                { key: "stpRoute5BerryGirl", label: "Route 5 Berry Girl", patchProp: "stpRoute5BerryGirl", defaultItem: "Random Berry" },
+                { key: "stpPWTShards",       label: "PWT Shards",         patchProp: "stpPWTShards",       defaultItem: "Random Shard" },
+            ],
+            rng_config: MyStorage['rng_config'] ?? {
+                stpRoute5BerryGirl: ["Random Berry"],
+                stpPWTShards:       ["Random Shard"],
+            },
+            rng_trip_index: {
+                stpRoute5BerryGirl: 0,
+                stpPWTShards:       0,
+            },
+
             right_ui                     : MyStorage['right_ui']               ?? "Automatic",
             previous_label               : MyStorage['previous_label']         ?? "Previous",
             current_label                : MyStorage['current_label']          ?? "Current",
@@ -1259,6 +1293,20 @@ const app = Vue.createApp({
                     break;
                 case false:
                     this.mapper.properties.patch.encounter_pidove.set(0, false)
+                    break;
+            }
+        },
+        encounters_psyduck(newValue) {
+            const variable = this.mapper.properties.patch.encounter_psyduck.value
+            if (variable == 2) {
+                return;
+            }
+            switch (newValue) {
+                case true:
+                    this.mapper.properties.patch.encounter_psyduck.set(1, false)
+                    break;
+                case false:
+                    this.mapper.properties.patch.encounter_psyduck.set(0, false)
                     break;
             }
         },
@@ -3639,6 +3687,38 @@ const app = Vue.createApp({
         },
         closePopup() {
             this.showPopup = false;
+        },
+        openRNGModal() {
+            for (const npc of this.rng_npcs) {
+                if (!Array.isArray(this.rng_config[npc.key]) || this.rng_config[npc.key].length === 0) {
+                    this.rng_config[npc.key] = [npc.defaultItem];
+                }
+            }
+            this.showRNGModal = true;
+        },
+        closeRNGModal() {
+            this.showRNGModal = false;
+            MyStorage['rng_config'] = this.rng_config;
+        },
+        addRNGTrip(npcKey) {
+            const npc = this.rng_npcs.find(n => n.key === npcKey);
+            if (!npc) return;
+            this.rng_config[npcKey].push(npc.defaultItem);
+        },
+        removeRNGTrip(npcKey, idx) {
+            if (idx <= 0) return;
+            this.rng_config[npcKey].splice(idx, 1);
+        },
+        rngPatchValueForTrip(npcKey, tripIdx) {
+            const npc = this.rng_npcs.find(n => n.key === npcKey);
+            if (!npc) return 0;
+            const itemName = this.rng_config[npcKey]?.[tripIdx];
+            if (itemName == null) return 0;
+            const lookup = this[npcKey];
+            return lookup?.[itemName] ?? 0;
+        },
+        rngOptionsFor(npcKey) {
+            return this[npcKey] ?? {};
         },
         popupAction(action) {
             console.log(`Popup action selected: ${action}`);
