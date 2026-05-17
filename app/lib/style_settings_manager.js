@@ -168,7 +168,11 @@ class StyleSettingsManager {
     }
     
     /**
-     * Get a value with layered lookup: user override -> default
+     * Get a value with layered lookup: default < localStorage main < user override.
+     *
+     * The main localStorage[key] is read so non-style fields (encounter toggles,
+     * attempt_number, run counters, etc.) round-trip — _saveToDefaults filters
+     * those out of defaultSettings but still writes the full value to localStorage.
      */
     get(key) {
         // For non-style keys, just return from localStorage directly
@@ -176,29 +180,24 @@ class StyleSettingsManager {
             const raw = localStorage.getItem(key);
             return raw ? JSON.parse(raw) : null;
         }
-        
-        // Get user override from localStorage
+
         const userRaw = localStorage.getItem(`user_${key}`);
         const userValue = userRaw ? JSON.parse(userRaw) : null;
-        
-        // Get default value
+
+        const localRaw = localStorage.getItem(key);
+        const localValue = localRaw ? JSON.parse(localRaw) : null;
+
         const defaultValue = this.defaultSettings[key] || null;
-        
-        // Merge: user overrides take precedence
-        if (userValue === null && defaultValue === null) {
+
+        if (userValue === null && localValue === null && defaultValue === null) {
             return null;
         }
-        
-        if (userValue === null) {
-            return defaultValue;
-        }
-        
-        if (defaultValue === null) {
-            return userValue;
-        }
-        
-        // Both exist - merge with user values taking precedence
-        return { ...defaultValue, ...userValue };
+
+        return {
+            ...(defaultValue || {}),
+            ...(localValue || {}),
+            ...(userValue || {})
+        };
     }
     
     /**

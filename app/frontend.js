@@ -639,8 +639,8 @@ const app = Vue.createApp({
             // RNG modal state
             showRNGModal: false,
             rng_npcs: [
-                { key: "stpRoute5BerryGirl", label: "Route 5 Berry Girl", patchProp: "stpRoute5BerryGirl", defaultItem: "Random Berry" },
-                { key: "stpPWTShards",       label: "PWT Shards",         patchProp: "stpPWTShards",       defaultItem: "Random Shard" },
+                { key: "stpRoute5BerryGirl", label: "Route 5 Berry Girl", mapIndex: 18, bagCategory: "berries", patchProp: "stpRoute5BerryGirl", defaultItem: "Random Berry" },
+                { key: "stpPWTShards",       label: "PWT Shards",         mapIndex: 36, bagCategory: "items",   patchProp: "stpPWTShards",       defaultItem: "Random Shard" },
             ],
             rng_config: MyStorage['rng_config'] ?? {
                 stpRoute5BerryGirl: ["Random Berry"],
@@ -911,7 +911,7 @@ const app = Vue.createApp({
             encounters_tympole    : MyStorage["encounters_tympole"]    ?? false,
             encounters_timburr    : MyStorage["encounters_timburr"]    ?? false,
 
-            encounters_psyduck   : MyStorage["encounters_psyduck"]   ?? false,
+            encounters_psyduck   : MyStorage["encounters_psyduck"]   ?? true,
             encounters_pidove    : MyStorage["encounters_pidove"]    ?? true,
 
             //Pokemon settings for local storage
@@ -3720,6 +3720,97 @@ const app = Vue.createApp({
         rngOptionsFor(npcKey) {
             return this[npcKey] ?? {};
         },
+        async write_rng_initial_trips() {
+            // Reset every NPC's trip index and write trip 1's patch value to PokeAByte.
+            // Called when the player receives their starter.
+            for (const npc of this.rng_npcs) {
+                this.rng_trip_index[npc.key] = 0;
+                const value = this.rngPatchValueForTrip(npc.key, 0);
+                const prop = this.mapper?.properties?.patch?.[npc.patchProp];
+                console.log(`[RNG] init trip for ${npc.key}: writing ${value} to patch.${npc.patchProp} (prop exists: ${!!prop?.set})`);
+                if (prop?.set) {
+                    await prop.set(value, false);
+                }
+            }
+        },
+        setup_rng_bag_watchers() {
+            // Watch bag.items (shards) and bag.berries (berries) for quantity increases.
+            // When the total for a category grows while standing on a configured NPC's map,
+            // advance that NPC's trip and write the next trip's patch value (or 0 when
+            // the configured trip list is exhausted).
+            const readBagCategoryTotal = (category) => {
+                let total = 0;
+                const root = this.mapper?.properties?.bag?.[category];
+                if (root) {
+                    for (const k of Object.keys(root)) {
+                        total += root[k]?.quantity?.value ?? 0;
+                    }
+                }
+                return total;
+            };
+
+            const lastBagTotals = {
+                items:   readBagCategoryTotal('items'),
+                berries: readBagCategoryTotal('berries'),
+            };
+
+            const advanceRNGForCategory = async (category) => {
+                const previous = lastBagTotals[category];
+                const current = readBagCategoryTotal(category);
+                lastBagTotals[category] = current;
+                console.log(`[RNG] bag change fired: category=${category} previous=${previous} current=${current}`);
+                if (current <= previous) {
+                    console.log(`[RNG] no increase, not advancing`);
+                    return;
+                }
+                const currentMap = this.mapper?.properties?.overworld?.map_index?.value;
+                console.log(`[RNG] currentMap=${currentMap}`);
+                if (currentMap == null) return;
+                for (const npc of this.rng_npcs) {
+                    if (npc.bagCategory !== category) continue;
+                    if (npc.mapIndex !== currentMap) {
+                        console.log(`[RNG] npc ${npc.key} expects mapIndex=${npc.mapIndex}, on ${currentMap} — skip`);
+                        continue;
+                    }
+                    const tripsConfigured = this.rng_config[npc.key]?.length ?? 0;
+                    this.rng_trip_index[npc.key] = (this.rng_trip_index[npc.key] ?? 0) + 1;
+                    const nextValue = this.rng_trip_index[npc.key] < tripsConfigured
+                        ? this.rngPatchValueForTrip(npc.key, this.rng_trip_index[npc.key])
+                        : 0;
+                    const prop = this.mapper?.properties?.patch?.[npc.patchProp];
+                    console.log(`[RNG] advancing ${npc.key} -> trip ${this.rng_trip_index[npc.key]}/${tripsConfigured}, writing ${nextValue} to patch.${npc.patchProp} (prop exists: ${!!prop?.set})`);
+                    if (prop?.set) {
+                        await prop.set(nextValue, false);
+                    }
+                }
+            };
+
+            // Debounce so one pickup that touches both item+quantity (or several slots)
+            // doesn't advance the trip more than once.
+            const rngBagCheckTimers = { items: null, berries: null };
+            const scheduleRNGBagCheck = (category) => {
+                if (rngBagCheckTimers[category]) clearTimeout(rngBagCheckTimers[category]);
+                rngBagCheckTimers[category] = setTimeout(() => {
+                    rngBagCheckTimers[category] = null;
+                    advanceRNGForCategory(category);
+                }, 100);
+            };
+
+            let attached = { items: 0, berries: 0 };
+            for (const category of ['items', 'berries']) {
+                const root = this.mapper?.properties?.bag?.[category];
+                if (!root) {
+                    console.warn(`[RNG] mapper.properties.bag.${category} does not exist — no listeners attached for this category`);
+                    continue;
+                }
+                for (const k of Object.keys(root)) {
+                    const slot = root[k];
+                    if (slot?.quantity?.change) { slot.quantity.change(() => scheduleRNGBagCheck(category)); attached[category]++; }
+                    if (slot?.item?.change)     { slot.item.change(() => scheduleRNGBagCheck(category)); attached[category]++; }
+                }
+            }
+            console.log(`[RNG] bag watcher setup complete: listeners attached items=${attached.items}, berries=${attached.berries}; initial totals`, lastBagTotals);
+        },
         popupAction(action) {
             console.log(`Popup action selected: ${action}`);
             // Add your custom logic here for each menu option
@@ -4696,12 +4787,6 @@ const app = Vue.createApp({
             this.labels =                     MyStorage['labels']                     ?? true
             this.tutor_moves =                MyStorage['tutor_moves']                ?? false
             this.showSpecialTrainerGraphics = MyStorage['showSpecialTrainerGraphics'] ?? true
-            this.route_101 =                  MyStorage['route_101']                  ?? true
-            this.route_102 =                  MyStorage['route_102']                  ?? true
-            this.route_103 =                  MyStorage['route_103']                  ?? true
-            this.hm_102_zigzagoon =           MyStorage['hm_102_zigzagoon']           ?? true
-            this.hm_104_marill =              MyStorage['hm_104_marill']              ?? true
-            this.hm_104_taillow =             MyStorage['hm_104_taillow']             ?? true
             this.testRun =                    MyStorage['testRun']                    ?? false
             this.simple_data_str =            MyStorage['simple_data_str']            ?? ""
             this.full_data_str =              MyStorage['full_data_str']              ?? ""
@@ -4709,13 +4794,17 @@ const app = Vue.createApp({
             this.simple_data =                MyStorage['simple_data']                ?? ""
             this.time_split_start =           MyStorage['time_split_start']           ?? "00:00:00:00"
             this.battle_start =               MyStorage['battle_start']               ?? 0
-            this.encounters_route_1 =         MyStorage['encounters_route_1']         ?? false
-            this.encounters_route_2 =         MyStorage['encounters_route_2']         ?? false
-            this.encounters_woobat =          MyStorage['encounters_woobat']          ?? false
-            this.encounters_roggenrola =      MyStorage['encounters_roggenrola']      ?? false
-            this.encounters_pidove =          MyStorage['encounters_pidove']          ?? true
-            this.encounters_tympole =         MyStorage['encounters_tympole']         ?? false
-            this.encounters_timburr =         MyStorage['encounters_timburr']         ?? false
+            this.encounters_route_1        = MyStorage[`${game_name}_${this.starter}`]?.encounters_route_1        ?? false
+            this.encounters_route_2        = MyStorage[`${game_name}_${this.starter}`]?.encounters_route_2        ?? false
+            this.encounters_woobat         = MyStorage[`${game_name}_${this.starter}`]?.encounters_woobat         ?? false
+            this.encounters_roggenrola     = MyStorage[`${game_name}_${this.starter}`]?.encounters_roggenrola     ?? false
+            this.encounters_pidove         = MyStorage[`${game_name}_${this.starter}`]?.encounters_pidove         ?? true
+            this.encounters_tympole        = MyStorage[`${game_name}_${this.starter}`]?.encounters_tympole        ?? false
+            this.encounters_timburr        = MyStorage[`${game_name}_${this.starter}`]?.encounters_timburr        ?? false
+            this.encounters_route_19       = MyStorage[`${game_name}_${this.starter}`]?.encounters_route_19       ?? false
+            this.encounters_route_20       = MyStorage[`${game_name}_${this.starter}`]?.encounters_route_20       ?? false
+            this.encounters_flocessy_ranch = MyStorage[`${game_name}_${this.starter}`]?.encounters_flocessy_ranch ?? false
+            this.encounters_psyduck        = MyStorage[`${game_name}_${this.starter}`]?.encounters_psyduck        ?? true
             this.editor =                     MyStorage['editor']                     ?? false
             this.debugging_mode =             MyStorage['debugging_mode']             ?? true
             this.held_item_replacement =      MyStorage['held_item_replacement']      ?? ""
@@ -8016,13 +8105,17 @@ const app = Vue.createApp({
             const map = this.mapper.properties.overworld.map_index.value
             if ((this.selected_game == "Black" || this.selected_game == "White") && newProp.value == 5 && map == 391) {
                 this.write_byte_data(this.set_starter_stats_object)
+                await this.write_rng_initial_trips()
                 this.set_hm_encounters()
             }
             else if ((this.selected_game == "Black 2" || this.selected_game == "White 2") && newProp.value == 5 && map == 117) {
                 this.write_byte_data(this.set_starter_stats_object)
+                await this.write_rng_initial_trips()
                 // this.set_hm_encounters() // !TODO: Needs to be implemented for BW2
             }
         })
+
+        this.setup_rng_bag_watchers()
 
         //EXP BAR ANIMATION FUNCTION
         /* exp bar initialization */ 

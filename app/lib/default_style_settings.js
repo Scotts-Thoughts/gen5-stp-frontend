@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-17T16:28:57.557Z
+ * Last updated: 2026-05-17T19:41:19.422Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4191,6 +4191,25 @@ const DEFAULT_STYLE_SETTINGS = {
     },
     "White 2_Numel": {
         "pkmn_ability": "Oblivious",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Fire",
+        "overlay_color": "#f08030"
+    },
+    "White 2_Reshiram": {
+        "pkmn_ability": "Turboblaze",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Dragon",
+        "overlay_color": "#7038f8",
+        "backgroundContrast": "186",
+        "backgroundBlur": "2",
+        "backgroundScale": "151",
+        "backgroundYOffset": "-30",
+        "backgroundBrightness": "92",
+        "imageSat": "104",
+        "ui_saturation": "0.3"
+    },
+    "White 2_Emboar": {
+        "pkmn_ability": "Blaze",
         "pkmnNature": "Hardy",
         "backgroundTexture": "Fire",
         "overlay_color": "#f08030"
