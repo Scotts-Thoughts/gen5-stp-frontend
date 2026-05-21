@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-17T19:41:19.422Z
+ * Last updated: 2026-05-21T05:29:18.956Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4213,6 +4213,97 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "backgroundTexture": "Fire",
         "overlay_color": "#f08030"
+    },
+    "White 2_Gible": {
+        "selected_evolution_species": "Gible",
+        "evolution": true,
+        "overlay_color": "#7038f8",
+        "backgroundTexture": "Dragon",
+        "pkmnNature": "Hardy",
+        "pkmn_ability": "Sand Veil",
+        "ui_saturation": 0.6,
+        "backgroundSaturation": 100,
+        "backgroundContrast": 100,
+        "backgroundBrightness": 100,
+        "backgroundYOffset": 0,
+        "backgroundScale": 100,
+        "backgroundHue": 0,
+        "imageFlip": false,
+        "imageScale": 1,
+        "imageYOffset": 0
+    },
+    "White 2_Garchomp-line-Gible": {
+        "evolution": true,
+        "imageScale": "0.5",
+        "imageFlip": true,
+        "imageYOffset": "-155",
+        "overlay_color": "#6e91a2",
+        "ui_saturation": "1.4",
+        "backgroundScale": "135",
+        "backgroundYOffset": "-65",
+        "backgroundContrast": "150",
+        "backgroundBrightness": "65",
+        "backgroundHue": "0",
+        "backgroundSaturation": "120",
+        "imageXOffset": 0,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Dragon",
+        "backgroundBlur": 0,
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0
+    },
+    "White 2_Garchomp-line-Gabite": {
+        "overlay_color": "#6e91a2",
+        "ui_saturation": "1.4",
+        "imageXOffset": 0,
+        "imageYOffset": "-42",
+        "imageScale": "0.76",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Dragon",
+        "backgroundBlur": 0,
+        "backgroundHue": "0",
+        "backgroundScale": "135",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-65",
+        "backgroundBrightness": "65",
+        "backgroundContrast": "150",
+        "backgroundSaturation": "120"
+    },
+    "White 2_Garchomp-line-Garchomp": {
+        "overlay_color": "#6e91a2",
+        "ui_saturation": "1.4",
+        "imageXOffset": "7",
+        "imageYOffset": "22",
+        "imageScale": "1.03",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Dragon",
+        "backgroundBlur": 0,
+        "backgroundHue": "0",
+        "backgroundScale": "135",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-65",
+        "backgroundBrightness": "65",
+        "backgroundContrast": "150",
+        "backgroundSaturation": "120"
+    },
+    "White 2_Gabite": {
+        "selected_evolution_species": "Gabite"
+    },
+    "White 2_Garchomp": {
+        "selected_evolution_species": "Garchomp"
     }
 };
 
