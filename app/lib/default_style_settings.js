@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-21T19:47:44.144Z
+ * Last updated: 2026-05-21T22:16:13.757Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4197,7 +4197,7 @@ const DEFAULT_STYLE_SETTINGS = {
     },
     "White 2_Reshiram": {
         "pkmn_ability": "Turboblaze",
-        "pkmnNature": "Hardy",
+        "pkmnNature": "Rash",
         "backgroundTexture": "Dragon",
         "overlay_color": "#7038f8",
         "backgroundContrast": "186",
@@ -4206,7 +4206,9 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundYOffset": "-30",
         "backgroundBrightness": "92",
         "imageSat": "104",
-        "ui_saturation": "0.3"
+        "ui_saturation": "0.3",
+        "imageYOffset": "14",
+        "imageXOffset": "-14"
     },
     "White 2_Emboar": {
         "pkmn_ability": "Blaze",

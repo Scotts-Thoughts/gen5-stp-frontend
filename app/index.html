@@ -110,7 +110,7 @@
                         <!-- <tr v-if="show_advanced_settings"><td>Second Screen Toggle:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_toggle"/></td></tr> -->
                     </table>
                     <br>
-                    <button class="buttonStyle" @click="openFolder(`splits`, `Black`, starter, 'finishes')">Open Splits Folder</button>
+                    <button class="buttonStyle" @click="openFolder(`splits`, current_game_folder, starter, 'finishes')">Open Splits Folder</button>
                     <br>
                     <button class="buttonStyle" @click="togglePopup">Keyboard Shortcuts</button>
                     <br><br>
@@ -288,6 +288,22 @@
                                 <option disabled value="">Select a Nature</option>
                                 <option v-for="key in values_function(simple_natures)" :value="`${key}`">{{natureLabels(`${key}`)}}</option>
                             </select>
+                            <div class="nature_grid">
+                                <div class="nature_grid_row">
+                                    <span class="nature_grid_label nature_grid_raise">+</span>
+                                    <button v-for="stat in natureStats" :key="'raise-' + stat.key"
+                                        class="nature_grid_btn"
+                                        :class="{ 'nature_grid_raise_on': natureRaisedStat() === stat.key }"
+                                        @click="selectNatureRaise(stat.key)">{{stat.short}}</button>
+                                </div>
+                                <div class="nature_grid_row">
+                                    <span class="nature_grid_label nature_grid_lower">&minus;</span>
+                                    <button v-for="stat in natureStats" :key="'lower-' + stat.key"
+                                        class="nature_grid_btn"
+                                        :class="{ 'nature_grid_lower_on': natureLoweredStat() === stat.key }"
+                                        @click="selectNatureLower(stat.key)">{{stat.short}}</button>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div>Gender:</div>

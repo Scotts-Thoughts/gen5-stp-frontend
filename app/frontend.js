@@ -777,6 +777,29 @@ const app = Vue.createApp({
                 "23": "Careful",
                 "24": "Quirky",
             },
+            // Button-grid nature selector (mirrors the dropdown). Order/labels match the natures' "raises"/"lowers" strings.
+            natureStats: [
+                { key: "Attack",          short: "Atk" },
+                { key: "Defense",         short: "Def" },
+                { key: "Special Attack",  short: "SpA" },
+                { key: "Special Defense", short: "SpD" },
+                { key: "Speed",           short: "Spe" },
+            ],
+            // Neutral natures don't store a stat, so map them onto the diagonal both ways.
+            neutralNatureByStat: {
+                "Attack": "Hardy",
+                "Defense": "Docile",
+                "Speed": "Serious",
+                "Special Attack": "Bashful",
+                "Special Defense": "Quirky",
+            },
+            neutralStatByNature: {
+                "Hardy": "Attack",
+                "Docile": "Defense",
+                "Serious": "Speed",
+                "Bashful": "Special Attack",
+                "Quirky": "Special Defense",
+            },
             hiddenPowerTypes : {
                 15: "Dark",
                 8 : "Fire",
@@ -1616,6 +1639,14 @@ const app = Vue.createApp({
         },
     },
     computed: {
+        /**
+         * The game-name folder that splits are written into.
+         * Mirrors the logic in logData/logCopy so the "Open Splits Folder"
+         * button always points at the active game's directory.
+         */
+        current_game_folder() {
+            return this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+        },
         /**
          * Check if the current Pokemon has multiple evolution stages
          * Returns true if evolution family has more than one species
@@ -4192,6 +4223,35 @@ const app = Vue.createApp({
                     break;
             }
             return output;
+        },
+        // --- Button-grid nature selector (two-way synced with the pkmnNature dropdown) ---
+        // Stat currently raised by the selected nature (diagonal stat for neutral natures).
+        natureRaisedStat() {
+            const data = this.natures[this.pkmnNature];
+            if (!data) return null;
+            return data.raises === "Neutral" ? this.neutralStatByNature[this.pkmnNature] : data.raises;
+        },
+        // Stat currently lowered by the selected nature (diagonal stat for neutral natures).
+        natureLoweredStat() {
+            const data = this.natures[this.pkmnNature];
+            if (!data) return null;
+            return data.lowers === "Neutral" ? this.neutralStatByNature[this.pkmnNature] : data.lowers;
+        },
+        // Find the nature name matching a raised/lowered stat pair (same stat => neutral).
+        natureFromStats(raise, lower) {
+            if (raise === lower) return this.neutralNatureByStat[raise];
+            for (const [name, data] of Object.entries(this.natures)) {
+                if (data.raises === raise && data.lowers === lower) return name;
+            }
+            return this.pkmnNature;
+        },
+        // Clicking a "raises" button keeps the current lowered stat and updates the dropdown.
+        selectNatureRaise(stat) {
+            this.pkmnNature = this.natureFromStats(stat, this.natureLoweredStat());
+        },
+        // Clicking a "lowers" button keeps the current raised stat and updates the dropdown.
+        selectNatureLower(stat) {
+            this.pkmnNature = this.natureFromStats(this.natureRaisedStat(), stat);
         },
         get_iv(stat_name) {
             const state = this.mapper.properties.meta.state.value
@@ -8765,8 +8825,8 @@ const app = Vue.createApp({
             if (newProp.value == 'From Battle') {
                 let trainer = this.mapper.properties.battle.opponent.trainer.value
                 let id = this.mapper.properties.battle.opponent.id.value
-                let gameName = 'Black'
-                let game_name = 'Black'
+                let gameName = this.mapper?.properties?.meta?.game_name?.value || this.selected_game
+                let game_name = gameName
                 if (trainer == 'Pokemon Trainer -' || trainer == null || trainer == undefined || trainer == '--') { return }
                 // Get the split file name (either "FullyEvolved-line" or "Species")
                 const splitFileName = this.getSplitFileName();
