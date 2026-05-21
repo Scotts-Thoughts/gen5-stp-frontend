@@ -39,7 +39,6 @@ const autosplitter = {
         "Clay":     "Leader Clay",
         "Skyla":    "Leader Skyla",
         "Brycen":   "Leader Brycen",
-        "Iris":     "Leader Iris",
         "Drayden":  "Leader Drayden",
         // Elite Four
         "Shauntal": "Elite Four Shauntal",
@@ -54,6 +53,7 @@ const autosplitter = {
         "N":        "Rival N",
     },
     "White": {
+        //Gyms
         "Chili":    "Leader Chili",
         "Cilan":    "Leader Cilan",
         "Cress":    "Leader Cress",
@@ -64,13 +64,14 @@ const autosplitter = {
         "Skyla":    "Leader Skyla",
         "Brycen":   "Leader Brycen",
         "Iris":     "Leader Iris",
-        "Drayden":  "Leader Drayden",
+        // Elite Four
         "Shauntal": "Elite Four Shauntal",
         "Marshal":  "Elite Four Marshal",
         "Grimsley": "Elite Four Grimsley",
         "Caitlin":  "Elite Four Caitlin",
         "Ghetsis":  "Plasma Boss Ghetsis",
         "Alder":    "Champion Alder",
+        // Rivals
         "Cheren":   "Rival Cheren",
         "Bianca":   "Rival Bianca",
         "N":        "Rival N",
