@@ -5224,30 +5224,63 @@ const app = Vue.createApp({
                         case "Skyla":    graphic = `images/trainers/Skyla.png`;    break;
                         case "Drayden":  graphic = `images/trainers/Drayden.png`;  break;
                         case "Iris":     graphic = `images/trainers/Iris.png`;     break;
-                        case "Zinzolin": graphic = `images/trainers/Zinzolin.png`;     break;
+                        case "Zinzolin": graphic = `images/trainers/Zinzolin.png`; break;
                         case "Shauntal": { 
-                            if (id_value == 563) {
-                                displayGraphicState = false; break;
+                            if (this.selected_game == `Black` || this.selected_game == `White`) {
+                                if (id_value == 563) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Shauntal.png`; break;
                             }
-                            graphic = `images/trainers/Shauntal.png`; break;
+                            if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
+                                if (id_value == 38) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Shauntal.png`; break;
+                            }
+
                         }
                         case "Marshal":  { 
-                            if (id_value == 564) {
-                                displayGraphicState = false; break;
+                            if (this.selected_game == `Black` || this.selected_game == `White`) {
+                                if (id_value == 564) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Marshal.png`;  break;
                             }
-                            graphic = `images/trainers/Marshal.png`;  break;
+                            if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
+                                if (id_value == 39) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Shauntal.png`; break;
+                            }
                         }
                         case "Grimsley": { 
-                            if (id_value ==  565) {
-                                displayGraphicState = false; break;
+                            if (this.selected_game == `Black` || this.selected_game == `White`) {
+                                if (id_value ==  565) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Grimsley.png`; break;
                             }
-                            graphic = `images/trainers/Grimsley.png`; break;
+                            if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
+                                if (id_value == 40) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Shauntal.png`; break;
+                            }
                         }
                         case "Caitlin":  { 
-                            if (id_value == 566) {
-                                displayGraphicState = false; break;
+                            if (this.selected_game == `Black` || this.selected_game == `White`) {
+                                if (id_value == 566) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Caitlin.png`;  break;
                             }
-                            graphic = `images/trainers/Caitlin.png`;  break;
+                            if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
+                                if (id_value == 41) {
+                                    displayGraphicState = false; break;
+                                }
+                                graphic = `images/trainers/Shauntal.png`; break;
+                            }
                         }
                         case "Cheren": {
                             switch (this.mapper.properties.battle.opponent.team_count.value) {
@@ -5258,6 +5291,18 @@ const app = Vue.createApp({
                                 case 5: displayGraphicState = false; break;
                                 case 6: displayGraphicState = false; break;
                                 default: graphic = `images/trainers/Cheren_12.png`; break;
+                            }
+                            break;
+                        }   
+                        case "Colress": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                // case 1: graphic = `images/trainers/Colress.png`; break;
+                                // case 2: graphic = `images/trainers/Colress.png`; break;
+                                case 3: graphic = `images/trainers/Colress.png`; break;
+                                // case 4: graphic = `images/trainers/Cheren_4.png`; break;
+                                case 3: graphic = `images/trainers/Colress_5.png`; break;
+                                // case 3: graphic = `images/trainers/Colress.png`; break;
+                                default: graphic = `images/trainers/Colress.png`; break;
                             }
                             break;
                         }   
