@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-21T05:29:18.956Z
+ * Last updated: 2026-05-21T16:19:37.518Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4304,6 +4304,12 @@ const DEFAULT_STYLE_SETTINGS = {
     },
     "White 2_Garchomp": {
         "selected_evolution_species": "Garchomp"
+    },
+    "Black_Garchomp": {
+        "pkmn_ability": "Sand Veil",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Dragon",
+        "overlay_color": "#7038f8"
     }
 };
 

@@ -1137,6 +1137,17 @@ const app = Vue.createApp({
         }
     },
     watch: {
+        selected_game: {
+            immediate: true,
+            handler(newValue) {
+                // Update the taskbar/window icon to match the selected game.
+                try {
+                    require('electron').ipcRenderer.send('set-game-icon', newValue)
+                } catch (e) {
+                    console.error('Failed to update game icon', e)
+                }
+            },
+        },
         enemy_graphic(newValue) {
             if (newValue == false && this.prepare_for_splits == true) {
                 this.prepare_for_splits = false
