@@ -209,7 +209,6 @@
                     </select>
                     <div>Search Pokemon:</div>
                     <input type="text" class="inputContainer" style="width: 280px;" v-model="search_term" placeholder="Search for a species">
-                    <button class="buttonStyle comparison_button" @click="update_rom_starter_and_intro_mon()">Set ROM Starter</button><br>
                     <button class="buttonStyle comparison_button" @click="load_splits()">Load split file to compare splits</button>
                     <button class="buttonStyle comparison_button" @click="clear_splits()" v-if="previous_splits.length > 0">Clear loaded splits</button><br>
                     <table>

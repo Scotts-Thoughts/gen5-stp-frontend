@@ -1522,6 +1522,11 @@ const app = Vue.createApp({
 
             }
 
+            // When the solo Pokemon changes, write it to PokeAByte's mapper.
+            if (oldValue !== newValue) {
+                this.update_rom_starter_and_intro_mon();
+            }
+
             this.movepoolResize();
         },
         ui_stat_arrangement(newValue) {
@@ -2823,7 +2828,13 @@ const app = Vue.createApp({
         },
         async update_rom_starter_and_intro_mon() {
             let starter = this.starter
-            this.mapper.properties.patch.stpStarterSpecies.set(starter, true)
+            // Write the solo Pokemon's species to PokeAByte's mapper (frozen) so the
+            // ROM patch forces it as the starter. Guarded in case the mapper isn't ready yet.
+            this.mapper?.properties?.patch?.stpStarterSpecies?.set(starter, true)
+            this.unlocked_difficulty_keys();
+        },
+        async unlocked_difficulty_keys() {
+            this.mapper?.properties?.options?.difficulty_keys?.set('Unlocked', false)
         },
         set_hm_encounters() {
             if (this.encounters_woobat) {
@@ -9371,6 +9382,8 @@ const app = Vue.createApp({
                     // Reload overlay settings for the current starter
                     // Usage: /refresh
                     this.load_all_settings();
+                    // Re-write the solo Pokemon to PokeAByte's mapper on refresh.
+                    this.update_rom_starter_and_intro_mon();
                     res.end(JSON.stringify({ ok: true }));
                 }
                 else if (pathname === '/new-run') {

@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-21T16:19:37.518Z
+ * Last updated: 2026-05-21T19:47:44.144Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4303,13 +4303,23 @@ const DEFAULT_STYLE_SETTINGS = {
         "selected_evolution_species": "Gabite"
     },
     "White 2_Garchomp": {
-        "selected_evolution_species": "Garchomp"
+        "selected_evolution_species": "Garchomp",
+        "pkmn_ability": "Sand Veil",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Dragon",
+        "overlay_color": "#7038f8"
     },
     "Black_Garchomp": {
         "pkmn_ability": "Sand Veil",
         "pkmnNature": "Hardy",
         "backgroundTexture": "Dragon",
         "overlay_color": "#7038f8"
+    },
+    "White 2_Eelektross": {
+        "pkmn_ability": "Levitate",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Electric",
+        "overlay_color": "#f3d230"
     }
 };
 
