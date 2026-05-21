@@ -5224,6 +5224,7 @@ const app = Vue.createApp({
                         case "Skyla":    graphic = `images/trainers/Skyla.png`;    break;
                         case "Drayden":  graphic = `images/trainers/Drayden.png`;  break;
                         case "Iris":     graphic = `images/trainers/Iris.png`;     break;
+                        case "Zinzolin": graphic = `images/trainers/Zinzolin.png`;     break;
                         case "Shauntal": { 
                             if (id_value == 563) {
                                 displayGraphicState = false; break;
