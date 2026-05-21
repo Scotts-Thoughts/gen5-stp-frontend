@@ -2868,20 +2868,30 @@ const app = Vue.createApp({
             this.mapper?.properties?.options?.difficulty_keys?.set('Unlocked', false)
         },
         set_hm_encounters() {
-            if (this.encounters_woobat) {
-                this.mapper.properties.patch.encounter_woobat.set(1, false)
+            if (this.selected_game == "Black" || this.selected_game == "White") {
+                if (this.encounters_woobat) {
+                    this.mapper.properties.patch.encounter_woobat.set(1, false)
+                }
+                if (this.encounters_roggenrola) {
+                    this.mapper.properties.patch.encounter_roggenrola.set(1, false)
+                }
+                if (this.encounters_pidove) {
+                    this.mapper.properties.patch.encounter_pidove.set(1, false)
+                }
+                if (this.encounters_tympole) {
+                    this.mapper.properties.patch.encounter_tympole.set(1, false)
+                }
+                if (this.encounters_timburr) {
+                    this.mapper.properties.patch.encounter_timburr.set(1, false)
+                }
             }
-            if (this.encounters_roggenrola) {
-                this.mapper.properties.patch.encounter_roggenrola.set(1, false)
-            }
-            if (this.encounters_pidove) {
-                this.mapper.properties.patch.encounter_pidove.set(1, false)
-            }
-            if (this.encounters_tympole) {
-                this.mapper.properties.patch.encounter_tympole.set(1, false)
-            }
-            if (this.encounters_timburr) {
-                this.mapper.properties.patch.encounter_timburr.set(1, false)
+            if (this.selected_game == "Black 2" || this.selected_game == "White 2") {
+                if (this.encounters_psyduck) {
+                    this.mapper.properties.patch.encounter_psyduck.set(1, false)
+                }
+                if (this.encounters_pidove) {
+                    this.mapper.properties.patch.encounter_pidove.set(1, false)
+                }
             }
         },
         // ============ Style Settings Management Methods ============
@@ -8239,7 +8249,7 @@ const app = Vue.createApp({
             else if ((this.selected_game == "Black 2" || this.selected_game == "White 2") && newProp.value == 5 && map == 117) {
                 this.write_byte_data(this.set_starter_stats_object)
                 await this.write_rng_initial_trips()
-                // this.set_hm_encounters() // !TODO: Needs to be implemented for BW2
+                this.set_hm_encounters()
             }
         })
 
