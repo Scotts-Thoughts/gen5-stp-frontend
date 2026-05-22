@@ -99,13 +99,13 @@
                     <input type="text" style="width: 280px; text-align: right;"class="inputContainer" v-model="timer_startTimeOffset" placeholder="00:00:00.00"/><br>
                     <table>
                         <tr><td>Show Advanced Settings:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_advanced_settings"/></td></tr>
-                        <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>HP Banned for 1st run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="banned_hidden_power"/></td></tr>
+                        <!-- <tr v-if="show_advanced_settings"><td>Test Run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="testRun"/></td></tr> -->
                         <tr v-if="show_advanced_settings"><td>Shuckie Timer</td><td><input class="checkBoxStyle" type="checkbox" v-model="shuckie_timer"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Shuckie Counters</td><td><input class="checkBoxStyle" type="checkbox" v-model="shuckie_counters"/></td></tr>
-                        <tr v-if="show_advanced_settings"><td>HP Banned for 1st run:</td><td><input class="checkBoxStyle" type="checkbox" v-model="banned_hidden_power"/></td></tr>
-                        <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr>
+                        <!-- <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr> -->
                         <tr v-if="show_advanced_settings"><td>Debugging-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="debugging_mode"/></td></tr>
-                        <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr>
+                        <!-- <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr> -->
                         <tr v-if="show_advanced_settings"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Second Screen Toggle:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_toggle"/></td></tr> -->
                     </table>
@@ -269,41 +269,24 @@
                         <option v-for="(key, index) in hiddenpowers[hidden_power_type]" :value="`${index}`">{{key}}</option>
                     </select><br>
                     <table style="font-size: 11px; line-height: 14px;">
-                        <tr><td>HP: </td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td><td style="padding-left: 20px;">Spe:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td></tr>
-                        <tr><td>Atk:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td><td style="padding-left: 20px;">SpA:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td></tr>
-                        <tr><td>Def:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td><td style="padding-left: 20px;">SpD:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td></tr>
+                        <tr>
+                            <td>HP:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][0]}}</td>
+                            <td style="padding-left: 8px;">Atk:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][1]}}</td>
+                            <td style="padding-left: 8px;">Def:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][2]}}</td>
+                            <td style="padding-left: 8px;">SpA:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][4]}}</td>
+                            <td style="padding-left: 8px;">SpD:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][5]}}</td>
+                            <td style="padding-left: 8px;">Spe:</td><td style="padding-left: 3px;">{{hiddenpowers[hidden_power_type][hidden_power_index][3]}}</td>
+                        </tr>
                     </table>
-                    <br>
-                    <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
-                    <select v-model="pkmn_ability" class="dropdownMenu dropdown_menu_column3">
-                        <option disabled value="">Select an ability</option>
-                        <option v-for="key in values_function(pokedex_black[starter].abilities)" :value="`${key}`">{{key}}</option>
-                    </select><br>
-                    <div style="font-size: 11px; line-height: 14px;">Ability: {{pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1 == 3 ? 'Hidden Ability' : pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1}}</div>
                     <br>
                     <div style="display: flex; gap: 12px; align-items: flex-start;">
                         <div>
-                            <div>Nature:</div>
-                            <select v-model="pkmnNature" class="dropdownMenu dropdown_menu_column3" style="width: 144px;">
-                                <option disabled value="">Select a Nature</option>
-                                <option v-for="key in values_function(simple_natures)" :value="`${key}`">{{natureLabels(`${key}`)}}</option>
+                            <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
+                            <select v-model="pkmn_ability" class="dropdownMenu dropdown_menu_column3" style="width: 144px;">
+                                <option disabled value="">Select an ability</option>
+                                <option v-for="key in values_function(pokedex_black[starter].abilities)" :value="`${key}`">{{key}}</option>
                             </select>
-                            <div class="nature_grid">
-                                <div class="nature_grid_row">
-                                    <span class="nature_grid_label nature_grid_raise">+</span>
-                                    <button v-for="stat in natureStats" :key="'raise-' + stat.key"
-                                        class="nature_grid_btn"
-                                        :class="{ 'nature_grid_raise_on': natureRaisedStat() === stat.key }"
-                                        @click="selectNatureRaise(stat.key)">{{stat.short}}</button>
-                                </div>
-                                <div class="nature_grid_row">
-                                    <span class="nature_grid_label nature_grid_lower">&minus;</span>
-                                    <button v-for="stat in natureStats" :key="'lower-' + stat.key"
-                                        class="nature_grid_btn"
-                                        :class="{ 'nature_grid_lower_on': natureLoweredStat() === stat.key }"
-                                        @click="selectNatureLower(stat.key)">{{stat.short}}</button>
-                                </div>
-                            </div>
+                            <div style="font-size: 11px; line-height: 14px;">Ability: {{pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1 == 3 ? 'Hidden Ability' : pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1}}</div>
                         </div>
                         <div>
                             <div>Gender:</div>
@@ -311,6 +294,32 @@
                                 <option>Female</option>
                                 <option>Male</option>
                             </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <div>
+                            <div>Nature:</div>
+                            <select v-model="pkmnNature" class="dropdownMenu dropdown_menu_column3" style="width: 144px;">
+                                <option disabled value="">Select a Nature</option>
+                                <option v-for="key in values_function(simple_natures)" :value="`${key}`">{{natureLabels(`${key}`)}}</option>
+                            </select>
+                        </div>
+                        <div class="nature_grid">
+                            <div class="nature_grid_row">
+                                <span class="nature_grid_label nature_grid_raise">+</span>
+                                <button v-for="stat in natureStats" :key="'raise-' + stat.key"
+                                    class="nature_grid_btn"
+                                    :class="{ 'nature_grid_raise_on': natureRaisedStat() === stat.key }"
+                                    @click="selectNatureRaise(stat.key)">{{stat.short}}</button>
+                            </div>
+                            <div class="nature_grid_row">
+                                <span class="nature_grid_label nature_grid_lower">&minus;</span>
+                                <button v-for="stat in natureStats" :key="'lower-' + stat.key"
+                                    class="nature_grid_btn"
+                                    :class="{ 'nature_grid_lower_on': natureLoweredStat() === stat.key }"
+                                    @click="selectNatureLower(stat.key)">{{stat.short}}</button>
+                            </div>
                         </div>
                     </div>
                     <div v-if="selected_game == 'White 2'" style="margin-top: 8px;">
