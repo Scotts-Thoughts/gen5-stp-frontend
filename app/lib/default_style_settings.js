@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-23T04:44:13.182Z
+ * Last updated: 2026-05-23T09:01:46.390Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -2416,7 +2416,11 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundSaturation": 100
     },
     "Black_Darumaka": {
-        "selected_evolution_species": "Darmanitan"
+        "selected_evolution_species": "Darmanitan",
+        "pkmn_ability": "Hustle",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Fire",
+        "overlay_color": "#f08030"
     },
     "Black_Darmanitan-line-Darumaka": {
         "imageScale": "0.53",
