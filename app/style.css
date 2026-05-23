@@ -1304,8 +1304,14 @@ img, span, div {
     /* object-fit: contain; */
 }
 .splitIcon {
-    width: 43.8px;
-    height: 43.8px;
+    width: 35px;
+    height: 35px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.splitIcon_2 {
+    width: 40.15px;
+    height: 40.15px;
     margin-top: 3px;
     margin-bottom: 3px;
 }
@@ -3674,6 +3680,24 @@ img, span, div {
     border: none;
 }
 .splits_table tr:nth-child(odd) {
+    background-color: #cfcfcf;
+}
+.second_screen_splits_table {
+    display: block;
+    position: absolute;
+    /* border: 1px solid #00ff0d00; */
+    background-color: #ffffff;
+    font-size: 12px;
+    line-height: 24px;
+    width: 404px;
+    height: 670px;
+    font-family: play;
+    left: 1494px;
+    top: 58px;
+    opacity: .9;
+    border: none;
+}
+.second_screen_splits_table tr:nth-child(odd) {
     background-color: #cfcfcf;
 }
 

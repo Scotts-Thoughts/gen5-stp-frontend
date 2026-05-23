@@ -81,4 +81,6 @@ const auto_save_settings = [
     "banned_hidden_power",
     "shuckie_timer",
     "shuckie_counters",
+    "second_screen_mode",
+    "live_hp",
 ]

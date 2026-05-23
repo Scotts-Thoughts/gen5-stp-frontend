@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Export_Layer" data-name="Export Layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4d4d4d;
+      }
+
+      .cls-2 {
+        fill: gray;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="1489" y1="377" x2="1904" y2="377" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#999"/>
+      <stop offset=".04" stop-color="#a0a0a0"/>
+      <stop offset=".21" stop-color="#b8b8b8"/>
+      <stop offset=".37" stop-color="#c6c6c6"/>
+      <stop offset=".5" stop-color="#ccc"/>
+      <stop offset=".63" stop-color="#c6c6c6"/>
+      <stop offset=".79" stop-color="#b7b7b7"/>
+      <stop offset=".97" stop-color="#9d9d9d"/>
+      <stop offset="1" stop-color="#999"/>
+    </linearGradient>
+  </defs>
+  <g id="Second_Screen_Splits" data-name="Second Screen Splits">
+    <path class="cls-3" d="M1489,734V38.83l18.83-18.83h377.34l18.83,18.83v695.17h-415ZM1492,731h409V56h-409v675Z"/>
+    <path class="cls-2" d="M1884.34,22l17.66,17.66v14.34h-411v-14.34l17.66-17.66h375.69M1886,18h-379c-7.81,7.81-12.19,12.19-20,20v698h419V38c-7.81-7.81-12.19-12.19-20-20h0ZM1494,729V58h405v671h-405Z"/>
+    <path class="cls-1" d="M1885.17,20l18.83,18.83v695.17h-415V38.83l18.83-18.83h377.34M1492,731h409V56h-409v675M1886,18h-379c-7.81,7.81-12.19,12.19-20,20v698h419V38c-7.81-7.81-12.19-12.19-20-20h0ZM1494,729V58h405v671h-405Z"/>
+    <path d="M1886,18c7.81,7.81,12.19,12.19,20,20v698h-419V38c7.81-7.81,12.19-12.19,20-20h379M1494,729h405V58h-405v671M1886.41,17h-379.83l-.29.29-10,10-10,10-.29.29v699.41h421V37.59l-.29-.29-10-10-10-10-.29-.29h0ZM1495,59h403v669h-403V59h0Z"/>
+  </g>
+</svg>

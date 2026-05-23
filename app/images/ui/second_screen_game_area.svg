@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Export_Layer" data-name="Export Layer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #39b54a;
+      }
+    </style>
+  </defs>
+  <g id="Game_Area_2_bottom_right_" data-name="Game Area 2 (bottom right)">
+    <rect class="cls-1" x="1486.5" y="747.25" width="420" height="315.25"/>
+    <path d="M1906,747.75v314.25h-419v-314.25h419M1907,746.75h-421v316.25h421v-316.25h0Z"/>
+  </g>
+</svg>

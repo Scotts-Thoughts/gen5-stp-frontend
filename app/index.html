@@ -106,7 +106,9 @@
                         <!-- <tr v-if="show_advanced_settings"><td>Refilming-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="refilming_mode"/></td></tr> -->
                         <tr v-if="show_advanced_settings"><td>Debugging-Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="debugging_mode"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Collect Split Data:</td><td><input class="checkBoxStyle" type="checkbox" v-model="collect_split_data"/></td></tr> -->
-                        <tr v-if="show_advanced_settings"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
+                        <tr v-if="show_advanced_settings && !second_screen_mode"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Second Screen Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_mode"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Live HP:</td><td><input class="checkBoxStyle" type="checkbox" v-model="live_hp"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Second Screen Toggle:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_toggle"/></td></tr> -->
                     </table>
                     <br>
@@ -377,24 +379,26 @@
                     </select><br>
                     <div v-if="show_advanced_settings">
                         <br>
-                        <div>Right UI:</div>
-                        <select v-model="right_ui" class="dropdownMenu">
-                            <option>Automatic</option>
-                            <option>Splits</option>
-                        </select><br>
-                        <div>Unobtainable Moves:</div>
-                        <select v-model="unobtainable_moves_toggle" class="dropdownMenu">
-                            <option>Never Cross Out</option>
-                            <option>Cross Out When Starter is Obtained</option>
-                            <option>Cross Out After First Badge</option>
-                            <option>Always Cross Out</option>
-                        </select><br>
-                        <div>Splits:</div>
-                        <select v-model="toggle_compare_splits" class="dropdownMenu">
-                            <option>Followup</option>
-                            <option>First</option>
-                        </select><br>
-                    </div>
+                            <div v-if="!second_screen_mode">
+                                <div>Right UI:</div>
+                                <select v-model="right_ui" class="dropdownMenu">
+                                    <option>Automatic</option>
+                                    <option>Splits</option>
+                                </select><br>
+                            </div>
+                            <div>Unobtainable Moves:</div>
+                            <select v-model="unobtainable_moves_toggle" class="dropdownMenu">
+                                <option>Never Cross Out</option>
+                                <option>Cross Out When Starter is Obtained</option>
+                                <option>Cross Out After First Badge</option>
+                                <option>Always Cross Out</option>
+                            </select><br>
+                            <div>Splits:</div>
+                            <select v-model="toggle_compare_splits" class="dropdownMenu">
+                                <option>Followup</option>
+                                <option>First</option>
+                            </select><br>
+                        </div>
                     <br>
                     <div v-if="right_display == 'Trainer' && show_advanced_settings">
                         <div>Search Trainers:</div>
@@ -665,7 +669,7 @@
             <!-- Right Hand Information Area -->
             <transition name="fade1">
                 <!-- Enemy Team Display -->
-                <div v-if="enemy_graphic == true && battlePokemonCrop != false" style="position: absolute;" key="1">
+                <div v-if="enemy_graphic == true && battlePokemonCrop != false && !second_screen_mode" style="position: absolute;" key="1">
                     <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s Team</div>
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
@@ -746,6 +750,49 @@
                     </div> 
                     <img v-if="getTrainerGraphic().state == true" :src="getTrainerGraphic().graphic" style="position: absolute; top: 0px;">
                     <img v-if="second_screen_check" class="canvas" src="images/ui/second_screen.png" />
+                </div>
+                <!-- Second Screen Mode -->
+                <div v-else-if="second_screen_mode" key="2">
+                    <div class="posAbs movepoolLabel">Splits</div>
+                    <div v-if="toggle_compare_splits === 'Followup'">
+                        <table class="second_screen_splits_table" cellspacing="0">
+                            <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
+                                <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left;  padding-left: 5px;">Split</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{previous_label}}</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;">{{current_label}}</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Diff</td>
+                            </tr>
+                            <tr v-for="split in compare_splits">
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon_2" :src="`images/split_images/${getSplitImageName(split.imageTrainer || split.trainer)}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
+                                <td style="font-size: 16px; text-align: right;">{{split.previous_time == "0:00" ? "-" : split.previous_time}}</td>
+                                <td style="font-size: 16px; text-align: right;">{{split.current_time}}</td>
+                                <td style="font-size: 16px; text-align: right; padding-right: 7px;" :style="split_diff_color(split.difference)">{{split.difference}}</td>
+                            </tr>
+                        </table>
+                        <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/second_screen_splits.svg)"></div>
+                    </div>
+                    <div v-else-if="toggle_compare_splits === 'First'">
+                        <table  class="second_screen_splits_table" cellspacing="0">
+                            <tr :style="{'background-color': `var(--${ui_type_color_modifier}${starting_type_fix})`, 'outline': '1px solid #000', height: '9px'}">
+                                <td style="text-decoration: underline; font-size: 16px; width: 30px; text-align: left;  padding-left: 5px;">Split</td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 150px; text-align: left; padding-left: 5px;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 92px;  text-align: right;"></td>
+                                <td style="text-decoration: underline; font-size: 16px; width: 71px;  text-align: right; padding-right: 7px;">Time</td>
+                            </tr>
+                            <tr v-for="split in compare_splits">
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;"><img class="icons splitIcon_2" :src="`images/split_images/${getSplitImageName(split.imageTrainer || split.trainer)}.png`" /></td>
+                                <td style="font-size: 16px; text-align: left; padding-left: 5px;">{{split.trainer}}</td>
+                                <td style="font-size: 16px; text-align: right;"></td>
+                                <td style="font-size: 16px; text-align: right;"></td>
+                                <td style="font-size: 16px; text-align: right; padding-right: 7px;">{{split.current_time}}</td>
+                            </tr>
+                        </table>
+                        <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/second_screen_splits.svg)"></div>
+                    </div>
+                    <div v-if="second_screen_mode == true" class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/second_screen_game_area.svg)"></div>
                 </div>
                 <!-- Splits -->
                 <div v-else-if="right_ui == 'Splits'" key="7" :style="`filter: drop-shadow(0px 1px 1px)`" class="posAbs">

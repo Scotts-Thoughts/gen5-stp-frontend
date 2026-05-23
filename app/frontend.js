@@ -651,6 +651,11 @@ const app = Vue.createApp({
                 stpPWTShards:       0,
             },
 
+            // Shadow Stitch Settings
+            second_screen_mode: MyStorage['second_screen_mode'] ?? false,
+            live_hp: MyStorage['live_hp'] ?? false,
+
+            // Settings
             right_ui                     : MyStorage['right_ui']               ?? "Automatic",
             previous_label               : MyStorage['previous_label']         ?? "Previous",
             current_label                : MyStorage['current_label']          ?? "Current",
@@ -4366,7 +4371,7 @@ const app = Vue.createApp({
                 final_stat_spe = this.g5PokemonData[this.starter].base_stats.speed
             }
             else if (state == `Overworld` || state == `To Battle`) {
-                HP =  pokemon_data.stats.hp_max.value
+                HP = this.live_hp ? pokemon_data.stats.hp.value : pokemon_data.stats.hp_max.value
                 if (player_ability == 'Hustle') {
                     Atk = Math.floor(Atk * 1.5)
                 }
@@ -4419,7 +4424,7 @@ const app = Vue.createApp({
                 const mod_spa = pokemon_data?.modifiers.special_attack.value ?? 0
                 const mod_spd = pokemon_data?.modifiers.special_defense.value ?? 0
                 const mod_spe = pokemon_data?.modifiers.speed.value ?? 0
-                HP  = pokemon_data.stats.hp_max.value
+                HP  = this.live_hp ? pokemon_data.stats.hp.value : pokemon_data.stats.hp_max.value
                 Atk = pokemon_data.stats.attack.value
                 Def = pokemon_data.stats.defense.value
                 SpA = held_item == 'Choice Specs' ? choice_specs(pokemon_data.stats.special_attack.value) : pokemon_data.stats.special_attack.value
