@@ -8112,7 +8112,7 @@ const app = Vue.createApp({
             if (this.ready) { // Only poll when mapper is ready
                 await this.fetchEmulatorStats();
             }
-        }, 100); // 100ms = 10 times per second (adjust as needed)
+        }, 10); // 100ms = 10 times per second (adjust as needed)
 
         this.load_all_settings()
         this.pokemon_list = this.species_function(this.g5PokemonData)
