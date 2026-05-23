@@ -9525,6 +9525,17 @@ const app = Vue.createApp({
                         res.end(JSON.stringify({ ok: false, error: 'Missing enabled parameter' }));
                     }
                 }
+                else if (pathname === '/set-game') {
+                    // Set the selected game (the Game dropdown)
+                    // Usage: /set-game?game=Black
+                    if (query.game) {
+                        this.selected_game = query.game;
+                        res.end(JSON.stringify({ ok: true, selected_game: this.selected_game }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing game parameter' }));
+                    }
+                }
                 else if (pathname === '/set-show-tutor-moves') {
                     // Toggle whether tutor moves are shown in the move display
                     // Usage: /set-show-tutor-moves?enabled=true
