@@ -8854,7 +8854,7 @@ const app = Vue.createApp({
                     simpleSplit();
                     if (this.automatic_post_battle_splits == true && this.game.post_battle_splits.includes(trainer)) {
                         if (trainer == "N") {
-                            if (id == 587) {
+                            if (id == 586 || id == 587) {
                                 this.prepare_for_splits = true
                                 // this.right_ui = "Splits"
                             }
