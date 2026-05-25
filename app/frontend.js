@@ -6006,15 +6006,18 @@ const app = Vue.createApp({
             const pokemon_data = this.n_battle_data_fix
             const held_item = this.mapper.properties.player.team[0].held_item.value
             const move_category = this.black_moves[move]?.category
-            var ability = this.mapper.properties.player?.team[0]?.ability?.value
+            var ability = state != 'Battle' ? this.mapper.properties.player?.team[0]?.ability?.value : this.mapper.properties.battle.player.active_pokemon.ability_temp.value
             if (accuracy == `-`) {
-                return `—`
-            }
-            if (accuracy == `—`) {
                 return `—`
             }
             if (ability == 'No Guard') {
                 return `—`
+            }
+            if (ability == 'Victory Star') {
+                accuracy = accuracy * (4506/4096)
+            }
+            if (ability == 'Compound Eyes') {
+                accuracy = accuracy * 1.3
             }
             if (ability == 'Compound Eyes') {
                 accuracy = accuracy * 1.3
