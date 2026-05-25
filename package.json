@@ -2,14 +2,21 @@
   "name": "gen5-overlay-app",
   "version": "2.2.2",
   "description": "A minimal Electron application",
-  "main": "./main.js",
+  "main": "./out/main/index.js",
   "build": {
+    "electronLanguages": "en-US",
+    "compression": "store",
     "appId": "com.stp.layout-app",
+    "files": [
+      "out/**",
+      "icon-*.ico",
+      "icon-*.png"
+    ],
     "productName": "gen5-overlay-app",
     "win": {
       "executableName": "gen5-overlay-app",
       "target": "zip",
-      "icon": "./icon.png",
+      "icon": "./icon-black.ico",
       "sign": null
     },
     "mac": {
@@ -20,17 +27,40 @@
     "npmRebuild": false
   },
   "scripts": {
-    "dev": "electron .",
-    "build": "electron-builder --win --config",
-    "build:mac": "electron-builder --mac --config",
-    "build:all": "electron-builder --win --mac --config"
+    "dev": "electron-vite dev",
+    "preview": "electron-vite preview",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
+    "build": "electron-vite build",
+    "build:unpack": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:all": "npm run build && electron-builder --win --mac"
   },
   "devDependencies": {
-    "electron": "^25.1.1",
-    "electron-builder": "^24.4.0"
+    "@electron-toolkit/preload": "^3.0.2",
+    "@electron-toolkit/tsconfig": "^1.0.1",
+    "@types/node": "^22.16.5",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/devtools": "^7.7.7",
+    "electron": "^37.2.3",
+    "electron-builder": "^26.0.12",
+    "electron-devtools-installer": "^4.0.0",
+    "electron-vite": "^4.0.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.0.5",
+    "vue": "^3.5.17",
+    "vue-tsc": "^3.0.3"
   },
   "dependencies": {
-    "@electron-toolkit/utils": "^1.0.2",
-    "node-key-sender": "^1.0.11"
+    "@electron-toolkit/utils": "^4.0.0",
+    "@microsoft/signalr": "^7.0.14",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "node-key-sender": "^1.0.11",
+    "pinia": "^3.0.3",
+    "pinia-plugin-watch": "^1.0.1",
+    "vue": "^3.5.17"
+  },
+  "overrides": {
+    "tar": "^7.5.13"
   }
 }

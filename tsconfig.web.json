@@ -1,0 +1,25 @@
+{
+  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "include": [
+    "src/renderer/env.d.ts",
+    "src/renderer/**/*",
+    "src/renderer/**/*.vue",
+    "src/preload/*.d.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "paths": {
+      "~/*": [
+        "src/renderer/*"
+      ]
+    }
+  }
+}

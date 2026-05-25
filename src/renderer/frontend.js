@@ -1,5 +1,15 @@
+// Dev-mode require shim: Vite serves the renderer over http:// so Node's
+// `require()` has no file-path context for relative paths. In production
+// the renderer is loaded from a file:// URL and standard resolution works.
+const _localRequire = (() => {
+  if (window.location.protocol === 'file:') return (rel) => require(rel);
+  const _path = require('path');
+  const _rendererDir = _path.join(process.cwd(), 'src', 'renderer');
+  return (rel) => require(_path.resolve(_rendererDir, rel));
+})();
+
 // Style Settings Manager for layered defaults + user overrides
-const styleSettingsManager = require('./lib/style_settings_manager.js');
+const styleSettingsManager = _localRequire('./lib/style_settings_manager.js');
 
 const MyStorage = new Proxy({}, {
     set: (_, prop, value) => {
@@ -366,7 +376,7 @@ const { log } = require('console');
 const fs = require("fs");
 const path = require("path");
 const { finished } = require('stream');
-const Timer = require("./logic/Timer.js");
+const Timer = _localRequire("./logic/Timer.js");
 const keySender = require('node-key-sender');
 
 for (let folder of ['splits', 'splits/Platinum', 'splits/HGSS']) {
@@ -584,8 +594,8 @@ function transition(fn, ms) {
 
 const app = Vue.createApp({
     components: {
-        "Timer": require("./components/Timer.js"),
-        "ShuckieTimer": require("./components/ShuckieTimer.js"),
+        "Timer": _localRequire("./components/Timer.js"),
+        "ShuckieTimer": _localRequire("./components/ShuckieTimer.js"),
     },
     data() {
         return {

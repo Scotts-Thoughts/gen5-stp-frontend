@@ -1,0 +1,3 @@
+- [Gen5 refactor goal](project_refactor.md) — Refactor gen5-stp-frontend to mirror gen1-stp-frontend's electron-vite + Vue 3 SFC + Pinia + TS structure
+- [Project structures](reference_project_structures.md) — Where the source-of-truth gen1 layout lives and key gen5 vs gen1 differences
+- [User collaboration style](user_role.md) — Scott (project owner), full refactor scope, commits at phase boundaries, preserve gen5-only behavior
