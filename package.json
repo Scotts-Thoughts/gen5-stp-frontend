@@ -9,8 +9,7 @@
     "win": {
       "executableName": "gen5-overlay-app",
       "target": "zip",
-      "icon": "./icon.png",
-      "sign": null
+      "icon": "./icon.png"
     },
     "mac": {
       "target": "dmg",
