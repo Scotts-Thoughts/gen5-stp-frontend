@@ -6047,7 +6047,7 @@ const app = Vue.createApp({
                 if (calculated_accuracy >= 100) { 
                     calculated_accuracy = 100 
                 }
-                return calculated_accuracy
+                return Math.floor(calculated_accuracy)
             }
             else if (state == `Battle`) {
                 ability = this.mapper.properties.battle.player.active_pokemon.ability.value
@@ -6088,10 +6088,10 @@ const app = Vue.createApp({
                 return calculated_accuracy
             }
 
-            if (accuracy > 1) {
-                accuracy = 1
+            if (accuracy > 100) {
+                accuracy = 100
             }
-            else return accuracy
+            else return Math.floor(accuracy)
         },
         
         //DAMAGE CALCULATION
