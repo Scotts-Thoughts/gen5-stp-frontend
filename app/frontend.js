@@ -6007,11 +6007,11 @@ const app = Vue.createApp({
             const held_item = this.mapper.properties.player.team[0].held_item.value
             const move_category = this.black_moves[move]?.category
             var ability = state != 'Battle' ? this.mapper.properties.player?.team[0]?.ability?.value : this.mapper.properties.battle.player.active_pokemon.ability_temp.value
-            if (accuracy == `-`) {
-                return `—`
+            if (accuracy == '-') {
+                return '—'
             }
             if (ability == 'No Guard') {
-                return `—`
+                return '—'
             }
             if (ability == 'Victory Star') {
                 accuracy = accuracy * (4506/4096)
@@ -6049,7 +6049,7 @@ const app = Vue.createApp({
                 }
                 return calculated_accuracy
             }
-            if (state == `Battle`) {
+            else if (state == `Battle`) {
                 ability = this.mapper.properties.battle.player.active_pokemon.ability.value
                 let ability_modifier = 1
                 let playerStage = pokemon_data.modifiers.accuracy?.value?.toString()
@@ -6086,6 +6086,10 @@ const app = Vue.createApp({
                     )
                 }
                 return calculated_accuracy
+            }
+
+            if (accuracy > 1) {
+                accuracy = 1
             }
             else return accuracy
         },
