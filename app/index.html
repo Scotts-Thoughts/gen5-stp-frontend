@@ -109,6 +109,7 @@
                         <tr v-if="show_advanced_settings && !second_screen_mode"><td>Automatic Post Battle Splits:</td><td><input class="checkBoxStyle" type="checkbox" v-model="automatic_post_battle_splits"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Second Screen Mode:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_mode"/></td></tr>
                         <tr v-if="show_advanced_settings"><td>Live HP:</td><td><input class="checkBoxStyle" type="checkbox" v-model="live_hp"/></td></tr>
+                        <tr v-if="show_advanced_settings"><td>Stop timer after N dialogue:</td><td><input class="checkBoxStyle" type="checkbox" v-model="stop_timer_after_n_dialogue"/></td></tr>
                         <!-- <tr v-if="show_advanced_settings"><td>Second Screen Toggle:</td><td><input class="checkBoxStyle" type="checkbox" v-model="second_screen_toggle"/></td></tr> -->
                     </table>
                     <br>
@@ -689,10 +690,10 @@
                                         <img class="ePkmnSprite" :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
                                         <!-- <img class="canvas" :src="`images/ui/speed_comp/${x}.svg`" /> -->
                                         <div class="border ePkmnTyping">
-                                            <img v-if="held_item_icon(enemy_held_item(x))"
+                                            <!-- <img v-if="held_item_icon(enemy_held_item(x))"
                                                 class="icons moveIcon ePkmnHeldItem"
                                                 :src="held_item_icon(enemy_held_item(x))"
-                                                @error="$event.target.style.visibility='hidden'" />
+                                                @error="$event.target.style.visibility='hidden'" /> -->
                                             <img class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_1?.toLowerCase()}.png`" />
                                             <img v-show="g5PokemonData[enemy_mon_static[x]?.species]?.type_1 != g5PokemonData[enemy_mon_static[x]?.species]?.type_2"
                                                 class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[enemy_mon_static[x]?.species]?.type_2?.toLowerCase()}.png`" />

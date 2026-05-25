@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-24T17:41:25.102Z
+ * Last updated: 2026-05-25T15:57:45.533Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -34,8 +34,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundScale": "109"
     },
     "White_Basculin": {
-        "pkmn_ability": "Reckless",
-        "pkmnNature": "Hardy",
+        "pkmn_ability": "Adaptability",
+        "pkmnNature": "Adamant",
         "backgroundTexture": "Water",
         "overlay_color": "#63ae69",
         "evolution": false,
@@ -4053,7 +4053,7 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "backgroundTexture": "Psychic",
         "overlay_color": "#f85888",
-        "evolution": false
+        "evolution": true
     },
     "Black_Jellicent-line": {
         "pkmn_gender": "Male",
@@ -4326,7 +4326,33 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "backgroundTexture": "Electric",
         "overlay_color": "#f3d230"
-    }
+    },
+    "White_Swoobat": {
+        "pkmn_ability": "Unaware",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Psychic",
+        "overlay_color": "#f85888"
+    },
+    "White_Hydreigon": {
+        "imageScale": "0.98",
+        "imageFlip": true,
+        "imageYOffset": "85",
+        "imageXOffset": "14",
+        "overlay_color": "#688db8",
+        "ui_saturation": "1.5",
+        "backgroundTexture": "Dragon",
+        "backgroundScale": "155",
+        "backgroundContrast": "165",
+        "backgroundBlur": "1",
+        "backgroundBrightness": "83",
+        "backgroundHue": "231",
+        "backgroundSaturation": "16",
+        "pkmn_ability": "Levitate",
+        "pkmnNature": "Hardy"
+    },
+    "Black_Hydreigon": {},
+    "White_Tepig": {},
+    "White_Cinccino-line-Cinccino": {}
 };
 
 // Export for use in the application

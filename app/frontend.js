@@ -654,6 +654,7 @@ const app = Vue.createApp({
             // Shadow Stitch Settings
             second_screen_mode: MyStorage['second_screen_mode'] ?? false,
             live_hp: MyStorage['live_hp'] ?? false,
+            stop_timer_after_n_dialogue: MyStorage['stop_timer_after_n_dialogue'] ?? false,
 
             // Settings
             right_ui                     : MyStorage['right_ui']               ?? "Automatic",
@@ -1040,6 +1041,7 @@ const app = Vue.createApp({
             full_data_str            : MyStorage["full_data_str"]       ?? "",
             deprecated_data_str      : MyStorage["deprecated_data_str"] ?? "",
             simple_data              : MyStorage["simple_data"]         ?? "",
+            n_dialogue_gametime      : MyStorage["n_dialogue_gametime"] ?? "",
             testRun                  : MyStorage['testRun']             ?? false,
             copy_overlay_pokemon_from: "",
             copy_overlay_pokemon_to  : "",
@@ -2197,8 +2199,11 @@ const app = Vue.createApp({
         g5PokemonData() {
             const game = this.mapper.properties.meta.game_name.value
             switch (game) {
-                case "Black" : return this.pokedex_black
-                default      : return this.pokedex_black
+                case "Black"   : return this.pokedex_black
+                case "White"   : return this.pokedex_black
+                case "Black 2" : return this.pokedex_black // !TODO: Add Black2 and White2 Pokedex data
+                case "White 2" : return this.pokedex_black // !TODO: Add Black2 and White2 Pokedex data
+                default        : return this.pokedex_black
             }
         },
         faults() {
@@ -3368,16 +3373,18 @@ const app = Vue.createApp({
             const team   = this.mapper?.properties?.battle?.opponent?.team
             const active = this.mapper?.properties?.battle?.opponent?.active_pokemon
             const activePid = active?.internals?.personality_value?.value
+            const party_pos = this.mapper.properties.battle.opponent.party_position.value
             const slotPid   = team?.[x]?.internals?.personality_value?.value
             const slotSpecies   = team?.[x]?.species?.value
             const activeSpecies = active?.species?.value
+            const posMatch = party_pos === x
             const pidMatch     = activePid != null && activePid === slotPid
             const speciesMatch = activeSpecies != null && activeSpecies === slotSpecies
-            if (pidMatch || speciesMatch) {
-                const tempItem = active?.held_item_temp?.value ?? active?.held_item?.value
-                if (tempItem != null) { return tempItem }
-            }
-            return team?.[x]?.held_item?.value
+            // if (pidMatch || speciesMatch) {
+            //     const tempItem = active?.held_item?.value
+            //     if (tempItem != null) { return tempItem }
+            // }
+            return posMatch ? active.held_item?.value : team?.[x]?.held_item?.value
         },
         held_item_icon(itemName) {
             if (!itemName || itemName === "None") { return null }
@@ -8751,7 +8758,7 @@ const app = Vue.createApp({
         this.mapper.properties.battle.other.battle.change(async (newProp, oldProp) => {
             const game = this.mapper.properties.meta.game_name.value
             if (this.blackout == true) {
-                if (game == 'Black') {
+                if (game == 'Black' || game == 'White') {
                     if (newProp.value == -1893922566 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
@@ -8761,29 +8768,7 @@ const app = Vue.createApp({
                         this.disallow_faults_function()
                     }
                 }
-                // !TODO: needs to be implemented for White
-                else if (game == 'White') {
-                    if (newProp.value == -1893922566 && oldProp.value == 21828) {
-                        if (this.disallow_faults == false && this.run_complete == false) { 
-                            this.blackout_counter++ 
-                            this.sendObsChapterMarker("BLACKOUT")
-                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
-                        }
-                        this.disallow_faults_function()
-                    }
-                }
-                // !TODO: needs to be implemented for B2
-                else if (game == "Black 2") {
-                    if (newProp.value == -1892153091 && oldProp.value == 21828) {
-                        if (this.disallow_faults == false && this.run_complete == false) { 
-                            this.blackout_counter++ 
-                            this.sendObsChapterMarker("BLACKOUT")
-                            if (this.shuckie_counters) { this.incrementEmulatorCounter("blackout_counter") }
-                        }
-                        this.disallow_faults_function()
-                    }
-                }
-                else if (game == "White 2") {
+                else if (game == "Black 2" || game == "White 2") {
                     if (newProp.value == -1892153091 && oldProp.value == 21828) {
                         if (this.disallow_faults == false && this.run_complete == false) { 
                             this.blackout_counter++ 
@@ -8886,7 +8871,7 @@ const app = Vue.createApp({
                 }
 
                 //stop timer
-                if (this.game && (this.game.finalBattle.includes(trainer) || trainer == 'Alder')) {
+                if (this.game && (this.game.finalBattle.includes(trainer) || trainer == 'Alder') && !this.stop_timer_after_n_dialogue) {
                     // this.stopTime()
                     this.timer.stopTime();
                     if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
@@ -8918,6 +8903,48 @@ const app = Vue.createApp({
                 }
             }
         });
+
+        if (this.stop_timer_after_n_dialogue === true) {
+            this.mapper.properties.battle.other.battle_party_data_start.change(async (newProp, oldProp) => {
+                const hall_of_fame_map = 278
+                const cur_map = this.mapper.properties.overworld.map_index.value
+                const n_fade_to_black_magic = 61792
+                console.log("N_Dialogue: ", hall_of_fame_map, cur_map, n_fade_to_black_magic, newProp.value)
+                if (cur_map == hall_of_fame_map && newProp.value == n_fade_to_black_magic) {
+                    autosplitter_process()
+                    let gameName = this.mapper?.properties?.meta?.game_name?.value || this.selected_game
+                    let game_name = gameName
+                    // this.stopTime()
+                    this.timer.stopTime();
+                    if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
+                    // if (this.automatic_post_battle_splits == true && this.game?.post_battle_splits?.includes(trainer)) {
+                    //     this.prepare_for_splits = true
+                    //     // this.right_ui = "Splits"
+                    // }
+                    this.run_complete = true
+                    if (this.testRun == false) {
+                        this.finished_run_count++
+                    };
+                    log_split();
+                    
+                    //use then so that logCopy doesn't touch any files until logData finishes
+                    const splitFileName = this.getSplitFileName();
+                    logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
+                    .then(() => {
+                            logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                    this.split_data.push(this.simple_data)
+                    MyStorage["split_data"] = this.split_data
+                    MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] = {
+                        ...MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`],
+                        split_data: this.split_data
+                    }
+                }
+            });
+        }
 
         // NEW MOVE LEARNED CHAPTER MARKER
         // In Battle state we read from battle.player.active_pokemon; otherwise from player.team[0].
