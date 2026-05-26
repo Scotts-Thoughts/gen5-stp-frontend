@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-26T20:01:06.413Z
+ * Last updated: 2026-05-26T21:21:42.136Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4362,6 +4362,14 @@ const DEFAULT_STYLE_SETTINGS = {
     },
     "Black_Seadra": {
         "selected_evolution_species": "Seadra"
+    },
+    "White 2_Gothitelle": {
+        "pkmn_ability": "Frisk",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Psychic",
+        "overlay_color": "#f85888",
+        "evolution": true,
+        "selected_evolution_species": "Gothitelle"
     }
 };
 

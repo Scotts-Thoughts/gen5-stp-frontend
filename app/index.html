@@ -248,7 +248,7 @@
                     <table v-if="hasMultipleEvolutionStages">
                         <!-- <tr v-if="show_advanced_settings"><td>Show nature arrows:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_nature_changes"/></td></tr> -->
                         <tr><td>Evolution:</td><td><input class="checkBoxStyle" type="checkbox" v-model="evolution"/></td></tr>
-                        <!-- <tr v-if="show_advanced_settings"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr> -->
+                        <tr v-if="show_advanced_settings && (selected_game == 'Black 2' || selected_game == 'White 2')"><td>Show Tutor Moves:</td><td><input class="checkBoxStyle" type="checkbox" v-model="show_tutor_moves"/></td></tr>
                     </table>
                     <div v-if="evolution == true && evolution_family_list.length > 1">
                         <!-- <div>Evolution Family Style:</div> -->
@@ -873,15 +873,17 @@
                             <td class="movepool_tableC">{{x.accuracy}}%</td>
                             <td class="movepool_tableC">{{x.pp}}</td>
                         </tr>
-                        <!-- <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, mapper.properties.player.team[0].species.value ?? starter).tutor">
-                            <td v-if="show_tutor_moves == true" class="movepool_way">Tutor</td>
-                            <td v-if="show_tutor_moves == true" class="movepool_move">{{move_name(x.move)}}</td>
-                            <td v-if="show_tutor_moves == true" :style="{'background-color': `var(--${ui_type_color_modifier}${x.Type?.toLowerCase()})`}" class="movepool_type">{{x.Type}}</td>
-                            <td v-if="show_tutor_moves == true" :style="{'background-color': `var(--${ui_type_color_modifier}${getMoveCategory(x.category, x)[1].toLowerCase()})`}" class="movepool_type">{{x.category}}</td>
-                            <td v-if="show_tutor_moves == true" class="movepool_tableC">{{x.power}}</td>
-                            <td v-if="show_tutor_moves == true" class="movepool_tableC">{{x.accuracy}}%</td>
-                            <td v-if="show_tutor_moves == true" class="movepool_tableC">{{x.pp}}</td>
-                        </tr> -->
+                        <template v-if="show_tutor_moves && (selected_game == 'Black 2' || selected_game == 'White 2')">
+                            <tr v-for="x in getMovepool(g5PokemonData, black_moves, g5tmhmMapping, displayedPokemonSpecies).tutor" :style="getUnobtainableMoveStyle(x, selected_game)">
+                                <td class="movepool_way">Tutor</td>
+                                <td class="movepool_move">{{move_name(x.move)}}</td>
+                                <td :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}" class="movepool_type">{{movepoolType(x)}}</td>
+                                <td :style="{'background-color': `var(--${ui_type_color_modifier}${getMoveCategory(x.category, x)[1].toLowerCase()})`}" class="movepool_type">{{getMoveCategory(x.category)[0]}}</td>
+                                <td class="movepool_tableC">{{movepoolPower(x)}}</td>
+                                <td class="movepool_tableC">{{x.accuracy}}%</td>
+                                <td class="movepool_tableC">{{x.pp}}</td>
+                            </tr>
+                        </template>
                         <div class="posAbs movepoolLabel">Movepool</div>
                     </table>
                     <div class="colored-image ds" :style="`filter: saturate(${ui_saturation})`" style="--url: url(images/ui/movepool.svg)"></div>

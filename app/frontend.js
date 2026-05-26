@@ -3317,54 +3317,33 @@ const app = Vue.createApp({
         async load_splits() {
             const text = await loadCsvFile();
             const rows = text.split("\n").slice(1).filter(x => x !== '');
-            const results = []
-            const nBattles = []
-            const trainerMap = new Map() // Map to store trainer data by name
-            
-            for (const row of rows) {
+            const parsedRows = rows.map(row => {
                 const columns = row.split(",");
-                const trainer = columns[2];
-                const time = columns[3];
-                
-                // Collect all N battles separately - we'll only keep the last one
-                if (trainer === "N") {
-                    nBattles.push({trainer: trainer, time: time});
+                return {trainer: columns[2], time: columns[3]};
+            });
+
+            // For N, only keep the final battle row (last N occurrence in the CSV).
+            // Position is anchored at that row so N lands in its natural place (e.g. before Ghetsis in B/W).
+            let lastNIndex = -1;
+            for (let i = parsedRows.length - 1; i >= 0; i--) {
+                if (parsedRows[i].trainer === "N") { lastNIndex = i; break; }
+            }
+
+            // Preserve CSV order: first occurrence sets position, last occurrence wins on time.
+            const results = [];
+            const indexByTrainer = new Map();
+            for (let i = 0; i < parsedRows.length; i++) {
+                const {trainer, time} = parsedRows[i];
+                if (trainer === "N" && i !== lastNIndex) continue;
+
+                if (indexByTrainer.has(trainer)) {
+                    results[indexByTrainer.get(trainer)].time = time;
                 } else {
-                    // Store in map (will overwrite if duplicate, keeping last occurrence)
-                    trainerMap.set(trainer, {trainer: trainer, time: time});
+                    indexByTrainer.set(trainer, results.length);
+                    results.push({trainer: trainer, time: time});
                 }
             }
-            
-            // Only add the last N battle (final N battle)
-            if (nBattles.length > 0) {
-                trainerMap.set("N", nBattles[nBattles.length - 1]);
-            }
-            
-            // Define the expected order based on default_splits (must match the order in compare_splits exactly)
-            // This ensures N comes before Ghetsis - order matches default_splits array
-            const expectedOrder = [
-                "Trio", "Chili", "Cilan", "Cress",
-                "Lenora", "Burgh", "Elesa", "Clay", "Skyla", "Brycen", "Drayden",
-                "Shauntal", "Grimsley", "Caitlin", "Marshal",
-                "N",        // N must come before Ghetsis
-                "Ghetsis"
-            ];
-            
-            // Sort results according to expected order
-            // Only include trainers that exist in the loaded data
-            for (const trainerName of expectedOrder) {
-                if (trainerMap.has(trainerName)) {
-                    results.push(trainerMap.get(trainerName));
-                }
-            }
-            
-            // Also add any trainers not in expectedOrder (shouldn't happen, but just in case)
-            for (const [trainerName, trainerData] of trainerMap.entries()) {
-                if (!expectedOrder.includes(trainerName)) {
-                    results.push(trainerData);
-                }
-            }
-            
+
             this.previous_splits = results;
         },
         clear_splits() {
@@ -6133,8 +6112,11 @@ const app = Vue.createApp({
             }
             
             let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].level_up_learnset.length;
-
-            if (this.show_tutor_moves && this.game.dexData[currentStarter].tutor_learnset) {
+            // Tutor moves only exist in Black 2 / White 2, and only render when the
+            // toggle is on — match those conditions here so line-height fills the area
+            // without leaving room for rows that won't render.
+            const isBW2 = this.selected_game == 'Black 2' || this.selected_game == 'White 2';
+            if (this.show_tutor_moves && isBW2 && this.game.dexData[currentStarter].tutor_learnset) {
                 movepoolSize = movepoolSize + this.game.dexData[currentStarter].tutor_learnset.length;
             }
             
@@ -6716,12 +6698,13 @@ const app = Vue.createApp({
                     const __opp_entry   = this.g5PokemonData[__opp_species]
                     const __opp_weight  = __opp_entry?.weight
                     console.log("[LowKick/GrassKnot DEBUG]", { move: y, species: __opp_species, entryFound: !!__opp_entry, weight: __opp_weight, typeofWeight: typeof __opp_weight })
+                    if (typeof __opp_weight !== 'number' || !Number.isFinite(__opp_weight)) { return "—" }
                     if (__opp_weight < 10) { return 20 }
                     if (__opp_weight < 25) { return 40 }
                     if (__opp_weight < 50) { return 60 }
                     if (__opp_weight < 100) { return 80 }
                     if (__opp_weight < 200) { return 100 }
-                    if (__opp_weight >= 200) { return 120 }
+                    return 120
                 }
                 else if (y == "Hidden Power") {
                     return this.hiddenPowerPowerCalc(pokemon_data)
@@ -6732,8 +6715,8 @@ const app = Vue.createApp({
                 else if (y == "Gyro Ball") {
                     const user_speed = this.mapper.properties.battle.player.active_pokemon.stats.speed.value
                     const target_speed = this.mapper.properties.battle.opponent.active_pokemon.stats.speed.value
-                    var base_power = Math.min(((25 * target_speed) / user_speed) + 1)
-                    if (base_power > 150) { base_power = 150 }
+                    if (!Number.isFinite(user_speed) || !Number.isFinite(target_speed) || user_speed <= 0) { return "—" }
+                    var base_power = Math.min(((25 * target_speed) / user_speed) + 1, 150)
                     return base_power
                 }
                 else if (y == "Natural Gift") {
@@ -7706,6 +7689,7 @@ const app = Vue.createApp({
             let ivSpeBit = slot.ivs.speed.value
             let ivSpABit = slot.ivs.special_attack.value
             let ivSpDBit = slot.ivs.special_defense.value
+            if (![ivHpBit, ivAtkBit, ivDefBit, ivSpeBit, ivSpABit, ivSpDBit].every(Number.isFinite)) { return "—" }
             ivHpBit  = this.getSecondLSB(ivHpBit)
             ivAtkBit = this.getSecondLSB(ivAtkBit)
             ivDefBit = this.getSecondLSB(ivDefBit)
@@ -8236,11 +8220,15 @@ const app = Vue.createApp({
                     this[`move_fix_power_${slot}`] = "—"
                     return "—" 
                 }
-                if (power == "-") { 
+                if (power == "-") {
                     this[`move_fix_power_${slot}`] = "—"
-                    return "—" 
+                    return "—"
                 }
                 let effective_power = Math.floor(power * stabModifier * defendingType1Effectiveness * defendingType2Effectiveness * flare_boost * ability * itemBoost * enemy_item_modifier * weatherBoost * burnModifier * expert_belt_modifier * player_ability_modifier * multi_hit_modifier)
+                if (!Number.isFinite(effective_power)) {
+                    this[`move_fix_power_${slot}`] = "—"
+                    return "—"
+                }
                 this[`move_fix_power_${slot}`] = effective_power
                 return effective_power
             }
@@ -8255,6 +8243,10 @@ const app = Vue.createApp({
                 }
                 else {
                     let effective_power = Math.floor(power * stabModifier * ability * itemBoost * burnModifier * player_ability_modifier * multi_hit_modifier)
+                    if (!Number.isFinite(effective_power)) {
+                        this[`move_fix_power_${slot}`] = "—"
+                        return "—"
+                    }
                     this[`move_fix_power_${slot}`] = effective_power
                     return effective_power
                 }
