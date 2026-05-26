@@ -5322,7 +5322,7 @@ const app = Vue.createApp({
                         case "Cilan":    graphic = `images/trainers/Cilan.png`;    break;
                         case "Chili":    graphic = `images/trainers/Chili.png`;    break;
                         case "Lenora":   graphic = `images/trainers/Lenora.png`;   break;
-                        case "Burgh":    graphic = `images/trainers/Burgh.png`;    break;
+                        case "Burgh":    graphic = `images/trainers/Burgh.png`;         break;
                         case "Elesa":    graphic = `images/trainers/Elesa.png`;    break;
                         case "Clay":     graphic = `images/trainers/Clay.png`;     break;
                         case "Skyla":    graphic = `images/trainers/Skyla.png`;    break;
@@ -5397,19 +5397,7 @@ const app = Vue.createApp({
                                 default: graphic = `images/trainers/Cheren_12.png`; break;
                             }
                             break;
-                        }   
-                        case "Colress": {
-                            switch (this.mapper.properties.battle.opponent.team_count.value) {
-                                // case 1: graphic = `images/trainers/Colress.png`; break;
-                                // case 2: graphic = `images/trainers/Colress.png`; break;
-                                case 3: graphic = `images/trainers/Colress.png`; break;
-                                // case 4: graphic = `images/trainers/Cheren_4.png`; break;
-                                case 3: graphic = `images/trainers/Colress_5.png`; break;
-                                // case 3: graphic = `images/trainers/Colress.png`; break;
-                                default: graphic = `images/trainers/Colress.png`; break;
-                            }
-                            break;
-                        }   
+                        }    
                         case "Bianca": {
                             switch (this.mapper.properties.battle.opponent.team_count.value) {
                                 case 1: graphic = `images/trainers/Bianca_12.png`; break;
@@ -5439,38 +5427,151 @@ const app = Vue.createApp({
                 }
                 else if (this.selected_game == `Black 2` || this.selected_game == `White 2`) {
                     switch (trainer) {
-                        case "Cheren":   graphic = `images/trainers/bw2/Cheren_12.png`; break;
+                        case "Cheren": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/bw2/Cheren_12.png`; break;
+                                case 2: graphic = `images/trainers/bw2/Cheren_12.png`; break;
+                                case 3: graphic = `images/trainers/bw2/Cheren_3.png`; break;
+                                case 4: graphic = `images/trainers/bw2/Cheren_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Cheren_12.png`; break;
+                            }
+                            break;
+                        }   
                         case "Roxie":    graphic = `images/trainers/bw2/Roxie.png`;     break;
-                        case "Burgh":    graphic = `images/trainers/Burgh.png`;         break;
-                        case "Elesa":    graphic = `images/trainers/bw2/Elesa.png`;     break;
-                        case "Clay":     graphic = `images/trainers/Clay.png`;          break;
-                        case "Skyla":    graphic = `images/trainers/Skyla.png`;         break;
-                        case "Drayden":  graphic = `images/trainers/Drayden.png`;       break;
-                        case "Marlon":   graphic = `images/trainers/bw2/Marlon3.png`;   break;
+                        case "Burgh": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/Burgh.png`; break;
+                                case 4: graphic = `images/trainers/Burgh_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Burgh.png`; break;
+                            }
+                            break;
+                        } 
+                        case "Elesa": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/bw2/Elesa.png`; break;
+                                case 4: graphic = `images/trainers/bw2/Elesa_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Elesa.png`; break;
+                            }
+                            break;
+                        } 
+                        case "Clay": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/Clay.png`; break;
+                                case 4: graphic = `images/trainers/Clay_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Clay.png`; break;
+                            }
+                            break;
+                        } 
+                        case "Skyla": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/Skyla.png`; break;
+                                case 4: graphic = `images/trainers/Skyla_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Skyla.png`; break;
+                            }
+                            break;
+                        } 
+                        case "Drayden": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/Drayden.png`; break;
+                                case 4: graphic = `images/trainers/Drayden_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Drayden.png`; break;
+                            }
+                            break;
+                        } 
+                        case "Marlon": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: displayGraphicState = false; break;
+                                case 2: displayGraphicState = false; break;
+                                case 3: graphic = `images/trainers/bw2/Marlon.png`; break;
+                                case 4: graphic = `images/trainers/bw2/Marlon_4.png`; break;
+                                case 5: displayGraphicState = false; break;
+                                case 6: displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Marlon.png`; break;
+                            }
+                            break;
+                        } 
                         // case "Iris":     graphic = `images/trainers/bw2/Iris.png`;   break;
-                        case "Shauntal": { 
-                            if (id_value == 38 || id_value == 143) {
-                                displayGraphicState = false; break;
+                        case "Colress": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                // case 1: graphic = `images/trainers/Colress.png`; break;
+                                // case 2: graphic = `images/trainers/Colress.png`; break;
+                                case 3: graphic = `images/trainers/Colress.png`; break;
+                                // case 4: graphic = `images/trainers/Cheren_4.png`; break;
+                                case 5: graphic = `images/trainers/Colress_5.png`; break;
+                                // case 6: graphic = `images/trainers/Colress.png`; break;
+                                default: graphic = `images/trainers/Colress.png`; break;
                             }
-                            graphic = `images/trainers/Shauntal.png`; break;
+                            break;
+                        }  
+                        case "Shauntal": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/Shauntal.png`; break;
+                                case 2: graphic = `images/trainers/Shauntal.png`; break;
+                                case 3: graphic = `images/trainers/Shauntal.png`; break;
+                                case 4: graphic = `images/trainers/Shauntal.png`; break;
+                                case 5: graphic = displayGraphicState = false; break;
+                                case 6: graphic = displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Shauntal.png`; break;
+                            } 
+                            break;
                         }
-                        case "Marshal":  { 
-                            if (id_value == 39 || id_value == 144) {
-                                displayGraphicState = false; break;
-                            }
-                            graphic = `images/trainers/Marshal.png`;  break;
+                        case "Marshal": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/Marshal.png`; break;
+                                case 2: graphic = `images/trainers/Marshal.png`; break;
+                                case 3: graphic = `images/trainers/Marshal.png`; break;
+                                case 4: graphic = `images/trainers/Marshal.png`; break;
+                                case 5: graphic = displayGraphicState = false; break;
+                                case 6: graphic = displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Marshal.png`; break;
+                            } 
+                            break;
                         }
-                        case "Grimsley": { 
-                            if (id_value == 40 || id_value == 145) {
-                                displayGraphicState = false; break;
-                            }
-                            graphic = `images/trainers/Grimsley.png`; break;
+                        case "Grimsley": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/Grimsley.png`; break;
+                                case 2: graphic = `images/trainers/Grimsley.png`; break;
+                                case 3: graphic = `images/trainers/Grimsley.png`; break;
+                                case 4: graphic = `images/trainers/Grimsley.png`; break;
+                                case 5: graphic = displayGraphicState = false; break;
+                                case 6: graphic = displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Grimsley.png`; break;
+                            } 
+                            break;
                         }
-                        case "Caitlin":  { 
-                            if (id_value == 41 || id_value == 146) {
-                                displayGraphicState = false; break;
-                            }
-                            graphic = `images/trainers/Caitlin.png`;  break;
+                        case "Caitlin": {
+                            switch (this.mapper.properties.battle.opponent.team_count.value) {
+                                case 1: graphic = `images/trainers/Caitlin.png`; break;
+                                case 2: graphic = `images/trainers/Caitlin.png`; break;
+                                case 3: graphic = `images/trainers/Caitlin.png`; break;
+                                case 4: graphic = `images/trainers/Caitlin.png`; break;
+                                case 5: graphic = displayGraphicState = false; break;
+                                case 6: graphic = displayGraphicState = false; break;
+                                default: graphic = `images/trainers/Caitlin.png`; break;
+                            } 
+                            break;
                         }
                         case "Rival": {
                             switch (this.mapper.properties.battle.opponent.team_count.value) {
