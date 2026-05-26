@@ -71720,7 +71720,7 @@ const pokedex_black = {
                 "parameter": null
             },
             {
-                "species": "Tranquil",
+                "species": "Tranquill",
                 "method": "level",
                 "parameter": 18
             },
@@ -71731,9 +71731,9 @@ const pokedex_black = {
             }
         ]
     },
-    "Tranquil": {
+    "Tranquill": {
         "rom_id": 520,
-        "species": "Tranquil",
+        "species": "Tranquill",
         "type_1": "Normal",
         "type_2": "Flying",
         "base_stats": {
@@ -71866,7 +71866,7 @@ const pokedex_black = {
                 "parameter": null
             },
             {
-                "species": "Tranquil",
+                "species": "Tranquill",
                 "method": "level",
                 "parameter": 18
             },
@@ -72015,7 +72015,7 @@ const pokedex_black = {
                 "parameter": null
             },
             {
-                "species": "Tranquil",
+                "species": "Tranquill",
                 "method": "level",
                 "parameter": 18
             },

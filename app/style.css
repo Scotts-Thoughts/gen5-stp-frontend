@@ -2933,7 +2933,7 @@ img, span, div {
     transition: opacity 500ms ease-in-out, filter 500ms ease-in-out; */
     position: absolute;
     border: 1px solid rgba(255, 0, 0, 0);
-    transform-origin: top left;
+    transform-origin: 50% 50%;
     display: inline-block; /* to ensure it's treated as an inline-level element */
     vertical-align: middle; /* to align it with the text */
     width: 108px;
@@ -2941,6 +2941,22 @@ img, span, div {
     top: 22px;
     left: 2px;
     filter: drop-shadow(1px 1px 2px);
+}
+.ePkmnSpriteResizing {
+    outline: 2px dashed #00ffff;
+    outline-offset: 2px;
+}
+.ePkmnSpriteResizeHandle {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    background: #00ffff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    cursor: nwse-resize;
+    z-index: 2147483647;
+    pointer-events: auto;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 .ePkmnMove1 {
     position: absolute;

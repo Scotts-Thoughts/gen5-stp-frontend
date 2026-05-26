@@ -1,5 +1,6 @@
 // Style Settings Manager for layered defaults + user overrides
 const styleSettingsManager = require('./lib/style_settings_manager.js');
+const enemySpriteScaleManager = require('./lib/enemy_sprite_scale_manager.js');
 
 const MyStorage = new Proxy({}, {
     set: (_, prop, value) => {
@@ -857,7 +858,8 @@ const app = Vue.createApp({
             // These files contain the most up-to-date data for both trainers and pokemon.
             // The frontend is not currently using these paths and it needs to be updated so that it can.
             // This will enable game switching within generation 4 and it will allow this frontend to eventually be used for generation 5.
-            pokedex_black  : pokedex_black,
+            pokedex_black_white   : pokedex_black_white,
+            pokedex_black2_white2 : pokedex_black2_white2,
             trainers_black : trainers_black,
             tmhm           : tmhm,
             g5tmhmMapping  : g5tmhmMapping,
@@ -949,6 +951,11 @@ const app = Vue.createApp({
             imageYOffset : MyStorage["imageYOffset"]  ?? 0,
             imageScale   : MyStorage["imageScale"]    ?? 1,
             imageFlip    : MyStorage["imageFlip"]     ?? false,
+
+            // Enemy sprite resize tool (Ctrl+Click on an enemy sprite)
+            enemyResize        : { species: null, slot: null, baseSize: 108, spriteEl: null },
+            enemyScaleVersion  : 0,
+
             imageSat     : MyStorage["imageSat"]      ?? 100,
             imageRotation: MyStorage["imageRotation"] ?? 0,
 
@@ -2199,11 +2206,11 @@ const app = Vue.createApp({
         g5PokemonData() {
             const game = this.mapper.properties.meta.game_name.value
             switch (game) {
-                case "Black"   : return this.pokedex_black
-                case "White"   : return this.pokedex_black
-                case "Black 2" : return this.pokedex_black // !TODO: Add Black2 and White2 Pokedex data
-                case "White 2" : return this.pokedex_black // !TODO: Add Black2 and White2 Pokedex data
-                default        : return this.pokedex_black
+                case "Black"   : return this.pokedex_black_white
+                case "White"   : return this.pokedex_black_white
+                case "Black 2" : return this.pokedex_black2_white2
+                case "White 2" : return this.pokedex_black2_white2
+                default        : return this.pokedex_black_white
             }
         },
         faults() {
@@ -3562,7 +3569,7 @@ const app = Vue.createApp({
         write_byte_data(data_object) {
             console.log("Writing byte data... for ", this.starter)
             const starter = this.starter
-            const pokedex = this.pokedex_black[starter]
+            const pokedex = this.g5PokemonData[starter]
 
             const byteArrayDecrypted = this.mapper.properties.player.team[0].raw.bytes.slice()
             
@@ -4013,7 +4020,8 @@ const app = Vue.createApp({
             const trainer        = this.capitalization_format(this.mapper.properties.battle.opponent.trainer.value)
             const trainer_number = this.mapper.properties.battle.opponent.trainer.bytes
             let player_speed     = this.get_stat().Spe
-            let enemy_speed      = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_slot}_ram`].stats.speed.value
+            // let enemy_speed      = this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_slot}_ram`].stats.speed.value
+            let enemy_speed      = this.getEnemyStat("speed", this.mapper.properties.battle.opponent.pkmn_ram[`pokemon_${enemy_slot}_ram`].stats.speed.value, enemy_slot)
             let enemy_hp         = 1
 
             if (player_speed > enemy_speed) {
@@ -4991,11 +4999,11 @@ const app = Vue.createApp({
             //main pokemon settings
             this.pkmnNature   = MyStorage[`${game_name}_${this.starter}`]?.pkmnNature            ?? "Hardy"
 
-            if (this.pokedex_black[this.starter].abilities.indexOf(this.pkmn_ability) == -1 && !MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability) {
-                this.pkmn_ability = this.pokedex_black[this.starter].abilities[0]
+            if (this.g5PokemonData[this.starter].abilities.indexOf(this.pkmn_ability) == -1 && !MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability) {
+                this.pkmn_ability = this.g5PokemonData[this.starter].abilities[0]
             }
             else {
-                this.pkmn_ability = MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability          ?? this.pokedex_black[this.starter]?.abilities[0] ?? null
+                this.pkmn_ability = MyStorage[`${game_name}_${this.starter}`]?.pkmn_ability          ?? this.g5PokemonData[this.starter]?.abilities[0] ?? null
             }
             this.set_starter_stats_object.gender = this.pkmn_gender;
             this.set_starter_stats_object.nature = this.pkmnNature;
@@ -5749,17 +5757,66 @@ const app = Vue.createApp({
             return return_value
         },
         getEnemyStat(statName, statValue, slotIndex) { //stat = the name of the stat ie. "hp", "attack", "defense", etc.
+            const weather = this.mapper.properties.battle?.field?.weather?.value
+            const ability = this.mapper?.properties?.battle?.opponent?.team?.[slotIndex]?.ability?.value
+            const species = this.mapper?.properties?.battle?.opponent?.team?.[slotIndex]?.species?.value
+            const held_item = this.enemy_held_item(slotIndex)
+            let weatherMod = 1
+            if (statName == 'speed') {
+                if (weather == 'Sun' && ability == 'Chlorophyll') {
+                    weatherMod = 2
+                }
+                else if (weather == 'Rain' && ability == 'Swift Swim') {
+                    weatherMod = 2
+                }
+                else if (weather == 'Sandstorm' && ability == 'Sand Rush') {
+                    weatherMod = 2
+                }
+            }
+            if (statName == 'special_defense') {
+                let type1 = this.g5PokemonData?.[species]?.type_1
+                let type2 = this.g5PokemonData?.[species]?.type_2
+                if (weather == 'Sandstorm' && (type1 == 'Rock' || type2 == 'Rock')) {
+                    weatherMod = 1.5
+                }
+            }
+            // Held-item stat modifiers (Choice Band/Specs/Scarf and Eviolite)
+            let itemMod = 1
+            if (ability != 'Klutz') {
+                if (statName == 'attack' && held_item == 'Choice Band') {
+                    itemMod = 1.5
+                }
+                else if (statName == 'special_attack' && held_item == 'Choice Specs') {
+                    itemMod = 1.5
+                }
+                else if (statName == 'speed' && held_item == 'Choice Scarf') {
+                    itemMod = 1.5
+                }
+                else if (held_item == 'Eviolite' && (statName == 'defense' || statName == 'special_defense')) {
+                    const family = this.g5PokemonData?.[species]?.evolution_family ?? []
+                    const not_fully_evolved = family.length > 0 && family[family.length - 1].species !== species
+                    if (not_fully_evolved) {
+                        itemMod = 1.5
+                    }
+                }
+            }
             let currentStat = 0
             if (this.mapper.properties.meta.state.value == `Battle` && this.mapper.properties.battle.opponent.party_position == slotIndex) {
-                currentStat = this.mapper?.properties?.battle?.opponent?.team[slotIndex].stats[statName].value
-                modifier = this.mapper?.properties?.battle?.opponent?.active_pokemon?.modifiers[statName].value
-                stageModification = this.stageModifiersData.stats[modifier]
-                calculated_stats = Math.floor(currentStat * stageModification)
-                if (calculated_stats == 0 || calculated_stats > 1500) { return statValue } 
+                currentStat = this.mapper?.properties?.battle?.opponent?.team?.[slotIndex]?.stats?.[statName]?.value
+
+                let modifier = this.mapper?.properties?.battle?.opponent?.pkmn_ram?.[`pokemon_${slotIndex}_ram`]?.modifiers?.[statName]?.value
+                let stageModification = this.stageModifiersData?.stats?.[modifier]
+                if (stageModification == null) {
+                    return Math.floor(currentStat * weatherMod * itemMod)
+                }
+                let calculated_stats = Math.floor(currentStat * stageModification * weatherMod * itemMod)
+                if (calculated_stats == 0 || calculated_stats > 1500) {
+                    return statValue
+                }
                 return calculated_stats
             }
             else {
-                return this.mapper?.properties?.battle?.opponent?.team[slotIndex].stats[statName].value
+                return Math.floor(this.mapper?.properties?.battle?.opponent?.team?.[slotIndex]?.stats?.[statName]?.value * weatherMod * itemMod)
             }
         },
         enemyMove(slot, moveNumber) {
@@ -6655,12 +6712,16 @@ const app = Vue.createApp({
                 }
                 else if (y == "Low Kick" || y == "Grass Knot") {
                     if (this.mapper.properties.meta.state.value == `Overworld` || this.mapper.properties.meta.state.value == `To Battle`) { return "—"}
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight < 10) { return 20 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight < 25) { return 40 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight < 50) { return 60 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight < 100) { return 80 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight < 200) { return 100 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.opponent.active_pokemon.species.value]?.weight >= 200) { return 120 }
+                    const __opp_species = this.mapper.properties.battle.opponent.active_pokemon.species.value
+                    const __opp_entry   = this.g5PokemonData[__opp_species]
+                    const __opp_weight  = __opp_entry?.weight
+                    console.log("[LowKick/GrassKnot DEBUG]", { move: y, species: __opp_species, entryFound: !!__opp_entry, weight: __opp_weight, typeofWeight: typeof __opp_weight })
+                    if (__opp_weight < 10) { return 20 }
+                    if (__opp_weight < 25) { return 40 }
+                    if (__opp_weight < 50) { return 60 }
+                    if (__opp_weight < 100) { return 80 }
+                    if (__opp_weight < 200) { return 100 }
+                    if (__opp_weight >= 200) { return 120 }
                 }
                 else if (y == "Hidden Power") {
                     return this.hiddenPowerPowerCalc(pokemon_data)
@@ -7771,12 +7832,16 @@ const app = Vue.createApp({
                 }
                 else if (move_name == "Low Kick" || move_name == "Grass Knot") {
                     if (this.mapper.properties.meta.state.value == `Overworld` || this.mapper.properties.meta.state.value == `To Battle`) { return "—"}
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight < 10) { return 20 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight < 25) { return 40 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight < 50) { return 60 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight < 100) { return 80 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight < 200) { return 100 }
-                    if (this.g5PokemonData[this.mapper.properties.battle.player.active_pokemon.species.value]?.weight >= 200) { return 120 }
+                    const __plr_species = this.mapper.properties.battle.player.active_pokemon.species.value
+                    const __plr_entry   = this.g5PokemonData[__plr_species]
+                    const __plr_weight  = __plr_entry?.weight
+                    console.log("[LowKick/GrassKnot ENEMY-side DEBUG]", { move: move_name, species: __plr_species, entryFound: !!__plr_entry, weight: __plr_weight, typeofWeight: typeof __plr_weight })
+                    if (__plr_weight < 10) { return 20 }
+                    if (__plr_weight < 25) { return 40 }
+                    if (__plr_weight < 50) { return 60 }
+                    if (__plr_weight < 100) { return 80 }
+                    if (__plr_weight < 200) { return 100 }
+                    if (__plr_weight >= 200) { return 120 }
                 }
                 else if (move_name == "Hidden Power") {
                     return this.hiddenPowerPowerCalc(enemy_mon)
@@ -8194,6 +8259,131 @@ const app = Vue.createApp({
                     return effective_power
                 }
             }
+        },
+
+        /* === Enemy sprite resize tool ============================================
+         * Ctrl+Click an enemy team sprite to enter resize mode. Drag the corner
+         * handle to scale it. Press Enter to commit (writes enemy_sprite_scales.js
+         * in dev mode). Press Escape to cancel.
+         */
+        getEnemySpriteScale(species) {
+            // Touch reactivity tick so live drags re-render.
+            // eslint-disable-next-line no-unused-expressions
+            this.enemyScaleVersion;
+            return enemySpriteScaleManager.getScale(species);
+        },
+        getEnemySpriteYOffset(species) {
+            // eslint-disable-next-line no-unused-expressions
+            this.enemyScaleVersion;
+            return enemySpriteScaleManager.getYOffset(species);
+        },
+        getEnemySpriteXOffset(species) {
+            // eslint-disable-next-line no-unused-expressions
+            this.enemyScaleVersion;
+            return enemySpriteScaleManager.getXOffset(species);
+        },
+        getEnemySpriteFlipped(species) {
+            // eslint-disable-next-line no-unused-expressions
+            this.enemyScaleVersion;
+            return enemySpriteScaleManager.getFlipped(species);
+        },
+        enemyTransformFor(species) {
+            const s = this.getEnemySpriteScale(species);
+            const x = this.getEnemySpriteXOffset(species);
+            const y = this.getEnemySpriteYOffset(species);
+            const sx = this.getEnemySpriteFlipped(species) ? -s : s;
+            // translate before scale so the visible shift stays at design-space pixels regardless of scale.
+            return `translate(${x}px, ${y}px) scale(${sx}, ${s})`;
+        },
+        toggleEnemySpriteFlip() {
+            if (!this.enemyResize.species) return;
+            const current = enemySpriteScaleManager.getFlipped(this.enemyResize.species);
+            enemySpriteScaleManager.setLive(this.enemyResize.species, { flipped: !current });
+            this.enemyScaleVersion++;
+        },
+        nudgeEnemySpriteY(deltaPx) {
+            if (!this.enemyResize.species) return;
+            const current = enemySpriteScaleManager.getYOffset(this.enemyResize.species);
+            enemySpriteScaleManager.setLive(this.enemyResize.species, { yOffset: current + deltaPx });
+            this.enemyScaleVersion++;
+        },
+        nudgeEnemySpriteX(deltaPx) {
+            if (!this.enemyResize.species) return;
+            const current = enemySpriteScaleManager.getXOffset(this.enemyResize.species);
+            enemySpriteScaleManager.setLive(this.enemyResize.species, { xOffset: current + deltaPx });
+            this.enemyScaleVersion++;
+        },
+        _getAppScale() {
+            const el = document.getElementById('app-container');
+            if (!el) return 1;
+            const t = getComputedStyle(el).transform;
+            if (!t || t === 'none') return 1;
+            const m = t.match(/matrix\(([^)]+)\)/);
+            if (m) {
+                const parts = m[1].split(',').map(s => parseFloat(s));
+                if (!Number.isNaN(parts[0]) && parts[0] > 0) return parts[0];
+            }
+            return 1;
+        },
+        enemySpriteHandlePosition() {
+            // Touch reactive tick so this re-runs as the sprite scales / re-renders.
+            // eslint-disable-next-line no-unused-expressions
+            this.enemyScaleVersion;
+            const slot = this.enemyResize.slot;
+            if (slot == null) return null;
+            // Re-query the DOM each tick in case Vue swapped the element on re-render.
+            const sprite = document.querySelector(`.ePkmnSprite[data-enemy-slot="${slot}"]`);
+            if (!sprite) return null;
+            const rect = sprite.getBoundingClientRect();
+            return {
+                left: (rect.right - 8) + 'px',
+                top:  (rect.bottom - 8) + 'px'
+            };
+        },
+        onEnemyResizeHandleMouseDown(event) {
+            if (!this.enemyResize.species) return;
+            event.preventDefault();
+            event.stopPropagation();
+            const startX = event.clientX;
+            const startY = event.clientY;
+            const baseSize = this.enemyResize.baseSize;
+            const species = this.enemyResize.species;
+            const startScale = enemySpriteScaleManager.getScale(species);
+            const startWidth = baseSize * startScale;
+            const appScale = this._getAppScale();
+            const onMove = (ev) => {
+                const dx = ev.clientX - startX;
+                const dy = ev.clientY - startY;
+                // Average the two axes so uniform scaling tracks either drag direction.
+                const delta = (dx + dy) / 2;
+                // Mouse delta is in viewport pixels; the app-container is itself scaled
+                // to fit, so convert back to design-space pixels before adjusting width.
+                const designDelta = appScale > 0 ? delta / appScale : delta;
+                const newWidth = Math.max(20, startWidth + designDelta);
+                const newScale = newWidth / baseSize;
+                enemySpriteScaleManager.setLive(species, { scale: newScale });
+                this.enemyScaleVersion++;
+            };
+            const onUp = () => {
+                window.removeEventListener('mousemove', onMove);
+                window.removeEventListener('mouseup', onUp);
+            };
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onUp);
+        },
+        commitEnemySpriteResize() {
+            if (!this.enemyResize.species) return;
+            enemySpriteScaleManager.commit(this.enemyResize.species);
+            this.enemyResize = { species: null, slot: null, baseSize: 108, spriteEl: null };
+            this.enemyScaleVersion++;
+        },
+        cancelEnemySpriteResize() {
+            if (!this.enemyResize.species) return;
+            if (typeof localStorage !== 'undefined' && this.enemyResize.species) {
+                localStorage.removeItem(`enemyScale_${this.enemyResize.species}`);
+            }
+            this.enemyResize = { species: null, slot: null, baseSize: 108, spriteEl: null };
+            this.enemyScaleVersion++;
         },
     },
 
@@ -9769,5 +9959,53 @@ const app = Vue.createApp({
                 await this.mapper.disconnect();
             }
         });
+
+        // Enemy sprite resize tool is dev-only. Packaged builds consume
+        // enemy_sprite_scales.js read-only — no listeners attached.
+        if (this.isInDevMode) {
+            window.addEventListener('keydown', (e) => {
+                if (!this.enemyResize.species) return;
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.commitEnemySpriteResize();
+                } else if (e.key === 'Escape') {
+                    e.preventDefault();
+                    this.cancelEnemySpriteResize();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.nudgeEnemySpriteY(e.shiftKey ? -10 : -1);
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    this.nudgeEnemySpriteY(e.shiftKey ? 10 : 1);
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    this.nudgeEnemySpriteX(e.shiftKey ? -10 : -1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    this.nudgeEnemySpriteX(e.shiftKey ? 10 : 1);
+                } else if (e.key === 'F1') {
+                    e.preventDefault();
+                    this.toggleEnemySpriteFlip();
+                }
+            });
+
+            // Ctrl+Click on an enemy sprite enters resize mode. Listen in capture
+            // phase at the window level so the click is received even if a higher
+            // overlay (trainer graphic, canvas etc.) sits on top of the sprite.
+            window.addEventListener('mousedown', (e) => {
+                if (!e.ctrlKey) return;
+                if (e.button !== 0) return;
+                const els = document.elementsFromPoint(e.clientX, e.clientY);
+                const sprite = els.find((el) => el && el.classList && el.classList.contains('ePkmnSprite'));
+                if (!sprite) return;
+                const slot = parseInt(sprite.dataset.enemySlot, 10);
+                const species = sprite.dataset.enemySpecies;
+                if (!species || Number.isNaN(slot)) return;
+                e.preventDefault();
+                e.stopPropagation();
+                this.enemyResize = { species, slot, baseSize: 108, spriteEl: sprite };
+                this.enemyScaleVersion++;
+            }, true);
+        }
     },
 }).mount('#app')

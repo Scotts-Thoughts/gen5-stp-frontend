@@ -284,12 +284,12 @@
                     <br>
                     <div style="display: flex; gap: 12px; align-items: flex-start;">
                         <div>
-                            <div>Abilities: ({{starter}} has {{pokedex_black[starter].abilities.length}})</div>
+                            <div>Abilities: ({{starter}} has {{g5PokemonData[starter].abilities.length}})</div>
                             <select v-model="pkmn_ability" class="dropdownMenu dropdown_menu_column3" style="width: 144px;">
                                 <option disabled value="">Select an ability</option>
-                                <option v-for="key in values_function(pokedex_black[starter].abilities)" :value="`${key}`">{{key}}</option>
+                                <option v-for="key in values_function(g5PokemonData[starter].abilities)" :value="`${key}`">{{key}}</option>
                             </select>
-                            <div style="font-size: 11px; line-height: 14px;">Ability: {{pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1 == 3 ? 'Hidden Ability' : pokedex_black[starter].abilities.indexOf(pkmn_ability) + 1}}</div>
+                            <div style="font-size: 11px; line-height: 14px;">Ability: {{g5PokemonData[starter].abilities.indexOf(pkmn_ability) + 1 == 3 ? 'Hidden Ability' : g5PokemonData[starter].abilities.indexOf(pkmn_ability) + 1}}</div>
                         </div>
                         <div>
                             <div>Gender:</div>
@@ -687,7 +687,12 @@
                             <div v-if="x < mapper.properties.battle.opponent.team_count.value" :class="`border slots ePkmnStyle ePkmn${x}`">
                                 <div :style="fade_enemy_mon(x)" class="eFaintTransition">
                                     <div :style="fade_enemy_mon_text(x)" class="eFaintTransition">
-                                        <img class="ePkmnSprite" :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
+                                        <img class="ePkmnSprite"
+                                            :class="{ ePkmnSpriteResizing: enemyResize.slot === x }"
+                                            :data-enemy-slot="x"
+                                            :data-enemy-species="enemy_mon_static[x]?.species?.value"
+                                            :style="{ transform: enemyTransformFor(enemy_mon_static[x]?.species?.value) }"
+                                            :src="`images/pokemon/${speciesSpecialCharacters(enemy_mon_static[x]?.species)}${enemy_form(x, enemy_mon_static[x]?.species.value)}.png`" />
                                         <!-- <img class="canvas" :src="`images/ui/speed_comp/${x}.svg`" /> -->
                                         <div class="border ePkmnTyping">
                                             <!-- <img v-if="held_item_icon(enemy_held_item(x))"
@@ -711,12 +716,12 @@
                                         <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_attack.value == 0"  class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
                                         <div v-show="mapper.properties.battle.opponent.pkmn_ram[`pokemon_${x}_ram`].modifiers?.special_defense.value == 0" class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
         
-                                        <div class="align_right eStatValue eValueLeft eValue1" >{{mapper.properties.battle.opponent.team[x].stats.hp_max}}</div>
-                                        <div class="align_right eStatValue eValueLeft eValue2" >{{mapper.properties.battle.opponent.team[x].stats.attack}}</div>
-                                        <div class="align_right eStatValue eValueLeft eValue3" >{{mapper.properties.battle.opponent.team[x].stats.defense}}</div>
-                                        <div class="align_right eStatValue eValueRight eValue1">{{mapper.properties.battle.opponent.team[x].stats.speed}}</div>
-                                        <div class="align_right eStatValue eValueRight eValue2">{{mapper.properties.battle.opponent.team[x].stats.special_attack}}</div>
-                                        <div class="align_right eStatValue eValueRight eValue3">{{mapper.properties.battle.opponent.team[x].stats.special_defense}}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue1" >{{ mapper.properties.battle.opponent.team[x].stats.hp_max }}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue2" >{{ getEnemyStat("attack", mapper.properties.battle.opponent.team[x].stats.attack, x) }}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue3" >{{ getEnemyStat("defense", mapper.properties.battle.opponent.team[x].stats.defense, x) }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue1">{{ getEnemyStat("speed", mapper.properties.battle.opponent.team[x].stats.speed, x) }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue2">{{ getEnemyStat("special_attack", mapper.properties.battle.opponent.team[x].stats.special_attack, x) }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue3">{{ getEnemyStat("special_defense", mapper.properties.battle.opponent.team[x].stats.special_defense, x) }}</div>
                                         <div class="border ePkmnMoves">
                                             <table class="enemyMovesetTable">
                                                 <tr v-show="mapper.properties.battle.opponent.team[x].moves[0].move.value != null">
@@ -849,7 +854,7 @@
                             <th class="movepool_header movepool_tableC">Acc.</th>
                             <th class="movepool_header movepool_tableC">PP</th>
                         </tr>
-                        <tr v-for="(x, index) in getMovepool(pokedex_black, black_moves, g5tmhmMapping, displayedPokemonSpecies).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
+                        <tr v-for="(x, index) in getMovepool(g5PokemonData, black_moves, g5tmhmMapping, displayedPokemonSpecies).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
                             <td class="movepool_way">{{x.Level}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
@@ -858,7 +863,7 @@
                             <td class="movepool_tableC">{{x.accuracy}}%</td>
                             <td class="movepool_tableC">{{x.pp}}</td>
                         </tr>
-                        <tr v-for="x in getMovepool(pokedex_black, black_moves, g5tmhmMapping, displayedPokemonSpecies).tmhm" :style="getUnobtainableMoveStyle(x, selected_game)">
+                        <tr v-for="x in getMovepool(g5PokemonData, black_moves, g5tmhmMapping, displayedPokemonSpecies).tmhm" :style="getUnobtainableMoveStyle(x, selected_game)">
                             <td v-if="x.Move == 'Whirlpool'" class="movepool_way">HM05</td>
                             <td v-else class="movepool_way">{{x.tmhm}}</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
@@ -978,6 +983,17 @@
                     </div>
                 </div>
             </transition>
+
+            <!-- Enemy sprite resize handle. Dev mode only — packaged builds just
+                 read enemy_sprite_scales.js and don't expose any resize UI.
+                 Teleported to body so it floats above every in-app overlay. -->
+            <Teleport to="body" v-if="isInDevMode">
+                <div v-if="enemyResize.species && enemySpriteHandlePosition()"
+                    class="ePkmnSpriteResizeHandle"
+                    :style="enemySpriteHandlePosition()"
+                    @mousedown="onEnemyResizeHandleMouseDown($event)"
+                    title="Drag to resize. Enter saves, Escape cancels."></div>
+            </Teleport>
         </div>
         </div>
     </div>
@@ -1005,7 +1021,8 @@
     <script src="lib/moves/cross_generation_moves.js"></script>
     <script src="lib/g5tmhmMapping.js"></script>
     <!-- Pokedex -->
-    <script src="lib/pokedex/black.js"></script>
+    <script src="lib/pokedex/black_white.js"></script>
+    <script src="lib/pokedex/black2_white2.js"></script>
     <!-- Trainers -->
     <script src="lib/trainers/black.js"></script>
     <script src="lib/moves/black.js"></script>

@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-25T15:57:45.533Z
+ * Last updated: 2026-05-26T20:01:06.413Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -1289,7 +1289,7 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "pkmn_ability": "Chlorophyll"
     },
-    "Black_Tranquil": {
+    "Black_Tranquill": {
         "overlay_color": "#a8a878",
         "backgroundTexture": "Normal",
         "pkmnNature": "Hardy",
@@ -1487,7 +1487,7 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundContrast": "127",
         "backgroundSaturation": 100
     },
-    "Black_Unfezant-line-Tranquil": {
+    "Black_Unfezant-line-Tranquill": {
         "overlay_color": "#a9a8a6",
         "ui_saturation": "1.5",
         "imageXOffset": "0",
@@ -4122,7 +4122,11 @@ const DEFAULT_STYLE_SETTINGS = {
         "evolution": true
     },
     "Black_Gothorita": {
-        "selected_evolution_species": "Gothorita"
+        "selected_evolution_species": "Gothorita",
+        "pkmn_ability": "Frisk",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Psychic",
+        "overlay_color": "#f85888"
     },
     "Black_Gothitelle": {
         "selected_evolution_species": "Gothitelle",
@@ -4352,7 +4356,13 @@ const DEFAULT_STYLE_SETTINGS = {
     },
     "Black_Hydreigon": {},
     "White_Tepig": {},
-    "White_Cinccino-line-Cinccino": {}
+    "White_Cinccino-line-Cinccino": {},
+    "Black_Swampert": {
+        "selected_evolution_species": "Swampert"
+    },
+    "Black_Seadra": {
+        "selected_evolution_species": "Seadra"
+    }
 };
 
 // Export for use in the application

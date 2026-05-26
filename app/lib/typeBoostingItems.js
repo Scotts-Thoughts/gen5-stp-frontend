@@ -49,6 +49,13 @@ const typeBoostingItems = {
     "Griseous Orb": [ "Dragon", "Ghost" ],
     "Lustrous Orb": [ "Dragon", "Ghost" ],
 
+    //gen4 incenses (1.2x type-boost)
+    "Odd Incense":  "Psychic",
+    "Rock Incense": "Rock",
+    "Rose Incense": "Grass",
+    "Sea Incense":  "Water",
+    "Wave Incense": "Water",
+
     //gen6 specific items
     "Pixie Plate": "Fairy",
     

@@ -2,7 +2,7 @@ const game_variables =
 {
     "Black": {
         "gameName" : "Black",
-        "dexData" : pokedex_black,
+        "dexData" : pokedex_black_white,
         "region" : "Unova",
         "opponent": "opponent",
         "opponentId" : "opponentAId",
@@ -75,7 +75,7 @@ const game_variables =
     },
     "White": {
         "gameName" : "White",
-        "dexData" : pokedex_black,
+        "dexData" : pokedex_black_white,
         "region" : "Unova",
         "opponent": "opponent",
         "opponentId" : "opponentAId",
@@ -141,7 +141,7 @@ const game_variables =
     },
     "Black 2": {
         "gameName" : "Black 2",
-        "dexData" : pokedex_black,
+        "dexData" : pokedex_black2_white2,
         "region" : "Unova",
         "opponent": "opponent",
         "opponentId" : "opponentAId",
@@ -205,7 +205,7 @@ const game_variables =
     },
     "White 2": {
         "gameName" : "White 2",
-        "dexData" : pokedex_black,
+        "dexData" : pokedex_black2_white2,
         "region" : "Unova",
         "opponent": "opponent",
         "opponentId" : "opponentAId",
