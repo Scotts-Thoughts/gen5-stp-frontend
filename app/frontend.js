@@ -594,6 +594,22 @@ const app = Vue.createApp({
             isInDevMode                  : StyleSettingsUtils.isDevMode(), // Track if running in development mode
             mapper                       : null,
             debugging_mode               : true,
+            enemy_sprite_styles_enabled  : true, // Dev-only toggle: when false (and in dev mode), bypass enemy sprite resize/offset/flip for legacy/native rendering. Packaged builds always apply styles.
+
+            // Style Mode (dev only): iterate through every species in g5PokemonData
+            // showing each one in slot 0 of the enemy graphic with the resize handle
+            // active. Enter commits + advances; Backspace discards + goes back.
+            style_mode_active         : false,
+            style_mode_index          : 0,
+            style_mode_species_list   : [],
+            // Dummy move types for the style-mode moveset preview, so the icon
+            // slots render with plausible variety rather than four blanks.
+            style_mode_dummy_moves    : [
+                { name: 'Tackle',     type: 'normal' },
+                { name: 'Water Gun',  type: 'water'  },
+                { name: 'Ember',      type: 'fire'   },
+                { name: 'Vine Whip',  type: 'grass'  },
+            ],
             state                        : "No Pokemon",
             editor                       : false,
             game_variables               : null,
@@ -2011,24 +2027,15 @@ const app = Vue.createApp({
                 let trioTrainerProcessed = false; // Track if we've already processed a trio trainer
                 if (debugging_mode == true) { console.log("lastPushedTrainer:", lastPushedTrainer) }
 
+                // Build default_splits from the active game's splits order so per-version
+                // differences (e.g. White → Iris at gym 8, Black → Drayden) are respected.
                 let default_splits = [
-                    { trainer: "Trio",     id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Chili",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Cilan",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Cress",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Lenora",   id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Burgh",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Elesa",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Clay",     id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Skyla",    id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Brycen",   id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Drayden",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Shauntal", id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Grimsley", id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Caitlin",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Marshal",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "N",        id: 587,  time: "0", previous_time: "0", current_time: "0", difference: "0" },
-                    { trainer: "Ghetsis",  id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    { trainer: "Trio", id: null, time: "0", previous_time: "0", current_time: "0", difference: "0" },
+                    ...this.game.splits.map(trainer => ({
+                        trainer,
+                        id: trainer === "N" ? 587 : null,
+                        time: "0", previous_time: "0", current_time: "0", difference: "0",
+                    })),
                 ]
                 let previous_splits_data = this.previous_splits.length == 0 ? default_splits : this.previous_splits
                 const isUsingDefaultSplits = this.previous_splits.length == 0
@@ -4898,6 +4905,7 @@ const app = Vue.createApp({
             this.encounters_psyduck        = MyStorage[`${game_name}_${this.starter}`]?.encounters_psyduck        ?? true
             this.editor =                     MyStorage['editor']                     ?? false
             this.debugging_mode =             MyStorage['debugging_mode']             ?? true
+            this.enemy_sprite_styles_enabled = MyStorage['enemy_sprite_styles_enabled'] ?? true
             this.held_item_replacement =      MyStorage['held_item_replacement']      ?? ""
             this.move1_replacement =          MyStorage['move1_replacement']          ?? ""
             this.move2_replacement =          MyStorage['move2_replacement']          ?? ""
@@ -8280,6 +8288,13 @@ const app = Vue.createApp({
             return enemySpriteScaleManager.getFlipped(species);
         },
         enemyTransformFor(species) {
+            // Dev-mode escape hatch: when the styles toggle is off, render at native size/position
+            // so footage stays congruent with content filmed before the resize feature shipped.
+            // Packaged builds ignore the toggle and always apply styles. Style Mode also overrides
+            // the toggle so the user can see what they're editing.
+            if (this.isInDevMode && !this.enemy_sprite_styles_enabled && !this.style_mode_active) {
+                return 'none';
+            }
             const s = this.getEnemySpriteScale(species);
             const x = this.getEnemySpriteXOffset(species);
             const y = this.getEnemySpriteYOffset(species);
@@ -8376,6 +8391,82 @@ const app = Vue.createApp({
             }
             this.enemyResize = { species: null, slot: null, baseSize: 108, spriteEl: null };
             this.enemyScaleVersion++;
+        },
+
+        /* === Style Mode (dev only) ==========================================
+         * Iterate every species in g5PokemonData. Each species is shown in
+         * slot 0 of the enemy graphic in resize mode. Enter commits and
+         * advances; Backspace discards live edits and steps back. Existing
+         * style settings load automatically per species.
+         */
+        styleModeCurrentSpecies() {
+            if (!this.style_mode_active) return null;
+            return this.style_mode_species_list[this.style_mode_index] ?? null;
+        },
+        _styleModeBuildList() {
+            const all = Object.keys(this.g5PokemonData || {});
+            return all.filter((name) => {
+                if (!name) return false;
+                if (name === '—' || name === 'Egg') return false;
+                return true;
+            });
+        },
+        _styleModeFocusCurrent() {
+            const species = this.style_mode_species_list[this.style_mode_index];
+            if (!species) return;
+            // Drop any stale override from the previous species; we want to
+            // start from the bundled/saved value, not whatever was being edited.
+            this.enemyResize = { species, slot: 0, baseSize: 108, spriteEl: null };
+            this.enemyScaleVersion++;
+        },
+        enterStyleMode() {
+            if (!this.isInDevMode) return;
+            const list = this._styleModeBuildList();
+            if (list.length === 0) return;
+            this.style_mode_species_list = list;
+            this.style_mode_index = 0;
+            this.style_mode_active = true;
+            this.$nextTick(() => this._styleModeFocusCurrent());
+        },
+        exitStyleMode() {
+            // Drop any uncommitted live edit on the current species.
+            const species = this.styleModeCurrentSpecies();
+            if (species && typeof localStorage !== 'undefined') {
+                localStorage.removeItem(`enemyScale_${species}`);
+            }
+            this.style_mode_active = false;
+            this.style_mode_species_list = [];
+            this.style_mode_index = 0;
+            this.enemyResize = { species: null, slot: null, baseSize: 108, spriteEl: null };
+            this.enemyScaleVersion++;
+        },
+        styleModeAdvance() {
+            if (!this.style_mode_active) return;
+            const species = this.styleModeCurrentSpecies();
+            if (species) {
+                enemySpriteScaleManager.commit(species);
+            }
+            if (this.style_mode_index + 1 >= this.style_mode_species_list.length) {
+                this.exitStyleMode();
+                return;
+            }
+            this.style_mode_index++;
+            this.$nextTick(() => this._styleModeFocusCurrent());
+        },
+        styleModeBack() {
+            if (!this.style_mode_active) return;
+            // Discard the live override on the current species (reverts unsaved drag/nudge edits).
+            const species = this.styleModeCurrentSpecies();
+            if (species && typeof localStorage !== 'undefined') {
+                localStorage.removeItem(`enemyScale_${species}`);
+            }
+            if (this.style_mode_index === 0) {
+                // Already at the first species — just refresh focus so the handle stays attached.
+                this._styleModeFocusCurrent();
+                return;
+            }
+            this.style_mode_index--;
+            this.$nextTick(() => this._styleModeFocusCurrent());
         },
     },
 
@@ -9956,6 +10047,26 @@ const app = Vue.createApp({
         // enemy_sprite_scales.js read-only — no listeners attached.
         if (this.isInDevMode) {
             window.addEventListener('keydown', (e) => {
+                // Style mode owns Enter/Backspace/Escape: Enter commits + advances,
+                // Backspace discards + steps back, Escape exits.
+                if (this.style_mode_active) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.styleModeAdvance();
+                        return;
+                    }
+                    if (e.key === 'Backspace') {
+                        e.preventDefault();
+                        this.styleModeBack();
+                        return;
+                    }
+                    if (e.key === 'Escape') {
+                        e.preventDefault();
+                        this.exitStyleMode();
+                        return;
+                    }
+                    // Fall through so arrow keys / F1 still nudge/flip the current sprite.
+                }
                 if (!this.enemyResize.species) return;
                 if (e.key === 'Enter') {
                     e.preventDefault();

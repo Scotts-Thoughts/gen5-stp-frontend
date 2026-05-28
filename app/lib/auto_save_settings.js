@@ -78,6 +78,7 @@ const auto_save_settings = [
     "second_screen_toggle",
     "run_complete",
     "debugging_mode",
+    "enemy_sprite_styles_enabled",
     "banned_hidden_power",
     "shuckie_timer",
     "shuckie_counters",

@@ -136,6 +136,23 @@
                         <button class="buttonStyle" @click="resetAllStyleSettingsToDefaults()" style="font-size: 11px; color: #f44;">
                             Reset ALL to Defaults
                         </button>
+                        <div v-if="isInDevMode" style="margin-top: 8px; padding-top: 6px; border-top: 1px solid #333; font-size: 11px;" title="Dev only. Packaged builds always use enemy sprite styles.">
+                            <label>
+                                <input class="checkBoxStyle" type="checkbox" v-model="enemy_sprite_styles_enabled"/>
+                                Enemy Sprite Styles (scale/offset/flip)
+                            </label>
+                        </div>
+                        <div v-if="isInDevMode" style="margin-top: 6px;">
+                            <button v-if="!style_mode_active" class="buttonStyle" @click="enterStyleMode()" style="font-size: 11px;" title="Iterate every species: Enter saves + advances, Backspace discards + steps back, Escape exits.">
+                                Style Mode (iterate Pokedex)
+                            </button>
+                            <button v-else class="buttonStyle" @click="exitStyleMode()" style="font-size: 11px; color: #f44;">
+                                Exit Style Mode
+                            </button>
+                            <div v-if="style_mode_active" style="font-size: 11px; margin-top: 4px;">
+                                {{ style_mode_index + 1 }} / {{ style_mode_species_list.length }} — <strong>{{ styleModeCurrentSpecies() }}</strong>
+                            </div>
+                        </div>
                     </div>
                     
                     Pokemon Editor:<input class="checkBoxStyle" type="checkbox" v-model="editor"/>
@@ -669,8 +686,68 @@
 
             <!-- Right Hand Information Area -->
             <transition name="fade1">
+                <!-- Style Mode (dev only): replaces the live right panel with a
+                     dummy slot-0 enemy graphic so every species can be styled.
+                     Layout mirrors the live "Enemy Team Display" block below
+                     (single slot) with dummy stats/moves so all surrounding
+                     graphics render. -->
+                <div v-if="isInDevMode && style_mode_active" style="position: absolute;" key="style_mode">
+                    <div class="trainerLabel">{{ styleModeCurrentSpecies() }} {{ style_mode_index + 1 }}/{{ style_mode_species_list.length }}</div>
+                    <div class="colored-image ds" :style="`height: 233px; filter: saturate(${ui_saturation}) drop-shadow(0px 0px 1px #000000)`" style="--url: url(images/ui/opponent.svg)"></div>
+                    <div>
+                        <img class="canvas eFaintTransition red-svg" style="left: -1px;" :src="`images/ui/speed_comp/0.svg`"/>
+                        <div class="colored-image" :style="`--overlay-color: ${overlay_color}; --url: url(images/ui/enemy_ui/0.svg)`"></div>
+                        <img :src="`images/enemy-area/stats/${ui_type_color_modifier}/0.svg`" class="enemyPng eFaintTransition">
+                    </div>
+                    <div class="enemyGraphic">
+                        <div class="eFaintTransition">
+                            <div class="border slots ePkmnStyle ePkmn0">
+                                <div>
+                                    <div>
+                                        <img class="ePkmnSprite ePkmnSpriteResizing"
+                                             :data-enemy-slot="0"
+                                             :data-enemy-species="styleModeCurrentSpecies()"
+                                             :style="{ transform: enemyTransformFor(styleModeCurrentSpecies()), filter: `drop-shadow(${getEnemySpriteFlipped(styleModeCurrentSpecies()) ? -2 : 2}px 2px 2px #000) saturate(1.1)` }"
+                                             :src="`images/pokemon/${speciesSpecialCharacters(styleModeCurrentSpecies())}.png`" />
+                                        <div class="border ePkmnTyping">
+                                            <img class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[styleModeCurrentSpecies()]?.type_1?.toLowerCase()}.png`" />
+                                            <img v-show="g5PokemonData[styleModeCurrentSpecies()]?.type_1 != g5PokemonData[styleModeCurrentSpecies()]?.type_2"
+                                                 class="icons moveIcon" :src="`images/type-icons-circular/${g5PokemonData[styleModeCurrentSpecies()]?.type_2?.toLowerCase()}.png`" />
+                                        </div>
+                                        <div class="ePkmnLvlSpecies">{{ styleModeCurrentSpecies() }}</div>
+                                        <div class="ePkmnLevel" style="opacity: .7;">Lv: 50</div>
+                                        <div class="ePkmnAbility" style="opacity: .7;">{{ g5PokemonData[styleModeCurrentSpecies()]?.abilities?.[0] ?? '' }}</div>
+                                        <div class="speed_comparison">Outsped</div>
+
+                                        <div class="enemyStatLabel eStatLabel eLabelLeft eLabel1" >Hp:</div>
+                                        <div class="enemyStatLabel eStatLabel eLabelLeft eLabel2" >Atk:</div>
+                                        <div class="enemyStatLabel eStatLabel eLabelLeft eLabel3" >Def:</div>
+                                        <div class="enemyStatLabel eStatLabel eLabelRight eLabel1">Spe:</div>
+                                        <div class="enemyStatLabel eStatLabel eLabelRight eLabel2">SpA:</div>
+                                        <div class="enemyStatLabel eStatLabel eLabelRight eLabel3">SpD:</div>
+
+                                        <div class="align_right eStatValue eValueLeft eValue1" >{{ g5PokemonData[styleModeCurrentSpecies()]?.base_hp      ?? 100 }}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue2" >{{ g5PokemonData[styleModeCurrentSpecies()]?.base_atk     ?? 50 }}</div>
+                                        <div class="align_right eStatValue eValueLeft eValue3" >{{ g5PokemonData[styleModeCurrentSpecies()]?.base_def     ?? 50 }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue1">{{ g5PokemonData[styleModeCurrentSpecies()]?.base_spd     ?? 50 }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue2">{{ g5PokemonData[styleModeCurrentSpecies()]?.base_spc_atk ?? 50 }}</div>
+                                        <div class="align_right eStatValue eValueRight eValue3">{{ g5PokemonData[styleModeCurrentSpecies()]?.base_spc_def ?? 50 }}</div>
+                                        <div class="border ePkmnMoves">
+                                            <table class="enemyMovesetTable">
+                                                <tr v-for="(dummy, i) in style_mode_dummy_moves">
+                                                    <th><img class="icons moveIcon" :src="`images/type-icons-circular/${dummy.type}.png`" /></th>
+                                                    <th class="align_left" style="font-size: 14px;">{{ dummy.name }}</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Enemy Team Display -->
-                <div v-if="enemy_graphic == true && battlePokemonCrop != false && !second_screen_mode" style="position: absolute;" key="1">
+                <div v-else-if="enemy_graphic == true && battlePokemonCrop != false && !second_screen_mode" style="position: absolute;" key="1">
                     <div v-if="mapper.properties.battle.opponent_2?.value == null" class="trainerLabel">{{mapper.properties.battle.opponent.trainer.value}}'s Team</div>
                     <div v-else class="trainerLabel">Double Battle Team</div>
                     <div class="colored-image ds" :style="battlePokemonCrop" style="--url: url(images/ui/opponent.svg)"></div>
