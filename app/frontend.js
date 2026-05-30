@@ -9251,35 +9251,44 @@ const app = Vue.createApp({
                     this.hallOfFameReset = true;
                 }
 
-                //stop timer
-                if (this.game && (this.game.finalBattle.includes(trainer) || trainer == 'Alder') && !this.stop_timer_after_n_dialogue) {
-                    // this.stopTime()
-                    this.timer.stopTime();
-                    if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
+                //final battle: always log the final-battle (e.g. Ghetsis) simple split when it's defeated.
+                if (this.game && (this.game.finalBattle.includes(trainer) || trainer == 'Alder')) {
                     if (this.automatic_post_battle_splits == true && this.game?.post_battle_splits?.includes(trainer)) {
                         this.prepare_for_splits = true
                         // this.right_ui = "Splits"
                     }
-                    this.run_complete = true
-                    if (this.testRun == false) {
-                        this.finished_run_count++
-                    };
                     log_split();
-                    
-                    //use then so that logCopy doesn't touch any files until logData finishes
-                    const splitFileName = this.getSplitFileName();
-                    logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
-                    .then(() => {
-                            logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                        });
                     this.split_data.push(this.simple_data)
                     MyStorage["split_data"] = this.split_data
                     MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`] = {
                         ...MyStorage[`${this.mapper.properties.meta.game_name.value}_${this.starter}`],
                         split_data: this.split_data
+                    }
+
+                    if (this.stop_timer_after_n_dialogue) {
+                        // Toggle on: record the Ghetsis split now, but the run doesn't end until the
+                        // N dialogue. The battle_party_data_start listener below stops the timer, logs
+                        // a separate "Hall of Fame" split, and finalizes the run copy.
+                        logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
+                            .catch(error => {
+                                console.error("Error:", error);
+                            });
+                    } else {
+                        // Toggle off: defeating Ghetsis ends the run, as before.
+                        this.timer.stopTime();
+                        if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
+                        this.run_complete = true
+                        if (this.testRun == false) {
+                            this.finished_run_count++
+                        };
+                        //use then so that logCopy doesn't touch any files until logData finishes
+                        logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
+                        .then(() => {
+                                logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                            });
                     }
                 }
             }
@@ -9295,6 +9304,12 @@ const app = Vue.createApp({
                     autosplitter_process()
                     let gameName = this.mapper?.properties?.meta?.game_name?.value || this.selected_game
                     let game_name = gameName
+                    // The last battle fought is still Ghetsis here, so autosplitter_process() labels
+                    // this split "Ghetsis". This split marks the run end at the N dialogue, so relabel
+                    // it "Hall of Fame" (the Ghetsis split itself is logged when Ghetsis is defeated).
+                    this.simple_data = [...this.simple_data]
+                    this.simple_data[2] = "Hall of Fame"
+                    this.simple_data_str = this.simple_data.join(",") + "\n"
                     // this.stopTime()
                     this.timer.stopTime();
                     if (this.shuckie_timer == true) { this.sendEmulatorEnd(); }
