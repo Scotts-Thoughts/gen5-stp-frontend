@@ -6167,9 +6167,6 @@ const app = Vue.createApp({
             if (ability == 'Compound Eyes') {
                 accuracy = accuracy * 1.3
             }
-            if (ability == 'Compound Eyes') {
-                accuracy = accuracy * 1.3
-            }
 
             // if (weather == 'Hail' && move == 'Blizzard' && state == 'Battle') {
             //     return `—`
@@ -6206,6 +6203,18 @@ const app = Vue.createApp({
                 let evasionModifier = this.stageModifiersData["evasion"][oppAStage]
                 let modifiers = pokemon_data.modifiers
                 let item_modifier = 1
+                if (move == 'Fissure' || move == 'Guillotine' || move == 'Sheer Cold' || move == 'Horn Drill') {
+                    let ohko_accuracy = 30
+                    let incremental_improvement = 1
+                    let player_level = pokemon_data.level?.value
+                    let opponent_level = this.mapper.properties.battle.opponent.active_pokemon.level?.value
+                    if (player_level < opponent_level) {
+                        calculated_accuracy = 0
+                        return calculated_accuracy
+                    }
+                    calculated_accuracy = (ohko_accuracy + ((player_level - opponent_level) * incremental_improvement))
+                    return calculated_accuracy
+                }
                 switch (held_item) {
                     case "Wide Lens": item_modifier = 4505/4096; break;
                     case "Zoom Lens": {
@@ -6220,7 +6229,8 @@ const app = Vue.createApp({
                 if (move_category == "Physical" && ability == "Hustle") {
                     ability_modifier = 3277/4096
                 }
-                let calculated_accuracy = Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) <= 100 ? Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) : 100
+
+                calculated_accuracy = Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) <= 100 ? Math.floor(accuracy * accuracyModifier * evasionModifier * item_modifier * ability_modifier) : 100
                 if (calculated_accuracy == "err") {
                     console.log(
                         accuracy,

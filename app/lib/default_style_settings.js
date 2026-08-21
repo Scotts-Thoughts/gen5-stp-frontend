@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-05-28T01:50:36.845Z
+ * Last updated: 2026-08-19T06:08:23.631Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4370,6 +4370,177 @@ const DEFAULT_STYLE_SETTINGS = {
         "overlay_color": "#f85888",
         "evolution": true,
         "selected_evolution_species": "Gothitelle"
+    },
+    "White 2_Caterpie": {
+        "pkmn_ability": "Shield Dust",
+        "pkmnNature": "Hardy",
+        "overlay_color": "#8bc56a",
+        "imageFlip": true,
+        "imageScale": "0.44",
+        "imageYOffset": "-184",
+        "backgroundScale": "125",
+        "backgroundContrast": "96",
+        "backgroundHue": "358",
+        "backgroundBrightness": "48",
+        "backgroundSaturation": "113",
+        "ui_saturation": "1.4",
+        "evolution": true,
+        "selected_evolution_species": "Caterpie"
+    },
+    "White 2_Butterfree-line-Caterpie": {
+        "imageFlip": true,
+        "imageScale": "0.44",
+        "imageYOffset": "-191",
+        "overlay_color": "#fae696",
+        "ui_saturation": "1.3",
+        "backgroundScale": "146",
+        "backgroundYOffset": "-32",
+        "backgroundContrast": "113",
+        "backgroundBrightness": "71",
+        "backgroundHue": "352",
+        "backgroundBlur": "3",
+        "imageXOffset": 0,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Bug",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundSaturation": 100
+    },
+    "White 2_Caterpie-line-Metapod": {
+        "overlay_color": "#fae696",
+        "ui_saturation": "1.3",
+        "imageXOffset": "0",
+        "imageYOffset": "-134",
+        "imageScale": "0.52",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Bug",
+        "backgroundBlur": "3",
+        "backgroundHue": "352",
+        "backgroundScale": "146",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-32",
+        "backgroundBrightness": "71",
+        "backgroundContrast": "113",
+        "backgroundSaturation": 100
+    },
+    "White 2_Caterpie-line-Butterfree": {
+        "overlay_color": "#fae696",
+        "ui_saturation": "1.3",
+        "imageXOffset": 0,
+        "imageYOffset": "142",
+        "imageScale": "0.7",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Flying",
+        "backgroundBlur": "3",
+        "backgroundHue": "352",
+        "backgroundScale": "146",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-32",
+        "backgroundBrightness": "58",
+        "backgroundContrast": "122",
+        "backgroundSaturation": 100
+    },
+    "White 2_Metapod": {
+        "selected_evolution_species": "Metapod"
+    },
+    "White 2_Butterfree": {
+        "selected_evolution_species": "Butterfree",
+        "pkmn_ability": "Compound Eyes",
+        "pkmnNature": "Hardy",
+        "overlay_color": "#a8b820"
+    },
+    "White 2_Bulbasaur": {
+        "evolution": true,
+        "selected_evolution_species": "Bulbasaur"
+    },
+    "White 2_Bulbasaur-line-Venusaur": {
+        "overlay_color": "#5fb0ad",
+        "ui_saturation": "1.8",
+        "backgroundBrightness": "58",
+        "backgroundContrast": "138",
+        "backgroundScale": "142",
+        "backgroundFlip": true,
+        "imageScale": "1.15",
+        "imageYOffset": "-7",
+        "imageXOffset": "7",
+        "imageFlip": false,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Grass",
+        "backgroundBlur": 0,
+        "backgroundHue": 0,
+        "backgroundUrl": "",
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": 0,
+        "backgroundSaturation": 100
+    },
+    "White 2_Venusaur-line-Bulbasaur": {
+        "overlay_color": "#5fb0ad",
+        "ui_saturation": "1.8",
+        "imageXOffset": "0",
+        "imageYOffset": "-99",
+        "imageScale": "0.68",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Grass",
+        "backgroundBlur": 0,
+        "backgroundHue": 0,
+        "backgroundScale": "142",
+        "backgroundUrl": "",
+        "backgroundFlip": true,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": 0,
+        "backgroundBrightness": "58",
+        "backgroundContrast": "138",
+        "backgroundSaturation": 100
+    },
+    "White 2_Bulbasaur-line-Ivysaur": {
+        "overlay_color": "#5fb0ad",
+        "ui_saturation": "1.8",
+        "imageXOffset": "-14",
+        "imageYOffset": "-49",
+        "imageScale": "0.72",
+        "imageFlip": false,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Grass",
+        "backgroundBlur": 0,
+        "backgroundHue": 0,
+        "backgroundScale": "142",
+        "backgroundUrl": "",
+        "backgroundFlip": true,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": 0,
+        "backgroundBrightness": "58",
+        "backgroundContrast": "138",
+        "backgroundSaturation": 100
+    },
+    "White 2_Ivysaur": {
+        "selected_evolution_species": "Ivysaur"
+    },
+    "White 2_Venusaur": {
+        "selected_evolution_species": "Venusaur",
+        "pkmn_ability": "Overgrow",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Grass",
+        "overlay_color": "#78c850"
     }
 };
 
