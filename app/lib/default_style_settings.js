@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-08-19T06:08:23.631Z
+ * Last updated: 2026-08-25T00:05:39.417Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4195,7 +4195,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmn_ability": "Blaze",
         "pkmnNature": "Hardy",
         "backgroundTexture": "Fire",
-        "overlay_color": "#f08030"
+        "overlay_color": "#f08030",
+        "selected_evolution_species": "Charizard"
     },
     "White 2_Numel": {
         "pkmn_ability": "Oblivious",
@@ -4541,6 +4542,83 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmnNature": "Hardy",
         "backgroundTexture": "Grass",
         "overlay_color": "#78c850"
+    },
+    "White 2_Charmander": {
+        "pkmn_ability": "Blaze",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Fire",
+        "overlay_color": "#f08030",
+        "evolution": true,
+        "selected_evolution_species": "Charmander"
+    },
+    "White 2_Charizard-line-Charmander": {
+        "imageFlip": true,
+        "imageScale": "0.58",
+        "imageYOffset": "-99",
+        "imageXOffset": "14",
+        "overlay_color": "#e5a77b",
+        "ui_saturation": "1.8",
+        "backgroundScale": "186",
+        "backgroundYOffset": "-116",
+        "backgroundContrast": "112",
+        "backgroundBrightness": "73",
+        "backgroundBlur": "2",
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Fire",
+        "backgroundHue": 0,
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundSaturation": 100
+    },
+    "White 2_Charmander-line-Charmeleon": {
+        "overlay_color": "#ef8a78",
+        "ui_saturation": "1.6",
+        "imageXOffset": "22",
+        "imageYOffset": "-56",
+        "imageScale": "0.72",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Fire",
+        "backgroundBlur": "2",
+        "backgroundHue": 0,
+        "backgroundScale": "186",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-116",
+        "backgroundBrightness": "73",
+        "backgroundContrast": "112",
+        "backgroundSaturation": 100
+    },
+    "White 2_Charmander-line-Charizard": {
+        "overlay_color": "#f9a96d",
+        "ui_saturation": "1.7",
+        "imageXOffset": "0",
+        "imageYOffset": "-7",
+        "imageScale": "1.15",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Fire",
+        "backgroundBlur": "2",
+        "backgroundHue": 0,
+        "backgroundScale": "186",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "-116",
+        "backgroundBrightness": "73",
+        "backgroundContrast": "112",
+        "backgroundSaturation": 100
+    },
+    "White 2_Charmeleon": {
+        "selected_evolution_species": "Charmeleon"
     }
 };
 

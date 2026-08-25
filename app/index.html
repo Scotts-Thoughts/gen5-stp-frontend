@@ -21,28 +21,34 @@
             Not receiving data...
         </div>
         <div v-else-if="mapper && mapper.properties">
-            <img class="canvas" ref="background_texture" :src="currentTexturePath" 
-            :style="{ 
-                'filter': `blur(${backgroundBlur}px) hue-rotate(${backgroundHue}deg) brightness(${backgroundBrightness}%) contrast(${backgroundContrast}%) saturate(${backgroundSaturation}%)` ,
-                'transform': `scale(${backgroundScale}%) ${backgroundFlip ? 'rotateY(180deg)' : ''} translate(${backgroundXOffset}px, ${-backgroundYOffset}px)`
-            }"/>
+            <!-- Keyed by the texture path so swapping textures cross-fades old/new instead of popping -->
+            <transition name="styleFade">
+                <img class="canvas" ref="background_texture" :key="currentTexturePath" :src="currentTexturePath"
+                :style="{
+                    'filter': `blur(${backgroundBlur}px) hue-rotate(${backgroundHue}deg) brightness(${backgroundBrightness}%) contrast(${backgroundContrast}%) saturate(${backgroundSaturation}%)` ,
+                    'transform': `scale(${backgroundScale}%) ${backgroundFlip ? 'rotateY(180deg)' : ''} translate(${backgroundXOffset}px, ${-backgroundYOffset}px)`
+                }"/>
+            </transition>
             <img class="canvas" :src="`images/elements/pokeball.png`" />
-            <img class="pokemon_art" ref="pokemon_art"
-            :style="{
-                'transform': `scale(${imageScale}) ${imageFlip ? 'rotateY(180deg)' : ''} translate(${imageXOffset}px, ${-imageYOffset}px) rotate(${imageRotation}deg)`,
-                'filter': `saturate(${imageSat}%)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(0 0 0.4px #000)
-                drop-shadow(${imageFlip ? '-3px' : '3px'} 3px 3px #000)
-                `,
-                'opacity': pokemonArtOpacity,
-                'transition': pokemonArtTransition
-            }" 
-            :src="`images/pokemon/${displayedPokemonSpecies}.png`" />
+            <!-- Keyed by the displayed species so starter changes, evolution-dropdown swaps and
+                 mid-run evolutions cross-fade old/new art. No inline opacity here: it would
+                 override the styleFade classes, so the fade is left entirely to the transition -->
+            <transition name="styleFade">
+                <img class="pokemon_art" ref="pokemon_art" :key="displayedPokemonSpecies"
+                :style="{
+                    'transform': `scale(${imageScale}) ${imageFlip ? 'rotateY(180deg)' : ''} translate(${imageXOffset}px, ${-imageYOffset}px) rotate(${imageRotation}deg)`,
+                    'filter': `saturate(${imageSat}%)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(0 0 0.4px #000)
+                    drop-shadow(${imageFlip ? '-3px' : '3px'} 3px 3px #000)
+                    `
+                }"
+                :src="`images/pokemon/${displayedPokemonSpecies}.png`" />
+            </transition>
             <div class="colored-image ds" :style="hp_tracker_style" style="--url: url(images/ui/game_area.svg)"></div>
             <div v-if="shuckie_counters == true">
                 <div v-if="shuckie_faults_check == true" class="colored-image ds" :style="`filter: saturate(${ui_saturation}) drop-shadow(0px 1px 1px)`" style="--url: url(images/ui/timer.svg)"></div>

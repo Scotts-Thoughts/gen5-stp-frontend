@@ -118,7 +118,8 @@ const unobtainable_moves_object = {
         "Endeavor",	 
         "Sleep Talk",	 
         "Skill Swap",	 
-        "Snatch",	     
+        "Snatch",
+        "Flame Charge"	     
     ],
     "White 2": [
         "Dragon Claw",
@@ -169,5 +170,6 @@ const unobtainable_moves_object = {
         "Sleep Talk",	 
         "Skill Swap",	 
         "Snatch",	 
+        "Flame Charge"
     ],
 }

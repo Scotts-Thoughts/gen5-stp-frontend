@@ -2757,6 +2757,12 @@ const app = Vue.createApp({
             }
             return this.textures[this.backgroundTexture].path;
         },
+        // These two are no longer bound in the template: the art is keyed by
+        // displayedPokemonSpecies inside a <transition name="styleFade">, which cross-fades old
+        // and new together. They faded the old art out to 0 and let the new one pop back in, and
+        // an inline opacity would override the styleFade classes anyway. Left in place so this
+        // pair still matches gen3/gen4, where it is likewise unused. movepoolOpacity /
+        // movepoolTransition below are unaffected and still drive the movepool fade.
         pokemonArtOpacity() {
             // Return opacity for Pokemon art during evolution transition
             if (this.evolution_transitioning) {
@@ -5061,7 +5067,15 @@ const app = Vue.createApp({
         updateEvolutionFamilyList() {
             // Update the evolution family list when starter changes
             this.evolution_family_list = this.getEvolutionFamily(this.starter);
-            
+
+            // Preload the family's art so a mid-run evolution cross-fades into a decoded image
+            // instead of fading in a blank one. Only the family, never the full dex - gen5's
+            // images/pokemon is ~400MB and images/textures ~9MB per texture, far too much to warm.
+            for (const family_species of this.evolution_family_list) {
+                const family_art = new Image();
+                family_art.src = `images/pokemon/${family_species}.png`;
+            }
+
             // If the evolution family has only one member (e.g., Registeel), disable evolution
             if (this.evolution_family_list.length <= 1) {
                 if (this.evolution) {

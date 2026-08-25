@@ -581,7 +581,7 @@ body {
     -webkit-mask-image: var(--url); /* fallback, just to be safe */
     mask-image: var(--url); /* use the alpha channel of provided image as a mask of this layer */
     mix-blend-mode: color; /* color blend mode, I'm not sure if 'color' is the right one - might need to be changed */
-    transition: background-color 1s ease-in-out; /* smooth transition between colors over 1 second */
+    transition: background-color 750ms ease-in-out; /* smooth overlay color changes (species swaps, evolutions, color picker) */
 }
 .ds {
     filter: drop-shadow(0px 0px 1px #000000c5);
@@ -2845,6 +2845,17 @@ img, span, div {
 .fadeBattle-leave-from { opacity: 1; }
 .fadeBattle-leave-to { opacity: 0; }
 .fadeBattle-leave-active { transition: opacity 300ms ease-in-out; }
+
+/* Background texture / Pokemon art swaps: old and new render together and cross-fade.
+   Keyed on the texture path and the displayed species, so picking a texture, changing
+   starter, switching the evolution-family styling dropdown, and evolving mid-run all
+   fade instead of popping. Matches the 750ms overlay-color fade on .colored-image::after. */
+.styleFade-enter-from { opacity: 0; }
+.styleFade-enter-to { opacity: 1; }
+.styleFade-enter-active { transition: opacity 750ms ease-in-out; }
+.styleFade-leave-from { opacity: 1; }
+.styleFade-leave-to { opacity: 0; }
+.styleFade-leave-active { transition: opacity 750ms ease-in-out; }
 
 
 .fadeBattleEnemy-enter-from { opacity: 0; }
