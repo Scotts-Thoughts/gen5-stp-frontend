@@ -377,4 +377,18 @@ const textures = {
         'backgroundContrast'   : 100,
         'backgroundSaturation' : 100,
     },
+    'Paint'   : {
+        'path': 'images\\textures\\Paint.jpg',
+        'backgroundBlur'       : 0,
+        'backgroundHue'        : 0,
+        'backgroundScale'      : 100,
+        'backgroundUrl'        : "",
+        'backgroundFlip'       : false,
+        'use_custom_background': false,
+        'backgroundXOffset'    : 0,
+        'backgroundYOffset'    : 0,
+        'backgroundBrightness' : 100,
+        'backgroundContrast'   : 100,
+        'backgroundSaturation' : 100,
+    },
 }
