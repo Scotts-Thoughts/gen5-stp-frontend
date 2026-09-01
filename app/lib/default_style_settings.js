@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-08-28T22:42:20.934Z
+ * Last updated: 2026-09-01T21:20:11.179Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4751,14 +4751,14 @@ const DEFAULT_STYLE_SETTINGS = {
         "ui_saturation": "1.1",
         "imageXOffset": "7",
         "imageYOffset": "22",
-        "imageScale": "1.03",
+        "imageScale": "0.92",
         "imageFlip": true,
         "imageSat": 100,
         "imageRotation": 0,
         "backgroundTexture": "Brushed Steel",
         "backgroundBlur": 0,
         "backgroundHue": 0,
-        "backgroundScale": 100,
+        "backgroundScale": "106",
         "backgroundUrl": "",
         "backgroundFlip": true,
         "use_custom_background": false,
@@ -4777,7 +4777,8 @@ const DEFAULT_STYLE_SETTINGS = {
         "pkmn_ability": "Steadfast",
         "pkmnNature": "Hardy",
         "backgroundTexture": "Fighting",
-        "overlay_color": "#c03028"
+        "overlay_color": "#c03028",
+        "evolution": true
     },
     "White 2_Kyurem": {
         "imageFlip": true,
@@ -4876,6 +4877,44 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundSaturation": "87",
         "backgroundBlur": "1",
         "ui_saturation": "1.9"
+    },
+    "Black_Smeargle": {
+        "pkmn_ability": "Own Tempo",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Normal",
+        "overlay_color": "#a8a878"
+    },
+    "White 2_Kyurem (White)": {
+        "imageFlip": true,
+        "imageScale": "1.31",
+        "imageYOffset": "22",
+        "imageSat": "96",
+        "imageXOffset": "50",
+        "overlay_color": "#ebd33c",
+        "pkmn_ability": "Turboblaze",
+        "backgroundHue": "0",
+        "backgroundSaturation": "0",
+        "backgroundContrast": "172",
+        "backgroundScale": "129",
+        "backgroundYOffset": "-70",
+        "backgroundBlur": "1",
+        "ui_saturation": "0.9"
+    },
+    "White 2_Kyurem (Black)": {
+        "imageScale": "1.23",
+        "imageYOffset": "29",
+        "imageXOffset": "-42",
+        "overlay_color": "#5fcdef",
+        "ui_saturation": "1.1",
+        "backgroundHue": "206",
+        "backgroundSaturation": "133",
+        "backgroundScale": "173",
+        "backgroundFlip": true,
+        "backgroundYOffset": "-81",
+        "backgroundXOffset": "112",
+        "backgroundContrast": "179",
+        "backgroundBlur": "1",
+        "pkmn_ability": "Teravolt"
     }
 };
 

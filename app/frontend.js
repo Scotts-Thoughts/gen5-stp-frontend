@@ -2,6 +2,15 @@
 const styleSettingsManager = require('./lib/style_settings_manager.js');
 const enemySpriteScaleManager = require('./lib/enemy_sprite_scale_manager.js');
 
+// Kyurem's fusions are their own pokedex entries in Black 2 / White 2 (own base stats, movepool
+// and storage key), but the ROM stores them as one species plus an alternate-form byte. Keyed by
+// the pokedex name so a plain lookup doubles as "is this a Kyurem?".
+const KYUREM_FORMS = {
+    "Kyurem"        : 0,
+    "Kyurem (White)": 1,
+    "Kyurem (Black)": 2,
+};
+
 const MyStorage = new Proxy({}, {
     set: (_, prop, value) => {
         // Use the style settings manager for style-related keys
@@ -1492,6 +1501,11 @@ const app = Vue.createApp({
             }
         },
         starter(newValue, oldValue) {
+            // A fused Kyurem saved under Black 2 / White 2 has no entry in the base games' pokedex
+            if (this.mapper && newValue in KYUREM_FORMS && !this.g5PokemonData?.[newValue]) {
+                this.starter = "Kyurem"
+                return
+            }
             const starter = newValue
             const game = this.mapper?.properties.meta.game_name.value
             const state = this.mapper?.properties.meta.state.value
@@ -1547,7 +1561,7 @@ const app = Vue.createApp({
             } else {
                 // Evolution is disabled, load from individual species storage
                 this.pkmnNature = MyStorage[`${game}_${starter}`]?.pkmnNature ?? "Hardy";
-                this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability ?? null;
+                this.pkmn_ability = MyStorage[`${game}_${starter}`]?.pkmn_ability ?? this.g5PokemonData[starter]?.abilities?.[0] ?? null;
                 this.pkmn_gender = MyStorage[`${game}_${starter}`]?.pkmn_gender ?? "Female";
                 this.hidden_power_type = MyStorage[`${game}_${starter}`]?.hidden_power_type ?? "Dark";
                 this.hidden_power_index = MyStorage[`${game}_${starter}`]?.hidden_power_index ?? 0;
@@ -1578,6 +1592,12 @@ const app = Vue.createApp({
             // When the solo Pokemon changes, write it to PokeAByte's mapper.
             if (oldValue !== newValue) {
                 this.update_rom_starter_and_intro_mon();
+            }
+
+            // Swapping Kyurem's form re-stamps a Kyurem that is already in the party. Deferred so
+            // the ability this watcher just loaded has reached set_starter_stats_object first.
+            if (oldValue !== newValue && newValue in KYUREM_FORMS) {
+                this.$nextTick(() => this.applyKyuremForm(newValue));
             }
 
             this.movepoolResize();
@@ -2812,6 +2832,29 @@ const app = Vue.createApp({
             }
             return this.starter;
         },
+        is_kyurem() {
+            return this.starter in KYUREM_FORMS
+        },
+        show_kyurem_forms() {
+            // Fusion only exists in Black 2 / White 2 - the base games' pokedex has no fused
+            // entries, so ask the dex in play rather than hard-coding the game names
+            return this.is_kyurem && this.g5PokemonData?.hasOwnProperty("Kyurem (Black)")
+        },
+        kyurem_form: {
+            // The fused forms are real pokedex entries, so the dropdown just moves `starter`
+            // between them the way gen4 does for Wormadam's cloaks: base stats, movepool and the
+            // style storage key all follow the species, and each form styles independently
+            get() {
+                switch (this.starter) {
+                    case "Kyurem (Black)": return "Black"
+                    case "Kyurem (White)": return "White"
+                    default              : return "Normal"
+                }
+            },
+            set(form) {
+                this.starter = form == "Normal" ? "Kyurem" : `Kyurem (${form})`
+            }
+        },
         displayedPokemonSpecies() {
             // Return the Pokemon species to display in the art
             // When evolution is enabled, use selected_evolution_species from dropdown
@@ -2889,6 +2932,12 @@ const app = Vue.createApp({
         },
         async update_rom_starter_and_intro_mon() {
             let starter = this.starter
+            // Kyurem's fusions share species 646 and the mapper's species glossary has the one
+            // "Kyurem" entry, so the patch gets the base name - the form travels in the form byte
+            // that write_byte_data stamps when the solo Pokemon is handed over.
+            if (starter in KYUREM_FORMS) {
+                starter = "Kyurem"
+            }
             // Write the solo Pokemon's species to PokeAByte's mapper (frozen) so the
             // ROM patch forces it as the starter. Guarded in case the mapper isn't ready yet.
             this.mapper?.properties?.patch?.stpStarterSpecies?.set(starter, true)
@@ -3606,6 +3655,11 @@ const app = Vue.createApp({
             // Fateful encounter flag
             if (starter == "Deoxys" || starter == "Mew" || starter == "Meloetta") {
                 byteArrayDecrypted[0x40] = byteArrayDecrypted[0x40] | 0x01
+            }
+
+            // Alternate form (byte 0x40, bits 3-7): Kyurem's fusion is a form, not a species
+            if (starter in KYUREM_FORMS) {
+                byteArrayDecrypted[0x40] = (byteArrayDecrypted[0x40] & 0x07) | (KYUREM_FORMS[starter] << 3)
             }
 
             // Nature
@@ -4857,7 +4911,11 @@ const app = Vue.createApp({
         },
         load_all_settings() {
             const game_name                    = this.mapper.properties.meta.game_name.value
-            this.starter                       = MyStorage["starter"]                ?? "Heatran"
+            const stored_starter               = MyStorage["starter"]                ?? "Heatran"
+            // A fused Kyurem saved under Black 2 / White 2 has no entry in the base games' pokedex
+            this.starter                       = stored_starter in KYUREM_FORMS && !this.g5PokemonData?.[stored_starter]
+                                                     ? "Kyurem"
+                                                     : stored_starter
             this.show_advanced_settings        = MyStorage['show_advanced_settings'] ?? false
             if (game_name == "HeartGold and SoulSilver") {
                 this.starter_choice = MyStorage["starter_choice"] ?? "Chikorita"
@@ -5074,6 +5132,15 @@ const app = Vue.createApp({
             for (const family_species of this.evolution_family_list) {
                 const family_art = new Image();
                 family_art.src = `images/pokemon/${family_species}.png`;
+            }
+
+            // Kyurem's fusions aren't part of its evolution family, so warm all three arts while
+            // any of them is selected - swapping forms then cross-fades into a decoded image
+            if (this.starter in KYUREM_FORMS) {
+                for (const kyurem_species of Object.keys(KYUREM_FORMS)) {
+                    const kyurem_art = new Image();
+                    kyurem_art.src = `images/pokemon/${kyurem_species}.png`;
+                }
             }
 
             // If the evolution family has only one member (e.g., Registeel), disable evolution
@@ -5297,6 +5364,25 @@ const app = Vue.createApp({
             this.blackout_counter = 0
             this.playerId = 0
             this.run_complete = false
+        },
+        resolveIncomingSpecies(rawName) {
+            // The emulator reports every Kyurem as a bare "Kyurem" - the fusion lives in a
+            // separate form byte - so the user's Solo Pokemon selection is the source of truth:
+            // keep the fused variant if one is selected, and pass everything else through.
+            if (rawName !== "Kyurem") return rawName
+            if (this.starter in KYUREM_FORMS) return this.starter
+            return "Kyurem"
+        },
+        applyKyuremForm(species) {
+            // gen5 party data is read out of a synthetic decrypted container that the mapper's
+            // preprocessor fills from encrypted RAM, so setting player.team[0].flags.alternate_form
+            // would only touch PokeAByte's mirror and never reach the game. (gen4 can set its
+            // equivalent directly because its party bytes sit unencrypted in the default
+            // namespace.) The decrypt/re-encrypt round trip in write_byte_data is the only write
+            // that lands, and it sets the form byte alongside the form's stats and ability.
+            if (!(species in KYUREM_FORMS)) return
+            if (this.mapper?.properties?.player?.team?.[0]?.species?.value !== "Kyurem") return
+            this.write_byte_data(this.set_starter_stats_object)
         },
         //fixes species that contain special characters in their names
         speciesSpecialCharacters(species) {
@@ -8647,13 +8733,13 @@ const app = Vue.createApp({
             this.last_known_personality_value = currentPersonalityValue;
             
             if ((state == "Battle" || state == "From Battle") && this.mapper.properties.battle.player.pkmn_ram.pokemon_0_ram.stats.hp.value != 0) {
-                this.starter = newProp.value
+                this.starter = this.resolveIncomingSpecies(newProp.value)
             }
             else if (state == "Overworld" && this.mapper.properties.overworld.map_index.value == 278 && newProp.value == 'Reshiram') {
                 // Special handling for Reshiram
             }
             else if (state == "Overworld") {
-                this.starter = newProp.value
+                this.starter = this.resolveIncomingSpecies(newProp.value)
             }
         })
         this.mapper.properties.player.team[0].level.change(async (newProp, oldProp) => {

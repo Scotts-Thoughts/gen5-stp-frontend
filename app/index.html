@@ -284,6 +284,15 @@
                         <button @click="copyCurrentStylesToAllFamilyMembers()" class="buttonStyle" style="font-size: 13px; width: 100px; height: 23px; top: -2px;">Unify Styles</button>
                         <br>
                     </div>
+                    <div v-if="show_kyurem_forms">
+                        <div>Kyurem Form: (each form styles separately)</div>
+                        <select v-model="kyurem_form" class="dropdownMenu" style="width: 180px;">
+                            <option value="Normal">Kyurem</option>
+                            <option value="White">White Kyurem (Reshiram)</option>
+                            <option value="Black">Black Kyurem (Zekrom)</option>
+                        </select>
+                        <br>
+                    </div>
                     <br>
                     <div>Hidden Power:</div>
                     <select v-model="hidden_power_type" class="dropdownMenu dropdown_menu_column3">
