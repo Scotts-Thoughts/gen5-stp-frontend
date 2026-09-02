@@ -550,10 +550,11 @@ function logData(gameName, str, file_name, split_file_prefix, log_type, testStat
     );
 }
 
-function logCopy(gameName, file_name, splitFileName, finished_run_count, evolution, evolution_label) {
-    // Use splitFileName for directory paths and file names
-    var dirPathAttempts = `./splits/${gameName}/${splitFileName}`;
-    var dirPathFinishes = `./splits/${gameName}/${splitFileName}/finishes`;
+function logCopy(gameName, file_name, splitFileName, finished_run_count, refilming_mode) {
+    // Copy this run's attempt files into finishes/. logData writes attempts under
+    // refilmed/ when refilming mode is on, so source and destination follow it there.
+    var dirPathAttempts = refilming_mode == true ? `./splits/${gameName}/refilmed/${splitFileName}` : `./splits/${gameName}/${splitFileName}`;
+    var dirPathFinishes = `${dirPathAttempts}/finishes`;
     fs.mkdir(dirPathFinishes, { recursive: true }, (err) => {
         fs.copyFile(
             path.join(dirPathAttempts, `${splitFileName}-${file_name}-simple.csv`), 
@@ -1029,7 +1030,6 @@ const app = Vue.createApp({
                 "hidden_power_index",
                 "pkmn_gender",
                 "finished_run_count",
-                "evolution",
                 "evolution_splits_label",
                 "playerResets",
                 "blackout_counter",
@@ -1466,6 +1466,19 @@ const app = Vue.createApp({
             } else {
                 // When disabled, load individual species styles
                 this.loadEvolutionStyle(this.starter, false);
+            }
+
+            // Persist the flag under every family member's individual storage key.
+            // The flag is loaded from `${game}_${starter}` and mid-run evolution changes
+            // this.starter to the evolved stage, so every stage needs the flag or a
+            // restart mid-run silently drops evolution mode and scatters split files
+            // into per-stage folders.
+            const evolution_game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
+            for (const member of this.getEvolutionFamily(this.starter)) {
+                MyStorage[`${evolution_game_name}_${member}`] = {
+                    ...(MyStorage[`${evolution_game_name}_${member}`] || {}),
+                    evolution: newValue
+                };
             }
         },
         selected_evolution_species(newValue, oldValue) {
@@ -3149,25 +3162,19 @@ const app = Vue.createApp({
         },
         // Evolution family helper functions
         getFullyEvolvedSpecies(species) {
-            // Get the fully evolved species from the evolution family
-            // This is the species with method == null and parameter == null (or the last one)
+            // Get the fully evolved species from the evolution family.
+            // Families are ordered base -> final and "method": null marks the BASE form
+            // (how that member is obtained), so the fully evolved species is the last member.
             const evolution_family = this.g5PokemonData[species]?.evolution_family;
             if (!evolution_family || evolution_family.length === 0) {
                 return species; // If no evolution family, return the species itself
             }
-            
-            // Find the fully evolved species (the one with no method/parameter, or the last one)
-            let fullyEvolved = species;
-            for (const member of evolution_family) {
-                if (member.method == null && member.parameter == null) {
-                    fullyEvolved = member.species;
+            for (let i = evolution_family.length - 1; i >= 0; i--) {
+                if (evolution_family[i].species != null) {
+                    return evolution_family[i].species;
                 }
             }
-            // If we didn't find one with null method, get the last one
-            if (fullyEvolved === species && evolution_family.length > 0) {
-                fullyEvolved = evolution_family[evolution_family.length - 1].species;
-            }
-            return fullyEvolved;
+            return species;
         },
         getEvolutionFamily(species) {
             // Get the list of species in the evolution family
@@ -3801,7 +3808,7 @@ const app = Vue.createApp({
         },
         openFolder(folderName, game_name, path = "", path2 = "") {
             const fs = require('fs');
-            const fullPath = `.\\${folderName}\\${game_name}\\${path}\\${path2}`;
+            const fullPath = ['.', folderName, game_name, path, path2].filter(segment => segment !== "").join("\\");
 
             if (!fs.existsSync(fullPath)) {
                 fs.mkdirSync(fullPath, { recursive: true });
@@ -3809,6 +3816,17 @@ const app = Vue.createApp({
 
             // Correctly handle spaces in folder names
             require('child_process').exec(`start "" "${fullPath}"`);
+        },
+        openSplitsFolder() {
+            // Open the folder the current run's splits are written into: named after the
+            // fully evolved line when evolution is enabled (e.g. Gothitelle-line), under
+            // refilmed/ when refilming mode is on. Mirrors the paths logData/logCopy use.
+            const splitFileName = this.getSplitFileName();
+            if (this.refilming_mode == true) {
+                this.openFolder('splits', this.current_game_folder, 'refilmed', splitFileName);
+            } else {
+                this.openFolder('splits', this.current_game_folder, splitFileName);
+            }
         },
         togglePopup() {
             this.showPopup = !this.showPopup;
@@ -9394,7 +9412,11 @@ const app = Vue.createApp({
                         //use then so that logCopy doesn't touch any files until logData finishes
                         logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                         .then(() => {
-                                logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
+                                // Test-run attempt files live in test_runs/, so there is nothing
+                                // valid to copy into finishes/ for a test run.
+                                if (this.testRun == false) {
+                                    logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.refilming_mode);
+                                }
                             })
                             .catch(error => {
                                 console.error("Error:", error);
@@ -9437,7 +9459,11 @@ const app = Vue.createApp({
                     const splitFileName = this.getSplitFileName();
                     logData(gameName, this.simple_data_str, this.attempt_number, splitFileName, "Simple", this.testRun, this.scott_mode, this.evolution, splitFileName, this.refilming_mode)
                     .then(() => {
-                            logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.evolution, splitFileName);
+                            // Test-run attempt files live in test_runs/, so there is nothing
+                            // valid to copy into finishes/ for a test run.
+                            if (this.testRun == false) {
+                                logCopy(gameName, this.attempt_number, splitFileName, this.finished_run_count, this.refilming_mode);
+                            }
                         })
                         .catch(error => {
                             console.error("Error:", error);

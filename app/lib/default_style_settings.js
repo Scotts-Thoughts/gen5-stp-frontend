@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-09-01T21:20:11.179Z
+ * Last updated: 2026-09-02T02:51:50.567Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -2858,29 +2858,30 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundSaturation": 100
     },
     "Black_Deerling": {
-        "selected_evolution_species": "Sawsbuck"
+        "selected_evolution_species": "Deerling",
+        "evolution": true
     },
     "Black_Sawsbuck-line-Deerling": {
         "imageFlip": true,
-        "imageScale": "0.83",
-        "imageYOffset": "-6",
+        "imageScale": "0.66",
+        "imageYOffset": "-63",
         "imageXOffset": "-21",
-        "overlay_color": "#377617",
+        "overlay_color": "#9fa09f",
         "ui_saturation": "1.6",
         "backgroundTexture": "Sunny Grass",
-        "backgroundScale": "193",
-        "backgroundYOffset": "-21",
-        "backgroundContrast": "116",
-        "backgroundBrightness": "90",
+        "backgroundScale": "174",
+        "backgroundYOffset": "125",
+        "backgroundContrast": "120",
+        "backgroundBrightness": "35",
         "imageSat": 100,
         "imageRotation": 0,
-        "backgroundBlur": 0,
+        "backgroundBlur": "2",
         "backgroundHue": 0,
         "backgroundUrl": "",
         "backgroundFlip": false,
         "use_custom_background": false,
         "backgroundXOffset": 0,
-        "backgroundSaturation": 100
+        "backgroundSaturation": "108"
     },
     "Black_Sawsbuck-line-Sawsbuck": {
         "overlay_color": "#377617",
@@ -4915,6 +4916,39 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundContrast": "179",
         "backgroundBlur": "1",
         "pkmn_ability": "Teravolt"
+    },
+    "Black_Sawsbuck-line": {
+        "pkmn_ability": "Sap Sipper"
+    },
+    "Black_Deerling-line-Sawsbuck": {
+        "overlay_color": "#9fa09f",
+        "ui_saturation": "1.6",
+        "imageXOffset": "-7",
+        "imageYOffset": "22",
+        "imageScale": "1",
+        "imageFlip": true,
+        "imageSat": 100,
+        "imageRotation": 0,
+        "backgroundTexture": "Sunny Grass",
+        "backgroundBlur": "2",
+        "backgroundHue": 0,
+        "backgroundScale": "174",
+        "backgroundUrl": "",
+        "backgroundFlip": false,
+        "use_custom_background": false,
+        "backgroundXOffset": 0,
+        "backgroundYOffset": "125",
+        "backgroundBrightness": "35",
+        "backgroundContrast": "120",
+        "backgroundSaturation": "108"
+    },
+    "Black_Sawsbuck": {
+        "selected_evolution_species": "Sawsbuck",
+        "pkmn_ability": "Chlorophyll",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Normal",
+        "overlay_color": "#a8a878",
+        "evolution": true
     }
 };
 
