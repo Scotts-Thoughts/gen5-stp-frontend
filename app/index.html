@@ -284,13 +284,20 @@
                         <button @click="copyCurrentStylesToAllFamilyMembers()" class="buttonStyle" style="font-size: 13px; width: 100px; height: 23px; top: -2px;">Unify Styles</button>
                         <br>
                     </div>
-                    <div v-if="show_kyurem_forms">
-                        <div>Kyurem Form: (each form styles separately)</div>
-                        <select v-model="kyurem_form" class="dropdownMenu" style="width: 180px;">
-                            <option value="Normal">Kyurem</option>
-                            <option value="White">White Kyurem (Reshiram)</option>
-                            <option value="Black">Black Kyurem (Zekrom)</option>
+                    <div v-if="show_pokemon_forms">
+                        <div>{{ form_base_species }} Form: (each form styles separately)</div>
+                        <select v-model="pokemon_form" class="dropdownMenu" style="width: 180px;">
+                            <option v-for="option in pokemon_form_options" :value="option.species">{{ option.label }}</option>
                         </select>
+                        <div v-if="pokemon_form_note" style="font-size: 11px; line-height: 14px; width: 180px;">{{ pokemon_form_note }}</div>
+                        <br>
+                    </div>
+                    <div v-if="show_battle_forms">
+                        <div>{{ starter }} Battle Form: (each form styles separately)</div>
+                        <select v-model="battle_form" class="dropdownMenu" style="width: 180px;">
+                            <option v-for="option in battle_form_options" :value="option.species == starter ? '' : option.species">{{ option.label }}</option>
+                        </select>
+                        <div style="font-size: 11px; line-height: 14px; width: 180px;">Shown outside battle for styling; in battle the game's form takes over.</div>
                         <br>
                     </div>
                     <br>
@@ -948,6 +955,15 @@
                         </tr>
                         <tr v-for="(x, index) in getMovepool(g5PokemonData, black_moves, g5tmhmMapping, displayedPokemonSpecies).level" :class="{ 'first-row': index === 0 }" :style="getUnobtainableMoveStyle(x, 'Banned')">
                             <td class="movepool_way">{{x.Level}}</td>
+                            <td class="movepool_move">{{move_name(x.move)}}</td>
+                            <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
+                            <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${getMoveCategory(x.category, x)[1].toLowerCase()})`}">{{getMoveCategory(x.category)[0]}}</td>
+                            <td class="movepool_tableC">{{movepoolPower(x)}}</td>
+                            <td class="movepool_tableC">{{x.accuracy}}%</td>
+                            <td class="movepool_tableC">{{x.pp}}</td>
+                        </tr>
+                        <tr v-for="x in getMovepool(g5PokemonData, black_moves, g5tmhmMapping, displayedPokemonSpecies).form" :style="getUnobtainableMoveStyle(x, 'Banned')">
+                            <td class="movepool_way">Form</td>
                             <td class="movepool_move">{{move_name(x.move)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${movepoolTypeColor(x)?.toLowerCase()})`}">{{movepoolType(x)}}</td>
                             <td class="movepool_type" :style="{'background-color': `var(--${ui_type_color_modifier}${getMoveCategory(x.category, x)[1].toLowerCase()})`}">{{getMoveCategory(x.category)[0]}}</td>

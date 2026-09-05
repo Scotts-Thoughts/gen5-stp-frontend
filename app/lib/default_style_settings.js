@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-09-02T02:51:50.567Z
+ * Last updated: 2026-09-02T04:51:30.309Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4949,6 +4949,12 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundTexture": "Normal",
         "overlay_color": "#a8a878",
         "evolution": true
+    },
+    "White 2_Sawsbuck": {
+        "pkmn_ability": "Chlorophyll",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Normal",
+        "overlay_color": "#a8a878"
     }
 };
 

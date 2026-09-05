@@ -85,4 +85,5 @@ const auto_save_settings = [
     "second_screen_mode",
     "live_hp",
     "stop_timer_after_n_dialogue",
+    "battle_form",
 ]

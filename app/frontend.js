@@ -2,13 +2,76 @@
 const styleSettingsManager = require('./lib/style_settings_manager.js');
 const enemySpriteScaleManager = require('./lib/enemy_sprite_scale_manager.js');
 
-// Kyurem's fusions are their own pokedex entries in Black 2 / White 2 (own base stats, movepool
-// and storage key), but the ROM stores them as one species plus an alternate-form byte. Keyed by
-// the pokedex name so a plain lookup doubles as "is this a Kyurem?".
-const KYUREM_FORMS = {
-    "Kyurem"        : 0,
-    "Kyurem (White)": 1,
-    "Kyurem (Black)": 2,
+// Alternate forms the game keeps outside of battle. Each is its own pokedex entry (own base stats,
+// types, abilities, movepool and style storage key), but the ROM stores one species plus a form
+// byte, so the frontend translates at every boundary that talks to the game: the ROM patch gets
+// the base species, the party's form byte is stamped from the selection, and a bare species name
+// reported by the emulator is resolved back to a form. Keyed by base species; each form maps its
+// pokedex key to the game's form index (byte 0x40, bits 3-7).
+const POKEMON_FORMS = {
+    "Deoxys"   : { "Deoxys": 0, "Deoxys (Attack)": 1, "Deoxys (Defense)": 2, "Deoxys (Speed)": 3 },
+    "Wormadam" : { "Wormadam": 0, "Wormadam (Sandy)": 1, "Wormadam (Trash)": 2 },
+    "Rotom"    : { "Rotom": 0, "Rotom (Heat)": 1, "Rotom (Wash)": 2, "Rotom (Frost)": 3, "Rotom (Fan)": 4, "Rotom (Mow)": 5 },
+    "Giratina" : { "Giratina": 0, "Giratina (Origin)": 1 },
+    "Shaymin"  : { "Shaymin": 0, "Shaymin (Sky)": 1 },
+    "Basculin" : { "Basculin": 0, "Basculin (Blue Striped)": 1 },
+    "Tornadus" : { "Tornadus": 0, "Tornadus (Therian)": 1 },
+    "Thundurus": { "Thundurus": 0, "Thundurus (Therian)": 1 },
+    "Landorus" : { "Landorus": 0, "Landorus (Therian)": 1 },
+    "Kyurem"   : { "Kyurem": 0, "Kyurem (White)": 1, "Kyurem (Black)": 2 },
+    "Keldeo"   : { "Keldeo": 0, "Keldeo (Resolute)": 1 },
+};
+
+// Dropdown labels for the forms above
+const POKEMON_FORM_LABELS = {
+    "Deoxys": "Normal Forme", "Deoxys (Attack)": "Attack Forme", "Deoxys (Defense)": "Defense Forme", "Deoxys (Speed)": "Speed Forme",
+    "Wormadam": "Plant Cloak", "Wormadam (Sandy)": "Sandy Cloak", "Wormadam (Trash)": "Trash Cloak",
+    "Rotom": "Rotom", "Rotom (Heat)": "Heat Rotom (Microwave)", "Rotom (Wash)": "Wash Rotom (Washer)",
+    "Rotom (Frost)": "Frost Rotom (Fridge)", "Rotom (Fan)": "Fan Rotom (Fan)", "Rotom (Mow)": "Mow Rotom (Mower)",
+    "Giratina": "Altered Forme", "Giratina (Origin)": "Origin Forme",
+    "Shaymin": "Land Forme", "Shaymin (Sky)": "Sky Forme",
+    "Basculin": "Red-Striped", "Basculin (Blue Striped)": "Blue-Striped",
+    "Tornadus": "Incarnate Forme", "Tornadus (Therian)": "Therian Forme",
+    "Thundurus": "Incarnate Forme", "Thundurus (Therian)": "Therian Forme",
+    "Landorus": "Incarnate Forme", "Landorus (Therian)": "Therian Forme",
+    "Kyurem": "Kyurem", "Kyurem (White)": "White Kyurem (Reshiram)", "Kyurem (Black)": "Black Kyurem (Zekrom)",
+    "Keldeo": "Ordinary Form", "Keldeo (Resolute)": "Resolute Form",
+};
+
+// Flat pokedex key -> { base, form } lookup, so `species in POKEMON_FORM_INFO` doubles as
+// "does this species have forms?" and the base species is one property away
+const POKEMON_FORM_INFO = {};
+for (const [base, forms] of Object.entries(POKEMON_FORMS)) {
+    for (const [species, form] of Object.entries(forms)) {
+        POKEMON_FORM_INFO[species] = { base, form };
+    }
+}
+
+// Forms the game only holds during a battle (weather, Zen Mode, Relic Song). They stay selectable
+// so each can be styled on its own, but they revert the moment a battle ends, so the game-facing
+// paths treat them as their base species and never stamp a form byte for them.
+const BATTLE_ONLY_FORMS = {
+    "Castform (Sunny)": "Castform", "Castform (Rainy)": "Castform", "Castform (Snowy)": "Castform",
+    "Darmanitan (Zen)": "Darmanitan", "Meloetta (Pirouette)": "Meloetta",
+};
+
+// The species the game knows a pokedex key by: a form's base species, or the key itself
+const baseSpeciesOf = (species) => POKEMON_FORM_INFO[species]?.base ?? BATTLE_ONLY_FORMS[species] ?? species;
+
+// Base species -> its battle-only forms, for the display layer that swaps art and styles while
+// the game holds one of them (the way gen3 handles Castform's weather forms)
+const BATTLE_FORM_VARIANTS = {};
+for (const [form, base] of Object.entries(BATTLE_ONLY_FORMS)) {
+    if (!BATTLE_FORM_VARIANTS[base]) BATTLE_FORM_VARIANTS[base] = [];
+    BATTLE_FORM_VARIANTS[base].push(form);
+}
+
+// Dropdown labels for the battle-only forms and their base forms
+const BATTLE_FORM_LABELS = {
+    "Castform": "Normal Form (clear weather)", "Castform (Sunny)": "Sunny Form (harsh sunlight)",
+    "Castform (Rainy)": "Rainy Form (rain)", "Castform (Snowy)": "Snowy Form (hail)",
+    "Darmanitan": "Standard Mode", "Darmanitan (Zen)": "Zen Mode (Zen Mode ability, half HP)",
+    "Meloetta": "Aria Forme", "Meloetta (Pirouette)": "Pirouette Forme (after Relic Song)",
 };
 
 const MyStorage = new Proxy({}, {
@@ -852,6 +915,9 @@ const app = Vue.createApp({
                 2 : "Poison",
             },
             pokemon_list: [],
+            // Battle-only form shown outside battle so it can be styled ahead of a run ("" = base
+            // form); in battle the game's own form takes over (see active_battle_form)
+            battle_form: MyStorage['battle_form'] ?? "",
             
             // USER CONFIG (components) ------------------------------------------------------------------------// 
             typeCalcs: true,
@@ -1000,6 +1066,15 @@ const app = Vue.createApp({
             backgroundSaturation : MyStorage["backgroundSaturation"]  ?? 100,
 
             //backed up pokemon specific settings
+            // The subset of pokemon_settings that is visual styling. A battle-only form being
+            // displayed keeps these on its own storage key; everything else in pokemon_settings
+            // (counters, nature, ability, encounters...) stays on the solo Pokemon's key
+            visual_style_settings: [
+                "overlay_color", "imageXOffset", "imageYOffset", "imageScale", "imageFlip", "imageSat", "imageRotation",
+                "backgroundBlur", "backgroundHue", "backgroundScale", "backgroundUrl", "use_custom_background",
+                "backgroundXOffset", "backgroundYOffset", "backgroundTexture", "backgroundBrightness",
+                "backgroundContrast", "backgroundSaturation", "backgroundFlip", "ui_saturation",
+            ],
             pokemon_settings: [
                 "overlay_color",
                 "imageXOffset",
@@ -1173,6 +1248,10 @@ const app = Vue.createApp({
                         // Otherwise, use individual species storage
                         // This ensures styles are saved to the correct location (e.g., "Black_Unfezant-line-Pidove" vs "Black_Pidove")
                         storageKey = this.getCurrentStorageKey();
+                        // A battle-only form being displayed keeps its visual styles on its own key
+                        if (this.visual_style_settings.includes(propName)) {
+                            storageKey = this.getStyleStorageKey();
+                        }
                     }
                     
                     // Ensure that MyStorage[storageKey] is an object
@@ -1475,10 +1554,13 @@ const app = Vue.createApp({
             // into per-stage folders.
             const evolution_game_name = this.mapper?.properties?.meta?.game_name?.value || this.selected_game;
             for (const member of this.getEvolutionFamily(this.starter)) {
-                MyStorage[`${evolution_game_name}_${member}`] = {
-                    ...(MyStorage[`${evolution_game_name}_${member}`] || {}),
-                    evolution: newValue
-                };
+                // Every form of a member too: a Burmy's cloak decides which Wormadam it becomes
+                for (const variant of this.formVariants(member)) {
+                    MyStorage[`${evolution_game_name}_${variant}`] = {
+                        ...(MyStorage[`${evolution_game_name}_${variant}`] || {}),
+                        evolution: newValue
+                    };
+                }
             }
         },
         selected_evolution_species(newValue, oldValue) {
@@ -1513,10 +1595,21 @@ const app = Vue.createApp({
                 };
             }
         },
+        active_battle_form(newValue, oldValue) {
+            // The displayed battle-only form changed (weather / Zen Mode / Relic Song in battle, the
+            // battle ending, or the styling dropdown): load that form's stored styles.
+            // loadEvolutionStyle raises is_loading_evolution_style so the style watchers don't save
+            // the incoming values over another form's storage. A null oldValue means the solo
+            // Pokemon itself just changed, and the starter watcher loads the styles for that.
+            if (newValue && oldValue && newValue !== oldValue) {
+                this.loadDisplayedStyles();
+            }
+        },
         starter(newValue, oldValue) {
-            // A fused Kyurem saved under Black 2 / White 2 has no entry in the base games' pokedex
-            if (this.mapper && newValue in KYUREM_FORMS && !this.g5PokemonData?.[newValue]) {
-                this.starter = "Kyurem"
+            // A form saved under Black 2 / White 2 (fused Kyurem, Therian genie, Resolute Keldeo)
+            // has no entry in the base games' pokedex, so fall back to the species it belongs to
+            if (this.mapper && newValue in POKEMON_FORM_INFO && !this.g5PokemonData?.[newValue]) {
+                this.starter = POKEMON_FORM_INFO[newValue].base
                 return
             }
             const starter = newValue
@@ -1556,6 +1649,15 @@ const app = Vue.createApp({
                 this.loadEvolutionStyle(starter, false);
             }
             
+            // A battle-only form picked for styling belongs to one species; drop a stale pick and
+            // show the picked form's own styles on top of the base load above
+            if (this.battle_form && BATTLE_ONLY_FORMS[this.battle_form] !== newValue) {
+                this.battle_form = "";
+            }
+            if (this.active_battle_form && this.active_battle_form !== this.starter) {
+                this.loadEvolutionStyle(this.active_battle_form, false);
+            }
+
             // Keep frame setting from individual storage for now
             this.frame = MyStorage[`${game}_${starter}`]?.frame ?? false
             
@@ -1607,10 +1709,10 @@ const app = Vue.createApp({
                 this.update_rom_starter_and_intro_mon();
             }
 
-            // Swapping Kyurem's form re-stamps a Kyurem that is already in the party. Deferred so
-            // the ability this watcher just loaded has reached set_starter_stats_object first.
-            if (oldValue !== newValue && newValue in KYUREM_FORMS) {
-                this.$nextTick(() => this.applyKyuremForm(newValue));
+            // Swapping a species' form re-stamps that species if it is already in the party. Deferred
+            // so the ability this watcher just loaded has reached set_starter_stats_object first.
+            if (oldValue !== newValue && newValue in POKEMON_FORM_INFO) {
+                this.$nextTick(() => this.applyPokemonForm(newValue));
             }
 
             this.movepoolResize();
@@ -2835,6 +2937,10 @@ const app = Vue.createApp({
         },
         statsDisplaySpecies() {
             // Return the species to display stats for
+            // A battle-only form being displayed has its own base stats (Zen Mode, Pirouette)
+            if (this.active_battle_form && this.active_battle_form !== this.starter) {
+                return this.active_battle_form;
+            }
             // If showing evolved base stats (temporary after evolution), use the evolved species
             if (this.show_evolved_base_stats && this.evolved_species_for_stats) {
                 return this.evolved_species_for_stats;
@@ -2845,31 +2951,76 @@ const app = Vue.createApp({
             }
             return this.starter;
         },
-        is_kyurem() {
-            return this.starter in KYUREM_FORMS
+        form_base_species() {
+            return baseSpeciesOf(this.starter)
         },
-        show_kyurem_forms() {
-            // Fusion only exists in Black 2 / White 2 - the base games' pokedex has no fused
-            // entries, so ask the dex in play rather than hard-coding the game names
-            return this.is_kyurem && this.g5PokemonData?.hasOwnProperty("Kyurem (Black)")
+        pokemon_form_options() {
+            // Only the forms the dex in play knows - Black / White have no fused Kyurem, Therian
+            // genies or Resolute Keldeo - so ask the dex rather than hard-coding the game names
+            const forms = POKEMON_FORMS[POKEMON_FORM_INFO[this.starter]?.base]
+            if (!forms) return []
+            return Object.keys(forms)
+                .filter(species => this.g5PokemonData?.hasOwnProperty(species))
+                .map(species => ({ species, label: POKEMON_FORM_LABELS[species] ?? species }))
         },
-        kyurem_form: {
-            // The fused forms are real pokedex entries, so the dropdown just moves `starter`
-            // between them the way gen4 does for Wormadam's cloaks: base stats, movepool and the
-            // style storage key all follow the species, and each form styles independently
+        show_pokemon_forms() {
+            return this.pokemon_form_options.length > 1
+        },
+        pokemon_form: {
+            // Forms are real pokedex entries, so the dropdown just moves `starter` between them
+            // the way gen4 does for Wormadam's cloaks: base stats, movepool and the style storage
+            // key all follow the species, and each form styles independently
             get() {
-                switch (this.starter) {
-                    case "Kyurem (Black)": return "Black"
-                    case "Kyurem (White)": return "White"
-                    default              : return "Normal"
-                }
+                return this.starter
             },
-            set(form) {
-                this.starter = form == "Normal" ? "Kyurem" : `Kyurem (${form})`
+            set(species) {
+                this.starter = species
             }
+        },
+        pokemon_form_note() {
+            // In-game rules that can undo a stamped form, so the user knows what to hold or avoid
+            switch (this.starter) {
+                case "Giratina (Origin)": return "Hold the Griseous Orb - without it the game reverts Giratina to Altered Forme."
+                case "Shaymin (Sky)":     return "Reverts to Land Forme at night or when frozen."
+                case "Keldeo (Resolute)": return "Tied to knowing Secret Sword - forgetting it reverts Keldeo to Ordinary Form."
+            }
+            if (this.form_base_species === "Rotom" && this.starter !== "Rotom") {
+                const move = this.g5PokemonData?.[this.starter]?.form_change_learnset?.[0]
+                return move ? `${move} is only taught by the in-game form change (Shopping Mall Nine).` : ""
+            }
+            return ""
+        },
+        battle_form_options() {
+            // The base form plus the battle-only forms the dex in play knows for the solo Pokemon
+            const variants = this.battleFormVariants(this.starter)
+            if (variants.length === 0) return []
+            return [this.starter, ...variants].map(species => ({ species, label: BATTLE_FORM_LABELS[species] ?? species }))
+        },
+        show_battle_forms() {
+            return this.battle_form_options.length > 1
+        },
+        active_battle_form() {
+            // The pokedex entry to display for a species with battle-only forms (Castform's weather
+            // forms, Zen Mode Darmanitan, Pirouette Meloetta); null for everything else. In battle
+            // the game's own form wins, read through the battler's types, which follow the form and
+            // already account for Cloud Nine / Air Lock. Outside battle it's the form picked for
+            // styling in the settings panel, which the user sets back to the base form before a run.
+            const variants = this.battleFormVariants(this.starter)
+            if (variants.length === 0) return null
+            const battler = this.batt?.player?.active_pokemon
+            if (this.mapper?.properties?.meta?.state?.value === "Battle" && battler?.species?.value === this.starter) {
+                const typing = (type_1, type_2) => !type_2 || type_2 === type_1 || type_2 === "???" ? type_1 : `${type_1}/${type_2}`
+                const battler_typing = typing(battler.type_1?.value, battler.type_2?.value)
+                return variants.find(form => typing(this.g5PokemonData[form].type_1, this.g5PokemonData[form].type_2) === battler_typing) ?? this.starter
+            }
+            return variants.includes(this.battle_form) ? this.battle_form : this.starter
         },
         displayedPokemonSpecies() {
             // Return the Pokemon species to display in the art
+            // A battle-only form being displayed (weather Castform, Zen Darmanitan, Pirouette Meloetta) wins
+            if (this.active_battle_form && this.active_battle_form !== this.starter) {
+                return this.active_battle_form;
+            }
             // When evolution is enabled, use selected_evolution_species from dropdown
             // Otherwise, use starter
             if (this.evolution && this.selected_evolution_species) {
@@ -2944,13 +3095,10 @@ const app = Vue.createApp({
             ws.onopen = () => {};
         },
         async update_rom_starter_and_intro_mon() {
-            let starter = this.starter
-            // Kyurem's fusions share species 646 and the mapper's species glossary has the one
-            // "Kyurem" entry, so the patch gets the base name - the form travels in the form byte
-            // that write_byte_data stamps when the solo Pokemon is handed over.
-            if (starter in KYUREM_FORMS) {
-                starter = "Kyurem"
-            }
+            // A form shares its species id with the base Pokemon and the mapper's species glossary
+            // only knows base names, so the patch gets the base name - the form travels in the form
+            // byte that write_byte_data stamps when the solo Pokemon is handed over.
+            const starter = baseSpeciesOf(this.starter)
             // Write the solo Pokemon's species to PokeAByte's mapper (frozen) so the
             // ROM patch forces it as the starter. Guarded in case the mapper isn't ready yet.
             this.mapper?.properties?.patch?.stpStarterSpecies?.set(starter, true)
@@ -2999,14 +3147,10 @@ const app = Vue.createApp({
          * Reset the current Pokemon's style settings to defaults
          */
         resetCurrentPokemonToDefaults() {
-            const storageKey = this.getCurrentStorageKey();
+            const storageKey = this.getStyleStorageKey();
             StyleSettingsUtils.resetToDefaults(storageKey);
             // Reload the styles
-            if (this.evolution && this.selected_evolution_species) {
-                this.loadEvolutionStyle(this.selected_evolution_species, true);
-            } else {
-                this.loadEvolutionStyle(this.starter, false);
-            }
+            this.loadDisplayedStyles();
             console.log(`[StyleSettings] Reset "${storageKey}" to defaults and reloaded`);
         },
         
@@ -3016,11 +3160,7 @@ const app = Vue.createApp({
         resetAllStyleSettingsToDefaults() {
             StyleSettingsUtils.resetAllToDefaults();
             // Reload current styles
-            if (this.evolution && this.selected_evolution_species) {
-                this.loadEvolutionStyle(this.selected_evolution_species, true);
-            } else {
-                this.loadEvolutionStyle(this.starter, false);
-            }
+            this.loadDisplayedStyles();
             console.log('[StyleSettings] All style settings reset to defaults and reloaded');
         },
         
@@ -3035,7 +3175,7 @@ const app = Vue.createApp({
          * Check if current Pokemon has user overrides
          */
         currentPokemonHasUserOverrides() {
-            const storageKey = this.getCurrentStorageKey();
+            const storageKey = this.getStyleStorageKey();
             return StyleSettingsUtils.hasUserOverrides(storageKey);
         },
         // ============ End Style Settings Management Methods ============
@@ -3182,7 +3322,11 @@ const app = Vue.createApp({
             if (!evolution_family || evolution_family.length === 0) {
                 return [species]; // If no evolution family, return just the species
             }
-            return evolution_family.map(member => member.species).filter(s => s != null);
+            // A form's entry lists its family under base names ("Wormadam (Sandy)" lists "Wormadam"),
+            // so put the selected form in its base's slot: the list then contains the starter itself
+            // and the evolution dropdown, style keys and art warming follow the form
+            const form_base = POKEMON_FORM_INFO[species]?.base;
+            return evolution_family.map(member => member.species).filter(s => s != null).map(s => s === form_base ? species : s);
         },
         getStorageKey(species, useEvolutionLine = false) {
             // Get the storage key for a species
@@ -3210,6 +3354,30 @@ const app = Vue.createApp({
             }
             const fullyEvolved = this.getFullyEvolvedSpecies(this.starter);
             return `${fullyEvolved}-line`;
+        },
+        getStyleStorageKey() {
+            // Where the visual style properties live: a battle-only form being displayed keeps its
+            // own key (the same key Style Mode uses for that pokedex entry); everything else follows
+            // getCurrentStorageKey
+            if (this.active_battle_form && this.active_battle_form !== this.starter) {
+                return this.getStorageKey(this.active_battle_form, false);
+            }
+            return this.getCurrentStorageKey();
+        },
+        loadDisplayedStyles() {
+            // Reload the visual styles for whatever is on screen: a battle-only form being
+            // displayed, otherwise the evolution-line or individual species entry
+            if (this.active_battle_form && this.active_battle_form !== this.starter) {
+                this.loadEvolutionStyle(this.active_battle_form, false);
+            } else if (this.evolution && this.selected_evolution_species) {
+                this.loadEvolutionStyle(this.selected_evolution_species, true);
+            } else {
+                this.loadEvolutionStyle(this.starter, false);
+            }
+        },
+        battleFormVariants(species) {
+            // The battle-only forms of `species` that exist in the dex in play (empty for most species)
+            return (BATTLE_FORM_VARIANTS[species] ?? []).filter(form => this.g5PokemonData?.[form]);
         },
         getCurrentStorageKey() {
             // Get the current storage key based on whether evolution is enabled and which species is selected
@@ -3481,8 +3649,9 @@ const app = Vue.createApp({
             const gender = pokemon_data.gender.value
             switch (species) {
                 case "Basculin": {
-                    if (form == 0) { return "-1" }
-                    if (form == 1) { return "" }
+                    // Basculin.png is the Red-Striped art (form 0), the same file the solo art uses
+                    if (form == 0) { return "" }
+                    if (form == 1) { return " (Blue Striped)" }
                 }
                 case "Deerling": {
                     if (form == 0) { return "-spring" }
@@ -3617,7 +3786,8 @@ const app = Vue.createApp({
         write_byte_data(data_object) {
             console.log("Writing byte data... for ", this.starter)
             const starter = this.starter
-            const pokedex = this.g5PokemonData[starter]
+            // A battle-only form is handed over as its base species - the game would revert it anyway
+            const pokedex = this.g5PokemonData[BATTLE_ONLY_FORMS[starter] ?? starter]
 
             const byteArrayDecrypted = this.mapper.properties.player.team[0].raw.bytes.slice()
             
@@ -3659,14 +3829,16 @@ const app = Vue.createApp({
             byteArrayDecrypted[0x3A] = (iv_raw >> 16) & 0xFF; // set byte 3
             byteArrayDecrypted[0x3B] = (iv_raw >> 24) & 0xFF; // set byte 4
 
-            // Fateful encounter flag
-            if (starter == "Deoxys" || starter == "Mew" || starter == "Meloetta") {
+            // Fateful encounter flag. Shaymin needs it for the Gracidea to work in gen 4 / 5.
+            const base_species = baseSpeciesOf(starter)
+            if (["Deoxys", "Mew", "Meloetta", "Shaymin"].includes(base_species)) {
                 byteArrayDecrypted[0x40] = byteArrayDecrypted[0x40] | 0x01
             }
 
-            // Alternate form (byte 0x40, bits 3-7): Kyurem's fusion is a form, not a species
-            if (starter in KYUREM_FORMS) {
-                byteArrayDecrypted[0x40] = (byteArrayDecrypted[0x40] & 0x07) | (KYUREM_FORMS[starter] << 3)
+            // Alternate form (byte 0x40, bits 3-7): a form is a byte on its species, not a species
+            // of its own. The stats below are computed from the form's own base stats.
+            if (starter in POKEMON_FORM_INFO) {
+                byteArrayDecrypted[0x40] = (byteArrayDecrypted[0x40] & 0x07) | (POKEMON_FORM_INFO[starter].form << 3)
             }
 
             // Nature
@@ -4930,9 +5102,10 @@ const app = Vue.createApp({
         load_all_settings() {
             const game_name                    = this.mapper.properties.meta.game_name.value
             const stored_starter               = MyStorage["starter"]                ?? "Heatran"
-            // A fused Kyurem saved under Black 2 / White 2 has no entry in the base games' pokedex
-            this.starter                       = stored_starter in KYUREM_FORMS && !this.g5PokemonData?.[stored_starter]
-                                                     ? "Kyurem"
+            // A form saved under Black 2 / White 2 (fused Kyurem, Therian genie, Resolute Keldeo)
+            // has no entry in the base games' pokedex, so fall back to the species it belongs to
+            this.starter                       = stored_starter in POKEMON_FORM_INFO && !this.g5PokemonData?.[stored_starter]
+                                                     ? POKEMON_FORM_INFO[stored_starter].base
                                                      : stored_starter
             this.show_advanced_settings        = MyStorage['show_advanced_settings'] ?? false
             if (game_name == "HeartGold and SoulSilver") {
@@ -5133,8 +5306,8 @@ const app = Vue.createApp({
             this.overlay_color = newColor;
         },
         set_pokemon_prop(property_name, value) {
-            // Use the appropriate storage key based on evolution mode
-            const storageKey = this.getCurrentStorageKey();
+            // Only ever called for style properties, so a displayed battle-only form routes to its own key
+            const storageKey = this.getStyleStorageKey();
             MyStorage[storageKey] = {
                 ...MyStorage[storageKey],
                 [property_name]: value,
@@ -5152,13 +5325,13 @@ const app = Vue.createApp({
                 family_art.src = `images/pokemon/${family_species}.png`;
             }
 
-            // Kyurem's fusions aren't part of its evolution family, so warm all three arts while
-            // any of them is selected - swapping forms then cross-fades into a decoded image
-            if (this.starter in KYUREM_FORMS) {
-                for (const kyurem_species of Object.keys(KYUREM_FORMS)) {
-                    const kyurem_art = new Image();
-                    kyurem_art.src = `images/pokemon/${kyurem_species}.png`;
-                }
+            // A species' other forms (and battle-only forms) aren't part of its evolution family, so
+            // warm every form's art while any of them is selected - swapping forms then cross-fades
+            // into a decoded image
+            for (const form_species of [...this.formVariants(this.starter), ...this.battleFormVariants(this.starter)]) {
+                if (form_species === this.starter) continue;
+                const form_art = new Image();
+                form_art.src = `images/pokemon/${form_species}.png`;
             }
 
             // If the evolution family has only one member (e.g., Registeel), disable evolution
@@ -5383,23 +5556,40 @@ const app = Vue.createApp({
             this.playerId = 0
             this.run_complete = false
         },
-        resolveIncomingSpecies(rawName) {
-            // The emulator reports every Kyurem as a bare "Kyurem" - the fusion lives in a
-            // separate form byte - so the user's Solo Pokemon selection is the source of truth:
-            // keep the fused variant if one is selected, and pass everything else through.
-            if (rawName !== "Kyurem") return rawName
-            if (this.starter in KYUREM_FORMS) return this.starter
-            return "Kyurem"
+        formVariants(species) {
+            // Every pokedex key that is a form of `species` (itself included) and exists in the
+            // dex in play; a species without forms is just itself
+            const base = POKEMON_FORM_INFO[species]?.base
+            if (!base) return [species]
+            return Object.keys(POKEMON_FORMS[base]).filter(form => this.g5PokemonData?.[form])
         },
-        applyKyuremForm(species) {
+        resolveIncomingSpecies(rawName) {
+            // The emulator reports species by name and keeps the form in a separate byte, so every
+            // Rotom arrives as a bare "Rotom". The user's Solo Pokemon selection wins when it is a
+            // form of the reported species (its byte gets stamped on hand-over); otherwise the form
+            // byte the game holds picks the entry, which is how a Burmy that evolved wearing a Sandy
+            // cloak lands on "Wormadam (Sandy)". Species without forms pass through.
+            const forms = POKEMON_FORMS[rawName]
+            if (!forms) return rawName
+            if (POKEMON_FORM_INFO[this.starter]?.base === rawName) return this.starter
+            const form_byte = this.mapper?.properties?.player?.team?.[0]?.flags?.alternate_form?.value
+            const from_game = Object.keys(forms).find(species => forms[species] === form_byte)
+            return from_game && this.g5PokemonData?.[from_game] ? from_game : rawName
+        },
+        applyPokemonForm(species) {
             // gen5 party data is read out of a synthetic decrypted container that the mapper's
             // preprocessor fills from encrypted RAM, so setting player.team[0].flags.alternate_form
             // would only touch PokeAByte's mirror and never reach the game. (gen4 can set its
             // equivalent directly because its party bytes sit unencrypted in the default
             // namespace.) The decrypt/re-encrypt round trip in write_byte_data is the only write
             // that lands, and it sets the form byte alongside the form's stats and ability.
-            if (!(species in KYUREM_FORMS)) return
-            if (this.mapper?.properties?.player?.team?.[0]?.species?.value !== "Kyurem") return
+            const info = POKEMON_FORM_INFO[species]
+            if (!info) return
+            const party_mon = this.mapper?.properties?.player?.team?.[0]
+            if (party_mon?.species?.value !== info.base) return
+            // Nothing to stamp when the game already holds this form (a Burmy that just evolved
+            // into a cloaked Wormadam arrives here that way) - re-stamping would also refill HP
+            if (party_mon.flags?.alternate_form?.value === info.form) return
             this.write_byte_data(this.set_starter_stats_object)
         },
         //fixes species that contain special characters in their names
@@ -6034,7 +6224,8 @@ const app = Vue.createApp({
         },
         getSoloMonType(pkmn, type) { //type == type_1 or type_2
             // const species = pkmn
-            const species = this.starter
+            // A battle-only form being displayed for styling shows its own typing outside battle
+            const species = (this.active_battle_form && this.active_battle_form !== this.starter) ? this.active_battle_form : this.starter
             var held_item = ""
             if (this.starter == 'Arceus') {
                 return this.arceus_plate_check()
@@ -6161,6 +6352,12 @@ const app = Vue.createApp({
             const key = Object.keys(dataObject).find(x => x.toLowerCase() == pointerValue.toLowerCase())
             return dataObject[key] || "ERROR"
         },
+        formChangeMoves(pkmn) {
+            // Moves an in-game form change teaches (Rotom's appliance moves), minus anything the
+            // species already learns by level so the base Rotom doesn't list ThunderShock twice
+            const level_moves = (pkmn?.level_up_learnset ?? []).map(entry => entry[1])
+            return (pkmn?.form_change_learnset ?? []).filter(move => !level_moves.includes(move))
+        },
         getMovepool(gen3PkmnData, moveData, tmhmMapping, species) {
             const pkmn = this.dataSearch(gen3PkmnData, species)
             let obj = {
@@ -6177,6 +6374,9 @@ const app = Vue.createApp({
                     }
                 }),     
                 tutor: pkmn.tutor_learnset.map(x => {
+                    return this.dataSearch(moveData, x)
+                }),
+                form: this.formChangeMoves(pkmn).map(x => {
                     return this.dataSearch(moveData, x)
                 }),    
             }
@@ -6237,7 +6437,7 @@ const app = Vue.createApp({
                 return;
             }
             
-            let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].level_up_learnset.length;
+            let movepoolSize = this.game.dexData[currentStarter].tm_hm_learnset.length + this.game.dexData[currentStarter].level_up_learnset.length + this.formChangeMoves(this.game.dexData[currentStarter]).length;
             // Tutor moves only exist in Black 2 / White 2, and only render when the
             // toggle is on — match those conditions here so line-height fills the area
             // without leaving room for rows that won't render.
@@ -8668,9 +8868,10 @@ const app = Vue.createApp({
                     const evolved = evolution_family.includes(newProp.value);
                     
                     if (evolved == true) {
-                        // Store old species for transition
+                        // Store old species for transition. The evolved species goes through the
+                        // form byte so a Burmy that evolved in a cloak lands on the matching Wormadam.
                         const oldSpecies = this.starter;
-                        const newSpecies = newProp.value;
+                        const newSpecies = this.resolveIncomingSpecies(newProp.value);
 
                         // Only proceed if both oldProp and newSpecies are valid
                         // Check that oldProp has a valid species (not 0x00 0x00 bytes)
@@ -8693,7 +8894,7 @@ const app = Vue.createApp({
                         
                         // Only proceed if newSpecies is valid and within the evolution family
                         if (oldPropValid && newSpecies && newSpecies !== undefined && newSpecies !== null && newSpecies != oldSpecies &&
-                            evolution_family && evolution_family.includes(newSpecies)) {
+                            evolution_family && evolution_family.includes(newProp.value)) {
                             console.log("Evolving to:", newSpecies)
                             console.log("Showing base stats.")
                             this.stats_setting = "Base Stats";
