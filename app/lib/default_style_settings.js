@@ -15,7 +15,7 @@
  *   - Users can reset to defaults by clearing their local overrides
  * 
  * AUTO-GENERATED - DO NOT EDIT MANUALLY (unless you know what you're doing)
- * Last updated: 2026-09-02T04:51:30.309Z
+ * Last updated: 2026-09-06T04:00:17.925Z
  */
 
 const DEFAULT_STYLE_SETTINGS = {
@@ -4915,7 +4915,9 @@ const DEFAULT_STYLE_SETTINGS = {
         "backgroundXOffset": "112",
         "backgroundContrast": "179",
         "backgroundBlur": "1",
-        "pkmn_ability": "Teravolt"
+        "pkmn_ability": "Teravolt",
+        "pkmnNature": "Hardy",
+        "backgroundTexture": "Dragon"
     },
     "Black_Sawsbuck-line": {
         "pkmn_ability": "Sap Sipper"
