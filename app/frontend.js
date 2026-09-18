@@ -10249,6 +10249,17 @@ const app = Vue.createApp({
                         res.end(JSON.stringify({ ok: false, error: 'Missing type parameter' }));
                     }
                 }
+                else if (pathname === '/set-nature') {
+                    // Set the Pokémon's nature (the Nature dropdown)
+                    // Usage: /set-nature?nature=Adamant
+                    if (query.nature && Object.values(this.simple_natures).includes(query.nature)) {
+                        this.pkmnNature = query.nature;
+                        res.end(JSON.stringify({ ok: true, nature: this.pkmnNature }));
+                    } else {
+                        res.statusCode = 400;
+                        res.end(JSON.stringify({ ok: false, error: 'Missing or invalid nature parameter' }));
+                    }
+                }
                 else if (pathname === '/set-splits') {
                     // Set the splits display mode
                     // Usage: /set-splits?mode=First  or  /set-splits?mode=Followup
@@ -10366,6 +10377,7 @@ const app = Vue.createApp({
                         selected_game: this.selected_game,
                         right_ui: this.right_ui,
                         hidden_power_type: this.hidden_power_type,
+                        nature: this.pkmnNature,
                         splits: this.toggle_compare_splits,
                         shuckie_counters: this.shuckie_counters,
                         show_tutor_moves: this.show_tutor_moves,
