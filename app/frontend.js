@@ -4670,11 +4670,19 @@ const app = Vue.createApp({
                 this.stat_fix_toggle = true
                 const weather = this.mapper.properties.battle.field.weather.value
                 // const weather_count = this.mapper.properties.battle.field.weather_count.value
-                const mod_atk = pokemon_data?.modifiers.attack.value ?? 0
-                const mod_def = pokemon_data?.modifiers.defense.value ?? 0
-                const mod_spa = pokemon_data?.modifiers.special_attack.value ?? 0
-                const mod_spd = pokemon_data?.modifiers.special_defense.value ?? 0
-                const mod_spe = pokemon_data?.modifiers.speed.value ?? 0
+                // Simple doubles every stat stage, clamped to the -6..+6 range
+                function simple_stage(modifier) {
+                    let stage = Number(modifier) || 0
+                    if (player_ability == 'Simple') {
+                        stage = Math.max(-6, Math.min(6, stage * 2))
+                    }
+                    return stage
+                }
+                const mod_atk = simple_stage(pokemon_data?.modifiers.attack.value)
+                const mod_def = simple_stage(pokemon_data?.modifiers.defense.value)
+                const mod_spa = simple_stage(pokemon_data?.modifiers.special_attack.value)
+                const mod_spd = simple_stage(pokemon_data?.modifiers.special_defense.value)
+                const mod_spe = simple_stage(pokemon_data?.modifiers.speed.value)
                 HP  = this.live_hp ? pokemon_data.stats.hp.value : pokemon_data.stats.hp_max.value
                 Atk = pokemon_data.stats.attack.value
                 Def = pokemon_data.stats.defense.value
